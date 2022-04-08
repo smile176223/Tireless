@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2EC4823DFDFB7062A4D7718 /* Pods_Tireless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745C2223D0E016BB19811AAA /* Pods_Tireless.framework */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* ViewController.swift */; };
@@ -16,6 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.debug.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.debug.xcconfig"; sourceTree = "<group>"; };
+		745C2223D0E016BB19811AAA /* Pods_Tireless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tireless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.release.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.release.xcconfig"; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,17 +35,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2EC4823DFDFB7062A4D7718 /* Pods_Tireless.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F4A639777C772A20A212B98 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */,
+				902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F088B6317C172ACEDE2B5A23 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				745C2223D0E016BB19811AAA /* Pods_Tireless.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FFC0C14828008F640041A937 = {
 			isa = PBXGroup;
 			children = (
 				FFC0C15328008F640041A937 /* Tireless */,
 				FFC0C15228008F640041A937 /* Products */,
+				8F4A639777C772A20A212B98 /* Pods */,
+				F088B6317C172ACEDE2B5A23 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFC0C16528008F650041A937 /* Build configuration list for PBXNativeTarget "Tireless" */;
 			buildPhases = (
+				6E41D0217CD08F4B2A7C49A7 /* [CP] Check Pods Manifest.lock */,
 				FFC0C14D28008F640041A937 /* Sources */,
 				FFC0C14E28008F640041A937 /* Frameworks */,
 				FFC0C14F28008F640041A937 /* Resources */,
+				FF14448D280094800027F560 /* SwiftLint  */,
 			);
 			buildRules = (
 			);
@@ -132,6 +158,49 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6E41D0217CD08F4B2A7C49A7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Tireless-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF14448D280094800027F560 /* SwiftLint  */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint ";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# SwiftLint Pods\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FFC0C14D28008F640041A937 /* Sources */ = {
@@ -216,7 +285,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +339,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -282,6 +351,7 @@
 		};
 		FFC0C16628008F650041A937 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -310,6 +380,7 @@
 		};
 		FFC0C16728008F650041A937 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
