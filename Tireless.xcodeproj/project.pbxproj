@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		A2EC4823DFDFB7062A4D7718 /* Pods_Tireless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745C2223D0E016BB19811AAA /* Pods_Tireless.framework */; };
 		FF14449428009C010027F560 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF14449328009C010027F560 /* Box.swift */; };
+		FF1444A6280156700027F560 /* UIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A5280156700027F560 /* UIUtilities.swift */; };
+		FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */; };
+		FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A92801623E0027F560 /* PosePoint.swift */; };
+		FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444AB280163330027F560 /* PosePointViewModel.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -22,6 +26,10 @@
 		745C2223D0E016BB19811AAA /* Pods_Tireless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tireless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.release.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.release.xcconfig"; sourceTree = "<group>"; };
 		FF14449328009C010027F560 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		FF1444A5280156700027F560 /* UIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtilities.swift; sourceTree = "<group>"; };
+		FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectViewModel.swift; sourceTree = "<group>"; };
+		FF1444A92801623E0027F560 /* PosePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePoint.swift; sourceTree = "<group>"; };
+		FF1444AB280163330027F560 /* PosePointViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePointViewModel.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +88,8 @@
 		FF14449028009B640027F560 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */,
+				FF1444AB280163330027F560 /* PosePointViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -87,6 +97,7 @@
 		FF14449128009B6F0027F560 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FF1444A92801623E0027F560 /* PosePoint.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -97,6 +108,22 @@
 				FF14449328009C010027F560 /* Box.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		FF1444A2280156480027F560 /* Extenesions */ = {
+			isa = PBXGroup;
+			children = (
+				FF1444A4280156600027F560 /* MLKit */,
+			);
+			path = Extenesions;
+			sourceTree = "<group>";
+		};
+		FF1444A4280156600027F560 /* MLKit */ = {
+			isa = PBXGroup;
+			children = (
+				FF1444A5280156700027F560 /* UIUtilities.swift */,
+			);
+			path = MLKit;
 			sourceTree = "<group>";
 		};
 		FFC0C14828008F640041A937 = {
@@ -120,6 +147,7 @@
 		FFC0C15328008F640041A937 /* Tireless */ = {
 			isa = PBXGroup;
 			children = (
+				FF1444A2280156480027F560 /* Extenesions */,
 				FF14448E28009B480027F560 /* View */,
 				FF14449228009B740027F560 /* Util */,
 				FF14449028009B640027F560 /* ViewModel */,
@@ -286,7 +314,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
+				FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */,
 				FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */,
+				FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */,
+				FF1444A6280156700027F560 /* UIUtilities.swift in Sources */,
 				FF14449428009C010027F560 /* Box.swift in Sources */,
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
 				FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */,

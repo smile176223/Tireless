@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import MLKit
 
 class PoseDetectViewController: UIViewController {
     @IBOutlet weak var cameraPreView: UIView!
@@ -15,6 +16,7 @@ class PoseDetectViewController: UIViewController {
     private lazy var captureSession = AVCaptureSession()
     private lazy var sessionQueue = DispatchQueue(label: Constant.sessionQueueLabel)
     private var lastFrame: CMSampleBuffer?
+    let viewModel = PoseDetectViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -163,17 +165,23 @@ class PoseDetectViewController: UIViewController {
             return
         }
         let orientation: UIImage.Orientation = isUsingFrontCamera ? .leftMirrored : .right
-        let image = createUIImage(from: imageBuffer, orientation: orientation)
+        let image = UIUtilities.createUIImage(from: imageBuffer, orientation: orientation)
         previewOverlayView.image = image
     }
-    private func createUIImage(
-        from imageBuffer: CVImageBuffer,
-        orientation: UIImage.Orientation
-    ) -> UIImage? {
-        let ciImage = CIImage(cvPixelBuffer: imageBuffer)
-        let context = CIContext(options: nil)
-        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return nil }
-        return UIImage(cgImage: cgImage, scale: Constants.originalScale, orientation: orientation)
+    private func removeDetectionAnnotations() {
+        for annotationView in annotationOverlayView.subviews {
+            annotationView.removeFromSuperview()
+        }
+    }
+    private func normalizedPoint(
+        fromVisionPoint point: VisionPoint,
+        width: CGFloat,
+        height: CGFloat
+    ) -> CGPoint {
+        let cgPoint = CGPoint(x: point.x, y: point.y)
+        var normalizedPoint = CGPoint(x: cgPoint.x / width, y: cgPoint.y / height)
+        normalizedPoint = previewLayer?.layerPointConverted(fromCaptureDevicePoint: normalizedPoint) ?? CGPoint()
+        return normalizedPoint
     }
 }
 
@@ -187,17 +195,14 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
             print("Failed to get image buffer from sample buffer.")
             return
         }
-        //        let activeDetector = self.currentDetector
-        //        resetManagedLifecycleDetectors(activeDetector: activeDetector)
-        //
         lastFrame = sampleBuffer
-        //        let visionImage = VisionImage(buffer: sampleBuffer)
-        //        let orientation = imageOrientation(
-        //            fromDevicePosition: isUsingFrontCamera ? .front : .back
-        //        )
-        //        visionImage.orientation = orientation
-        //        let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
-        //        let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
+        let visionImage = VisionImage(buffer: sampleBuffer)
+        let orientation = UIUtilities.imageOrientation(
+            fromDevicePosition: isUsingFrontCamera ? .front : .back
+        )
+        visionImage.orientation = orientation
+        let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
+        let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
         weak var weakSelf = self
         DispatchQueue.main.sync {
             guard let strongSelf = weakSelf else {
@@ -205,24 +210,42 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
                 return
             }
             strongSelf.updatePreviewOverlayViewWithLastFrame()
-            //            strongSelf.removeDetectionAnnotations()
+            strongSelf.removeDetectionAnnotations()
+        }
+        viewModel.detectPose(in: visionImage, width: imageWidth, height: imageHeight)
+        viewModel.poseViewModels.bind { poses in
+            DispatchQueue.main.async {
+                guard let strongSelf = weakSelf else {
+                    print("Self is nil!")
+                    return
+                }
+                poses.forEach { poses in
+                    let poseOverlayView = UIUtilities.createPoseOverlayView(
+                        forPose: poses,
+                        inViewWithBounds: strongSelf.annotationOverlayView.bounds,
+                        lineWidth: Constant.lineWidth,
+                        dotRadius: Constant.smallDotRadius,
+                        positionTransformationClosure: { (position) -> CGPoint in
+                            return strongSelf.normalizedPoint(
+                                fromVisionPoint: position, width: imageWidth, height: imageHeight)
+                        }
+                    )
+                    strongSelf.annotationOverlayView.addSubview(poseOverlayView)
+                }
+            }
+        }
+        viewModel.posePointViewModels.bind { pose in
+            print(pose[0].posePoint)
         }
     }
 }
 
+public enum Detector: String {
+    case pose = "Pose Detection"
+}
 private enum Constant {
     static let videoDataOutputQueueLabel = "com.LiamHao.Tireless.VideoDataOutputQueue"
     static let sessionQueueLabel = "com.LiamHao.Tireless.SessionQueue"
     static let smallDotRadius: CGFloat = 4.0
     static let lineWidth: CGFloat = 3.0
-}
-
-private enum Constants {
-    static let circleViewAlpha: CGFloat = 0.7
-    static let rectangleViewAlpha: CGFloat = 0.3
-    static let shapeViewAlpha: CGFloat = 0.3
-    static let rectangleViewCornerRadius: CGFloat = 10.0
-    static let maxColorComponentValue: CGFloat = 255.0
-    static let originalScale: CGFloat = 1.0
-    static let bgraBytesPerPixel = 4
 }
