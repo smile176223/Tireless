@@ -234,9 +234,6 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
                 }
             }
         }
-        viewModel.posePointViewModels.bind { pose in
-            print(pose[0].posePoint)
-        }
     }
 }
 

@@ -15,6 +15,7 @@ class PoseDetectViewModel {
     private let detectors: Detector = .pose
     private var currentDetector: Detector = .pose
     private var lastDetector: Detector?
+    let squatManager = SquatManager()
     func detectPose(in image: VisionImage, width: CGFloat, height: CGFloat) {
         let activeDetector = self.currentDetector
         resetManagedLifecycleDetectors(activeDetector: activeDetector)
@@ -44,7 +45,7 @@ class PoseDetectViewModel {
                                                        inFrameLikelihood: $0.inFrameLikelihood,
                                                        type: $0.type.rawValue))
                 }
-                strongSelf.setPosePoint(posePoint)
+                strongSelf.squatManager.squatWork(posePoint)
             }
         }
     }
