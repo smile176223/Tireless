@@ -11,12 +11,14 @@ import MLKit
 
 class PoseDetectViewController: UIViewController {
     @IBOutlet weak var cameraPreView: UIView!
+    @IBOutlet weak var countLabel: UILabel!
     private var isUsingFrontCamera = true
     private var previewLayer: AVCaptureVideoPreviewLayer?
     private lazy var captureSession = AVCaptureSession()
     private lazy var sessionQueue = DispatchQueue(label: Constant.sessionQueueLabel)
     private var lastFrame: CMSampleBuffer?
     let viewModel = PoseDetectViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
@@ -26,18 +28,22 @@ class PoseDetectViewController: UIViewController {
         setUpCaptureSessionOutput()
         setUpCaptureSessionInput()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         startSession()
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         stopSession()
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         previewLayer?.frame = cameraPreView.bounds
     }
+    
     private lazy var previewOverlayView: UIImageView = {
         precondition(isViewLoaded)
         let previewOverlayView = UIImageView(frame: .zero)
@@ -45,12 +51,14 @@ class PoseDetectViewController: UIViewController {
         previewOverlayView.translatesAutoresizingMaskIntoConstraints = false
         return previewOverlayView
     }()
+    
     private lazy var annotationOverlayView: UIView = {
         precondition(isViewLoaded)
         let annotationOverlayView = UIView(frame: .zero)
         annotationOverlayView.translatesAutoresizingMaskIntoConstraints = false
         return annotationOverlayView
     }()
+    
     private func setUpCaptureSessionOutput() {
         weak var weakSelf = self
         sessionQueue.async {
@@ -59,7 +67,7 @@ class PoseDetectViewController: UIViewController {
                 return
             }
             strongSelf.captureSession.beginConfiguration()
-            strongSelf.captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
+            strongSelf.captureSession.sessionPreset = AVCaptureSession.Preset.vga640x480
             let output = AVCaptureVideoDataOutput()
             output.videoSettings = [
                 (kCVPixelBufferPixelFormatTypeKey as String): kCVPixelFormatType_32BGRA
@@ -75,6 +83,7 @@ class PoseDetectViewController: UIViewController {
             strongSelf.captureSession.commitConfiguration()
         }
     }
+    
     private func setUpCaptureSessionInput() {
         weak var weakSelf = self
         sessionQueue.async {
@@ -105,6 +114,7 @@ class PoseDetectViewController: UIViewController {
             }
         }
     }
+    
     private func startSession() {
         weak var weakSelf = self
         sessionQueue.async {
@@ -115,6 +125,7 @@ class PoseDetectViewController: UIViewController {
             strongSelf.captureSession.startRunning()
         }
     }
+    
     private func stopSession() {
         weak var weakSelf = self
         sessionQueue.async {
@@ -125,6 +136,7 @@ class PoseDetectViewController: UIViewController {
             strongSelf.captureSession.stopRunning()
         }
     }
+    
     private func setUpPreviewOverlayView() {
         cameraPreView.addSubview(previewOverlayView)
         NSLayoutConstraint.activate([
@@ -136,6 +148,7 @@ class PoseDetectViewController: UIViewController {
             previewOverlayView.bottomAnchor.constraint(equalTo: cameraPreView.bottomAnchor)
         ])
     }
+    
     private func setUpAnnotationOverlayView() {
         cameraPreView.addSubview(annotationOverlayView)
         NSLayoutConstraint.activate([
@@ -145,6 +158,7 @@ class PoseDetectViewController: UIViewController {
             annotationOverlayView.bottomAnchor.constraint(equalTo: cameraPreView.bottomAnchor)
         ])
     }
+    
     private func captureDevice(forPosition position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         let discoverySession = AVCaptureDevice.DiscoverySession(
             deviceTypes: [.builtInWideAngleCamera],
@@ -153,6 +167,7 @@ class PoseDetectViewController: UIViewController {
         )
         return discoverySession.devices.first { $0.position == position }
     }
+    
     private func updatePreviewOverlayViewWithLastFrame() {
         guard let lastFrame = lastFrame, let imageBuffer = CMSampleBufferGetImageBuffer(lastFrame)
         else {
@@ -160,6 +175,7 @@ class PoseDetectViewController: UIViewController {
         }
         self.updatePreviewOverlayViewWithImageBuffer(imageBuffer)
     }
+    
     private func updatePreviewOverlayViewWithImageBuffer(_ imageBuffer: CVImageBuffer?) {
         guard let imageBuffer = imageBuffer else {
             return
@@ -168,11 +184,13 @@ class PoseDetectViewController: UIViewController {
         let image = UIUtilities.createUIImage(from: imageBuffer, orientation: orientation)
         previewOverlayView.image = image
     }
+    
     private func removeDetectionAnnotations() {
         for annotationView in annotationOverlayView.subviews {
             annotationView.removeFromSuperview()
         }
     }
+    
     private func normalizedPoint(
         fromVisionPoint point: VisionPoint,
         width: CGFloat,
@@ -233,6 +251,9 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
                     strongSelf.annotationOverlayView.addSubview(poseOverlayView)
                 }
             }
+        }
+        viewModel.countRefresh = { [weak self] countNumber in
+            self?.countLabel.text = "\(countNumber)"
         }
     }
 }

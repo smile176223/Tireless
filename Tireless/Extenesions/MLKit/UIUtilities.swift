@@ -34,6 +34,7 @@ public class UIUtilities {
             fatalError("error")
         }
     }
+    
     private static func currentUIOrientation() -> UIDeviceOrientation {
         let deviceOrientation = { () -> UIDeviceOrientation in
             switch UIDevice.current.orientation {
@@ -62,70 +63,7 @@ public class UIUtilities {
         }
         return deviceOrientation()
     }
-    public static func addCircle(
-        atPoint point: CGPoint,
-        to view: UIView,
-        color: UIColor,
-        radius: CGFloat
-    ) {
-        let divisor: CGFloat = 2.0
-        let xCoord = point.x - radius / divisor
-        let yCoord = point.y - radius / divisor
-        let circleRect = CGRect(x: xCoord, y: yCoord, width: radius, height: radius)
-        guard circleRect.isValid() else { return }
-        let circleView = UIView(frame: circleRect)
-        circleView.layer.cornerRadius = radius / divisor
-        circleView.alpha = Constants.circleViewAlpha
-        circleView.backgroundColor = color
-        view.addSubview(circleView)
-    }
-    public static func addLineSegment(
-        fromPoint: CGPoint, toPoint: CGPoint, inView: UIView, color: UIColor, width: CGFloat
-    ) {
-        let path = UIBezierPath()
-        path.move(to: fromPoint)
-        path.addLine(to: toPoint)
-        let lineLayer = CAShapeLayer()
-        lineLayer.path = path.cgPath
-        lineLayer.strokeColor = color.cgColor
-        lineLayer.fillColor = nil
-        lineLayer.opacity = 1.0
-        lineLayer.lineWidth = width
-        let lineView = UIView()
-        lineView.layer.addSublayer(lineLayer)
-        inView.addSubview(lineView)
-    }
-    public static func addRectangle(_ rectangle: CGRect, to view: UIView, color: UIColor) {
-        guard rectangle.isValid() else { return }
-        let rectangleView = UIView(frame: rectangle)
-        rectangleView.layer.cornerRadius = Constants.rectangleViewCornerRadius
-        rectangleView.alpha = Constants.rectangleViewAlpha
-        rectangleView.backgroundColor = color
-        view.addSubview(rectangleView)
-    }
-    public static func addShape(withPoints points: [NSValue]?, to view: UIView, color: UIColor) {
-        guard let points = points else { return }
-        let path = UIBezierPath()
-        for (index, value) in points.enumerated() {
-            let point = value.cgPointValue
-            if index == 0 {
-                path.move(to: point)
-            } else {
-                path.addLine(to: point)
-            }
-            if index == points.count - 1 {
-                path.close()
-            }
-        }
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = path.cgPath
-        shapeLayer.fillColor = color.cgColor
-        let rect = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
-        let shapeView = UIView(frame: rect)
-        shapeView.alpha = Constants.shapeViewAlpha
-        shapeView.layer.addSublayer(shapeLayer)
-        view.addSubview(shapeView)
-    }
+    
     public static func createUIImage(
         from imageBuffer: CVImageBuffer,
         orientation: UIImage.Orientation
@@ -135,6 +73,7 @@ public class UIUtilities {
         guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return nil }
         return UIImage(cgImage: cgImage, scale: Constants.originalScale, orientation: orientation)
     }
+    
     public static func createPoseOverlayView(
         forPose pose: Pose, inViewWithBounds bounds: CGRect, lineWidth: CGFloat, dotRadius: CGFloat,
         positionTransformationClosure: (VisionPoint) -> CGPoint
@@ -184,6 +123,7 @@ public class UIUtilities {
         }
         return overlayView
     }
+    
     private static func addLineSegment(
         fromPoint: CGPoint, toPoint: CGPoint, inView: UIView, colors: [UIColor], width: CGFloat
     ) {
@@ -218,6 +158,7 @@ public class UIUtilities {
         lineView.layer.addSublayer(gradientLayer)
         inView.addSubview(lineView)
     }
+    
     private static func interpolatedColor(
         fromColor: UIColor, toColor: UIColor, ratio: CGFloat
     ) -> UIColor {
@@ -239,12 +180,14 @@ public class UIUtilities {
         return UIColor(
             red: interpolatedR, green: interpolatedG, blue: interpolatedB, alpha: interpolatedA)
     }
+    
     private static func distance(fromPoint: Vision3DPoint, toPoint: Vision3DPoint) -> CGFloat {
         let xDiff = fromPoint.x - toPoint.x
         let yDiff = fromPoint.y - toPoint.y
         let zDiff = fromPoint.z - toPoint.z
         return CGFloat(sqrt(xDiff * xDiff + yDiff * yDiff + zDiff * zDiff))
     }
+    
     private static func poseConnections() -> [PoseLandmarkType: [PoseLandmarkType]] {
         struct PoseConnectionsHolder {
             static var connections: [PoseLandmarkType: [PoseLandmarkType]] = [
@@ -290,6 +233,77 @@ public class UIUtilities {
             ]
         }
         return PoseConnectionsHolder.connections
+    }
+}
+
+extension UIUtilities {
+    
+    public static func addCircle(
+        atPoint point: CGPoint,
+        to view: UIView,
+        color: UIColor,
+        radius: CGFloat
+    ) {
+        let divisor: CGFloat = 2.0
+        let xCoord = point.x - radius / divisor
+        let yCoord = point.y - radius / divisor
+        let circleRect = CGRect(x: xCoord, y: yCoord, width: radius, height: radius)
+        guard circleRect.isValid() else { return }
+        let circleView = UIView(frame: circleRect)
+        circleView.layer.cornerRadius = radius / divisor
+        circleView.alpha = Constants.circleViewAlpha
+        circleView.backgroundColor = color
+        view.addSubview(circleView)
+    }
+    
+    public static func addLineSegment(
+        fromPoint: CGPoint, toPoint: CGPoint, inView: UIView, color: UIColor, width: CGFloat
+    ) {
+        let path = UIBezierPath()
+        path.move(to: fromPoint)
+        path.addLine(to: toPoint)
+        let lineLayer = CAShapeLayer()
+        lineLayer.path = path.cgPath
+        lineLayer.strokeColor = color.cgColor
+        lineLayer.fillColor = nil
+        lineLayer.opacity = 1.0
+        lineLayer.lineWidth = width
+        let lineView = UIView()
+        lineView.layer.addSublayer(lineLayer)
+        inView.addSubview(lineView)
+    }
+    
+    public static func addRectangle(_ rectangle: CGRect, to view: UIView, color: UIColor) {
+        guard rectangle.isValid() else { return }
+        let rectangleView = UIView(frame: rectangle)
+        rectangleView.layer.cornerRadius = Constants.rectangleViewCornerRadius
+        rectangleView.alpha = Constants.rectangleViewAlpha
+        rectangleView.backgroundColor = color
+        view.addSubview(rectangleView)
+    }
+    
+    public static func addShape(withPoints points: [NSValue]?, to view: UIView, color: UIColor) {
+        guard let points = points else { return }
+        let path = UIBezierPath()
+        for (index, value) in points.enumerated() {
+            let point = value.cgPointValue
+            if index == 0 {
+                path.move(to: point)
+            } else {
+                path.addLine(to: point)
+            }
+            if index == points.count - 1 {
+                path.close()
+            }
+        }
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.fillColor = color.cgColor
+        let rect = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
+        let shapeView = UIView(frame: rect)
+        shapeView.alpha = Constants.shapeViewAlpha
+        shapeView.layer.addSublayer(shapeLayer)
+        view.addSubview(shapeView)
     }
 }
 

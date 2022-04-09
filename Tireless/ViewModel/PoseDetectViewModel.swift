@@ -11,11 +11,14 @@ import MLKit
 class PoseDetectViewModel {
     let posePointViewModels = Box([PosePointViewModel]())
     let poseViewModels = Box([Pose]())
-    private var poseDetector: PoseDetector? = nil
+    private var poseDetector: PoseDetector?
     private let detectors: Detector = .pose
     private var currentDetector: Detector = .pose
     private var lastDetector: Detector?
-    let squatManager = SquatManager()
+    private let squatManager = SquatManager()
+    private let startManager = StartManager()
+    var countRefresh: ((Int) -> Void)?
+    
     func detectPose(in image: VisionImage, width: CGFloat, height: CGFloat) {
         let activeDetector = self.currentDetector
         resetManagedLifecycleDetectors(activeDetector: activeDetector)
@@ -39,16 +42,20 @@ class PoseDetectViewModel {
                     return
                 }
                 strongSelf.poseViewModels.value = poses
-                poses[0].landmarks.forEach { posePoint.append(PosePoint(position: Position(xPoint: $0.position.y / 1080,
-                                                                          yPoint: $0.position.x / 1920),
+                poses[0].landmarks.forEach { posePoint.append(PosePoint(position:
+                                                                            Position(xPoint: $0.position.y / width,
+                                                                                     yPoint: $0.position.x / height),
                                                        zPoint: $0.position.z,
                                                        inFrameLikelihood: $0.inFrameLikelihood,
                                                        type: $0.type.rawValue))
                 }
-                strongSelf.squatManager.squatWork(posePoint)
+                if startManager.checkStart(posePoint) == true {
+                    strongSelf.countRefresh?(strongSelf.squatManager.squatWork(posePoint))
+                }
             }
         }
     }
+    
     func resetManagedLifecycleDetectors(activeDetector: Detector) {
         if activeDetector == self.lastDetector {
             return
@@ -66,6 +73,7 @@ class PoseDetectViewModel {
         }
         self.lastDetector = activeDetector
     }
+    
     func convertPosePointToViewModel(from posePoints: [PosePoint]) -> [PosePointViewModel] {
         var viewModels = [PosePointViewModel]()
         for posePoint in posePoints {
@@ -74,6 +82,7 @@ class PoseDetectViewModel {
         }
         return viewModels
     }
+    
     func setPosePoint(_ posePoint: [PosePoint]) {
         posePointViewModels.value = convertPosePointToViewModel(from: posePoint)
     }

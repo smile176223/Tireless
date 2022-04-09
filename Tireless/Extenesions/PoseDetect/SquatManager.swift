@@ -14,7 +14,8 @@ class SquatManager {
     private var checkCount = 0
     private var checkPointA = false
     private var checkPointB = false
-    func squatWork(_ posePoint: [PosePoint]) {
+    
+    func squatWork(_ posePoint: [PosePoint]) -> Int {
         let squatBelly = belly(posePoint[0].position, posePoint[22].position, posePoint[26].position)
         let rightBelly = triangleBelly(squatBelly, posePoint[3].position, posePoint[32].position)
         let leftBelly = triangleBelly(squatBelly, posePoint[30].position, posePoint[4].position)
@@ -48,11 +49,14 @@ class SquatManager {
                 }
             }
         }
+        return squatCount
     }
+    
     private func belly(_ fromPoint: Position, _ toPoint: Position, _ endPoint: Position) -> Position {
         return Position(xPoint: (fromPoint.xPoint + toPoint.xPoint + toPoint.xPoint) / 3,
                         yPoint: (fromPoint.yPoint + toPoint.yPoint + toPoint.yPoint) / 3)
     }
+    
     private func triangleBelly(_ fromPoint: Position, _ toPoint: Position, _ endPoint: Position) -> CGFloat {
         let distanceA = CGFloat(hypotf(Float(fromPoint.xPoint - endPoint.xPoint),
                                        Float(fromPoint.yPoint - endPoint.yPoint)))
@@ -62,6 +66,7 @@ class SquatManager {
                                        Float(toPoint.yPoint - endPoint.yPoint)))
         return (distanceA + distanceB) / distanceC
     }
+    
     private func checkInFrameLikelihood(_ poses: [PosePoint], _ checkNumber: [Int]) -> Bool {
         for index in checkNumber {
             if poses[index].inFrameLikelihood > 0.5 {
@@ -72,6 +77,7 @@ class SquatManager {
         }
         return true
     }
+    
     private func checkBaseline(_ point: PosePoint, _ base: CGFloat) -> Bool {
         return point.position.xPoint > base
     }
