@@ -21,6 +21,13 @@ class PoseDetectViewController: UIViewController {
     private var lastFrame: CMSampleBuffer?
     let viewModel = PoseDetectViewModel()
     
+    var counter = 5
+    var startFlag = false {
+        didSet {
+            countDownTimer()
+        }
+    }
+    
     private lazy var previewOverlayView: UIImageView = {
         precondition(isViewLoaded)
         let previewOverlayView = UIImageView(frame: .zero)
@@ -203,6 +210,46 @@ class PoseDetectViewController: UIViewController {
         normalizedPoint = previewLayer?.layerPointConverted(fromCaptureDevicePoint: normalizedPoint) ?? CGPoint()
         return normalizedPoint
     }
+    
+    private func countDownTimer() {
+        if startFlag == true {
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+                guard let strongSelf = self else { return }
+                if strongSelf.counter > 1 {
+                    strongSelf.counter -= 1
+                    strongSelf.countLabel.text = "\(strongSelf.counter)"
+                } else if strongSelf.counter == 1 {
+                    strongSelf.countLabel.text = "Start"
+                    strongSelf.counter = 0
+                } else if strongSelf.counter == 0 {
+                    strongSelf.counter = -1
+                    timer.invalidate()
+                }
+                
+            }
+        }
+    }
+    
+    private func downAlert() {
+        let showAlert = UIAlertController(title: "Finish!", message: nil, preferredStyle: .alert)
+        let imageView = UIImageView(frame: CGRect(x: 10, y: 50, width: 250, height: 230))
+        imageView.image = UIImage(systemName: "person.circle") // Your image here...
+        showAlert.view.addSubview(imageView)
+        let height = NSLayoutConstraint(item: showAlert.view ?? UIView(),
+                                        attribute: .height,
+                                        relatedBy: .equal,
+                                        toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 320)
+        let width = NSLayoutConstraint(item: showAlert.view ?? UIView(),
+                                       attribute: .width,
+                                       relatedBy: .equal,
+                                       toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
+        showAlert.view.addConstraint(height)
+        showAlert.view.addConstraint(width)
+        showAlert.addAction(UIAlertAction(title: "結束!", style: .default, handler: { _ in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(showAlert, animated: true, completion: nil)
+    }
 }
 
 extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -256,7 +303,15 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
             }
         }
         viewModel.countRefresh = { [weak self] countNumber in
-            self?.countLabel.text = "\(countNumber)"
+            if self?.startFlag == false {
+                self?.startFlag = true
+            }
+            if self?.counter == -1 {
+                self?.countLabel.text = "\(countNumber)"
+            }
+            if countNumber == 5 {
+                self?.downAlert()
+            }
         }
     }
 }

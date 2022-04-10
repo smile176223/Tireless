@@ -21,9 +21,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0am-LU-uPW">
-                                <rect key="frame" x="104" y="400.5" width="206" height="95.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="請盡量拍到全身" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0am-LU-uPW">
+                                <rect key="frame" x="10" y="414.5" width="394" height="67"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="56"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -45,6 +45,7 @@
                             <constraint firstItem="0am-LU-uPW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5ly-dH-V15"/>
                             <constraint firstItem="0am-LU-uPW" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="6t9-AM-5q7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="x3I-UH-LHj" secondAttribute="bottom" constant="50" id="Do6-b0-FLr"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0am-LU-uPW" secondAttribute="trailing" constant="10" id="PRa-gZ-g03"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KWo-Ub-40G" secondAttribute="trailing" id="Uph-iV-67C"/>
                             <constraint firstAttribute="bottom" secondItem="KWo-Ub-40G" secondAttribute="bottom" id="Wne-fG-WQ4"/>
                             <constraint firstItem="KWo-Ub-40G" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="r52-sP-T1o"/>

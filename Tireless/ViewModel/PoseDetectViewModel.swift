@@ -53,7 +53,6 @@ class PoseDetectViewModel {
                                                        inFrameLikelihood: $0.inFrameLikelihood,
                                                        type: $0.type.rawValue))
                 }
-                
                 if startManager.checkStart(posePoint) == true {
                     strongSelf.countRefresh?(strongSelf.squatManager.squatWork(posePoint))
                 } else {
@@ -93,9 +92,4 @@ class PoseDetectViewModel {
     func setPosePoint(_ posePoint: [PosePoint]) {
         posePointViewModels.value = convertPosePointToViewModel(from: posePoint)
     }
-}
-
-private enum Constant {
-    static let smallDotRadius: CGFloat = 4.0
-    static let lineWidth: CGFloat = 3.0
 }
