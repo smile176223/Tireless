@@ -28,6 +28,9 @@ class PoseDetectViewController: UIViewController {
         }
     }
     
+    var isRecording: Bool = false
+    var videoWriterH264: VideoWriter!
+    
     private lazy var previewOverlayView: UIImageView = {
         precondition(isViewLoaded)
         let previewOverlayView = UIImageView(frame: .zero)
@@ -51,6 +54,8 @@ class PoseDetectViewController: UIViewController {
         setUpAnnotationOverlayView()
         setUpCaptureSessionOutput()
         setUpCaptureSessionInput()
+        
+        videoWriterH264 = VideoWriter(withVideoType: AVVideoCodecType.h264)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -67,7 +72,25 @@ class PoseDetectViewController: UIViewController {
         super.viewDidLayoutSubviews()
         previewLayer?.frame = cameraPreView.bounds
     }
-    
+    @IBAction func recordTap(_ sender: Any) {
+        if isRecording {
+            isRecording = false
+            videoWriterH264.stopWriting(completionHandler: { (status) in
+                print("Done recording H264")
+                do {
+                    let attr = try FileManager.default.attributesOfItem(atPath: self.videoWriterH264.url.path)
+                    let fileSize = attr[FileAttributeKey.size] as? UInt64
+                    UISaveVideoAtPathToSavedPhotosAlbum(self.videoWriterH264.url.path, nil, nil, nil)
+                    print("H264 file size = \(String(describing: fileSize))")
+                    print(status)
+                } catch {
+                    print("error")
+                }
+            })
+        } else {
+            isRecording = true
+        }
+    }
     private func setUpCaptureSessionOutput() {
         weak var weakSelf = self
         sessionQueue.async {
@@ -312,6 +335,9 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
             if countNumber == 5 {
                 self?.downAlert()
             }
+        }
+        if isRecording {
+            videoWriterH264.write(sampleBuffer: sampleBuffer)
         }
     }
 }

@@ -20,6 +20,11 @@ class SquatManager {
         let rightBelly = triangleBelly(squatBelly, posePoint[3].position, posePoint[32].position)
         let leftBelly = triangleBelly(squatBelly, posePoint[4].position, posePoint[30].position)
         let checkArray = [0, 9, 22, 26, 32]
+        if posePoint[3].position.y < 0.6 ||
+            ((posePoint[22].position.y + posePoint[26].position.y) >
+             ((posePoint[3].position.y + posePoint[4].position.y)) * 1.1) {
+            resetIfOut()
+        }
         if checkInFrameLikelihood(posePoint, checkArray) == true,
            posePoint[0].position.y > 0,
            posePoint[2].position.y < 1.0,
@@ -49,9 +54,6 @@ class SquatManager {
                 }
             }
         }
-        print(squatBelly)
-        print(rightBelly)
-        print(leftBelly)
         return squatCount
     }
     

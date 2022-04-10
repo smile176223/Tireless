@@ -15,6 +15,7 @@
 		FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444AB280163330027F560 /* PosePointViewModel.swift */; };
 		FF1444AF280183920027F560 /* SquatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444AE280183920027F560 /* SquatManager.swift */; };
 		FF1444B12801A6760027F560 /* StartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444B02801A6760027F560 /* StartManager.swift */; };
+		FF1444B92802D8D80027F560 /* VideoWritter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444B82802D8D80027F560 /* VideoWritter.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -34,6 +35,7 @@
 		FF1444AB280163330027F560 /* PosePointViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePointViewModel.swift; sourceTree = "<group>"; };
 		FF1444AE280183920027F560 /* SquatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquatManager.swift; sourceTree = "<group>"; };
 		FF1444B02801A6760027F560 /* StartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartManager.swift; sourceTree = "<group>"; };
+		FF1444B82802D8D80027F560 /* VideoWritter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWritter.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				FF1444A4280156600027F560 /* MLKit */,
+				FF1444B82802D8D80027F560 /* VideoWritter.swift */,
 			);
 			path = Extenesions;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF1444B12801A6760027F560 /* StartManager.swift in Sources */,
+				FF1444B92802D8D80027F560 /* VideoWritter.swift in Sources */,
 				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
 				FF1444AF280183920027F560 /* SquatManager.swift in Sources */,
 				FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */,
@@ -489,13 +493,15 @@
 				DEVELOPMENT_TEAM = UWZ9UXPHWW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tireless/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Need Camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access your Camera!";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access your Microphone!";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access your Photo Library!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -520,13 +526,15 @@
 				DEVELOPMENT_TEAM = UWZ9UXPHWW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tireless/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Need Camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access your Camera!";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access your Microphone!";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access your Photo Library!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
