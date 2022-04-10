@@ -12,12 +12,29 @@ import MLKit
 class PoseDetectViewController: UIViewController {
     @IBOutlet weak var cameraPreView: UIView!
     @IBOutlet weak var countLabel: UILabel!
-    private var isUsingFrontCamera = true
+    @IBOutlet weak var recordButtonTap: UIButton!
+    
+    private var isUsingFrontCamera = false
     private var previewLayer: AVCaptureVideoPreviewLayer?
     private lazy var captureSession = AVCaptureSession()
     private lazy var sessionQueue = DispatchQueue(label: Constant.sessionQueueLabel)
     private var lastFrame: CMSampleBuffer?
     let viewModel = PoseDetectViewModel()
+    
+    private lazy var previewOverlayView: UIImageView = {
+        precondition(isViewLoaded)
+        let previewOverlayView = UIImageView(frame: .zero)
+        previewOverlayView.contentMode = UIView.ContentMode.scaleAspectFill
+        previewOverlayView.translatesAutoresizingMaskIntoConstraints = false
+        return previewOverlayView
+    }()
+    
+    private lazy var annotationOverlayView: UIView = {
+        precondition(isViewLoaded)
+        let annotationOverlayView = UIView(frame: .zero)
+        annotationOverlayView.translatesAutoresizingMaskIntoConstraints = false
+        return annotationOverlayView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,21 +60,6 @@ class PoseDetectViewController: UIViewController {
         super.viewDidLayoutSubviews()
         previewLayer?.frame = cameraPreView.bounds
     }
-    
-    private lazy var previewOverlayView: UIImageView = {
-        precondition(isViewLoaded)
-        let previewOverlayView = UIImageView(frame: .zero)
-        previewOverlayView.contentMode = UIView.ContentMode.scaleAspectFill
-        previewOverlayView.translatesAutoresizingMaskIntoConstraints = false
-        return previewOverlayView
-    }()
-    
-    private lazy var annotationOverlayView: UIView = {
-        precondition(isViewLoaded)
-        let annotationOverlayView = UIView(frame: .zero)
-        annotationOverlayView.translatesAutoresizingMaskIntoConstraints = false
-        return annotationOverlayView
-    }()
     
     private func setUpCaptureSessionOutput() {
         weak var weakSelf = self
@@ -230,7 +232,8 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
             strongSelf.updatePreviewOverlayViewWithLastFrame()
             strongSelf.removeDetectionAnnotations()
         }
-        viewModel.detectPose(in: visionImage, width: imageWidth, height: imageHeight)
+        guard let previewLayer = previewLayer else { return }
+        viewModel.detectPose(in: visionImage, width: imageWidth, height: imageHeight, previewLayer: previewLayer)
         viewModel.poseViewModels.bind { poses in
             DispatchQueue.main.async {
                 guard let strongSelf = weakSelf else {

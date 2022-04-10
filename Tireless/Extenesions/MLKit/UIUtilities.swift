@@ -237,7 +237,6 @@ public class UIUtilities {
 }
 
 extension UIUtilities {
-    
     public static func addCircle(
         atPoint point: CGPoint,
         to view: UIView,

@@ -27,6 +27,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x3I-UH-LHj">
+                                <rect key="frame" x="172" y="762" width="70" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="IjT-ud-8HI"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Record"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -34,14 +44,17 @@
                             <constraint firstItem="KWo-Ub-40G" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0kZ-iw-83j"/>
                             <constraint firstItem="0am-LU-uPW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5ly-dH-V15"/>
                             <constraint firstItem="0am-LU-uPW" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="6t9-AM-5q7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="x3I-UH-LHj" secondAttribute="bottom" constant="50" id="Do6-b0-FLr"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KWo-Ub-40G" secondAttribute="trailing" id="Uph-iV-67C"/>
                             <constraint firstAttribute="bottom" secondItem="KWo-Ub-40G" secondAttribute="bottom" id="Wne-fG-WQ4"/>
                             <constraint firstItem="KWo-Ub-40G" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="r52-sP-T1o"/>
+                            <constraint firstItem="x3I-UH-LHj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zQc-wc-V9T"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cameraPreView" destination="KWo-Ub-40G" id="lko-HD-8Dn"/>
                         <outlet property="countLabel" destination="0am-LU-uPW" id="7Gh-nM-yea"/>
+                        <outlet property="recordButtonTap" destination="x3I-UH-LHj" id="544-YY-8qT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -18,14 +18,14 @@ class SquatManager {
     func squatWork(_ posePoint: [PosePoint]) -> Int {
         let squatBelly = belly(posePoint[0].position, posePoint[22].position, posePoint[26].position)
         let rightBelly = triangleBelly(squatBelly, posePoint[3].position, posePoint[32].position)
-        let leftBelly = triangleBelly(squatBelly, posePoint[30].position, posePoint[4].position)
+        let leftBelly = triangleBelly(squatBelly, posePoint[4].position, posePoint[30].position)
         let checkArray = [0, 9, 22, 26, 32]
         if checkInFrameLikelihood(posePoint, checkArray) == true,
-           posePoint[0].position.xPoint > 0,
-           posePoint[2].position.xPoint < 1.0,
-           posePoint[10].position.xPoint < 1.0 {
-            if rightBelly > 0.8, rightBelly < 1.2, posePoint[0].position.xPoint < 0.35 ||
-                leftBelly > 0.8, leftBelly < 1.2, posePoint[0].position.xPoint < 0.35 {
+           posePoint[0].position.y > 0,
+           posePoint[2].position.y < 1.0,
+           posePoint[10].position.y < 1.0 {
+            if rightBelly > 0.8 && rightBelly < 1.2 && posePoint[0].position.y < 0.35 ||
+                leftBelly > 0.8 && leftBelly < 1.2 && posePoint[0].position.y < 0.35 {
                 if checkCount == 0, checkPointA == false, checkPointB == false {
                     checkCount += 1
                     checkPointA = true
@@ -36,34 +36,43 @@ class SquatManager {
                     checkPointA = true
                     checkPointB = false
                 }
-            } else if (posePoint[22].position.xPoint + posePoint[26].position.xPoint) >=
-                        ((posePoint[3].position.xPoint + posePoint[4].position.xPoint) * 0.9),
+            } else if (posePoint[22].position.y + posePoint[26].position.y) >=
+                        ((posePoint[3].position.y + posePoint[4].position.y) * 0.9),
                       checkPointA == true,
                       checkPointB == false,
-                      posePoint[0].position.xPoint > 0.35,
-                      posePoint[22].position.xPoint > 0.65,
-                      posePoint[26].position.xPoint > 0.65 {
+                      posePoint[0].position.y > 0.35,
+                      posePoint[22].position.y > 0.65,
+                      posePoint[26].position.y > 0.65 {
                 if checkCount == 1 {
                     checkCount += 1
                     checkPointB = true
                 }
             }
         }
+        print(squatBelly)
+        print(rightBelly)
+        print(leftBelly)
         return squatCount
     }
     
-    private func belly(_ fromPoint: Position, _ toPoint: Position, _ endPoint: Position) -> Position {
-        return Position(xPoint: (fromPoint.xPoint + toPoint.xPoint + toPoint.xPoint) / 3,
-                        yPoint: (fromPoint.yPoint + toPoint.yPoint + toPoint.yPoint) / 3)
+    func resetIfOut() {
+        checkCount = 0
+        checkPointA = false
+        checkPointB = false
     }
     
-    private func triangleBelly(_ fromPoint: Position, _ toPoint: Position, _ endPoint: Position) -> CGFloat {
-        let distanceA = CGFloat(hypotf(Float(fromPoint.xPoint - endPoint.xPoint),
-                                       Float(fromPoint.yPoint - endPoint.yPoint)))
-        let distanceB = CGFloat(hypotf(Float(fromPoint.xPoint - toPoint.xPoint),
-                                       Float(fromPoint.yPoint - toPoint.yPoint)))
-        let distanceC = CGFloat(hypotf(Float(toPoint.xPoint - endPoint.xPoint),
-                                       Float(toPoint.yPoint - endPoint.yPoint)))
+    private func belly(_ fromPoint: CGPoint, _ toPoint: CGPoint, _ endPoint: CGPoint) -> CGPoint {
+        return CGPoint(x: (fromPoint.x + toPoint.x + toPoint.x) / 3,
+                       y: (fromPoint.y + toPoint.y + toPoint.y) / 3)
+    }
+    
+    private func triangleBelly(_ fromPoint: CGPoint, _ toPoint: CGPoint, _ endPoint: CGPoint) -> CGFloat {
+        let distanceA = CGFloat(hypotf(Float(fromPoint.x - endPoint.x),
+                                       Float(fromPoint.y - endPoint.y)))
+        let distanceB = CGFloat(hypotf(Float(fromPoint.x - toPoint.x),
+                                       Float(fromPoint.y - toPoint.y)))
+        let distanceC = CGFloat(hypotf(Float(toPoint.x - endPoint.x),
+                                       Float(toPoint.y - endPoint.y)))
         return (distanceA + distanceB) / distanceC
     }
     
@@ -79,6 +88,6 @@ class SquatManager {
     }
     
     private func checkBaseline(_ point: PosePoint, _ base: CGFloat) -> Bool {
-        return point.position.xPoint > base
+        return point.position.x > base
     }
 }

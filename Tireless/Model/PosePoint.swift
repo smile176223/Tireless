@@ -8,13 +8,8 @@
 import UIKit
 
 struct PosePoint {
-    var position: Position
+    var position: CGPoint
     var zPoint: CGFloat
     var inFrameLikelihood: Float
     var type: String
-}
-
-struct Position {
-    var xPoint: CGFloat
-    var yPoint: CGFloat
 }

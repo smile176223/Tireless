@@ -7,6 +7,7 @@
 
 import Foundation
 import MLKit
+import AVFoundation
 
 class PoseDetectViewModel {
     let posePointViewModels = Box([PosePointViewModel]())
@@ -19,7 +20,7 @@ class PoseDetectViewModel {
     private let startManager = StartManager()
     var countRefresh: ((Int) -> Void)?
     
-    func detectPose(in image: VisionImage, width: CGFloat, height: CGFloat) {
+    func detectPose(in image: VisionImage, width: CGFloat, height: CGFloat, previewLayer: AVCaptureVideoPreviewLayer) {
         let activeDetector = self.currentDetector
         resetManagedLifecycleDetectors(activeDetector: activeDetector)
         var posePoint = [PosePoint]()
@@ -42,15 +43,21 @@ class PoseDetectViewModel {
                     return
                 }
                 strongSelf.poseViewModels.value = poses
-                poses[0].landmarks.forEach { posePoint.append(PosePoint(position:
-                                                                            Position(xPoint: $0.position.y / width,
-                                                                                     yPoint: $0.position.x / height),
+                poses[0].landmarks.forEach {
+                    var normalizedPoint = CGPoint(x: $0.position.x / width,
+                                                  y: $0.position.y / height)
+                    normalizedPoint = previewLayer.layerPointConverted(fromCaptureDevicePoint: normalizedPoint)
+                    posePoint.append(PosePoint(position: CGPoint(x: normalizedPoint.x / UIScreen.main.bounds.width,
+                                                                 y: normalizedPoint.y / UIScreen.main.bounds.height),
                                                        zPoint: $0.position.z,
                                                        inFrameLikelihood: $0.inFrameLikelihood,
                                                        type: $0.type.rawValue))
                 }
+                
                 if startManager.checkStart(posePoint) == true {
                     strongSelf.countRefresh?(strongSelf.squatManager.squatWork(posePoint))
+                } else {
+                    strongSelf.squatManager.resetIfOut()
                 }
             }
         }
@@ -69,7 +76,7 @@ class PoseDetectViewModel {
         switch activeDetector {
         case .pose:
             let options = activeDetector == .pose ? PoseDetectorOptions() : nil
-            self.poseDetector = PoseDetector.poseDetector(options: options!)
+            self.poseDetector = PoseDetector.poseDetector(options: options ?? PoseDetectorOptions())
         }
         self.lastDetector = activeDetector
     }
