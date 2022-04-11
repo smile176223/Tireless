@@ -31,8 +31,6 @@ class PoseDetectViewModel {
     
     var countRefresh: ((Int) -> Void)?
     
-    var countStart: (() -> Void)?
-    
     func detectPose(in sampleBuffer: CMSampleBuffer,
                     width: CGFloat,                    
                     height: CGFloat,
@@ -76,7 +74,6 @@ class PoseDetectViewModel {
                 }
                 if startManager.checkStart(posePoint) == true {
                     strongSelf.countRefresh?(strongSelf.squatManager.squatWork(posePoint))
-                    strongSelf.countStart?()
                 } else {
                     strongSelf.squatManager.resetIfOut()
                 }

@@ -36,12 +36,19 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
             if counter == 5 {
                 stopRecording()
                 stopSession()
-                finishPresent()
             }
         }
     }
     
-    var startFlag = false
+    var startFlag = false {
+        didSet {
+            if startFlag == true {
+                lottieSetup()
+            }
+        }
+    }
+    
+    var drawStart = false
     
     let recorder = RPScreenRecorder.shared()
     
@@ -76,9 +83,12 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
         setUpCaptureSessionOutput()
         setUpCaptureSessionInput()
         
+        startRecording()
+        
+        recordButton.layer.cornerRadius = 25
+        
         // TODO: AVAssetWritter - Combine Video
 //        videoWriterH264 = VideoWriter(withVideoType: AVVideoCodecType.h264)
-        startRecording()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -124,7 +134,7 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
 //        } else {
 //            stopRecording()
 //        }
-        finishPresent()
+        counter = 5
     }
     
     func startRecording() {
@@ -168,7 +178,8 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
     }
     
     func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
-            dismiss(animated: true)
+        dismiss(animated: true)
+        finishPresent()
     }
     
     func lottieSetup() {
@@ -183,6 +194,7 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
             self?.lottieView?.removeFromSuperview()
             self?.countLabel.isHidden = false
             self?.countLabel.text = "\(0)"
+            self?.drawStart = true
         })
     }
     
@@ -335,6 +347,7 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
 //            }
 //        }
 //    }
+    
     private func finishPresent() {
         guard let finishVC = storyboard?.instantiateViewController(withIdentifier: "\(DetectFinishViewController.self)")
                 as? DetectFinishViewController
@@ -345,26 +358,26 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
         self.present(finishVC, animated: true)
     }
     
-    private func downAlert() {
-        let showAlert = UIAlertController(title: "Finish!", message: nil, preferredStyle: .alert)
-        let imageView = UIImageView(frame: CGRect(x: 10, y: 50, width: 250, height: 230))
-        imageView.image = UIImage(systemName: "person.circle")
-        showAlert.view.addSubview(imageView)
-        let height = NSLayoutConstraint(item: showAlert.view ?? UIView(),
-                                        attribute: .height,
-                                        relatedBy: .equal,
-                                        toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 320)
-        let width = NSLayoutConstraint(item: showAlert.view ?? UIView(),
-                                       attribute: .width,
-                                       relatedBy: .equal,
-                                       toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
-        showAlert.view.addConstraint(height)
-        showAlert.view.addConstraint(width)
-        showAlert.addAction(UIAlertAction(title: "結束!", style: .default, handler: { _ in
-            self.dismiss(animated: true, completion: nil)
-        }))
-        self.present(showAlert, animated: true, completion: nil)
-    }
+//    private func downAlert() {
+//        let showAlert = UIAlertController(title: "Finish!", message: nil, preferredStyle: .alert)
+//        let imageView = UIImageView(frame: CGRect(x: 10, y: 50, width: 250, height: 230))
+//        imageView.image = UIImage(systemName: "person.circle")
+//        showAlert.view.addSubview(imageView)
+//        let height = NSLayoutConstraint(item: showAlert.view ?? UIView(),
+//                                        attribute: .height,
+//                                        relatedBy: .equal,
+//                                        toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 320)
+//        let width = NSLayoutConstraint(item: showAlert.view ?? UIView(),
+//                                       attribute: .width,
+//                                       relatedBy: .equal,
+//                                       toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
+//        showAlert.view.addConstraint(height)
+//        showAlert.view.addConstraint(width)
+//        showAlert.addAction(UIAlertAction(title: "結束!", style: .default, handler: { _ in
+//            self.dismiss(animated: true, completion: nil)
+//        }))
+//        self.present(showAlert, animated: true, completion: nil)
+//    }
 }
 
 extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -374,7 +387,6 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         from connection: AVCaptureConnection
     ) {
         guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            print("Failed to get image buffer from sample buffer.")
             return
         }
         lastFrame = sampleBuffer
@@ -392,38 +404,39 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         guard let previewLayer = previewLayer else { return }
         if counter != 5 {
             viewModel.detectPose(in: sampleBuffer, width: imageWidth, height: imageHeight, previewLayer: previewLayer)
-            viewModel.poseViewModels.bind { poses in
-                DispatchQueue.main.async {
-                    guard let strongSelf = weakSelf else {
-                        print("Self is nil!")
-                        return
-                    }
-                    poses.forEach { poses in
-                        let poseOverlayView = UIUtilities.createPoseOverlayView(
-                            forPose: poses,
-                            inViewWithBounds: strongSelf.annotationOverlayView.bounds,
-                            lineWidth: Constant.lineWidth,
-                            dotRadius: Constant.smallDotRadius,
-                            positionTransformationClosure: { (position) -> CGPoint in
-                                return strongSelf.normalizedPoint(
-                                    fromVisionPoint: position, width: imageWidth, height: imageHeight)
-                            }
-                        )
-                        strongSelf.annotationOverlayView.addSubview(poseOverlayView)
-                    }
-                }
-            }
+            
             viewModel.countRefresh = { [weak self] countNumber in
                 if self?.startFlag == false {
                     self?.startFlag = true
-                    self?.lottieSetup()
                 }
                 self?.countLabel.text = "\(countNumber)"
                 self?.counter = countNumber
-            
+            }
+            if drawStart == true {
+            // draw pose
+                viewModel.poseViewModels.bind { poses in
+                    DispatchQueue.main.async {
+                        guard let strongSelf = weakSelf else {
+                            print("Self is nil!")
+                            return
+                        }
+                        poses.forEach { poses in
+                            let poseOverlayView = UIUtilities.createPoseOverlayView(
+                                forPose: poses,
+                                inViewWithBounds: strongSelf.annotationOverlayView.bounds,
+                                lineWidth: Constant.lineWidth,
+                                dotRadius: Constant.smallDotRadius,
+                                positionTransformationClosure: { (position) -> CGPoint in
+                                    return strongSelf.normalizedPoint(
+                                        fromVisionPoint: position, width: imageWidth, height: imageHeight)
+                                }
+                            )
+                            strongSelf.annotationOverlayView.addSubview(poseOverlayView)
+                        }
+                    }
+                }
             }
         }
-        
         // TODO: AVAssetWritter - Combine Video
 //        if isRecording {
 //            videoWriterH264?.write(sampleBuffer: sampleBuffer)

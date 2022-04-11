@@ -28,14 +28,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x3I-UH-LHj">
-                                <rect key="frame" x="172" y="762" width="70" height="50"/>
+                                <rect key="frame" x="182" y="762" width="50" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="IjT-ud-8HI"/>
+                                    <constraint firstAttribute="width" secondItem="x3I-UH-LHj" secondAttribute="height" id="ccg-sd-Afr"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Record"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <connections>
                                     <action selector="recordTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fc5-2Q-zE6"/>
                                 </connections>
