@@ -35,6 +35,8 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
         didSet {
             if counter == 5 {
                 stopRecording()
+                stopSession()
+                finishPresent()
             }
         }
     }
@@ -81,7 +83,7 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        startSession()
+//        startSession()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -117,11 +119,12 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
 //            isRecording = true
 //        }
         
-        if !isRecording {
-            startRecording()
-        } else {
-            stopRecording()
-        }
+//        if !isRecording {
+//            startRecording()
+//        } else {
+//            stopRecording()
+//        }
+        finishPresent()
     }
     
     func startRecording() {
@@ -132,6 +135,7 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
             guard error == nil else {
                 return
             }
+            self?.startSession()
             self?.recordButton.backgroundColor = UIColor.red
             self?.isRecording = true
         }
@@ -174,7 +178,7 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
         cameraPreView.addSubview(lottieView ?? UIView())
         lottieView?.contentMode = .scaleAspectFit
         lottieView?.loopMode = .playOnce
-        lottieView?.animationSpeed = 1.2
+        lottieView?.animationSpeed = 1.5
         lottieView?.play(completion: { [weak self] _ in
             self?.lottieView?.removeFromSuperview()
             self?.countLabel.isHidden = false
@@ -331,6 +335,15 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
 //            }
 //        }
 //    }
+    private func finishPresent() {
+        guard let finishVC = storyboard?.instantiateViewController(withIdentifier: "\(DetectFinishViewController.self)")
+                as? DetectFinishViewController
+        else {
+            return
+        }
+        finishVC.modalPresentationStyle = .fullScreen
+        self.present(finishVC, animated: true)
+    }
     
     private func downAlert() {
         let showAlert = UIAlertController(title: "Finish!", message: nil, preferredStyle: .alert)
@@ -377,7 +390,7 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
             strongSelf.removeDetectionAnnotations()
         }
         guard let previewLayer = previewLayer else { return }
-        if counter == 5 {
+        if counter != 5 {
             viewModel.detectPose(in: sampleBuffer, width: imageWidth, height: imageHeight, previewLayer: previewLayer)
             viewModel.poseViewModels.bind { poses in
                 DispatchQueue.main.async {
