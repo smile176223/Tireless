@@ -8,14 +8,15 @@
 import UIKit
 import AVFoundation
 import MLKit
+import ReplayKit
 
-class PoseDetectViewController: UIViewController {
+class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegate {
     
     @IBOutlet weak var cameraPreView: UIView!
     
     @IBOutlet weak var countLabel: UILabel!
     
-    @IBOutlet weak var recordButtonTap: UIButton!
+    @IBOutlet weak var recordButton: UIButton!
     
     private var isUsingFrontCamera = false
     
@@ -37,9 +38,12 @@ class PoseDetectViewController: UIViewController {
         }
     }
     
-    var isRecording: Bool = false
+    let recorder = RPScreenRecorder.shared()
     
-    var videoWriterH264: VideoWriter!
+    private var isRecording = false
+    
+    // TODO: AVAssetWritter - Combine Video
+    var videoWriterH264: VideoWriter?
     
     private lazy var previewOverlayView: UIImageView = {
         precondition(isViewLoaded)
@@ -65,6 +69,7 @@ class PoseDetectViewController: UIViewController {
         setUpCaptureSessionOutput()
         setUpCaptureSessionInput()
         
+        // TODO: AVAssetWritter - Combine Video
         videoWriterH264 = VideoWriter(withVideoType: AVVideoCodecType.h264)
     }
     
@@ -84,23 +89,75 @@ class PoseDetectViewController: UIViewController {
     }
     
     @IBAction func recordTap(_ sender: Any) {
-        if isRecording {
-            isRecording = false
-            videoWriterH264.stopWriting(completionHandler: { (status) in
-                print("Done recording H264")
-                do {
-                    let attr = try FileManager.default.attributesOfItem(atPath: self.videoWriterH264.url.path)
-                    let fileSize = attr[FileAttributeKey.size] as? UInt64
-                    UISaveVideoAtPathToSavedPhotosAlbum(self.videoWriterH264.url.path, nil, nil, nil)
-                    print("H264 file size = \(String(describing: fileSize))")
-                    print(status)
-                } catch {
-                    print("error")
-                }
-            })
+        // TODO: AVAssetWritter - Combine Video
+//        if isRecording {
+//            isRecording = false
+//            guard let videoWriterH264 = videoWriterH264 else {
+//                return
+//            }
+//            videoWriterH264.stopWriting(completionHandler: { (status) in
+//                print("Done recording H264")
+//                do {
+//                    let attr = try FileManager.default.attributesOfItem(atPath: videoWriterH264.url.path)
+//                    let fileSize = attr[FileAttributeKey.size] as? UInt64
+//                    UISaveVideoAtPathToSavedPhotosAlbum(videoWriterH264.url.path, nil, nil, nil)
+//                    print("H264 file size = \(String(describing: fileSize))")
+//                    print(status)
+//                } catch {
+//                    print("error")
+//                }
+//            })
+//        } else {
+//            isRecording = true
+//        }
+        
+        if !isRecording {
+            startRecording()
         } else {
-            isRecording = true
+            stopRecording()
         }
+    }
+    func startRecording() {
+        guard recorder.isAvailable else {
+            return
+        }
+        recorder.startRecording { [weak self] (error) in
+            guard error == nil else {
+                return
+            }
+            self?.recordButton.backgroundColor = UIColor.red
+            self?.isRecording = true
+        }
+    }
+    
+    func stopRecording() {
+        recorder.stopRecording { [weak self] (preview, _) in
+            guard let preview = preview else {
+                return
+            }
+            let alert = UIAlertController(title: "Recording Finished",
+                                          message: "Would you like to edit or delete your recording?",
+                                          preferredStyle: .alert)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive,
+                                             handler: { [weak self] (_: UIAlertAction) in
+                self?.recorder.discardRecording(handler: { })
+            })
+
+            let editAction = UIAlertAction(title: "Edit", style: .default,
+                                           handler: { [weak self]  (_: UIAlertAction) -> Void in
+                preview.previewControllerDelegate = self
+                self?.present(preview, animated: true, completion: nil)
+            })
+            alert.addAction(editAction)
+            alert.addAction(deleteAction)
+            self?.present(alert, animated: true, completion: nil)
+            self?.recordButton.backgroundColor = .black
+            self?.isRecording = false
+        }
+    }
+    
+    func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
+            dismiss(animated: true)
     }
     
     private func setUpCaptureSessionOutput() {
@@ -159,6 +216,15 @@ class PoseDetectViewController: UIViewController {
         }
     }
     
+    private func captureDevice(forPosition position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+        let discoverySession = AVCaptureDevice.DiscoverySession(
+            deviceTypes: [.builtInWideAngleCamera],
+            mediaType: .video,
+            position: .unspecified
+        )
+        return discoverySession.devices.first { $0.position == position }
+    }
+    
     private func startSession() {
         weak var weakSelf = self
         sessionQueue.async {
@@ -203,15 +269,6 @@ class PoseDetectViewController: UIViewController {
         ])
     }
     
-    private func captureDevice(forPosition position: AVCaptureDevice.Position) -> AVCaptureDevice? {
-        let discoverySession = AVCaptureDevice.DiscoverySession(
-            deviceTypes: [.builtInWideAngleCamera],
-            mediaType: .video,
-            position: .unspecified
-        )
-        return discoverySession.devices.first { $0.position == position }
-    }
-    
     private func updatePreviewOverlayViewWithLastFrame() {
         guard let lastFrame = lastFrame, let imageBuffer = CMSampleBufferGetImageBuffer(lastFrame)
         else {
@@ -235,17 +292,6 @@ class PoseDetectViewController: UIViewController {
         }
     }
     
-    private func normalizedPoint(
-        fromVisionPoint point: VisionPoint,
-        width: CGFloat,
-        height: CGFloat
-    ) -> CGPoint {
-        let cgPoint = CGPoint(x: point.x, y: point.y)
-        var normalizedPoint = CGPoint(x: cgPoint.x / width, y: cgPoint.y / height)
-        normalizedPoint = previewLayer?.layerPointConverted(fromCaptureDevicePoint: normalizedPoint) ?? CGPoint()
-        return normalizedPoint
-    }
-    
     private func countDownTimer() {
         if startFlag == true {
             Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
@@ -267,7 +313,7 @@ class PoseDetectViewController: UIViewController {
     private func downAlert() {
         let showAlert = UIAlertController(title: "Finish!", message: nil, preferredStyle: .alert)
         let imageView = UIImageView(frame: CGRect(x: 10, y: 50, width: 250, height: 230))
-        imageView.image = UIImage(systemName: "person.circle") // Your image here...
+        imageView.image = UIImage(systemName: "person.circle")
         showAlert.view.addSubview(imageView)
         let height = NSLayoutConstraint(item: showAlert.view ?? UIView(),
                                         attribute: .height,
@@ -342,9 +388,21 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
                 self?.downAlert()
             }
         }
-        if isRecording {
-            videoWriterH264.write(sampleBuffer: sampleBuffer)
-        }
+        // TODO: AVAssetWritter - Combine Video
+//        if isRecording {
+//            videoWriterH264?.write(sampleBuffer: sampleBuffer)
+//        }
+    }
+    
+    private func normalizedPoint(
+        fromVisionPoint point: VisionPoint,
+        width: CGFloat,
+        height: CGFloat
+    ) -> CGPoint {
+        let cgPoint = CGPoint(x: point.x, y: point.y)
+        var normalizedPoint = CGPoint(x: cgPoint.x / width, y: cgPoint.y / height)
+        normalizedPoint = previewLayer?.layerPointConverted(fromCaptureDevicePoint: normalizedPoint) ?? CGPoint()
+        return normalizedPoint
     }
 }
 

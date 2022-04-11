@@ -31,6 +31,8 @@ class PoseDetectViewModel {
     
     var countRefresh: ((Int) -> Void)?
     
+    var countStart: (() -> Void)?
+    
     func detectPose(in sampleBuffer: CMSampleBuffer,
                     width: CGFloat,                    
                     height: CGFloat,
@@ -53,7 +55,7 @@ class PoseDetectViewModel {
             }
             weak var weakSelf = self
             guard !poses.isEmpty else {
-                print("Pose detector returned no results.")
+//                print("Pose detector returned no results.")
                 return
             }
             DispatchQueue.main.sync {
@@ -74,6 +76,7 @@ class PoseDetectViewModel {
                 }
                 if startManager.checkStart(posePoint) == true {
                     strongSelf.countRefresh?(strongSelf.squatManager.squatWork(posePoint))
+                    strongSelf.countStart?()
                 } else {
                     strongSelf.squatManager.resetIfOut()
                 }

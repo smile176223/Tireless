@@ -159,6 +159,14 @@
 			path = Exercise;
 			sourceTree = "<group>";
 		};
+		FF1444C52803DF7F0027F560 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				FFC0C15D28008F650041A937 /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		FFC0C14828008F640041A937 = {
 			isa = PBXGroup;
 			children = (
@@ -186,9 +194,9 @@
 				FF14449028009B640027F560 /* ViewModel */,
 				FF14448F28009B5A0027F560 /* Controller */,
 				FF14449128009B6F0027F560 /* Model */,
+				FF1444C52803DF7F0027F560 /* Resource */,
 				FFC0C15428008F640041A937 /* AppDelegate.swift */,
 				FFC0C15628008F640041A937 /* SceneDelegate.swift */,
-				FFC0C15D28008F650041A937 /* Assets.xcassets */,
 				FFC0C15F28008F650041A937 /* LaunchScreen.storyboard */,
 				FFC0C16228008F650041A937 /* Info.plist */,
 			);

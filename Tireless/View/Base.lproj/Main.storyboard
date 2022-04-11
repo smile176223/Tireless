@@ -58,7 +58,7 @@
                     <connections>
                         <outlet property="cameraPreView" destination="KWo-Ub-40G" id="lko-HD-8Dn"/>
                         <outlet property="countLabel" destination="0am-LU-uPW" id="7Gh-nM-yea"/>
-                        <outlet property="recordButtonTap" destination="x3I-UH-LHj" id="544-YY-8qT"/>
+                        <outlet property="recordButton" destination="x3I-UH-LHj" id="544-YY-8qT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
