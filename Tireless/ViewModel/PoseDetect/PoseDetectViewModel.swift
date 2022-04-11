@@ -10,24 +10,43 @@ import MLKit
 import AVFoundation
 
 class PoseDetectViewModel {
+    
     let posePointViewModels = Box([PosePointViewModel]())
+    
     let poseViewModels = Box([Pose]())
+    
+    private var isUsingFrontCamera = false
+    
     private var poseDetector: PoseDetector?
+    
     private let detectors: Detector = .pose
+    
     private var currentDetector: Detector = .pose
+    
     private var lastDetector: Detector?
+    
     private let squatManager = SquatManager()
+    
     private let startManager = StartManager()
+    
     var countRefresh: ((Int) -> Void)?
     
-    func detectPose(in image: VisionImage, width: CGFloat, height: CGFloat, previewLayer: AVCaptureVideoPreviewLayer) {
+    func detectPose(in sampleBuffer: CMSampleBuffer,
+                    width: CGFloat,                    
+                    height: CGFloat,
+                    previewLayer: AVCaptureVideoPreviewLayer) {
+        let visionImage = VisionImage(buffer: sampleBuffer)
+        let orientation = UIUtilities.imageOrientation(
+            fromDevicePosition: isUsingFrontCamera ? .front : .back
+        )
+        visionImage.orientation = orientation
         let activeDetector = self.currentDetector
         resetManagedLifecycleDetectors(activeDetector: activeDetector)
         var posePoint = [PosePoint]()
         if let poseDetector = self.poseDetector {
             var poses: [Pose]
             do {
-                poses = try poseDetector.results(in: image)
+                poses = try poseDetector.results(in: visionImage)
             } catch let error {
                 print("Failed to detect poses with error: \(error.localizedDescription).")
                 return
@@ -62,7 +81,7 @@ class PoseDetectViewModel {
         }
     }
     
-    func resetManagedLifecycleDetectors(activeDetector: Detector) {
+    private func resetManagedLifecycleDetectors(activeDetector: Detector) {
         if activeDetector == self.lastDetector {
             return
         }
@@ -80,7 +99,7 @@ class PoseDetectViewModel {
         self.lastDetector = activeDetector
     }
     
-    func convertPosePointToViewModel(from posePoints: [PosePoint]) -> [PosePointViewModel] {
+    private func convertPosePointToViewModel(from posePoints: [PosePoint]) -> [PosePointViewModel] {
         var viewModels = [PosePointViewModel]()
         for posePoint in posePoints {
             let viewModel = PosePointViewModel(model: posePoint)
@@ -89,7 +108,7 @@ class PoseDetectViewModel {
         return viewModels
     }
     
-    func setPosePoint(_ posePoint: [PosePoint]) {
+    private func setPosePoint(_ posePoint: [PosePoint]) {
         posePointViewModels.value = convertPosePointToViewModel(from: posePoint)
     }
 }

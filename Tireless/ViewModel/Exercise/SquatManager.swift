@@ -9,10 +9,15 @@ import Foundation
 import MLKit
 
 class SquatManager {
+    
     static let shared = SquatManager()
+    
     private var squatCount = 0
+    
     private var checkCount = 0
+    
     private var checkPointA = false
+    
     private var checkPointB = false
     
     func squatWork(_ posePoint: [PosePoint]) -> Int {

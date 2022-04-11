@@ -8,6 +8,7 @@
 import UIKit
 
 class PosePointViewModel {
+    
     var posePoint: PosePoint
     
     init(model posePoint: PosePoint) {

@@ -10,18 +10,27 @@ import AVFoundation
 import MLKit
 
 class PoseDetectViewController: UIViewController {
+    
     @IBOutlet weak var cameraPreView: UIView!
+    
     @IBOutlet weak var countLabel: UILabel!
+    
     @IBOutlet weak var recordButtonTap: UIButton!
     
     private var isUsingFrontCamera = false
+    
     private var previewLayer: AVCaptureVideoPreviewLayer?
+    
     private lazy var captureSession = AVCaptureSession()
+    
     private lazy var sessionQueue = DispatchQueue(label: Constant.sessionQueueLabel)
+    
     private var lastFrame: CMSampleBuffer?
+    
     let viewModel = PoseDetectViewModel()
     
     var counter = 5
+    
     var startFlag = false {
         didSet {
             countDownTimer()
@@ -29,6 +38,7 @@ class PoseDetectViewController: UIViewController {
     }
     
     var isRecording: Bool = false
+    
     var videoWriterH264: VideoWriter!
     
     private lazy var previewOverlayView: UIImageView = {
@@ -72,6 +82,7 @@ class PoseDetectViewController: UIViewController {
         super.viewDidLayoutSubviews()
         previewLayer?.frame = cameraPreView.bounds
     }
+    
     @IBAction func recordTap(_ sender: Any) {
         if isRecording {
             isRecording = false
@@ -91,6 +102,7 @@ class PoseDetectViewController: UIViewController {
             isRecording = true
         }
     }
+    
     private func setUpCaptureSessionOutput() {
         weak var weakSelf = self
         sessionQueue.async {
@@ -248,7 +260,6 @@ class PoseDetectViewController: UIViewController {
                     strongSelf.counter = -1
                     timer.invalidate()
                 }
-                
             }
         }
     }
@@ -286,11 +297,6 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
             return
         }
         lastFrame = sampleBuffer
-        let visionImage = VisionImage(buffer: sampleBuffer)
-        let orientation = UIUtilities.imageOrientation(
-            fromDevicePosition: isUsingFrontCamera ? .front : .back
-        )
-        visionImage.orientation = orientation
         let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
         let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
         weak var weakSelf = self
@@ -303,7 +309,7 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
             strongSelf.removeDetectionAnnotations()
         }
         guard let previewLayer = previewLayer else { return }
-        viewModel.detectPose(in: visionImage, width: imageWidth, height: imageHeight, previewLayer: previewLayer)
+        viewModel.detectPose(in: sampleBuffer, width: imageWidth, height: imageHeight, previewLayer: previewLayer)
         viewModel.poseViewModels.bind { poses in
             DispatchQueue.main.async {
                 guard let strongSelf = weakSelf else {

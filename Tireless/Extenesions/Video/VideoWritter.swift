@@ -9,8 +9,11 @@ import Foundation
 import AVFoundation
 
 class VideoWriter {
+    
     var avAssetWriter: AVAssetWriter
+    
     var avAssetWriterInput: AVAssetWriterInput
+    
     var url: URL
     
     init(withVideoType type: AVVideoCodecType) {
@@ -26,6 +29,7 @@ class VideoWriter {
                                                                      AVVideoWidthKey: 640])
         }
         avAssetWriterInput.expectsMediaDataInRealTime = true
+        avAssetWriterInput.transform = CGAffineTransform(rotationAngle: .pi / 2)
         do {
             let directory = try VideoWriter.directoryForNewVideo()
             if type == AVVideoCodecType.hevc {
