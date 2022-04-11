@@ -29,6 +29,7 @@ PODS:
   - GoogleUtilitiesComponents (1.1.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.7.0)
+  - lottie-ios (3.3.0)
   - MLImage (1.0.0-beta2)
   - MLKitCommon (5.0.0):
     - GoogleDataTransport (~> 9.0)
@@ -67,6 +68,7 @@ PODS:
 
 DEPENDENCIES:
   - GoogleMLKit/PoseDetection
+  - lottie-ios
   - SwiftLint
 
 SPEC REPOS:
@@ -77,6 +79,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GoogleUtilitiesComponents
     - GTMSessionFetcher
+    - lottie-ios
     - MLImage
     - MLKitCommon
     - MLKitPoseDetection
@@ -95,6 +98,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   GoogleUtilitiesComponents: 679b2c881db3b615a2777504623df6122dd20afe
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
+  lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
   MLImage: a454f9f8ecfd537783a12f9488f5be1a68820829
   MLKitCommon: 3bc17c6f7d25ce3660f030350b46ae7ec9ebca6e
   MLKitPoseDetection: 3f4763b14d3c31a6a09ce16eb2b11e0628a53868
@@ -106,6 +110,6 @@ SPEC CHECKSUMS:
   Protobuf: 235750e4696ff59fb07d949a9dbbc92b3c0700fe
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
 
-PODFILE CHECKSUM: 4182fdfc55aabf46c735c44a44b9de587859b291
+PODFILE CHECKSUM: da26fbfa3ac2c21d1a9f61c40e28fb6cb1062bf1
 
 COCOAPODS: 1.11.2

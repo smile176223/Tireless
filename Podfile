@@ -9,6 +9,7 @@ target 'Tireless' do
 
   pod 'SwiftLint'
   pod 'GoogleMLKit/PoseDetection'
+  pod 'lottie-ios'
 
 end
 

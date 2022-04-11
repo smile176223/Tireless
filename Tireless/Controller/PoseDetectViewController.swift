@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 import MLKit
 import ReplayKit
+import Lottie
 
 class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegate {
     
@@ -30,20 +31,24 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
     
     let viewModel = PoseDetectViewModel()
     
-    var counter = 5
-    
-    var startFlag = false {
+    var counter = 0 {
         didSet {
-            countDownTimer()
+            if counter == 5 {
+                stopRecording()
+            }
         }
     }
+    
+    var startFlag = false
     
     let recorder = RPScreenRecorder.shared()
     
     private var isRecording = false
     
+    var lottieView: AnimationView?
+    
     // TODO: AVAssetWritter - Combine Video
-    var videoWriterH264: VideoWriter?
+//    var videoWriterH264: VideoWriter?
     
     private lazy var previewOverlayView: UIImageView = {
         precondition(isViewLoaded)
@@ -70,7 +75,8 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
         setUpCaptureSessionInput()
         
         // TODO: AVAssetWritter - Combine Video
-        videoWriterH264 = VideoWriter(withVideoType: AVVideoCodecType.h264)
+//        videoWriterH264 = VideoWriter(withVideoType: AVVideoCodecType.h264)
+        startRecording()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -117,6 +123,7 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
             stopRecording()
         }
     }
+    
     func startRecording() {
         guard recorder.isAvailable else {
             return
@@ -158,6 +165,21 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
     
     func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
             dismiss(animated: true)
+    }
+    
+    func lottieSetup() {
+        countLabel.isHidden = true
+        lottieView = .init(name: "CountDownGo")
+        lottieView?.frame = view.bounds
+        cameraPreView.addSubview(lottieView ?? UIView())
+        lottieView?.contentMode = .scaleAspectFit
+        lottieView?.loopMode = .playOnce
+        lottieView?.animationSpeed = 1.2
+        lottieView?.play(completion: { [weak self] _ in
+            self?.lottieView?.removeFromSuperview()
+            self?.countLabel.isHidden = false
+            self?.countLabel.text = "\(0)"
+        })
     }
     
     private func setUpCaptureSessionOutput() {
@@ -292,23 +314,23 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
         }
     }
     
-    private func countDownTimer() {
-        if startFlag == true {
-            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-                guard let strongSelf = self else { return }
-                if strongSelf.counter > 1 {
-                    strongSelf.counter -= 1
-                    strongSelf.countLabel.text = "\(strongSelf.counter)"
-                } else if strongSelf.counter == 1 {
-                    strongSelf.countLabel.text = "Start"
-                    strongSelf.counter = 0
-                } else if strongSelf.counter == 0 {
-                    strongSelf.counter = -1
-                    timer.invalidate()
-                }
-            }
-        }
-    }
+//    private func countDownTimer() {
+//        if startFlag == true {
+//            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+//                guard let strongSelf = self else { return }
+//                if strongSelf.counter > 1 {
+//                    strongSelf.counter -= 1
+//                    strongSelf.countLabel.text = "\(strongSelf.counter)"
+//                } else if strongSelf.counter == 1 {
+//                    strongSelf.countLabel.text = "Start"
+//                    strongSelf.counter = 0
+//                } else if strongSelf.counter == 0 {
+//                    strongSelf.counter = -1
+//                    timer.invalidate()
+//                }
+//            }
+//        }
+//    }
     
     private func downAlert() {
         let showAlert = UIAlertController(title: "Finish!", message: nil, preferredStyle: .alert)
@@ -355,39 +377,40 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
             strongSelf.removeDetectionAnnotations()
         }
         guard let previewLayer = previewLayer else { return }
-        viewModel.detectPose(in: sampleBuffer, width: imageWidth, height: imageHeight, previewLayer: previewLayer)
-        viewModel.poseViewModels.bind { poses in
-            DispatchQueue.main.async {
-                guard let strongSelf = weakSelf else {
-                    print("Self is nil!")
-                    return
-                }
-                poses.forEach { poses in
-                    let poseOverlayView = UIUtilities.createPoseOverlayView(
-                        forPose: poses,
-                        inViewWithBounds: strongSelf.annotationOverlayView.bounds,
-                        lineWidth: Constant.lineWidth,
-                        dotRadius: Constant.smallDotRadius,
-                        positionTransformationClosure: { (position) -> CGPoint in
-                            return strongSelf.normalizedPoint(
-                                fromVisionPoint: position, width: imageWidth, height: imageHeight)
-                        }
-                    )
-                    strongSelf.annotationOverlayView.addSubview(poseOverlayView)
+        if counter == 5 {
+            viewModel.detectPose(in: sampleBuffer, width: imageWidth, height: imageHeight, previewLayer: previewLayer)
+            viewModel.poseViewModels.bind { poses in
+                DispatchQueue.main.async {
+                    guard let strongSelf = weakSelf else {
+                        print("Self is nil!")
+                        return
+                    }
+                    poses.forEach { poses in
+                        let poseOverlayView = UIUtilities.createPoseOverlayView(
+                            forPose: poses,
+                            inViewWithBounds: strongSelf.annotationOverlayView.bounds,
+                            lineWidth: Constant.lineWidth,
+                            dotRadius: Constant.smallDotRadius,
+                            positionTransformationClosure: { (position) -> CGPoint in
+                                return strongSelf.normalizedPoint(
+                                    fromVisionPoint: position, width: imageWidth, height: imageHeight)
+                            }
+                        )
+                        strongSelf.annotationOverlayView.addSubview(poseOverlayView)
+                    }
                 }
             }
-        }
-        viewModel.countRefresh = { [weak self] countNumber in
-            if self?.startFlag == false {
-                self?.startFlag = true
-            }
-            if self?.counter == -1 {
+            viewModel.countRefresh = { [weak self] countNumber in
+                if self?.startFlag == false {
+                    self?.startFlag = true
+                    self?.lottieSetup()
+                }
                 self?.countLabel.text = "\(countNumber)"
-            }
-            if countNumber == 5 {
-                self?.downAlert()
+                self?.counter = countNumber
+            
             }
         }
+        
         // TODO: AVAssetWritter - Combine Video
 //        if isRecording {
 //            videoWriterH264?.write(sampleBuffer: sampleBuffer)
