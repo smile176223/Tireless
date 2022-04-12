@@ -11,7 +11,7 @@ import Photos
 class VideoRecord {
     private let recorder = RPScreenRecorder.shared()
     
-    func startRecording() {
+    func startRecording(completion: @escaping (() -> Void)) {
         guard recorder.isAvailable else {
             return
         }
@@ -20,6 +20,7 @@ class VideoRecord {
                 return
             }
         }
+        completion()
     }
     
     func stopRecording(_ viewcontroller: UIViewController, completion: @escaping (() -> Void)) {

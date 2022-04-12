@@ -11,12 +11,18 @@ import ReplayKit
 import Lottie
 
 class PoseDetectViewController: UIViewController {
-    
     @IBOutlet weak var cameraPreView: UIView!
     
     @IBOutlet weak var countLabel: UILabel!
     
     @IBOutlet weak var recordButton: UIButton!
+    
+    private enum Constant {
+        static let videoDataOutputQueueLabel = "com.LiamHao.Tireless.VideoDataOutputQueue"
+        static let sessionQueueLabel = "com.LiamHao.Tireless.SessionQueue"
+        static let smallDotRadius: CGFloat = 4.0
+        static let lineWidth: CGFloat = 3.0
+    }
     
     private var isUsingFrontCamera = false
     
@@ -28,9 +34,9 @@ class PoseDetectViewController: UIViewController {
     
     private var lastFrame: CMSampleBuffer?
     
-    let viewModel = PoseDetectViewModel()
+    private let viewModel = PoseDetectViewModel()
     
-    var counter = 0 {
+    private var counter = 0 {
         didSet {
             if counter == 5 {
                 self.lottieDetectDone()
@@ -38,7 +44,7 @@ class PoseDetectViewController: UIViewController {
         }
     }
     
-    var startFlag = false {
+    private var startFlag = false {
         didSet {
             if startFlag == true {
                 lottieCountDownGo()
@@ -46,11 +52,11 @@ class PoseDetectViewController: UIViewController {
         }
     }
     
-    var drawStart = false
+    private var drawStart = false
     
-    var lottieView: AnimationView?
+    private var lottieView: AnimationView?
     
-    let videoRecord = VideoRecord()
+    private let videoRecord = VideoRecord()
     
     private lazy var previewOverlayView: UIImageView = {
         precondition(isViewLoaded)
@@ -76,7 +82,9 @@ class PoseDetectViewController: UIViewController {
         setUpCaptureSessionOutput()
         setUpCaptureSessionInput()
         
-        videoRecord.startRecording()
+        videoRecord.startRecording {
+            self.drawStart = true
+        }
         recordButton.layer.cornerRadius = 25
     }
     
@@ -108,15 +116,17 @@ class PoseDetectViewController: UIViewController {
         lottieView?.loopMode = .playOnce
         lottieView?.animationSpeed = 1.5
         lottieView?.play(completion: { [weak self] _ in
-            self?.lottieView?.removeFromSuperview()
-            self?.countLabel.isHidden = false
-            self?.countLabel.text = "\(0)"
-            self?.drawStart = true
+            guard let self = self else { return }
+            self.lottieView?.removeFromSuperview()
+            self.countLabel.isHidden = false
+            self.countLabel.text = "\(0)"
+            self.drawStart = true
         })
     }
     
     func lottieDetectDone() {
         countLabel.isHidden = true
+        drawStart = false
         lottieView = .init(name: "DetectDone")
         lottieView?.frame = view.bounds
         cameraPreView.addSubview(lottieView ?? UIView())
@@ -126,10 +136,8 @@ class PoseDetectViewController: UIViewController {
         lottieView?.play(completion: { [weak self] _ in
             guard let self = self else { return }
             self.lottieView?.removeFromSuperview()
-            self.drawStart = false
             self.videoRecord.stopRecording(self, completion: {
-                self.stopSession()
-                self.finishPresent()
+                self.popupFinish()
             })
         })
     }
@@ -266,14 +274,16 @@ class PoseDetectViewController: UIViewController {
         }
     }
     
-    private func finishPresent() {
-        guard let finishVC = storyboard?.instantiateViewController(withIdentifier: "\(DetectFinishViewController.self)")
-                as? DetectFinishViewController
-        else {
-            return
-        }
-        finishVC.modalPresentationStyle = .fullScreen
-        self.present(finishVC, animated: true)
+    func popupFinish() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let showAlert = storyboard.instantiateViewController(withIdentifier: "\(DetectFinishViewController.self)")
+        let navShowVC = UINavigationController(rootViewController: showAlert)
+        navShowVC.modalPresentationStyle = .overCurrentContext
+        navShowVC.modalTransitionStyle = .crossDissolve
+        navShowVC.view.backgroundColor = .clear
+        self.present(navShowVC, animated: true, completion: {
+            self.stopSession()
+        })
     }
 }
 
@@ -302,15 +312,15 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         if counter != 5 {
             viewModel.detectPose(in: sampleBuffer, width: imageWidth, height: imageHeight, previewLayer: previewLayer)
             
-            viewModel.countRefresh = { [weak self] countNumber in
-                if self?.startFlag == false {
-                    self?.startFlag = true
-                }
-                self?.countLabel.text = "\(countNumber)"
-                self?.counter = countNumber
-            }
             if drawStart == true {
-            // draw pose
+                viewModel.countRefresh = { [weak self] countNumber in
+                    if self?.startFlag == false {
+                        self?.startFlag = true
+                    }
+                    self?.countLabel.text = "\(countNumber)"
+                    self?.counter = countNumber
+                }
+                // draw pose
                 viewModel.poseViewModels.bind { poses in
                     DispatchQueue.main.async {
                         guard let strongSelf = weakSelf else {
@@ -351,17 +361,7 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
 extension PoseDetectViewController: RPPreviewViewControllerDelegate {
     func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
         dismiss(animated: true) {
-            self.finishPresent()
+            self.popupFinish()
         }
     }
-}
-
-public enum Detector: String {
-    case pose = "Pose Detection"
-}
-private enum Constant {
-    static let videoDataOutputQueueLabel = "com.LiamHao.Tireless.VideoDataOutputQueue"
-    static let sessionQueueLabel = "com.LiamHao.Tireless.SessionQueue"
-    static let smallDotRadius: CGFloat = 4.0
-    static let lineWidth: CGFloat = 3.0
 }

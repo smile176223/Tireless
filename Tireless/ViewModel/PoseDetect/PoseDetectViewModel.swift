@@ -11,6 +11,10 @@ import AVFoundation
 
 class PoseDetectViewModel {
     
+    private enum Detector: String {
+        case pose = "Pose Detection"
+    }
+    
     let posePointViewModels = Box([PosePointViewModel]())
     
     let poseViewModels = Box([Pose]())

@@ -10,7 +10,6 @@ import UIKit
 import MLKit
 
 public class UIUtilities {
-    
     public static func imageOrientation(
         fromDevicePosition devicePosition: AVCaptureDevice.Position = .back
     ) -> UIImage.Orientation {

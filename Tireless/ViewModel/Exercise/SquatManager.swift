@@ -9,7 +9,6 @@ import Foundation
 import MLKit
 
 class SquatManager {
-    
     static let shared = SquatManager()
     
     private var squatCount = 0
