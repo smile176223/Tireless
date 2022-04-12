@@ -154,8 +154,8 @@ class PoseDetectViewController: UIViewController {
         lottieView?.play(completion: { [weak self] _ in
             guard let self = self else { return }
             self.lottieView?.removeFromSuperview()
-            self.videoRecord.stopRecording(self, completion: {
-                self.popupFinish()
+            self.videoRecord.stopRecording(self, completion: { url in
+                self.popupFinish(url)
             })
         })
     }
@@ -292,13 +292,14 @@ class PoseDetectViewController: UIViewController {
         }
     }
     
-    func popupFinish() {
+    func popupFinish(_ videoUrl: URL? = nil) {
         guard let showAlert = storyboard?.instantiateViewController(
             withIdentifier: "\(DetectFinishViewController.self)")
                 as? DetectFinishViewController
         else {
             return
         }
+        showAlert.videoUrl = videoUrl
         let navShowVC = UINavigationController(rootViewController: showAlert)
         navShowVC.modalPresentationStyle = .overCurrentContext
         navShowVC.modalTransitionStyle = .crossDissolve

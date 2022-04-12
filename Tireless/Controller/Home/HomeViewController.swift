@@ -33,16 +33,15 @@ class HomeViewController: UIViewController {
     }
     
     func setupTitle() {
-        let title = UILabel()
-        title.text = "Tireless"
-        title.textColor = .black
-        title.textAlignment = .center
-        title.font = title.font.withSize(80)
-        view.addSubview(title)
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
-        title.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        title.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        title.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -80).isActive = true
+        let titleView = UIImageView()
+        titleView.image = UIImage(named: "TirelessLogo")
+        titleView.contentMode = .scaleAspectFill
+        titleView.clipsToBounds = true
+        view.addSubview(titleView)
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        titleView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+        titleView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        titleView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        titleView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -120).isActive = true
     }
 }

@@ -17,6 +17,8 @@ class ShareWallViewController: UIViewController {
         
         navigationItem.hidesBackButton = true
         
+        view.backgroundColor = .white
+        
         videoPlay()
     }
     

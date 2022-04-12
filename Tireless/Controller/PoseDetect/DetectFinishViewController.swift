@@ -10,6 +10,8 @@ import UIKit
 class DetectFinishViewController: UIViewController {
     
     @IBOutlet var detectFinishView: DetectFinishView!
+    
+    var videoUrl: URL?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +29,7 @@ class DetectFinishViewController: UIViewController {
         else {
             return
         }
+        shareVC.videoUrl = videoUrl
         self.navigationController?.pushViewController(shareVC, animated: true)
         
     }

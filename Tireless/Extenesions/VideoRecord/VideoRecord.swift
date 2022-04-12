@@ -23,14 +23,14 @@ class VideoRecord {
         completion()
     }
     
-    func stopRecording(_ viewcontroller: UIViewController, completion: @escaping (() -> Void)) {
+    func stopRecording(_ viewcontroller: UIViewController, completion: @escaping ((URL) -> Void)) {
+        let url = getDirectory()
         guard recorder.isRecording else {
             DispatchQueue.main.async {
-                completion()
+                completion(url)
             }
             return
         }
-        let url = getDirectory()
         if #available(iOS 14.0, *) {
             recorder.stopRecording(withOutput: url) { [weak self] err in
                 if err != nil {
@@ -38,7 +38,7 @@ class VideoRecord {
                 }
                 self?.saveToPhotos(tempURL: url)
                 DispatchQueue.main.async {
-                    completion()
+                    completion(url)
                 }
             }
         } else {
@@ -53,7 +53,7 @@ class VideoRecord {
                                                  handler: { [weak self] (_: UIAlertAction) in
                     self?.recorder.discardRecording(handler: {
                         DispatchQueue.main.async {
-                            completion()
+                            completion(url)
                         }
                     })
                 })
