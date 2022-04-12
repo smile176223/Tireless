@@ -10,7 +10,7 @@ import UIKit
 class DetectFinishViewController: UIViewController {
     
     @IBOutlet var detectFinishView: DetectFinishView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButton()
@@ -21,7 +21,8 @@ class DetectFinishViewController: UIViewController {
     }
     
     @objc func finishPresent() {
-        guard let shareVC = storyboard?.instantiateViewController(withIdentifier: "\(ShareWallViewController.self)")
+        guard let shareVC = storyboard?.instantiateViewController(
+            withIdentifier: "\(ShareWallViewController.self)")
                 as? ShareWallViewController
         else {
             return

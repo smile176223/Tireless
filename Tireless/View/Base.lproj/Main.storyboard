@@ -18,15 +18,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4A-Ee-kWE">
-                                <rect key="frame" x="157" y="398" width="100" height="100"/>
+                                <rect key="frame" x="147" y="742" width="120" height="40"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="c4A-Ee-kWE" secondAttribute="height" id="08U-Yo-lTw"/>
-                                    <constraint firstAttribute="height" constant="100" id="09d-BI-tAq"/>
+                                    <constraint firstAttribute="height" constant="40" id="2Yf-XG-eUX"/>
+                                    <constraint firstAttribute="width" secondItem="c4A-Ee-kWE" secondAttribute="height" multiplier="3:1" id="7qg-1U-9uy"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Go"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Demo"/>
                                 <connections>
                                     <action selector="goToNext:" destination="Mb3-36-Tow" eventType="touchUpInside" id="qEs-rp-ovY"/>
                                 </connections>
@@ -35,8 +35,8 @@
                         <viewLayoutGuide key="safeArea" id="GdA-7v-4pY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="c4A-Ee-kWE" firstAttribute="centerY" secondItem="NAj-qK-hFU" secondAttribute="centerY" id="bpg-w7-tur"/>
-                            <constraint firstItem="c4A-Ee-kWE" firstAttribute="centerX" secondItem="NAj-qK-hFU" secondAttribute="centerX" id="fb9-Dr-bg6"/>
+                            <constraint firstItem="GdA-7v-4pY" firstAttribute="bottom" secondItem="c4A-Ee-kWE" secondAttribute="bottom" constant="80" id="PAo-wn-h05"/>
+                            <constraint firstItem="c4A-Ee-kWE" firstAttribute="centerX" secondItem="NAj-qK-hFU" secondAttribute="centerX" id="cF8-LO-ojW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ejy-Om-81u"/>

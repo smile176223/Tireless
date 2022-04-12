@@ -32,11 +32,11 @@ class VideoRecord {
         }
         let url = getDirectory()
         if #available(iOS 14.0, *) {
-            recorder.stopRecording(withOutput: url) { err in
+            recorder.stopRecording(withOutput: url) { [weak self] err in
                 if err != nil {
                     print("fail to save")
                 }
-                self.saveToPhotos(tempURL: url)
+                self?.saveToPhotos(tempURL: url)
                 DispatchQueue.main.async {
                     completion()
                 }
@@ -90,6 +90,14 @@ class VideoRecord {
                 print("Error video to Photos \(String(describing: error))")
             }
         }
+    }
+    
+    func videoIsRecording() -> Bool {
+        return recorder.isRecording
+    }
+    
+    func discardVideo() {
+        recorder.stopRecording()
     }
     
 }

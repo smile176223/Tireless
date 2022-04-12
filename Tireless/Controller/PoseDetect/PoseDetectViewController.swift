@@ -81,16 +81,17 @@ class PoseDetectViewController: UIViewController {
         setUpAnnotationOverlayView()
         setUpCaptureSessionOutput()
         setUpCaptureSessionInput()
-        
-        videoRecord.startRecording {
-            self.drawStart = true
-        }
+        setupBackButton()
+    
         recordButton.layer.cornerRadius = 25
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         startSession()
+        videoRecord.startRecording {
+            self.drawStart = true
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -107,6 +108,23 @@ class PoseDetectViewController: UIViewController {
         counter = 5
     }
     
+    private func setupBackButton() {
+        self.navigationItem.hidesBackButton = true
+        let customBackButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"),
+                                               style: UIBarButtonItem.Style.plain,
+                                               target: self,
+                                               action: #selector(backTap))
+        customBackButton.tintColor = .black
+        self.navigationItem.leftBarButtonItem = customBackButton
+    }
+    
+    @objc func backTap(_ sender: UIButton) {
+        if videoRecord.videoIsRecording() == true {
+            videoRecord.discardVideo()
+        }
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+                                               
     func lottieCountDownGo() {
         countLabel.isHidden = true
         lottieView = .init(name: "CountDownGo")
@@ -275,12 +293,17 @@ class PoseDetectViewController: UIViewController {
     }
     
     func popupFinish() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let showAlert = storyboard.instantiateViewController(withIdentifier: "\(DetectFinishViewController.self)")
+        guard let showAlert = storyboard?.instantiateViewController(
+            withIdentifier: "\(DetectFinishViewController.self)")
+                as? DetectFinishViewController
+        else {
+            return
+        }
         let navShowVC = UINavigationController(rootViewController: showAlert)
         navShowVC.modalPresentationStyle = .overCurrentContext
         navShowVC.modalTransitionStyle = .crossDissolve
         navShowVC.view.backgroundColor = .clear
+        
         self.present(navShowVC, animated: true, completion: {
             self.stopSession()
         })
