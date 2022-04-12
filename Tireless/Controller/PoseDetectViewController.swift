@@ -6,12 +6,11 @@
 //
 
 import UIKit
-import AVFoundation
 import MLKit
 import ReplayKit
 import Lottie
 
-class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegate {
+class PoseDetectViewController: UIViewController {
     
     @IBOutlet weak var cameraPreView: UIView!
     
@@ -34,7 +33,9 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
     var counter = 0 {
         didSet {
             if counter == 5 {
-                stopRecording()
+                videoRecord.stopRecording(self) {
+                    self.finishPresent()
+                }
                 stopSession()
             }
         }
@@ -50,14 +51,9 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
     
     var drawStart = false
     
-    let recorder = RPScreenRecorder.shared()
-    
-    private var isRecording = false
-    
     var lottieView: AnimationView?
     
-    // TODO: AVAssetWritter - Combine Video
-//    var videoWriterH264: VideoWriter?
+    let videoRecord = VideoRecord()
     
     private lazy var previewOverlayView: UIImageView = {
         precondition(isViewLoaded)
@@ -83,17 +79,13 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
         setUpCaptureSessionOutput()
         setUpCaptureSessionInput()
         
-        startRecording()
-        
+        videoRecord.startRecording()
         recordButton.layer.cornerRadius = 25
-        
-        // TODO: AVAssetWritter - Combine Video
-//        videoWriterH264 = VideoWriter(withVideoType: AVVideoCodecType.h264)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        startSession()
+        startSession()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -107,79 +99,7 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
     }
     
     @IBAction func recordTap(_ sender: Any) {
-        // TODO: AVAssetWritter - Combine Video
-//        if isRecording {
-//            isRecording = false
-//            guard let videoWriterH264 = videoWriterH264 else {
-//                return
-//            }
-//            videoWriterH264.stopWriting(completionHandler: { (status) in
-//                print("Done recording H264")
-//                do {
-//                    let attr = try FileManager.default.attributesOfItem(atPath: videoWriterH264.url.path)
-//                    let fileSize = attr[FileAttributeKey.size] as? UInt64
-//                    UISaveVideoAtPathToSavedPhotosAlbum(videoWriterH264.url.path, nil, nil, nil)
-//                    print("H264 file size = \(String(describing: fileSize))")
-//                    print(status)
-//                } catch {
-//                    print("error")
-//                }
-//            })
-//        } else {
-//            isRecording = true
-//        }
-        
-//        if !isRecording {
-//            startRecording()
-//        } else {
-//            stopRecording()
-//        }
         counter = 5
-    }
-    
-    func startRecording() {
-        guard recorder.isAvailable else {
-            return
-        }
-        recorder.startRecording { [weak self] (error) in
-            guard error == nil else {
-                return
-            }
-            self?.startSession()
-            self?.recordButton.backgroundColor = UIColor.red
-            self?.isRecording = true
-        }
-    }
-    
-    func stopRecording() {
-        recorder.stopRecording { [weak self] (preview, _) in
-            guard let preview = preview else {
-                return
-            }
-            let alert = UIAlertController(title: "Recording Finished",
-                                          message: "Would you like to edit or delete your recording?",
-                                          preferredStyle: .alert)
-            let deleteAction = UIAlertAction(title: "Delete", style: .destructive,
-                                             handler: { [weak self] (_: UIAlertAction) in
-                self?.recorder.discardRecording(handler: { })
-            })
-
-            let editAction = UIAlertAction(title: "Edit", style: .default,
-                                           handler: { [weak self]  (_: UIAlertAction) -> Void in
-                preview.previewControllerDelegate = self
-                self?.present(preview, animated: true, completion: nil)
-            })
-            alert.addAction(editAction)
-            alert.addAction(deleteAction)
-            self?.present(alert, animated: true, completion: nil)
-            self?.recordButton.backgroundColor = .black
-            self?.isRecording = false
-        }
-    }
-    
-    func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
-        dismiss(animated: true)
-        finishPresent()
     }
     
     func lottieSetup() {
@@ -330,24 +250,6 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
         }
     }
     
-//    private func countDownTimer() {
-//        if startFlag == true {
-//            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-//                guard let strongSelf = self else { return }
-//                if strongSelf.counter > 1 {
-//                    strongSelf.counter -= 1
-//                    strongSelf.countLabel.text = "\(strongSelf.counter)"
-//                } else if strongSelf.counter == 1 {
-//                    strongSelf.countLabel.text = "Start"
-//                    strongSelf.counter = 0
-//                } else if strongSelf.counter == 0 {
-//                    strongSelf.counter = -1
-//                    timer.invalidate()
-//                }
-//            }
-//        }
-//    }
-    
     private func finishPresent() {
         guard let finishVC = storyboard?.instantiateViewController(withIdentifier: "\(DetectFinishViewController.self)")
                 as? DetectFinishViewController
@@ -357,27 +259,6 @@ class PoseDetectViewController: UIViewController, RPPreviewViewControllerDelegat
         finishVC.modalPresentationStyle = .fullScreen
         self.present(finishVC, animated: true)
     }
-    
-//    private func downAlert() {
-//        let showAlert = UIAlertController(title: "Finish!", message: nil, preferredStyle: .alert)
-//        let imageView = UIImageView(frame: CGRect(x: 10, y: 50, width: 250, height: 230))
-//        imageView.image = UIImage(systemName: "person.circle")
-//        showAlert.view.addSubview(imageView)
-//        let height = NSLayoutConstraint(item: showAlert.view ?? UIView(),
-//                                        attribute: .height,
-//                                        relatedBy: .equal,
-//                                        toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 320)
-//        let width = NSLayoutConstraint(item: showAlert.view ?? UIView(),
-//                                       attribute: .width,
-//                                       relatedBy: .equal,
-//                                       toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
-//        showAlert.view.addConstraint(height)
-//        showAlert.view.addConstraint(width)
-//        showAlert.addAction(UIAlertAction(title: "結束!", style: .default, handler: { _ in
-//            self.dismiss(animated: true, completion: nil)
-//        }))
-//        self.present(showAlert, animated: true, completion: nil)
-//    }
 }
 
 extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -437,10 +318,6 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
                 }
             }
         }
-        // TODO: AVAssetWritter - Combine Video
-//        if isRecording {
-//            videoWriterH264?.write(sampleBuffer: sampleBuffer)
-//        }
     }
     
     private func normalizedPoint(
@@ -452,6 +329,14 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         var normalizedPoint = CGPoint(x: cgPoint.x / width, y: cgPoint.y / height)
         normalizedPoint = previewLayer?.layerPointConverted(fromCaptureDevicePoint: normalizedPoint) ?? CGPoint()
         return normalizedPoint
+    }
+}
+
+extension PoseDetectViewController: RPPreviewViewControllerDelegate {
+    func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
+        dismiss(animated: true) {
+            self.finishPresent()
+        }
     }
 }
 
