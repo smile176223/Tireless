@@ -18,6 +18,7 @@
 		FF1444C9280411A50027F560 /* CountDownGo.json in Resources */ = {isa = PBXBuildFile; fileRef = FF1444C8280411A50027F560 /* CountDownGo.json */; };
 		FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */; };
 		FF308E552805478D00265863 /* VideoRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E542805478D00265863 /* VideoRecord.swift */; };
+		FF308E5B2805560F00265863 /* DetectDone.json in Resources */ = {isa = PBXBuildFile; fileRef = FF308E5A2805560F00265863 /* DetectDone.json */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -40,6 +41,7 @@
 		FF1444C8280411A50027F560 /* CountDownGo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountDownGo.json; sourceTree = "<group>"; };
 		FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishViewController.swift; sourceTree = "<group>"; };
 		FF308E542805478D00265863 /* VideoRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecord.swift; sourceTree = "<group>"; };
+		FF308E5A2805560F00265863 /* DetectDone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DetectDone.json; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				FF1444C8280411A50027F560 /* CountDownGo.json */,
+				FF308E5A2805560F00265863 /* DetectDone.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				FF1444C9280411A50027F560 /* CountDownGo.json in Resources */,
 				FFC0C16128008F650041A937 /* LaunchScreen.storyboard in Resources */,
 				FFC0C15E28008F650041A937 /* Assets.xcassets in Resources */,
+				FF308E5B2805560F00265863 /* DetectDone.json in Resources */,
 				FFC0C15C28008F640041A937 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

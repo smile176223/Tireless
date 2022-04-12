@@ -33,10 +33,7 @@ class PoseDetectViewController: UIViewController {
     var counter = 0 {
         didSet {
             if counter == 5 {
-                videoRecord.stopRecording(self) {
-                    self.finishPresent()
-                }
-                stopSession()
+                self.lottieDetectDone()
             }
         }
     }
@@ -44,7 +41,7 @@ class PoseDetectViewController: UIViewController {
     var startFlag = false {
         didSet {
             if startFlag == true {
-                lottieSetup()
+                lottieCountDownGo()
             }
         }
     }
@@ -102,7 +99,7 @@ class PoseDetectViewController: UIViewController {
         counter = 5
     }
     
-    func lottieSetup() {
+    func lottieCountDownGo() {
         countLabel.isHidden = true
         lottieView = .init(name: "CountDownGo")
         lottieView?.frame = view.bounds
@@ -115,6 +112,25 @@ class PoseDetectViewController: UIViewController {
             self?.countLabel.isHidden = false
             self?.countLabel.text = "\(0)"
             self?.drawStart = true
+        })
+    }
+    
+    func lottieDetectDone() {
+        countLabel.isHidden = true
+        lottieView = .init(name: "DetectDone")
+        lottieView?.frame = view.bounds
+        cameraPreView.addSubview(lottieView ?? UIView())
+        lottieView?.contentMode = .scaleAspectFit
+        lottieView?.loopMode = .playOnce
+        lottieView?.animationSpeed = 1
+        lottieView?.play(completion: { [weak self] _ in
+            guard let self = self else { return }
+            self.lottieView?.removeFromSuperview()
+            self.drawStart = false
+            self.videoRecord.stopRecording(self, completion: {
+                self.stopSession()
+                self.finishPresent()
+            })
         })
     }
     
