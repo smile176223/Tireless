@@ -11,62 +11,36 @@ import Photos
 class VideoRecord {
     private let recorder = RPScreenRecorder.shared()
     
+    private var countTime = 0
+    
+    var getVideoRecordUrl: ((URL) -> Void)?
+    
     func startRecording(completion: @escaping (() -> Void)) {
         guard recorder.isAvailable else {
             return
         }
         recorder.startRecording { error in
+            completion()
+            self.countDownTimer()
             guard error == nil else {
                 return
             }
         }
-        completion()
     }
     
-    func stopRecording(_ viewcontroller: UIViewController, completion: @escaping ((URL) -> Void)) {
-        let url = getDirectory()
+    func stopRecording(success: @escaping ((URL) -> Void), failure: @escaping (() -> Void)) {
         guard recorder.isRecording else {
-            DispatchQueue.main.async {
-                completion(url)
-            }
+            failure()
             return
         }
-        if #available(iOS 14.0, *) {
-            recorder.stopRecording(withOutput: url) { [weak self] err in
-                if err != nil {
-                    print("fail to save")
-                }
-                self?.saveToPhotos(tempURL: url)
-                DispatchQueue.main.async {
-                    completion(url)
-                }
+        let url = getDirectory()
+        recorder.stopRecording(withOutput: url) { [weak self] err in
+            if err != nil {
+                print("fail to save")
             }
-        } else {
-            recorder.stopRecording { [weak self] (preview, _) in
-                guard let preview = preview else {
-                    return
-                }
-                let alert = UIAlertController(title: "計畫目標達成!",
-                                              message: "Nice!",
-                                              preferredStyle: .alert)
-                let deleteAction = UIAlertAction(title: "放棄重做!", style: .destructive,
-                                                 handler: { [weak self] (_: UIAlertAction) in
-                    self?.recorder.discardRecording(handler: {
-                        DispatchQueue.main.async {
-                            completion(url)
-                        }
-                    })
-                })
-
-                let editAction = UIAlertAction(title: "完成儲存!", style: .default,
-                                               handler: { (_: UIAlertAction) -> Void in
-                    preview.previewControllerDelegate = viewcontroller as? RPPreviewViewControllerDelegate
-                    preview.modalPresentationStyle = .overFullScreen
-                    viewcontroller.present(preview, animated: true, completion: nil)
-                })
-                alert.addAction(editAction)
-                alert.addAction(deleteAction)
-                viewcontroller.present(alert, animated: true, completion: nil)
+            self?.saveToPhotos(tempURL: url)
+            DispatchQueue.main.async {
+                success(url)
             }
         }
     }
@@ -92,12 +66,23 @@ class VideoRecord {
         }
     }
     
-    func videoIsRecording() -> Bool {
-        return recorder.isRecording
+    func userTapBack() {
+        if recorder.isRecording == true {
+            recorder.stopRecording()
+        }
     }
     
-    func discardVideo() {
-        recorder.stopRecording()
+    func countDownTimer() {
+        _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] timer in
+            self?.countTime += 1
+            if self?.countTime == 10 {
+                self?.stopRecording(success: { url in
+                    self?.getVideoRecordUrl?(url)
+                }, failure: {
+                    print("not recording")
+                })
+                timer.invalidate()
+            }
+        })
     }
-    
 }

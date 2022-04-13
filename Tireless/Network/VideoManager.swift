@@ -23,7 +23,9 @@ class VideoManager {
                 comletion(.failure(error))
                 return
             }
-            guard let metadata = metadata else { return }
+            guard let metadata = metadata else {
+                return
+            }
             let size = metadata.size / 1024 / 1024
             print("File Size: \(size)MB")
         }
@@ -32,16 +34,17 @@ class VideoManager {
                 return
             }
             self.uploadProgress?(progress)
-            
         }
         uploadTask.observe(.success) { _ in
             videoRef.downloadURL { url, _ in
-                guard let downloadURL = url else { return }
+                guard let downloadURL = url else {
+                    return
+                }
                 comletion(.success(downloadURL))
             }
         }
         uploadTask.observe(.failure) { _ in
-            print("error")
+            
         }
     }
 }

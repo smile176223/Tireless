@@ -32,7 +32,6 @@ class DetectFinishView: UIView {
         super.awakeFromNib()
         setupUI()
         lottieDone()
-        setupUpload()
     }
     
     override init(frame: CGRect) {
@@ -75,16 +74,15 @@ class DetectFinishView: UIView {
         lottieView.play()
     }
     
-    private func setupUpload() {
-        lottieUploadView.contentMode = .scaleAspectFit
-        lottieUploadView.loopMode = .playOnce
-    }
-    
     func lottieProgress(_ toFrame: CGFloat) {
         lottieView.isHidden = true
-        lottieUploadView.play(fromFrame: startFrame, toFrame: toFrame * 120, loopMode: .playOnce, completion: nil)
+        lottieUploadView.contentMode = .scaleAspectFit
+        lottieUploadView.play(fromFrame: startFrame, toFrame: toFrame * 120, loopMode: .playOnce, completion: { _ in
+            if self.startFrame == 1.0 {
+                self.lottieUploadView.pause()
+            }
+        })
         startFrame = toFrame
-        
     }
     
     @IBAction func shareButtonTap(_ sender: UIButton) {

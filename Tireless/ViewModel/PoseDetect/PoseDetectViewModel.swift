@@ -57,7 +57,6 @@ class PoseDetectViewModel {
             }
             weak var weakSelf = self
             guard !poses.isEmpty else {
-//                print("Pose detector returned no results.")
                 return
             }
             DispatchQueue.main.sync {

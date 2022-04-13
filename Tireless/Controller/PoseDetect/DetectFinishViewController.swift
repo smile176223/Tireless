@@ -57,13 +57,13 @@ class DetectFinishViewController: UIViewController {
     private func finishButtonTap() {
         detectFinishView.isFinishButtonTap = { [weak self] in
             self?.finishPresent()
-            
         }
     }
     
     private func uploadProgressShow() {
         videoManager.uploadProgress = { progress in
             self.detectFinishView.lottieProgress(progress.fractionCompleted)
+            print(progress.fractionCompleted)
         }
     }
 }
