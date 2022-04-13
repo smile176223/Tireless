@@ -23,6 +23,7 @@
 		FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E5E28055F9E00265863 /* DetectFinishView.swift */; };
 		FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E63280578A700265863 /* ShareWallViewController.swift */; };
 		FF308E6828057D7800265863 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E6728057D7800265863 /* HomeViewController.swift */; };
+		FF308E6A2806658F00265863 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF308E692806658F00265863 /* GoogleService-Info.plist */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -50,6 +51,7 @@
 		FF308E5E28055F9E00265863 /* DetectFinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishView.swift; sourceTree = "<group>"; };
 		FF308E63280578A700265863 /* ShareWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareWallViewController.swift; sourceTree = "<group>"; };
 		FF308E6728057D7800265863 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		FF308E692806658F00265863 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				FFC0C15428008F640041A937 /* AppDelegate.swift */,
 				FFC0C15628008F640041A937 /* SceneDelegate.swift */,
 				FFC0C15F28008F650041A937 /* LaunchScreen.storyboard */,
+				FF308E692806658F00265863 /* GoogleService-Info.plist */,
 				FFC0C16228008F650041A937 /* Info.plist */,
 			);
 			path = Tireless;
@@ -332,6 +335,7 @@
 				FFC0C15E28008F650041A937 /* Assets.xcassets in Resources */,
 				FF308E5B2805560F00265863 /* DetectDone.json in Resources */,
 				FFC0C15C28008F640041A937 /* Main.storyboard in Resources */,
+				FF308E6A2806658F00265863 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
