@@ -12,6 +12,7 @@ target 'Tireless' do
   pod 'lottie-ios'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift', '8.14.0-beta'
 
 end
 
