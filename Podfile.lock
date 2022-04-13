@@ -352,6 +352,9 @@ PODS:
   - Firebase/Firestore (8.12.1):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 8.12.1)
+  - Firebase/Storage (8.12.1):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 8.12.0)
   - FirebaseAuth (8.12.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
@@ -381,6 +384,9 @@ PODS:
     - nanopb (~> 2.30908.0)
   - FirebaseFirestoreSwift (8.14.0-beta):
     - FirebaseFirestore (~> 8.0)
+  - FirebaseStorage (8.12.0):
+    - FirebaseCore (~> 8.0)
+    - GTMSessionFetcher/Core (~> 1.5)
   - GoogleDataTransport (9.1.2):
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30908.0)
@@ -487,6 +493,7 @@ PODS:
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Firestore
+  - Firebase/Storage
   - FirebaseFirestoreSwift (= 8.14.0-beta)
   - GoogleMLKit/PoseDetection
   - lottie-ios
@@ -502,6 +509,7 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseFirestore
     - FirebaseFirestoreSwift
+    - FirebaseStorage
     - GoogleDataTransport
     - GoogleMLKit
     - GoogleToolboxForMac
@@ -532,6 +540,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 3b40dfadef5b90433a60ae01f01e90fe87aa76aa
   FirebaseFirestore: dfeb58916ee3ae0ef2453d4849a683672705920c
   FirebaseFirestoreSwift: 753eb651424c677205f070248b2f1a1561175ce2
+  FirebaseStorage: 4b75458c35d8b728e4c1fc1371942997456ab299
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleMLKit: 0d7f5aa2f8a2f2ea9d849a05abdbe80974b0ec83
   GoogleToolboxForMac: 8bef7c7c5cf7291c687cf5354f39f9db6399ad34
@@ -553,6 +562,6 @@ SPEC CHECKSUMS:
   Protobuf: 235750e4696ff59fb07d949a9dbbc92b3c0700fe
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
 
-PODFILE CHECKSUM: 107c75886bbd2417f553744b54dfbdc18bf16e2a
+PODFILE CHECKSUM: f98db4a375db164fa7228a9adaa7d065d1734ba7
 
 COCOAPODS: 1.11.2

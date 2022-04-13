@@ -25,6 +25,8 @@
 		FF308E6828057D7800265863 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E6728057D7800265863 /* HomeViewController.swift */; };
 		FF308E6A2806658F00265863 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF308E692806658F00265863 /* GoogleService-Info.plist */; };
 		FF308E6D28066E0D00265863 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E6C28066E0D00265863 /* VideoManager.swift */; };
+		FF308E6F2806822B00265863 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E6E2806822B00265863 /* Video.swift */; };
+		FF308E712806BB8C00265863 /* progressBar.json in Resources */ = {isa = PBXBuildFile; fileRef = FF308E702806BB8C00265863 /* progressBar.json */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -54,6 +56,8 @@
 		FF308E6728057D7800265863 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FF308E692806658F00265863 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FF308E6C28066E0D00265863 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
+		FF308E6E2806822B00265863 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		FF308E702806BB8C00265863 /* progressBar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = progressBar.json; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				FF1444A92801623E0027F560 /* PosePoint.swift */,
+				FF308E6E2806822B00265863 /* Video.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -194,6 +199,7 @@
 			children = (
 				FF1444C8280411A50027F560 /* CountDownGo.json */,
 				FF308E5A2805560F00265863 /* DetectDone.json */,
+				FF308E702806BB8C00265863 /* progressBar.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -340,6 +346,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF308E712806BB8C00265863 /* progressBar.json in Resources */,
 				FF1444C9280411A50027F560 /* CountDownGo.json in Resources */,
 				FFC0C16128008F650041A937 /* LaunchScreen.storyboard in Resources */,
 				FF308E5D28055F9700265863 /* DetectFinishView.xib in Resources */,
@@ -445,6 +452,7 @@
 				FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */,
 				FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */,
 				FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */,
+				FF308E6F2806822B00265863 /* Video.swift in Sources */,
 				FF1444A6280156700027F560 /* UIUtilities.swift in Sources */,
 				FF14449428009C010027F560 /* Box.swift in Sources */,
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,

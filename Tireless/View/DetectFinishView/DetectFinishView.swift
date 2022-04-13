@@ -20,10 +20,19 @@ class DetectFinishView: UIView {
     
     @IBOutlet weak var lottieView: AnimationView!
     
+    @IBOutlet weak var lottieUploadView: AnimationView!
+    
+    var isShareButtonTap: (() -> Void)?
+    
+    var isFinishButtonTap: (() -> Void)?
+    
+    var startFrame: CGFloat = 0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUI()
         lottieDone()
+        setupUpload()
     }
     
     override init(frame: CGRect) {
@@ -64,6 +73,26 @@ class DetectFinishView: UIView {
         lottieView.animationSpeed = 1
         lottieView.loopMode = .loop
         lottieView.play()
+    }
+    
+    private func setupUpload() {
+        lottieUploadView.contentMode = .scaleAspectFit
+        lottieUploadView.loopMode = .playOnce
+    }
+    
+    func lottieProgress(_ toFrame: CGFloat) {
+        lottieView.isHidden = true
+        lottieUploadView.play(fromFrame: startFrame, toFrame: toFrame * 120, loopMode: .playOnce, completion: nil)
+        startFrame = toFrame
+        
+    }
+    
+    @IBAction func shareButtonTap(_ sender: UIButton) {
+        isShareButtonTap?()
+    }
+    
+    @IBAction func finishButtonTap(_ sender: UIButton) {
+        isFinishButtonTap?()
     }
     
 }

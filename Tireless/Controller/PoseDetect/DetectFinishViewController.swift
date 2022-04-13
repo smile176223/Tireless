@@ -6,23 +6,27 @@
 //
 
 import UIKit
+import SwiftUI
 
 class DetectFinishViewController: UIViewController {
     
     @IBOutlet var detectFinishView: DetectFinishView!
     
     var videoUrl: URL?
+    
+    let videoManager = VideoManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupButton()
+        
+        shareButtonTap()
+        
+        finishButtonTap()
+        
+        uploadProgressShow()
     }
     
-    private func setupButton() {
-        detectFinishView.downButton.addTarget(self, action: #selector(finishPresent), for: .touchUpInside)
-    }
-    
-    @objc func finishPresent() {
+    private func finishPresent() {
         guard let shareVC = storyboard?.instantiateViewController(
             withIdentifier: "\(ShareWallViewController.self)")
                 as? ShareWallViewController
@@ -32,5 +36,34 @@ class DetectFinishViewController: UIViewController {
         shareVC.videoUrl = videoUrl
         self.navigationController?.pushViewController(shareVC, animated: true)
         
+    }
+    private func shareButtonTap() {
+        guard let videoUrl = videoUrl else {
+            return
+        }
+        detectFinishView.isShareButtonTap = { [weak self] in
+            self?.videoManager.uploadVideo(video: Video(id: "123", video: "test2", videoURL: videoUrl)) { result in
+                switch result {
+                case .success(let url):
+                    self?.videoUrl = url
+                    self?.finishPresent()
+                case .failure(let error):
+                    print("error", error)
+                }
+            }
+        }
+    }
+    
+    private func finishButtonTap() {
+        detectFinishView.isFinishButtonTap = { [weak self] in
+            self?.finishPresent()
+            
+        }
+    }
+    
+    private func uploadProgressShow() {
+        videoManager.uploadProgress = { progress in
+            self.detectFinishView.lottieProgress(progress.fractionCompleted)
+        }
     }
 }
