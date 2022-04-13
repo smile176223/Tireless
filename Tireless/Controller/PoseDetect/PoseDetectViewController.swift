@@ -108,6 +108,13 @@ class PoseDetectViewController: UIViewController {
         counter = 5
     }
     
+    func blurEffect() {
+        let effect = UIBlurEffect(style: .light)
+        let effectView = UIVisualEffectView(effect: effect)
+        effectView.frame = cameraPreView.bounds
+        cameraPreView.addSubview(effectView)
+    }
+    
     private func setupBackButton() {
         self.navigationItem.hidesBackButton = true
         let customBackButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"),
@@ -306,6 +313,7 @@ class PoseDetectViewController: UIViewController {
         navShowVC.view.backgroundColor = .clear
         
         self.present(navShowVC, animated: true, completion: {
+            self.blurEffect()
             self.stopSession()
         })
     }

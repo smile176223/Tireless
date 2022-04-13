@@ -49,10 +49,14 @@ class DetectFinishView: UIView {
     
     private func setupUI() {
         self.backgroundColor = .clear
-        alertView.layer.cornerRadius = 20
         downButton.layer.cornerRadius = 12
         shareButton.layer.cornerRadius = 12
         lineView.layer.cornerRadius = 5
+        alertView.layer.cornerRadius = 20
+        alertView.layer.shadowOffset = CGSize(width: 5, height: 5)
+        alertView.layer.shadowOpacity = 0.7
+        alertView.layer.shadowRadius = 5
+        alertView.layer.shadowColor = UIColor(red: 44.0/255.0, green: 62.0/255.0, blue: 80.0/255.0, alpha: 1.0).cgColor
     }
     
     private func lottieDone() {
