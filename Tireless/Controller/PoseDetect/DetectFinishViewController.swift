@@ -15,7 +15,9 @@ class DetectFinishViewController: UIViewController {
     var videoUrl: URL?
     
     let videoManager = VideoManager()
-
+    
+    var isUserCanShare = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,14 +44,23 @@ class DetectFinishViewController: UIViewController {
             return
         }
         detectFinishView.isShareButtonTap = { [weak self] in
-            self?.videoManager.uploadVideo(video: Video(id: "123", video: "test2", videoURL: videoUrl)) { result in
-                switch result {
-                case .success(let url):
-                    self?.videoUrl = url
-                    self?.finishPresent()
-                case .failure(let error):
-                    print("error", error)
+            if self?.isUserCanShare == true {
+                self?.videoManager.uploadVideo(video: Video(id: "123", video: "test2", videoURL: videoUrl)) { result in
+                    switch result {
+                    case .success(let url):
+                        self?.videoUrl = url
+                        self?.finishPresent()
+                    case .failure(let error):
+                        print("error", error)
+                    }
                 }
+            } else {
+                let alertController = UIAlertController(title: "上傳次數上限三次", message: "作者沒有錢錢了!", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "忍痛放棄", style: .default) { _ in
+                    alertController.dismiss(animated: true)
+                }
+                alertController.addAction(okAction)
+                self?.present(alertController, animated: true)
             }
         }
     }
