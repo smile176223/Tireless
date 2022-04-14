@@ -26,6 +26,8 @@ class PoseDetectViewController: UIViewController {
     
     private var isUsingFrontCamera = false
     
+    private var isUserRejectRecording = false
+    
     private var previewLayer: AVCaptureVideoPreviewLayer?
     
     private lazy var captureSession = AVCaptureSession()
@@ -87,8 +89,12 @@ class PoseDetectViewController: UIViewController {
     
         recordButton.layer.cornerRadius = 25
         
-        self.videoRecord.getVideoRecordUrl = { url in
-            self.videoUrl = url
+        videoRecord.getVideoRecordUrl = { [weak self] url in
+            self?.videoUrl = url
+        }
+        
+        videoRecord.userRejectRecord = {
+            self.isUserRejectRecording = true
         }
     }
     
@@ -313,6 +319,9 @@ class PoseDetectViewController: UIViewController {
             return
         }
         showAlert.videoUrl = videoUrl
+        if isUserRejectRecording == true {
+            showAlert.isUserRejectRecording = true
+        }
         let navShowVC = UINavigationController(rootViewController: showAlert)
         navShowVC.modalPresentationStyle = .overCurrentContext
         navShowVC.modalTransitionStyle = .crossDissolve

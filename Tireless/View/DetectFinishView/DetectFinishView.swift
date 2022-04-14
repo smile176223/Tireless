@@ -77,11 +77,16 @@ class DetectFinishView: UIView {
     func lottieProgress(_ toFrame: CGFloat) {
         lottieView.isHidden = true
         lottieUploadView.contentMode = .scaleAspectFit
-        lottieUploadView.play(fromFrame: startFrame, toFrame: toFrame * 120, loopMode: .playOnce, completion: { _ in
+//        lottieUploadView.play(fromFrame: startFrame, toFrame: toFrame * 120, loopMode: .playOnce, completion: { _ in
+//            if self.startFrame == 1.0 {
+//                self.lottieUploadView.pause()
+//            }
+//        })
+        lottieUploadView.play(fromProgress: startFrame, toProgress: toFrame, loopMode: .playOnce) { _ in
             if self.startFrame == 1.0 {
                 self.lottieUploadView.pause()
             }
-        })
+        }
         startFrame = toFrame
     }
     

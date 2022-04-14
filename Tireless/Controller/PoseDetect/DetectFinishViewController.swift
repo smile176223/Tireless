@@ -18,6 +18,8 @@ class DetectFinishViewController: UIViewController {
     
     var isUserCanShare = false
     
+    var isUserRejectRecording = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +28,10 @@ class DetectFinishViewController: UIViewController {
         finishButtonTap()
         
         uploadProgressShow()
+        
+        if isUserRejectRecording == true {
+            detectFinishView.shareButton.isHidden = true
+        }
     }
     
     private func finishPresent() {
@@ -43,9 +49,17 @@ class DetectFinishViewController: UIViewController {
         guard let videoUrl = videoUrl else {
             return
         }
+        
+        let testVideo = Video(userId: "liamTest",
+                              video: "Test1",
+                              videoURL: videoUrl,
+                              createTime: Date().millisecondsSince1970,
+                              content: "",
+                              comment: nil)
+        
         detectFinishView.isShareButtonTap = { [weak self] in
             if self?.isUserCanShare == true {
-                self?.videoManager.uploadVideo(video: Video(id: "123", video: "test2", videoURL: videoUrl)) { result in
+                self?.videoManager.uploadVideo(video: testVideo) { result in
                     switch result {
                     case .success(let url):
                         self?.videoUrl = url

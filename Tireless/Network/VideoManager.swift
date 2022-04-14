@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 class VideoManager {
     static let shared = VideoRecord()
     
-    lazy var videodb = Firestore.firestore().collection("shareWall")
+    lazy var firestoreDB = Firestore.firestore().collection("shareWall")
     
     var uploadProgress: ((Progress) -> Void)?
     
@@ -28,6 +28,15 @@ class VideoManager {
             }
             let size = metadata.size / 1024 / 1024
             print("File Size: \(size)MB")
+            videoRef.downloadURL { url, error in
+                if let error = error {
+                    comletion(.failure(error))
+                }
+                guard let downloadURL = url else {
+                    return
+                }
+                comletion(.success(downloadURL))
+            }
         }
         uploadTask.observe(.progress) { snapshot in
             guard let progress = snapshot.progress else {

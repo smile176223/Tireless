@@ -15,14 +15,17 @@ class VideoRecord {
     
     var getVideoRecordUrl: ((URL) -> Void)?
     
+    var userRejectRecord: (() -> Void)?
+    
     func startRecording(completion: @escaping (() -> Void)) {
         guard recorder.isAvailable else {
             return
         }
-        recorder.startRecording { error in
+        recorder.startRecording { [weak self] error in
             completion()
-            self.countDownTimer()
+            self?.countDownTimer()
             guard error == nil else {
+                self?.userRejectRecord?()
                 return
             }
         }
