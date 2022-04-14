@@ -18,16 +18,11 @@ class VideoManager {
     
     func uploadVideo(video: Video, comletion: @escaping (Result<URL, Error>) -> Void) {
         let videoRef = Storage.storage().reference().child("Videos/\(video.video)")
-        let uploadTask = videoRef.putFile(from: video.videoURL, metadata: nil) { metadata, error in
+        let uploadTask = videoRef.putFile(from: video.videoURL, metadata: nil) { _, error in
             if let error = error {
                 comletion(.failure(error))
                 return
             }
-            guard let metadata = metadata else {
-                return
-            }
-            let size = metadata.size / 1024 / 1024
-            print("File Size: \(size)MB")
             videoRef.downloadURL { url, error in
                 if let error = error {
                     comletion(.failure(error))
@@ -36,6 +31,13 @@ class VideoManager {
                     return
                 }
                 comletion(.success(downloadURL))
+                do {
+                    var tempVideo = video
+                    tempVideo.videoURL = downloadURL
+                    try _ = self.firestoreDB.addDocument(from: tempVideo)
+                } catch {
+                    print(error)
+                }
             }
         }
         uploadTask.observe(.progress) { snapshot in
@@ -43,17 +45,6 @@ class VideoManager {
                 return
             }
             self.uploadProgress?(progress)
-        }
-        uploadTask.observe(.success) { _ in
-            videoRef.downloadURL { url, _ in
-                guard let downloadURL = url else {
-                    return
-                }
-                comletion(.success(downloadURL))
-            }
-        }
-        uploadTask.observe(.failure) { _ in
-            
         }
     }
 }

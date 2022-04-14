@@ -122,21 +122,6 @@
             </objects>
             <point key="canvasLocation" x="1971.0144927536232" y="93.75"/>
         </scene>
-        <!--Share Wall View Controller-->
-        <scene sceneID="Y7v-Bo-Nt3">
-            <objects>
-                <viewController storyboardIdentifier="ShareWallViewController" id="pEL-TP-jBB" customClass="ShareWallViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="y3t-BL-Wjb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="dWy-ZZ-FXP"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vUx-sK-z0b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2705.7971014492755" y="93.75"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="vcQ-cC-SRz">
             <objects>

@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func goToNext(_ sender: UIButton) {
-        guard let poseVC = storyboard?.instantiateViewController(
+        guard let poseVC = UIStoryboard.home.instantiateViewController(
             withIdentifier: "\(PoseDetectViewController.self)")
                 as? PoseDetectViewController
         else {

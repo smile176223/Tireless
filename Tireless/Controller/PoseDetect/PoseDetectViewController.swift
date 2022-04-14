@@ -89,6 +89,8 @@ class PoseDetectViewController: UIViewController {
     
         recordButton.layer.cornerRadius = 25
         
+        tabBarController?.tabBar.isHidden = true
+        
         videoRecord.getVideoRecordUrl = { [weak self] url in
             self?.videoUrl = url
         }
@@ -312,7 +314,7 @@ class PoseDetectViewController: UIViewController {
     }
     
     func popupFinish(_ videoUrl: URL? = nil) {
-        guard let showAlert = storyboard?.instantiateViewController(
+        guard let showAlert = UIStoryboard.home.instantiateViewController(
             withIdentifier: "\(DetectFinishViewController.self)")
                 as? DetectFinishViewController
         else {

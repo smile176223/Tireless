@@ -35,9 +35,9 @@ class DetectFinishViewController: UIViewController {
     }
     
     private func finishPresent() {
-        guard let shareVC = storyboard?.instantiateViewController(
-            withIdentifier: "\(ShareWallViewController.self)")
-                as? ShareWallViewController
+        guard let shareVC = UIStoryboard.shareWall.instantiateViewController(
+            withIdentifier: "\(VideoWallViewController.self)")
+                as? VideoWallViewController
         else {
             return
         }
@@ -88,7 +88,6 @@ class DetectFinishViewController: UIViewController {
     private func uploadProgressShow() {
         videoManager.uploadProgress = { progress in
             self.detectFinishView.lottieProgress(progress.fractionCompleted)
-            print(progress.fractionCompleted)
         }
     }
 }
