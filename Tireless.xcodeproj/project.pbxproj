@@ -21,7 +21,7 @@
 		FF308E5B2805560F00265863 /* DetectDone.json in Resources */ = {isa = PBXBuildFile; fileRef = FF308E5A2805560F00265863 /* DetectDone.json */; };
 		FF308E5D28055F9700265863 /* DetectFinishView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E5C28055F9700265863 /* DetectFinishView.xib */; };
 		FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E5E28055F9E00265863 /* DetectFinishView.swift */; };
-		FF308E64280578A700265863 /* VideoWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E63280578A700265863 /* VideoWallViewController.swift */; };
+		FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E63280578A700265863 /* ShareWallViewController.swift */; };
 		FF308E6828057D7800265863 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E6728057D7800265863 /* HomeViewController.swift */; };
 		FF308E6A2806658F00265863 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF308E692806658F00265863 /* GoogleService-Info.plist */; };
 		FF308E6D28066E0D00265863 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E6C28066E0D00265863 /* VideoManager.swift */; };
@@ -61,7 +61,7 @@
 		FF308E5A2805560F00265863 /* DetectDone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DetectDone.json; sourceTree = "<group>"; };
 		FF308E5C28055F9700265863 /* DetectFinishView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetectFinishView.xib; sourceTree = "<group>"; };
 		FF308E5E28055F9E00265863 /* DetectFinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishView.swift; sourceTree = "<group>"; };
-		FF308E63280578A700265863 /* VideoWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWallViewController.swift; sourceTree = "<group>"; };
+		FF308E63280578A700265863 /* ShareWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareWallViewController.swift; sourceTree = "<group>"; };
 		FF308E6728057D7800265863 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FF308E692806658F00265863 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FF308E6C28066E0D00265863 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
@@ -250,7 +250,7 @@
 		FF308E622805787F00265863 /* ShareWall */ = {
 			isa = PBXGroup;
 			children = (
-				FF308E63280578A700265863 /* VideoWallViewController.swift */,
+				FF308E63280578A700265863 /* ShareWallViewController.swift */,
 			);
 			path = ShareWall;
 			sourceTree = "<group>";
@@ -507,7 +507,7 @@
 				FF1444B12801A6760027F560 /* StartManager.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecord.swift in Sources */,
 				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
-				FF308E64280578A700265863 /* VideoWallViewController.swift in Sources */,
+				FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */,
 				FF308E6828057D7800265863 /* HomeViewController.swift in Sources */,
 				FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */,
 				FF1444AF280183920027F560 /* SquatManager.swift in Sources */,

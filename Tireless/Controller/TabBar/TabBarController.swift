@@ -65,6 +65,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         viewControllers = tabs.map({ $0.controller() })
         
         tabBar.tintColor = .black
-        
+    
     }
 }

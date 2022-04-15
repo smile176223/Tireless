@@ -89,8 +89,6 @@ class PoseDetectViewController: UIViewController {
     
         recordButton.layer.cornerRadius = 25
         
-        tabBarController?.tabBar.isHidden = true
-        
         videoRecord.getVideoRecordUrl = { [weak self] url in
             self?.videoUrl = url
         }

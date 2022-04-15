@@ -36,8 +36,8 @@ class DetectFinishViewController: UIViewController {
     
     private func finishPresent() {
         guard let shareVC = UIStoryboard.shareWall.instantiateViewController(
-            withIdentifier: "\(VideoWallViewController.self)")
-                as? VideoWallViewController
+            withIdentifier: "\(ShareWallViewController.self)")
+                as? ShareWallViewController
         else {
             return
         }
