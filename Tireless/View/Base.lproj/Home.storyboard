@@ -12,7 +12,7 @@
         <!--Home View Controller-->
         <scene sceneID="1v0-06-Kcs">
             <objects>
-                <viewController id="Mb3-36-Tow" customClass="HomeViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="Mb3-36-Tow" customClass="HomeViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NAj-qK-hFU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

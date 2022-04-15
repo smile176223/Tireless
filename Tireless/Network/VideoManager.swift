@@ -17,7 +17,7 @@ class VideoManager {
     var uploadProgress: ((Progress) -> Void)?
     
     func uploadVideo(video: Video, comletion: @escaping (Result<URL, Error>) -> Void) {
-        let videoRef = Storage.storage().reference().child("Videos/\(video.video)")
+        let videoRef = Storage.storage().reference().child("Videos/\(video.videoName)")
         let uploadTask = videoRef.putFile(from: video.videoURL, metadata: nil) { _, error in
             if let error = error {
                 comletion(.failure(error))

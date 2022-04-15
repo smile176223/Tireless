@@ -28,8 +28,11 @@ class HomeViewController: UIViewController {
         else {
             return
         }
-        self.navigationItem.backButtonTitle = ""
-        self.navigationController?.pushViewController(poseVC, animated: true)
+//        poseVC.hidesBottomBarWhenPushed = true
+//        self.navigationItem.backButtonTitle = ""
+//        self.navigationController?.pushViewController(poseVC, animated: true)
+        poseVC.modalPresentationStyle = .fullScreen
+        self.present(poseVC, animated: true)
     }
     
     func setupTitle() {

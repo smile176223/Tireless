@@ -27,7 +27,7 @@ class ShareWallViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.hidesBackButton = true
-    
+        
         tableView.backgroundColor = .white
         tableView.isPagingEnabled = true
         tableView.showsVerticalScrollIndicator = false
@@ -62,7 +62,7 @@ class ShareWallViewController: UIViewController {
 
 extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,8 +70,9 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
             for: indexPath) as? ShareWallViewCell else {
             return UITableViewCell()
         }
+        guard let videoURL = videoURL else { return cell }
         
-        player = AVPlayer(url: videoURL!)
+        player = AVPlayer(url: videoURL)
         playerLayer = AVPlayerLayer(player: player)
         playerLayer?.videoGravity = .resizeAspectFill
         playerLayer?.frame = cell.contentView.frame

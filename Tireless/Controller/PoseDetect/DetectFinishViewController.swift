@@ -33,16 +33,19 @@ class DetectFinishViewController: UIViewController {
             detectFinishView.shareButton.isHidden = true
         }
     }
-    
+
     private func finishPresent() {
-        guard let shareVC = UIStoryboard.shareWall.instantiateViewController(
-            withIdentifier: "\(ShareWallViewController.self)")
-                as? ShareWallViewController
-        else {
-            return
+//        guard let shareVC = UIStoryboard.shareWall.instantiateViewController(
+//            withIdentifier: "\(ShareWallViewController.self)")
+//                as? ShareWallViewController
+//        else {
+//            return
+//        }
+//        shareVC.videoURL = videoURL
+        self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
+        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
+            tabBarController.selectedIndex = 1
         }
-        shareVC.videoURL = videoURL
-        self.navigationController?.pushViewController(shareVC, animated: true)
         
     }
     private func shareButtonTap() {
@@ -51,7 +54,7 @@ class DetectFinishViewController: UIViewController {
         }
         
         let testVideo = Video(userId: "liamTest",
-                              video: "Test1",
+                              videoName: "Test1",
                               videoURL: videoURL,
                               createTime: Date().millisecondsSince1970,
                               content: "",

@@ -7,7 +7,7 @@
 
 import UIKit
 import MLKit
-import ReplayKit
+import AVFoundation
 import Lottie
 
 class PoseDetectViewController: UIViewController {
@@ -373,13 +373,5 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         var normalizedPoint = CGPoint(x: cgPoint.x / width, y: cgPoint.y / height)
         normalizedPoint = previewLayer?.layerPointConverted(fromCaptureDevicePoint: normalizedPoint) ?? CGPoint()
         return normalizedPoint
-    }
-}
-
-extension PoseDetectViewController: RPPreviewViewControllerDelegate {
-    func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
-        dismiss(animated: true) {
-            self.popupFinish()
-        }
     }
 }

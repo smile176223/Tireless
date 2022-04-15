@@ -9,7 +9,7 @@ import Foundation
 
 struct Video: Codable {
     let userId: String
-    var video: String
+    var videoName: String
     var videoURL: URL
     var createTime: Int64
     var content: String
@@ -17,7 +17,7 @@ struct Video: Codable {
 
     enum CodingKeys: String, CodingKey {
         case userId
-        case video
+        case videoName
         case videoURL
         case createTime
         case content

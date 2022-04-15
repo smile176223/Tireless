@@ -19,9 +19,9 @@ private enum Tab {
 
         switch self {
 
-        case .home: controller = UIStoryboard.home.instantiateInitialViewController()!
+        case .home: controller = UIStoryboard.home.instantiateInitialViewController() ?? UIViewController()
             
-        case .shareWall: controller = UIStoryboard.shareWall.instantiateInitialViewController()!
+        case .shareWall: controller = UIStoryboard.shareWall.instantiateInitialViewController() ?? UIViewController()
 
         }
         

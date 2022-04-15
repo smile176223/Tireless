@@ -9,4 +9,5 @@ import Foundation
 
 class PublishVideoViewModel {
     
+    var video: Video?
 }
