@@ -10,4 +10,6 @@ import UIKit
 
 class ShareWallViewCell: UITableViewCell {
     
+    @IBOutlet weak var videoView: UIView!
+    
 }

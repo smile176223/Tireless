@@ -55,16 +55,11 @@ class PoseDetectViewModel {
                 print("Failed to detect poses with error: \(error.localizedDescription).")
                 return
             }
-            weak var weakSelf = self
             guard !poses.isEmpty else {
                 return
             }
-            DispatchQueue.main.sync {
-                guard let strongSelf = weakSelf else {
-                    print("Self is nil!")
-                    return
-                }
-                strongSelf.poseViewModels.value = poses
+            DispatchQueue.main.sync { [weak self] in
+                self?.poseViewModels.value = poses
                 poses[0].landmarks.forEach {
                     var normalizedPoint = CGPoint(x: $0.position.x / width,
                                                   y: $0.position.y / height)
@@ -76,9 +71,9 @@ class PoseDetectViewModel {
                                                        type: $0.type.rawValue))
                 }
                 if startManager.checkStart(posePoint) == true {
-                    strongSelf.countRefresh?(strongSelf.squatManager.squatWork(posePoint))
+                    self?.countRefresh?(self?.squatManager.squatWork(posePoint) ?? 0)
                 } else {
-                    strongSelf.squatManager.resetIfOut()
+                    self?.squatManager.resetIfOut()
                 }
             }
         }

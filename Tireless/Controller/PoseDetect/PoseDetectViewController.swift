@@ -93,16 +93,16 @@ class PoseDetectViewController: UIViewController {
             self?.videoUrl = url
         }
         
-        videoRecord.userRejectRecord = {
-            self.isUserRejectRecording = true
+        videoRecord.userRejectRecord = { [weak self] in
+            self?.isUserRejectRecording = true
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        videoRecord.startRecording {
-            self.startSession()
-            self.drawStart = true
+        videoRecord.startRecording { [weak self] in
+            self?.startSession()
+            self?.drawStart = true
         }
     }
     
@@ -180,55 +180,45 @@ class PoseDetectViewController: UIViewController {
     }
     
     private func setUpCaptureSessionOutput() {
-        weak var weakSelf = self
         sessionQueue.async {
-            guard let strongSelf = weakSelf else {
-                print("Self is nil!")
-                return
-            }
-            strongSelf.captureSession.beginConfiguration()
-            strongSelf.captureSession.sessionPreset = AVCaptureSession.Preset.vga640x480
+            self.captureSession.beginConfiguration()
+            self.captureSession.sessionPreset = AVCaptureSession.Preset.vga640x480
             let output = AVCaptureVideoDataOutput()
             output.videoSettings = [
                 (kCVPixelBufferPixelFormatTypeKey as String): kCVPixelFormatType_32BGRA
             ]
             output.alwaysDiscardsLateVideoFrames = true
             let outputQueue = DispatchQueue(label: Constant.videoDataOutputQueueLabel)
-            output.setSampleBufferDelegate(strongSelf, queue: outputQueue)
-            guard strongSelf.captureSession.canAddOutput(output) else {
+            output.setSampleBufferDelegate(self, queue: outputQueue)
+            guard self.captureSession.canAddOutput(output) else {
                 print("Failed to add capture session output.")
                 return
             }
-            strongSelf.captureSession.addOutput(output)
-            strongSelf.captureSession.commitConfiguration()
+            self.captureSession.addOutput(output)
+            self.captureSession.commitConfiguration()
         }
     }
     
     private func setUpCaptureSessionInput() {
-        weak var weakSelf = self
         sessionQueue.async {
-            guard let strongSelf = weakSelf else {
-                print("Self is nil!")
-                return
-            }
-            let cameraPosition: AVCaptureDevice.Position = strongSelf.isUsingFrontCamera ? .front : .back
-            guard let device = strongSelf.captureDevice(forPosition: cameraPosition) else {
+            let cameraPosition: AVCaptureDevice.Position = self.isUsingFrontCamera ? .front : .back
+            guard let device = self.captureDevice(forPosition: cameraPosition) else {
                 print("Failed to get capture device for camera position: \(cameraPosition)")
                 return
             }
             do {
-                strongSelf.captureSession.beginConfiguration()
-                let currentInputs = strongSelf.captureSession.inputs
+                self.captureSession.beginConfiguration()
+                let currentInputs = self.captureSession.inputs
                 for input in currentInputs {
-                    strongSelf.captureSession.removeInput(input)
+                    self.captureSession.removeInput(input)
                 }
                 let input = try AVCaptureDeviceInput(device: device)
-                guard strongSelf.captureSession.canAddInput(input) else {
+                guard self.captureSession.canAddInput(input) else {
                     print("Failed to add capture session input.")
                     return
                 }
-                strongSelf.captureSession.addInput(input)
-                strongSelf.captureSession.commitConfiguration()
+                self.captureSession.addInput(input)
+                self.captureSession.commitConfiguration()
             } catch {
                 print("Failed to create capture device input: \(error.localizedDescription)")
             }
@@ -245,24 +235,14 @@ class PoseDetectViewController: UIViewController {
     }
     
     private func startSession() {
-        weak var weakSelf = self
-        sessionQueue.async {
-            guard let strongSelf = weakSelf else {
-                print("Self is nil!")
-                return
-            }
-            strongSelf.captureSession.startRunning()
+        sessionQueue.async { [weak self] in
+            self?.captureSession.startRunning()
         }
     }
     
     private func stopSession() {
-        weak var weakSelf = self
-        sessionQueue.async {
-            guard let strongSelf = weakSelf else {
-                print("Self is nil!")
-                return
-            }
-            strongSelf.captureSession.stopRunning()
+        sessionQueue.async { [weak self] in
+            self?.captureSession.stopRunning()
         }
     }
     
@@ -311,14 +291,14 @@ class PoseDetectViewController: UIViewController {
         }
     }
     
-    func popupFinish(_ videoUrl: URL? = nil) {
+    func popupFinish(_ videoURL: URL? = nil) {
         guard let showAlert = UIStoryboard.home.instantiateViewController(
             withIdentifier: "\(DetectFinishViewController.self)")
                 as? DetectFinishViewController
         else {
             return
         }
-        showAlert.videoUrl = videoUrl
+        showAlert.videoURL = videoURL
         if isUserRejectRecording == true {
             showAlert.isUserRejectRecording = true
         }
@@ -327,9 +307,9 @@ class PoseDetectViewController: UIViewController {
         navShowVC.modalTransitionStyle = .crossDissolve
         navShowVC.view.backgroundColor = .clear
         
-        self.present(navShowVC, animated: true, completion: {
-            self.blurEffect()
-            self.stopSession()
+        self.present(navShowVC, animated: true, completion: { [weak self] in
+            self?.blurEffect()
+            self?.stopSession()
         })
     }
 }
@@ -346,14 +326,9 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         lastFrame = sampleBuffer
         let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
         let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
-        weak var weakSelf = self
         DispatchQueue.main.sync {
-            guard let strongSelf = weakSelf else {
-                print("Self is nil!")
-                return
-            }
-            strongSelf.updatePreviewOverlayViewWithLastFrame()
-            strongSelf.removeDetectionAnnotations()
+            self.updatePreviewOverlayViewWithLastFrame()
+            self.removeDetectionAnnotations()
         }
         guard let previewLayer = previewLayer else { return }
         if counter != 5 {
@@ -370,22 +345,18 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
                 // draw pose
                 viewModel.poseViewModels.bind { poses in
                     DispatchQueue.main.async {
-                        guard let strongSelf = weakSelf else {
-                            print("Self is nil!")
-                            return
-                        }
                         poses.forEach { poses in
                             let poseOverlayView = UIUtilities.createPoseOverlayView(
                                 forPose: poses,
-                                inViewWithBounds: strongSelf.annotationOverlayView.bounds,
+                                inViewWithBounds: self.annotationOverlayView.bounds,
                                 lineWidth: Constant.lineWidth,
                                 dotRadius: Constant.smallDotRadius,
                                 positionTransformationClosure: { (position) -> CGPoint in
-                                    return strongSelf.normalizedPoint(
+                                    return self.normalizedPoint(
                                         fromVisionPoint: position, width: imageWidth, height: imageHeight)
                                 }
                             )
-                            strongSelf.annotationOverlayView.addSubview(poseOverlayView)
+                            self.annotationOverlayView.addSubview(poseOverlayView)
                         }
                     }
                 }

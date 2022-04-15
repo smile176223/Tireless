@@ -232,8 +232,8 @@
 		FF308E6028055FA100265863 /* DetectFinishView */ = {
 			isa = PBXGroup;
 			children = (
-				FF308E5C28055F9700265863 /* DetectFinishView.xib */,
 				FF308E5E28055F9E00265863 /* DetectFinishView.swift */,
+				FF308E5C28055F9700265863 /* DetectFinishView.xib */,
 			);
 			path = DetectFinishView;
 			sourceTree = "<group>";

@@ -12,7 +12,7 @@ class DetectFinishViewController: UIViewController {
     
     @IBOutlet var detectFinishView: DetectFinishView!
     
-    var videoUrl: URL?
+    var videoURL: URL?
     
     let videoManager = VideoManager()
     
@@ -41,18 +41,18 @@ class DetectFinishViewController: UIViewController {
         else {
             return
         }
-        shareVC.videoUrl = videoUrl
+        shareVC.videoURL = videoURL
         self.navigationController?.pushViewController(shareVC, animated: true)
         
     }
     private func shareButtonTap() {
-        guard let videoUrl = videoUrl else {
+        guard let videoURL = videoURL else {
             return
         }
         
         let testVideo = Video(userId: "liamTest",
                               video: "Test1",
-                              videoURL: videoUrl,
+                              videoURL: videoURL,
                               createTime: Date().millisecondsSince1970,
                               content: "",
                               comment: nil)
@@ -62,7 +62,7 @@ class DetectFinishViewController: UIViewController {
                 self?.videoManager.uploadVideo(video: testVideo) { result in
                     switch result {
                     case .success(let url):
-                        self?.videoUrl = url
+                        self?.videoURL = url
                         self?.finishPresent()
                     case .failure(let error):
                         print("error", error)

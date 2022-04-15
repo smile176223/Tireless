@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,10 +16,43 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wou-ON-kcr" id="fj1-mW-nQ6">
                 <rect key="frame" x="0.0" y="0.0" width="414" height="621"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xuz-lT-0fg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="621"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0l-Uu-aKF">
+                        <rect key="frame" x="344" y="552.5" width="50" height="47.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="CqC-Mi-aRX"/>
+                            <constraint firstAttribute="height" constant="50" id="tsN-kx-QIm"/>
+                        </constraints>
+                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" backgroundImage="suit.heart.fill" catalog="system"/>
+                    </button>
+                </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="xuz-lT-0fg" firstAttribute="leading" secondItem="fj1-mW-nQ6" secondAttribute="leading" id="16M-8t-6uJ"/>
+                    <constraint firstItem="xuz-lT-0fg" firstAttribute="top" secondItem="fj1-mW-nQ6" secondAttribute="top" id="3qA-1b-KMs"/>
+                    <constraint firstAttribute="bottom" secondItem="h0l-Uu-aKF" secondAttribute="bottom" constant="20" id="Bbw-z3-HaK"/>
+                    <constraint firstAttribute="trailing" secondItem="xuz-lT-0fg" secondAttribute="trailing" id="D82-PO-ChN"/>
+                    <constraint firstAttribute="bottom" secondItem="xuz-lT-0fg" secondAttribute="bottom" id="O5F-Po-wZj"/>
+                    <constraint firstAttribute="trailing" secondItem="h0l-Uu-aKF" secondAttribute="trailing" constant="20" id="Txv-Pa-g8L"/>
+                </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="videoView" destination="xuz-lT-0fg" id="JeR-u4-RfT"/>
+            </connections>
             <point key="canvasLocation" x="26" y="154"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="suit.heart.fill" catalog="system" width="128" height="109"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
