@@ -9,5 +9,14 @@ import Foundation
 
 class PublishVideoViewModel {
     
-    var video: Video?
+    func uploadVideo(video: Video) {
+        VideoManager.shared.uploadVideo(video: video) { result in
+            switch result {
+            case .success(let url):
+                print(url)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

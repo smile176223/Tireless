@@ -147,7 +147,6 @@
 			children = (
 				FF308E8B2809176D00265863 /* ShareWall */,
 				FF308E782807D41500265863 /* Publish */,
-				FF1444C12803AEA50027F560 /* Exercise */,
 				FF1444AD2801836E0027F560 /* PoseDetect */,
 			);
 			path = ViewModel;
@@ -341,6 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				FF308E6B28066DF200265863 /* Network */,
+				FF1444C12803AEA50027F560 /* Exercise */,
 				FF1444A2280156480027F560 /* Extenesions */,
 				FF14448E28009B480027F560 /* View */,
 				FF14449228009B740027F560 /* Util */,

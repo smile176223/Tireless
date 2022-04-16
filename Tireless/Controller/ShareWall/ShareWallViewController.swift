@@ -23,6 +23,8 @@ class ShareWallViewController: UIViewController {
         }
     }
     
+    let viewModel = ShareWallViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +38,14 @@ class ShareWallViewController: UIViewController {
 
         tableView.register(UINib(nibName: "\(ShareWallViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(ShareWallViewCell.self)")
+        
+        viewModel.videoViewModel.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+        
+        viewModel.fetchData()
     }
     
     override func viewWillLayoutSubviews() {
@@ -49,20 +59,11 @@ class ShareWallViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
     }
-
-    func videoPlay() {
-        guard let videoURL = videoURL else { return }
-        player = AVPlayer(url: videoURL)
-        playerLayer = AVPlayerLayer(player: player)
-        playerLayer?.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(playerLayer!)
-        player?.play()
-    }
 }
 
 extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        self.viewModel.videoViewModel.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,9 +71,13 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
             for: indexPath) as? ShareWallViewCell else {
             return UITableViewCell()
         }
-        guard let videoURL = videoURL else { return cell }
+//        guard let videoURL = videoURL else { return cell }
         
-        player = AVPlayer(url: videoURL)
+        let cellViewModel = self.viewModel.videoViewModel.value[indexPath.row]
+        cell.setup(viewModel: cellViewModel)
+        let cellVideoUrl = self.viewModel.videoViewModel.value[indexPath.row].video.videoURL
+        
+        player = AVPlayer(url: cellVideoUrl)
         playerLayer = AVPlayerLayer(player: player)
         playerLayer?.videoGravity = .resizeAspectFill
         playerLayer?.frame = cell.contentView.frame

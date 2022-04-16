@@ -16,7 +16,7 @@ class DetectFinishViewController: UIViewController {
     
     let videoManager = VideoManager()
     
-    var isUserCanShare = false
+    var isUserCanShare = true
     
     var isUserRejectRecording = false
     
@@ -54,9 +54,9 @@ class DetectFinishViewController: UIViewController {
         }
         
         let testVideo = Video(userId: "liamTest",
-                              videoName: "Test1",
+                              videoName: UUID().uuidString,
                               videoURL: videoURL,
-                              createTime: Date().millisecondsSince1970,
+                              createdTime: Date().millisecondsSince1970,
                               content: "",
                               comment: nil)
         

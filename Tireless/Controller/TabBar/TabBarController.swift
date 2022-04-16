@@ -46,8 +46,8 @@ private enum Tab {
         case .shareWall:
             return UITabBarItem(
                 title: nil,
-                image: UIImage(systemName: "magnifyingglass"),
-                selectedImage: UIImage(systemName: "magnifyingglass")
+                image: UIImage(systemName: "video.circle"),
+                selectedImage: UIImage(systemName: "video.circle.fill")
             )
         }
     }

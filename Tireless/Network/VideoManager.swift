@@ -10,7 +10,7 @@ import Firebase
 import FirebaseFirestoreSwift
 
 class VideoManager {
-    static let shared = VideoRecord()
+    static let shared = VideoManager()
     
     lazy var firestoreDB = Firestore.firestore().collection("shareWall")
     
@@ -45,6 +45,23 @@ class VideoManager {
                 return
             }
             self.uploadProgress?(progress)
+        }
+    }
+    
+    func fetchShareWallVideo(completion: @escaping (Result<[Video], Error>) -> Void) {
+        firestoreDB.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                var videos = [Video]()
+                for document in querySnapshot.documents {
+                    if let video = try? document.data(as: Video.self, decoder: Firestore.Decoder()) {
+                        videos.append(video)
+                    }
+                }
+                completion(.success(videos))
+            }
         }
     }
 }

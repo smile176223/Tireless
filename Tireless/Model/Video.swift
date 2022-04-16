@@ -8,10 +8,10 @@
 import Foundation
 
 struct Video: Codable {
-    let userId: String
+    var userId: String
     var videoName: String
     var videoURL: URL
-    var createTime: Int64
+    var createdTime: Int64
     var content: String
     var comment: Comment?
 
@@ -19,7 +19,7 @@ struct Video: Codable {
         case userId
         case videoName
         case videoURL
-        case createTime
+        case createdTime
         case content
         case comment
     }
@@ -27,12 +27,12 @@ struct Video: Codable {
 
 struct Comment: Codable {
     let userId: String
-    var content: String
-    var createTime: Int64
+    let content: String
+    let createdTime: Int64
     
     enum CodingKeys: String, CodingKey {
         case userId
         case content
-        case createTime
+        case createdTime
     }
 }
