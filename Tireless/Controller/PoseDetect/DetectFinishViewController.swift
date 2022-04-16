@@ -6,31 +6,91 @@
 //
 
 import UIKit
+import SwiftUI
 
 class DetectFinishViewController: UIViewController {
     
     @IBOutlet var detectFinishView: DetectFinishView!
     
-    var videoUrl: URL?
-
+    var videoURL: URL?
+    
+    let videoManager = VideoManager()
+    
+    var isUserCanShare = true
+    
+    var isUserRejectRecording = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupButton()
+        
+        shareButtonTap()
+        
+        finishButtonTap()
+        
+        uploadProgressShow()
+        
+        if isUserRejectRecording == true {
+            detectFinishView.shareButton.isHidden = true
+        }
     }
-    
-    private func setupButton() {
-        detectFinishView.downButton.addTarget(self, action: #selector(finishPresent), for: .touchUpInside)
+
+    private func finishPresent() {
+//        guard let shareVC = UIStoryboard.shareWall.instantiateViewController(
+//            withIdentifier: "\(ShareWallViewController.self)")
+//                as? ShareWallViewController
+//        else {
+//            return
+//        }
+//        shareVC.videoURL = videoURL
+        self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
+        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
+            tabBarController.selectedIndex = 1
+        }
+        
     }
-    
-    @objc func finishPresent() {
-        guard let shareVC = storyboard?.instantiateViewController(
-            withIdentifier: "\(ShareWallViewController.self)")
-                as? ShareWallViewController
-        else {
+    private func shareButtonTap() {
+        guard let videoURL = videoURL else {
             return
         }
-        shareVC.videoUrl = videoUrl
-        self.navigationController?.pushViewController(shareVC, animated: true)
         
+        let testVideo = Video(userId: "liamTest",
+                              videoName: UUID().uuidString,
+                              videoURL: videoURL,
+                              createdTime: Date().millisecondsSince1970,
+                              content: "",
+                              comment: nil)
+        
+        detectFinishView.isShareButtonTap = { [weak self] in
+            if self?.isUserCanShare == true {
+                self?.videoManager.uploadVideo(video: testVideo) { result in
+                    switch result {
+                    case .success(let url):
+                        self?.videoURL = url
+                        self?.finishPresent()
+                    case .failure(let error):
+                        print("error", error)
+                    }
+                }
+            } else {
+                let alertController = UIAlertController(title: "上傳次數上限三次", message: "作者沒有錢錢了!", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "忍痛放棄", style: .default) { _ in
+                    alertController.dismiss(animated: true)
+                }
+                alertController.addAction(okAction)
+                self?.present(alertController, animated: true)
+            }
+        }
+    }
+    
+    private func finishButtonTap() {
+        detectFinishView.isFinishButtonTap = { [weak self] in
+            self?.finishPresent()
+        }
+    }
+    
+    private func uploadProgressShow() {
+        videoManager.uploadProgress = { progress in
+            self.detectFinishView.lottieProgress(progress.fractionCompleted)
+        }
     }
 }

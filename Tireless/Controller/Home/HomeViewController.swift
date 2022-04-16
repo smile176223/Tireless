@@ -22,14 +22,17 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func goToNext(_ sender: UIButton) {
-        guard let poseVC = storyboard?.instantiateViewController(
+        guard let poseVC = UIStoryboard.home.instantiateViewController(
             withIdentifier: "\(PoseDetectViewController.self)")
                 as? PoseDetectViewController
         else {
             return
         }
-        self.navigationItem.backButtonTitle = ""
-        self.navigationController?.pushViewController(poseVC, animated: true)
+//        poseVC.hidesBottomBarWhenPushed = true
+//        self.navigationItem.backButtonTitle = ""
+//        self.navigationController?.pushViewController(poseVC, animated: true)
+        poseVC.modalPresentationStyle = .fullScreen
+        self.present(poseVC, animated: true)
     }
     
     func setupTitle() {
