@@ -71,7 +71,6 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
             for: indexPath) as? ShareWallViewCell else {
             return UITableViewCell()
         }
-//        guard let videoURL = videoURL else { return cell }
         
         let cellViewModel = self.viewModel.videoViewModel.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
@@ -90,5 +89,10 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         view.safeAreaLayoutGuide.layoutFrame.height + view.safeAreaInsets.top
     }
+}
 
+extension ShareWallViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        player?.seek(to: .zero)
+    }
 }
