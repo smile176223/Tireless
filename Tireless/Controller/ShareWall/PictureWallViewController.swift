@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreMIDI
 
 class PictureWallViewController: UIViewController {
     
@@ -44,7 +45,7 @@ class PictureWallViewController: UIViewController {
 
 extension PictureWallViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        pictures?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -52,9 +53,9 @@ extension PictureWallViewController: UITableViewDelegate, UITableViewDataSource 
             for: indexPath) as? SharePictureViewCell else {
             return UITableViewCell()
         }
-        
+        guard let pictures = pictures else { return UITableViewCell()}
         cell.pictureTitle.text = "test"
-        cell.pictureImageView.image = UIImage(named: "TirelessLogo")
+        cell.pictureImageView.loadImage("\(pictures[indexPath.row].pictureURL)")
         cell.pictureImageView.contentMode = .scaleAspectFill
         
         return cell

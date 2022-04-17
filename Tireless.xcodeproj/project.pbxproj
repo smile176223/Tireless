@@ -43,6 +43,7 @@
 		FF308E96280C680F00265863 /* SharePictureViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E95280C680F00265863 /* SharePictureViewCell.swift */; };
 		FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E97280C6AC800265863 /* PictureWallViewController.swift */; };
 		FF308E9A280C6B0A00265863 /* PictureWall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF308E99280C6B0A00265863 /* PictureWall.storyboard */; };
+		FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E9C280C717A00265863 /* KingFisherWrapper.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -90,6 +91,7 @@
 		FF308E95280C680F00265863 /* SharePictureViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePictureViewCell.swift; sourceTree = "<group>"; };
 		FF308E97280C6AC800265863 /* PictureWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureWallViewController.swift; sourceTree = "<group>"; };
 		FF308E99280C6B0A00265863 /* PictureWall.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PictureWall.storyboard; sourceTree = "<group>"; };
+		FF308E9C280C717A00265863 /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 		FF1444A2280156480027F560 /* Extenesions */ = {
 			isa = PBXGroup;
 			children = (
+				FF308E9B280C716000265863 /* Third Party Wrapper */,
 				FF308E722807A46700265863 /* Helper */,
 				FF1444BB280336170027F560 /* VideoRecord */,
 				FF1444A4280156600027F560 /* MLKit */,
@@ -339,6 +342,14 @@
 				FF308E93280C67FD00265863 /* SharePictureViewCell.xib */,
 			);
 			path = SharePictureViewCell;
+			sourceTree = "<group>";
+		};
+		FF308E9B280C716000265863 /* Third Party Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E9C280C717A00265863 /* KingFisherWrapper.swift */,
+			);
+			path = "Third Party Wrapper";
 			sourceTree = "<group>";
 		};
 		FFC0C14828008F640041A937 = {
@@ -546,6 +557,7 @@
 				FF308E96280C680F00265863 /* SharePictureViewCell.swift in Sources */,
 				FF1444B12801A6760027F560 /* StartManager.swift in Sources */,
 				FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */,
+				FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecord.swift in Sources */,
 				FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */,
 				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
