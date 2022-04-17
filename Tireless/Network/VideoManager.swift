@@ -92,4 +92,21 @@ class VideoManager {
             }
         }
     }
+    
+    func fetchPicture(completion: @escaping (Result<[Picture], Error>) -> Void) {
+        picturesDB.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                var pictures = [Picture]()
+                for document in querySnapshot.documents {
+                    if let picture = try? document.data(as: Picture.self, decoder: Firestore.Decoder()) {
+                        pictures.append(picture)
+                    }
+                }
+                completion(.success(pictures))
+            }
+        }
+    }
 }

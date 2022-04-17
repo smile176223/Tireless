@@ -12,6 +12,8 @@ private enum Tab {
     case home
 
     case shareWall
+    
+    case pictureWall
 
     func controller() -> UIViewController {
 
@@ -19,9 +21,14 @@ private enum Tab {
 
         switch self {
 
-        case .home: controller = UIStoryboard.home.instantiateInitialViewController() ?? UIViewController()
+        case .home:
+            controller = UIStoryboard.home.instantiateInitialViewController() ?? UIViewController()
             
-        case .shareWall: controller = UIStoryboard.shareWall.instantiateInitialViewController() ?? UIViewController()
+        case .shareWall:
+            controller = UIStoryboard.shareWall.instantiateInitialViewController() ?? UIViewController()
+            
+        case .pictureWall:
+            controller = UIStoryboard.pictureWall.instantiateInitialViewController() ?? UIViewController()
 
         }
         
@@ -49,13 +56,20 @@ private enum Tab {
                 image: UIImage(systemName: "video.circle"),
                 selectedImage: UIImage(systemName: "video.circle.fill")
             )
+            
+        case .pictureWall:
+            return UITabBarItem(
+                title: nil,
+                image: UIImage(systemName: "personalhotspot.circle"),
+                selectedImage: UIImage(systemName: "personalhotspot.circle.fill")
+            )
         }
     }
 }
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
-    private let tabs: [Tab] = [.home, .shareWall]
+    private let tabs: [Tab] = [.home, .shareWall, .pictureWall]
     
     override func viewDidLoad() {
         super.viewDidLoad()
