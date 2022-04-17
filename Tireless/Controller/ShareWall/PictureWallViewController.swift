@@ -54,7 +54,8 @@ extension PictureWallViewController: UITableViewDelegate, UITableViewDataSource 
             return UITableViewCell()
         }
         guard let pictures = pictures else { return UITableViewCell()}
-        cell.pictureTitle.text = "test"
+        cell.pictureTitle.text = "\(pictures[indexPath.row].pictureName)"
+        cell.pictureDate.text = "\(pictures[indexPath.row].createdTime)"
         cell.pictureImageView.loadImage("\(pictures[indexPath.row].pictureURL)")
         cell.pictureImageView.contentMode = .scaleAspectFill
         
@@ -62,6 +63,6 @@ extension PictureWallViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        250
+        350
     }
 }

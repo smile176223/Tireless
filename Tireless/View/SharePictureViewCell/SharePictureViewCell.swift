@@ -12,6 +12,8 @@ class SharePictureViewCell: UITableViewCell {
     
     @IBOutlet weak var pictureTitle: UILabel!
     
+    @IBOutlet weak var pictureDate: UILabel!
+    
     @IBOutlet weak var pictureImageView: UIImageView!
     
 }
