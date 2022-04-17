@@ -38,6 +38,7 @@
 		FF308E8A2808296400265863 /* ShareWallViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E892808296400265863 /* ShareWallViewCell.xib */; };
 		FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E8C2809177F00265863 /* ShareWallViewModel.swift */; };
 		FF308E8F28095B6200265863 /* VideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E8E28095B6200265863 /* VideoViewModel.swift */; };
+		FF308E91280C64EF00265863 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E90280C64EF00265863 /* Picture.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -80,6 +81,7 @@
 		FF308E892808296400265863 /* ShareWallViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareWallViewCell.xib; sourceTree = "<group>"; };
 		FF308E8C2809177F00265863 /* ShareWallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareWallViewModel.swift; sourceTree = "<group>"; };
 		FF308E8E28095B6200265863 /* VideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewModel.swift; sourceTree = "<group>"; };
+		FF308E90280C64EF00265863 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				FF1444A92801623E0027F560 /* PosePoint.swift */,
 				FF308E6E2806822B00265863 /* Video.swift */,
 				FF308E762807A4F400265863 /* User.swift */,
+				FF308E90280C64EF00265863 /* Picture.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */,
 				FF1444AF280183920027F560 /* SquatManager.swift in Sources */,
 				FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */,
+				FF308E91280C64EF00265863 /* Picture.swift in Sources */,
 				FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */,
 				FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */,
 				FF308E6F2806822B00265863 /* Video.swift in Sources */,
