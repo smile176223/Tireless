@@ -58,7 +58,7 @@ class PoseDetectViewController: UIViewController {
     
     private var lottieView: AnimationView?
     
-    private let videoRecord = VideoRecord()
+    private let videoRecordManager = VideoRecordManager()
     
     private var videoUrl: URL?
     
@@ -89,18 +89,18 @@ class PoseDetectViewController: UIViewController {
     
         recordButton.layer.cornerRadius = 25
         
-        videoRecord.getVideoRecordUrl = { [weak self] url in
+        videoRecordManager.getVideoRecordUrl = { [weak self] url in
             self?.videoUrl = url
         }
         
-        videoRecord.userRejectRecord = { [weak self] in
+        videoRecordManager.userRejectRecord = { [weak self] in
             self?.isUserRejectRecording = true
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        videoRecord.startRecording { [weak self] in
+        videoRecordManager.startRecording { [weak self] in
             self?.startSession()
             self?.drawStart = true
         }
@@ -140,7 +140,7 @@ class PoseDetectViewController: UIViewController {
     }
     
     @objc func backTap(_ sender: UIButton) {
-        videoRecord.userTapBack()
+        videoRecordManager.userTapBack()
         self.navigationController?.popToRootViewController(animated: true)
     }
                                                
@@ -173,7 +173,7 @@ class PoseDetectViewController: UIViewController {
         lottieView?.play(completion: { [weak self] _ in
             guard let self = self else { return }
             self.lottieView?.removeFromSuperview()
-            self.videoRecord.stopRecording { url in
+            self.videoRecordManager.stopRecording { url in
                 self.popupFinish(url)
             } failure: {
                 self.popupFinish(self.videoUrl)

@@ -9,8 +9,8 @@ import Foundation
 
 class PublishVideoViewModel {
     
-    func uploadVideo(video: Video) {
-        VideoManager.shared.uploadVideo(video: video) { result in
+    func uploadVideo(share: ShareFiles) {
+        ShareManager.shared.uploadVideo(shareFile: share) { result in
             switch result {
             case .success(let url):
                 print(url)

@@ -5,7 +5,7 @@
 //  Created by Hao on 2022/4/9.
 //
 
-import UIKit
+import Foundation
 
 class PosePointViewModel {
     var posePoint: PosePoint

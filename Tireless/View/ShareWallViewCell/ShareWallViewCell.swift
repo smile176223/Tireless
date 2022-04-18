@@ -16,16 +16,17 @@ class ShareWallViewCell: UITableViewCell {
     
     @IBOutlet weak var videoContentText: UILabel!
     
-    var viewModel: VideoViewModel?
+    var viewModel: ShareViewModel?
     
-    func setup(viewModel: VideoViewModel) {
+    func setup(viewModel: ShareViewModel) {
         self.viewModel = viewModel
         layoutCell()
     }
     
     func layoutCell() {
-        videoTitleText.text = viewModel?.video.videoName
-        videoContentText.text = Date.dateFormatter.string(from:
-                                                            Date.init(milliseconds: viewModel?.video.createdTime ?? 0))
+        videoTitleText.text = viewModel?.shareFile.shareName
+        videoContentText.text = Date.dateFormatter.string(
+            from: Date.init(
+                milliseconds: viewModel?.shareFile.createdTime ?? 0))
     }
 }

@@ -39,7 +39,7 @@ class ShareWallViewController: UIViewController {
         tableView.register(UINib(nibName: "\(ShareWallViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(ShareWallViewCell.self)")
         
-        viewModel.videoViewModel.bind { [weak self] _ in
+        viewModel.shareViewModel.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -64,7 +64,7 @@ class ShareWallViewController: UIViewController {
 
 extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.viewModel.videoViewModel.value.count
+        self.viewModel.shareViewModel.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -73,9 +73,9 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let cellViewModel = self.viewModel.videoViewModel.value[indexPath.row]
+        let cellViewModel = self.viewModel.shareViewModel.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
-        let cellVideoUrl = self.viewModel.videoViewModel.value[indexPath.row].video.videoURL
+        let cellVideoUrl = self.viewModel.shareViewModel.value[indexPath.row].shareFile.shareURL
         
         player = AVPlayer(url: cellVideoUrl)
         playerLayer = AVPlayerLayer(player: player)
