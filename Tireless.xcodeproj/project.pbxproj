@@ -7,20 +7,96 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2EC4823DFDFB7062A4D7718 /* Pods_Tireless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745C2223D0E016BB19811AAA /* Pods_Tireless.framework */; };
+		FF14449428009C010027F560 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF14449328009C010027F560 /* Box.swift */; };
+		FF1444A6280156700027F560 /* UIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A5280156700027F560 /* UIUtilities.swift */; };
+		FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */; };
+		FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A92801623E0027F560 /* PosePoint.swift */; };
+		FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444AB280163330027F560 /* PosePointViewModel.swift */; };
+		FF1444AF280183920027F560 /* SquatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444AE280183920027F560 /* SquatManager.swift */; };
+		FF1444B12801A6760027F560 /* StartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444B02801A6760027F560 /* StartManager.swift */; };
+		FF1444C9280411A50027F560 /* CountDownGo.json in Resources */ = {isa = PBXBuildFile; fileRef = FF1444C8280411A50027F560 /* CountDownGo.json */; };
+		FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */; };
+		FF308E552805478D00265863 /* VideoRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E542805478D00265863 /* VideoRecord.swift */; };
+		FF308E5B2805560F00265863 /* DetectDone.json in Resources */ = {isa = PBXBuildFile; fileRef = FF308E5A2805560F00265863 /* DetectDone.json */; };
+		FF308E5D28055F9700265863 /* DetectFinishView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E5C28055F9700265863 /* DetectFinishView.xib */; };
+		FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E5E28055F9E00265863 /* DetectFinishView.swift */; };
+		FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E63280578A700265863 /* ShareWallViewController.swift */; };
+		FF308E6828057D7800265863 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E6728057D7800265863 /* HomeViewController.swift */; };
+		FF308E6A2806658F00265863 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF308E692806658F00265863 /* GoogleService-Info.plist */; };
+		FF308E6D28066E0D00265863 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E6C28066E0D00265863 /* VideoManager.swift */; };
+		FF308E6F2806822B00265863 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E6E2806822B00265863 /* Video.swift */; };
+		FF308E712806BB8C00265863 /* progressBar.json in Resources */ = {isa = PBXBuildFile; fileRef = FF308E702806BB8C00265863 /* progressBar.json */; };
+		FF308E752807A47F00265863 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E742807A47F00265863 /* Date+Extension.swift */; };
+		FF308E772807A4F400265863 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E762807A4F400265863 /* User.swift */; };
+		FF308E7A2807D4A000265863 /* PublishVideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E792807D4A000265863 /* PublishVideoViewModel.swift */; };
+		FF308E7F28080E5B00265863 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E7E28080E5B00265863 /* TabBarController.swift */; };
+		FF308E8128080FB800265863 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF308E8028080FB800265863 /* Main.storyboard */; };
+		FF308E832808106500265863 /* ShareWall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF308E822808106500265863 /* ShareWall.storyboard */; };
+		FF308E852808110100265863 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E842808110100265863 /* UIStoryboard+Extension.swift */; };
+		FF308E882808294900265863 /* ShareWallViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E872808294900265863 /* ShareWallViewCell.swift */; };
+		FF308E8A2808296400265863 /* ShareWallViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E892808296400265863 /* ShareWallViewCell.xib */; };
+		FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E8C2809177F00265863 /* ShareWallViewModel.swift */; };
+		FF308E8F28095B6200265863 /* VideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E8E28095B6200265863 /* VideoViewModel.swift */; };
+		FF308E91280C64EF00265863 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E90280C64EF00265863 /* Picture.swift */; };
+		FF308E94280C67FD00265863 /* SharePictureViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E93280C67FD00265863 /* SharePictureViewCell.xib */; };
+		FF308E96280C680F00265863 /* SharePictureViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E95280C680F00265863 /* SharePictureViewCell.swift */; };
+		FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E97280C6AC800265863 /* PictureWallViewController.swift */; };
+		FF308E9A280C6B0A00265863 /* PictureWall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF308E99280C6B0A00265863 /* PictureWall.storyboard */; };
+		FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E9C280C717A00265863 /* KingFisherWrapper.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
-		FFC0C15928008F640041A937 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* ViewController.swift */; };
-		FFC0C15C28008F640041A937 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFC0C15A28008F640041A937 /* Main.storyboard */; };
+		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
+		FFC0C15C28008F640041A937 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFC0C15A28008F640041A937 /* Home.storyboard */; };
 		FFC0C15E28008F650041A937 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFC0C15D28008F650041A937 /* Assets.xcassets */; };
 		FFC0C16128008F650041A937 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFC0C15F28008F650041A937 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.debug.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.debug.xcconfig"; sourceTree = "<group>"; };
+		745C2223D0E016BB19811AAA /* Pods_Tireless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tireless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.release.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.release.xcconfig"; sourceTree = "<group>"; };
+		FF14449328009C010027F560 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		FF1444A5280156700027F560 /* UIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtilities.swift; sourceTree = "<group>"; };
+		FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectViewModel.swift; sourceTree = "<group>"; };
+		FF1444A92801623E0027F560 /* PosePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePoint.swift; sourceTree = "<group>"; };
+		FF1444AB280163330027F560 /* PosePointViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePointViewModel.swift; sourceTree = "<group>"; };
+		FF1444AE280183920027F560 /* SquatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquatManager.swift; sourceTree = "<group>"; };
+		FF1444B02801A6760027F560 /* StartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartManager.swift; sourceTree = "<group>"; };
+		FF1444C8280411A50027F560 /* CountDownGo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountDownGo.json; sourceTree = "<group>"; };
+		FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishViewController.swift; sourceTree = "<group>"; };
+		FF308E542805478D00265863 /* VideoRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecord.swift; sourceTree = "<group>"; };
+		FF308E5A2805560F00265863 /* DetectDone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DetectDone.json; sourceTree = "<group>"; };
+		FF308E5C28055F9700265863 /* DetectFinishView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetectFinishView.xib; sourceTree = "<group>"; };
+		FF308E5E28055F9E00265863 /* DetectFinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishView.swift; sourceTree = "<group>"; };
+		FF308E63280578A700265863 /* ShareWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareWallViewController.swift; sourceTree = "<group>"; };
+		FF308E6728057D7800265863 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		FF308E692806658F00265863 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FF308E6C28066E0D00265863 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
+		FF308E6E2806822B00265863 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		FF308E702806BB8C00265863 /* progressBar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = progressBar.json; sourceTree = "<group>"; };
+		FF308E742807A47F00265863 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		FF308E762807A4F400265863 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FF308E792807D4A000265863 /* PublishVideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishVideoViewModel.swift; sourceTree = "<group>"; };
+		FF308E7E28080E5B00265863 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		FF308E8028080FB800265863 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		FF308E822808106500265863 /* ShareWall.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShareWall.storyboard; sourceTree = "<group>"; };
+		FF308E842808110100265863 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
+		FF308E872808294900265863 /* ShareWallViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareWallViewCell.swift; sourceTree = "<group>"; };
+		FF308E892808296400265863 /* ShareWallViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareWallViewCell.xib; sourceTree = "<group>"; };
+		FF308E8C2809177F00265863 /* ShareWallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareWallViewModel.swift; sourceTree = "<group>"; };
+		FF308E8E28095B6200265863 /* VideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewModel.swift; sourceTree = "<group>"; };
+		FF308E90280C64EF00265863 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		FF308E93280C67FD00265863 /* SharePictureViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SharePictureViewCell.xib; sourceTree = "<group>"; };
+		FF308E95280C680F00265863 /* SharePictureViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePictureViewCell.swift; sourceTree = "<group>"; };
+		FF308E97280C6AC800265863 /* PictureWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureWallViewController.swift; sourceTree = "<group>"; };
+		FF308E99280C6B0A00265863 /* PictureWall.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PictureWall.storyboard; sourceTree = "<group>"; };
+		FF308E9C280C717A00265863 /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FFC0C15828008F640041A937 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		FFC0C15B28008F640041A937 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FFC0C15828008F640041A937 /* PoseDetectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectViewController.swift; sourceTree = "<group>"; };
+		FFC0C15B28008F640041A937 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Home.storyboard; sourceTree = "<group>"; };
 		FFC0C15D28008F650041A937 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFC0C16028008F650041A937 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FFC0C16228008F650041A937 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -31,17 +107,258 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2EC4823DFDFB7062A4D7718 /* Pods_Tireless.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F4A639777C772A20A212B98 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */,
+				902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F088B6317C172ACEDE2B5A23 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				745C2223D0E016BB19811AAA /* Pods_Tireless.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FF14448E28009B480027F560 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E92280C67DA00265863 /* SharePictureViewCell */,
+				FF308E862808292F00265863 /* ShareWallViewCell */,
+				FF308E6028055FA100265863 /* DetectFinishView */,
+				FFC0C15A28008F640041A937 /* Home.storyboard */,
+				FF308E8028080FB800265863 /* Main.storyboard */,
+				FF308E822808106500265863 /* ShareWall.storyboard */,
+				FF308E99280C6B0A00265863 /* PictureWall.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FF14448F28009B5A0027F560 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E7D28080E4D00265863 /* TabBar */,
+				FF308E6528057D5D00265863 /* Home */,
+				FF308E612805787300265863 /* PoseDetect */,
+				FF308E622805787F00265863 /* ShareWall */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		FF14449028009B640027F560 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E8B2809176D00265863 /* ShareWall */,
+				FF308E782807D41500265863 /* Publish */,
+				FF1444AD2801836E0027F560 /* PoseDetect */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FF14449128009B6F0027F560 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FF1444A92801623E0027F560 /* PosePoint.swift */,
+				FF308E6E2806822B00265863 /* Video.swift */,
+				FF308E762807A4F400265863 /* User.swift */,
+				FF308E90280C64EF00265863 /* Picture.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FF14449228009B740027F560 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				FF14449328009C010027F560 /* Box.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		FF1444A2280156480027F560 /* Extenesions */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E9B280C716000265863 /* Third Party Wrapper */,
+				FF308E722807A46700265863 /* Helper */,
+				FF1444BB280336170027F560 /* VideoRecord */,
+				FF1444A4280156600027F560 /* MLKit */,
+			);
+			path = Extenesions;
+			sourceTree = "<group>";
+		};
+		FF1444A4280156600027F560 /* MLKit */ = {
+			isa = PBXGroup;
+			children = (
+				FF1444A5280156700027F560 /* UIUtilities.swift */,
+			);
+			path = MLKit;
+			sourceTree = "<group>";
+		};
+		FF1444AD2801836E0027F560 /* PoseDetect */ = {
+			isa = PBXGroup;
+			children = (
+				FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */,
+				FF1444AB280163330027F560 /* PosePointViewModel.swift */,
+			);
+			path = PoseDetect;
+			sourceTree = "<group>";
+		};
+		FF1444BB280336170027F560 /* VideoRecord */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E542805478D00265863 /* VideoRecord.swift */,
+			);
+			path = VideoRecord;
+			sourceTree = "<group>";
+		};
+		FF1444C12803AEA50027F560 /* Exercise */ = {
+			isa = PBXGroup;
+			children = (
+				FF1444AE280183920027F560 /* SquatManager.swift */,
+				FF1444B02801A6760027F560 /* StartManager.swift */,
+			);
+			path = Exercise;
+			sourceTree = "<group>";
+		};
+		FF1444C52803DF7F0027F560 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				FF1444CA28041AFC0027F560 /* Lottie */,
+				FFC0C15D28008F650041A937 /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		FF1444CA28041AFC0027F560 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				FF1444C8280411A50027F560 /* CountDownGo.json */,
+				FF308E5A2805560F00265863 /* DetectDone.json */,
+				FF308E702806BB8C00265863 /* progressBar.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
+		FF308E6028055FA100265863 /* DetectFinishView */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E5E28055F9E00265863 /* DetectFinishView.swift */,
+				FF308E5C28055F9700265863 /* DetectFinishView.xib */,
+			);
+			path = DetectFinishView;
+			sourceTree = "<group>";
+		};
+		FF308E612805787300265863 /* PoseDetect */ = {
+			isa = PBXGroup;
+			children = (
+				FFC0C15828008F640041A937 /* PoseDetectViewController.swift */,
+				FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */,
+			);
+			path = PoseDetect;
+			sourceTree = "<group>";
+		};
+		FF308E622805787F00265863 /* ShareWall */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E63280578A700265863 /* ShareWallViewController.swift */,
+				FF308E97280C6AC800265863 /* PictureWallViewController.swift */,
+			);
+			path = ShareWall;
+			sourceTree = "<group>";
+		};
+		FF308E6528057D5D00265863 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E6728057D7800265863 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		FF308E6B28066DF200265863 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E6C28066E0D00265863 /* VideoManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		FF308E722807A46700265863 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E842808110100265863 /* UIStoryboard+Extension.swift */,
+				FF308E742807A47F00265863 /* Date+Extension.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		FF308E782807D41500265863 /* Publish */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E792807D4A000265863 /* PublishVideoViewModel.swift */,
+				FF308E8E28095B6200265863 /* VideoViewModel.swift */,
+			);
+			path = Publish;
+			sourceTree = "<group>";
+		};
+		FF308E7D28080E4D00265863 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E7E28080E5B00265863 /* TabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		FF308E862808292F00265863 /* ShareWallViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E872808294900265863 /* ShareWallViewCell.swift */,
+				FF308E892808296400265863 /* ShareWallViewCell.xib */,
+			);
+			path = ShareWallViewCell;
+			sourceTree = "<group>";
+		};
+		FF308E8B2809176D00265863 /* ShareWall */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E8C2809177F00265863 /* ShareWallViewModel.swift */,
+			);
+			path = ShareWall;
+			sourceTree = "<group>";
+		};
+		FF308E92280C67DA00265863 /* SharePictureViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E95280C680F00265863 /* SharePictureViewCell.swift */,
+				FF308E93280C67FD00265863 /* SharePictureViewCell.xib */,
+			);
+			path = SharePictureViewCell;
+			sourceTree = "<group>";
+		};
+		FF308E9B280C716000265863 /* Third Party Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E9C280C717A00265863 /* KingFisherWrapper.swift */,
+			);
+			path = "Third Party Wrapper";
+			sourceTree = "<group>";
+		};
 		FFC0C14828008F640041A937 = {
 			isa = PBXGroup;
 			children = (
 				FFC0C15328008F640041A937 /* Tireless */,
 				FFC0C15228008F640041A937 /* Products */,
+				8F4A639777C772A20A212B98 /* Pods */,
+				F088B6317C172ACEDE2B5A23 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,12 +373,19 @@
 		FFC0C15328008F640041A937 /* Tireless */ = {
 			isa = PBXGroup;
 			children = (
+				FF308E6B28066DF200265863 /* Network */,
+				FF1444C12803AEA50027F560 /* Exercise */,
+				FF1444A2280156480027F560 /* Extenesions */,
+				FF14448E28009B480027F560 /* View */,
+				FF14449228009B740027F560 /* Util */,
+				FF14449028009B640027F560 /* ViewModel */,
+				FF14448F28009B5A0027F560 /* Controller */,
+				FF14449128009B6F0027F560 /* Model */,
+				FF1444C52803DF7F0027F560 /* Resource */,
 				FFC0C15428008F640041A937 /* AppDelegate.swift */,
 				FFC0C15628008F640041A937 /* SceneDelegate.swift */,
-				FFC0C15828008F640041A937 /* ViewController.swift */,
-				FFC0C15A28008F640041A937 /* Main.storyboard */,
-				FFC0C15D28008F650041A937 /* Assets.xcassets */,
 				FFC0C15F28008F650041A937 /* LaunchScreen.storyboard */,
+				FF308E692806658F00265863 /* GoogleService-Info.plist */,
 				FFC0C16228008F650041A937 /* Info.plist */,
 			);
 			path = Tireless;
@@ -74,9 +398,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFC0C16528008F650041A937 /* Build configuration list for PBXNativeTarget "Tireless" */;
 			buildPhases = (
+				6E41D0217CD08F4B2A7C49A7 /* [CP] Check Pods Manifest.lock */,
 				FFC0C14D28008F640041A937 /* Sources */,
 				FFC0C14E28008F640041A937 /* Frameworks */,
 				FFC0C14F28008F640041A937 /* Resources */,
+				FF14448D280094800027F560 /* SwiftLint  */,
+				7B1C0B9D45046C9981F6F2A8 /* [CP] Embed Pods Frameworks */,
+				1C5D0B16ADC731FDB07B638C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -125,34 +453,147 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF308E9A280C6B0A00265863 /* PictureWall.storyboard in Resources */,
+				FF308E712806BB8C00265863 /* progressBar.json in Resources */,
+				FF1444C9280411A50027F560 /* CountDownGo.json in Resources */,
 				FFC0C16128008F650041A937 /* LaunchScreen.storyboard in Resources */,
+				FF308E94280C67FD00265863 /* SharePictureViewCell.xib in Resources */,
+				FF308E5D28055F9700265863 /* DetectFinishView.xib in Resources */,
+				FF308E832808106500265863 /* ShareWall.storyboard in Resources */,
 				FFC0C15E28008F650041A937 /* Assets.xcassets in Resources */,
-				FFC0C15C28008F640041A937 /* Main.storyboard in Resources */,
+				FF308E5B2805560F00265863 /* DetectDone.json in Resources */,
+				FF308E8128080FB800265863 /* Main.storyboard in Resources */,
+				FF308E8A2808296400265863 /* ShareWallViewCell.xib in Resources */,
+				FFC0C15C28008F640041A937 /* Home.storyboard in Resources */,
+				FF308E6A2806658F00265863 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1C5D0B16ADC731FDB07B638C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tireless/Pods-Tireless-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tireless/Pods-Tireless-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tireless/Pods-Tireless-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6E41D0217CD08F4B2A7C49A7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Tireless-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7B1C0B9D45046C9981F6F2A8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tireless/Pods-Tireless-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tireless/Pods-Tireless-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tireless/Pods-Tireless-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF14448D280094800027F560 /* SwiftLint  */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint ";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# SwiftLint Pods\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FFC0C14D28008F640041A937 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFC0C15928008F640041A937 /* ViewController.swift in Sources */,
+				FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */,
+				FF308E96280C680F00265863 /* SharePictureViewCell.swift in Sources */,
+				FF1444B12801A6760027F560 /* StartManager.swift in Sources */,
+				FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */,
+				FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */,
+				FF308E552805478D00265863 /* VideoRecord.swift in Sources */,
+				FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */,
+				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
+				FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */,
+				FF308E6828057D7800265863 /* HomeViewController.swift in Sources */,
+				FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */,
+				FF1444AF280183920027F560 /* SquatManager.swift in Sources */,
+				FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */,
+				FF308E91280C64EF00265863 /* Picture.swift in Sources */,
+				FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */,
+				FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */,
+				FF308E6F2806822B00265863 /* Video.swift in Sources */,
+				FF308E852808110100265863 /* UIStoryboard+Extension.swift in Sources */,
+				FF1444A6280156700027F560 /* UIUtilities.swift in Sources */,
+				FF14449428009C010027F560 /* Box.swift in Sources */,
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
+				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
+				FF308E8F28095B6200265863 /* VideoViewModel.swift in Sources */,
+				FF308E7A2807D4A000265863 /* PublishVideoViewModel.swift in Sources */,
 				FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */,
+				FF308E7F28080E5B00265863 /* TabBarController.swift in Sources */,
+				FF308E6D28066E0D00265863 /* VideoManager.swift in Sources */,
+				FF308E772807A4F400265863 /* User.swift in Sources */,
+				FF308E882808294900265863 /* ShareWallViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FFC0C15A28008F640041A937 /* Main.storyboard */ = {
+		FFC0C15A28008F640041A937 /* Home.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				FFC0C15B28008F640041A937 /* Base */,
 			);
-			name = Main.storyboard;
+			name = Home.storyboard;
 			sourceTree = "<group>";
 		};
 		FFC0C15F28008F650041A937 /* LaunchScreen.storyboard */ = {
@@ -202,6 +643,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -216,7 +658,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13;
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +712,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13;
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -282,6 +724,7 @@
 		};
 		FFC0C16628008F650041A937 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -290,11 +733,15 @@
 				DEVELOPMENT_TEAM = 3F3N8USCH4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tireless/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access your Camera!";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access your Microphone!";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access your Photo Library!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -310,6 +757,7 @@
 		};
 		FFC0C16728008F650041A937 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -318,11 +766,15 @@
 				DEVELOPMENT_TEAM = 3F3N8USCH4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tireless/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access your Camera!";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access your Microphone!";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access your Photo Library!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
