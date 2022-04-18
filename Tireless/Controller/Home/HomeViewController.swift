@@ -55,7 +55,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate & UI
     
     @IBAction func photoButtonTap(_ sender: UIButton) {
         let imagePicker = UIImagePickerController()
-        imagePicker.allowsEditing = true
+        imagePicker.allowsEditing = false
         imagePicker.sourceType = .camera
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)

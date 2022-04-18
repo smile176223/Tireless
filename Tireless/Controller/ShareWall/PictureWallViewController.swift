@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import CoreMIDI
 
 class PictureWallViewController: UIViewController {
     
@@ -29,9 +28,15 @@ class PictureWallViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.backgroundColor = .white
+        
         tableView.register(UINib(nibName: "\(SharePictureViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(SharePictureViewCell.self)")
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         videoManager.fetchPicture { result in
             switch result {
             case .success(let pictures):
@@ -58,6 +63,11 @@ extension PictureWallViewController: UITableViewDelegate, UITableViewDataSource 
         cell.pictureDate.text = "\(pictures[indexPath.row].createdTime)"
         cell.pictureImageView.loadImage("\(pictures[indexPath.row].pictureURL)")
         cell.pictureImageView.contentMode = .scaleAspectFill
+        
+        cell.pictureTitle.textColor = .black
+        cell.pictureDate.textColor = .black
+        
+        cell.backgroundColor = .white
         
         return cell
     }

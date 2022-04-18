@@ -45,7 +45,7 @@ class ShareWallViewController: UIViewController {
             }
         }
         
-        viewModel.fetchData()
+//        viewModel.fetchData()
     }
     
     override func viewWillLayoutSubviews() {
@@ -54,6 +54,7 @@ class ShareWallViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        viewModel.fetchData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
