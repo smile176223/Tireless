@@ -31,17 +31,34 @@
                                     <action selector="goToNext:" destination="Mb3-36-Tow" eventType="touchUpInside" id="qEs-rp-ovY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PiZ-46-hby">
+                                <rect key="frame" x="147" y="682" width="120" height="40"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="PiZ-46-hby" secondAttribute="height" multiplier="3:1" id="UlQ-KD-dhv"/>
+                                    <constraint firstAttribute="height" constant="40" id="wsO-UB-jL8"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Photo"/>
+                                <connections>
+                                    <action selector="photoButtonTap:" destination="Mb3-36-Tow" eventType="touchUpInside" id="tVq-5r-ZyL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GdA-7v-4pY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="GdA-7v-4pY" firstAttribute="bottom" secondItem="c4A-Ee-kWE" secondAttribute="bottom" constant="80" id="PAo-wn-h05"/>
+                            <constraint firstItem="PiZ-46-hby" firstAttribute="centerX" secondItem="NAj-qK-hFU" secondAttribute="centerX" id="VGU-mJ-RCc"/>
                             <constraint firstItem="c4A-Ee-kWE" firstAttribute="centerX" secondItem="NAj-qK-hFU" secondAttribute="centerX" id="cF8-LO-ojW"/>
+                            <constraint firstItem="c4A-Ee-kWE" firstAttribute="top" secondItem="PiZ-46-hby" secondAttribute="bottom" constant="20" id="wDj-In-HTi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ejy-Om-81u"/>
                     <connections>
                         <outlet property="goButton" destination="c4A-Ee-kWE" id="7WM-Il-ywi"/>
+                        <outlet property="photoButton" destination="PiZ-46-hby" id="t7t-sw-gIe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5rw-qX-y08" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

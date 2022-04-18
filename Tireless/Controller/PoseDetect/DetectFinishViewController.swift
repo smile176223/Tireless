@@ -16,7 +16,7 @@ class DetectFinishViewController: UIViewController {
     
     let videoManager = VideoManager()
     
-    var isUserCanShare = true
+    var isUserCanShare = false
     
     var isUserRejectRecording = false
     

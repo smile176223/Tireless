@@ -104,6 +104,8 @@ class PoseDetectViewController: UIViewController {
             self?.startSession()
             self?.drawStart = true
         }
+//        startSession()
+//        drawStart = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {

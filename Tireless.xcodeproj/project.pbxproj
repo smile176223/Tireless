@@ -38,6 +38,12 @@
 		FF308E8A2808296400265863 /* ShareWallViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E892808296400265863 /* ShareWallViewCell.xib */; };
 		FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E8C2809177F00265863 /* ShareWallViewModel.swift */; };
 		FF308E8F28095B6200265863 /* VideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E8E28095B6200265863 /* VideoViewModel.swift */; };
+		FF308E91280C64EF00265863 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E90280C64EF00265863 /* Picture.swift */; };
+		FF308E94280C67FD00265863 /* SharePictureViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E93280C67FD00265863 /* SharePictureViewCell.xib */; };
+		FF308E96280C680F00265863 /* SharePictureViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E95280C680F00265863 /* SharePictureViewCell.swift */; };
+		FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E97280C6AC800265863 /* PictureWallViewController.swift */; };
+		FF308E9A280C6B0A00265863 /* PictureWall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF308E99280C6B0A00265863 /* PictureWall.storyboard */; };
+		FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E9C280C717A00265863 /* KingFisherWrapper.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -80,6 +86,12 @@
 		FF308E892808296400265863 /* ShareWallViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareWallViewCell.xib; sourceTree = "<group>"; };
 		FF308E8C2809177F00265863 /* ShareWallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareWallViewModel.swift; sourceTree = "<group>"; };
 		FF308E8E28095B6200265863 /* VideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewModel.swift; sourceTree = "<group>"; };
+		FF308E90280C64EF00265863 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		FF308E93280C67FD00265863 /* SharePictureViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SharePictureViewCell.xib; sourceTree = "<group>"; };
+		FF308E95280C680F00265863 /* SharePictureViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePictureViewCell.swift; sourceTree = "<group>"; };
+		FF308E97280C6AC800265863 /* PictureWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureWallViewController.swift; sourceTree = "<group>"; };
+		FF308E99280C6B0A00265863 /* PictureWall.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PictureWall.storyboard; sourceTree = "<group>"; };
+		FF308E9C280C717A00265863 /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,11 +134,13 @@
 		FF14448E28009B480027F560 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FF308E92280C67DA00265863 /* SharePictureViewCell */,
 				FF308E862808292F00265863 /* ShareWallViewCell */,
 				FF308E6028055FA100265863 /* DetectFinishView */,
 				FFC0C15A28008F640041A937 /* Home.storyboard */,
 				FF308E8028080FB800265863 /* Main.storyboard */,
 				FF308E822808106500265863 /* ShareWall.storyboard */,
+				FF308E99280C6B0A00265863 /* PictureWall.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -158,6 +172,7 @@
 				FF1444A92801623E0027F560 /* PosePoint.swift */,
 				FF308E6E2806822B00265863 /* Video.swift */,
 				FF308E762807A4F400265863 /* User.swift */,
+				FF308E90280C64EF00265863 /* Picture.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -173,6 +188,7 @@
 		FF1444A2280156480027F560 /* Extenesions */ = {
 			isa = PBXGroup;
 			children = (
+				FF308E9B280C716000265863 /* Third Party Wrapper */,
 				FF308E722807A46700265863 /* Helper */,
 				FF1444BB280336170027F560 /* VideoRecord */,
 				FF1444A4280156600027F560 /* MLKit */,
@@ -255,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				FF308E63280578A700265863 /* ShareWallViewController.swift */,
+				FF308E97280C6AC800265863 /* PictureWallViewController.swift */,
 			);
 			path = ShareWall;
 			sourceTree = "<group>";
@@ -316,6 +333,23 @@
 				FF308E8C2809177F00265863 /* ShareWallViewModel.swift */,
 			);
 			path = ShareWall;
+			sourceTree = "<group>";
+		};
+		FF308E92280C67DA00265863 /* SharePictureViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E95280C680F00265863 /* SharePictureViewCell.swift */,
+				FF308E93280C67FD00265863 /* SharePictureViewCell.xib */,
+			);
+			path = SharePictureViewCell;
+			sourceTree = "<group>";
+		};
+		FF308E9B280C716000265863 /* Third Party Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				FF308E9C280C717A00265863 /* KingFisherWrapper.swift */,
+			);
+			path = "Third Party Wrapper";
 			sourceTree = "<group>";
 		};
 		FFC0C14828008F640041A937 = {
@@ -419,9 +453,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF308E9A280C6B0A00265863 /* PictureWall.storyboard in Resources */,
 				FF308E712806BB8C00265863 /* progressBar.json in Resources */,
 				FF1444C9280411A50027F560 /* CountDownGo.json in Resources */,
 				FFC0C16128008F650041A937 /* LaunchScreen.storyboard in Resources */,
+				FF308E94280C67FD00265863 /* SharePictureViewCell.xib in Resources */,
 				FF308E5D28055F9700265863 /* DetectFinishView.xib in Resources */,
 				FF308E832808106500265863 /* ShareWall.storyboard in Resources */,
 				FFC0C15E28008F650041A937 /* Assets.xcassets in Resources */,
@@ -518,15 +554,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */,
+				FF308E96280C680F00265863 /* SharePictureViewCell.swift in Sources */,
 				FF1444B12801A6760027F560 /* StartManager.swift in Sources */,
 				FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */,
+				FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecord.swift in Sources */,
+				FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */,
 				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
 				FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */,
 				FF308E6828057D7800265863 /* HomeViewController.swift in Sources */,
 				FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */,
 				FF1444AF280183920027F560 /* SquatManager.swift in Sources */,
 				FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */,
+				FF308E91280C64EF00265863 /* Picture.swift in Sources */,
 				FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */,
 				FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */,
 				FF308E6F2806822B00265863 /* Video.swift in Sources */,
