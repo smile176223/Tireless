@@ -26,7 +26,7 @@
 		FF308E6A2806658F00265863 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF308E692806658F00265863 /* GoogleService-Info.plist */; };
 		FF308E6D28066E0D00265863 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E6C28066E0D00265863 /* ShareManager.swift */; };
 		FF308E6F2806822B00265863 /* ShareFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E6E2806822B00265863 /* ShareFiles.swift */; };
-		FF308E712806BB8C00265863 /* progressBar.json in Resources */ = {isa = PBXBuildFile; fileRef = FF308E702806BB8C00265863 /* progressBar.json */; };
+		FF308E712806BB8C00265863 /* ProgressBar.json in Resources */ = {isa = PBXBuildFile; fileRef = FF308E702806BB8C00265863 /* ProgressBar.json */; };
 		FF308E752807A47F00265863 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E742807A47F00265863 /* Date+Extension.swift */; };
 		FF308E772807A4F400265863 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E762807A4F400265863 /* User.swift */; };
 		FF308E7A2807D4A000265863 /* PublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E792807D4A000265863 /* PublishViewModel.swift */; };
@@ -73,7 +73,7 @@
 		FF308E692806658F00265863 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FF308E6C28066E0D00265863 /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
 		FF308E6E2806822B00265863 /* ShareFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareFiles.swift; sourceTree = "<group>"; };
-		FF308E702806BB8C00265863 /* progressBar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = progressBar.json; sourceTree = "<group>"; };
+		FF308E702806BB8C00265863 /* ProgressBar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProgressBar.json; sourceTree = "<group>"; };
 		FF308E742807A47F00265863 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		FF308E762807A4F400265863 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FF308E792807D4A000265863 /* PublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewModel.swift; sourceTree = "<group>"; };
@@ -240,7 +240,7 @@
 			children = (
 				FF1444C8280411A50027F560 /* CountDownGo.json */,
 				FF308E5A2805560F00265863 /* DetectDone.json */,
-				FF308E702806BB8C00265863 /* progressBar.json */,
+				FF308E702806BB8C00265863 /* ProgressBar.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -451,7 +451,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF308E9A280C6B0A00265863 /* PictureWall.storyboard in Resources */,
-				FF308E712806BB8C00265863 /* progressBar.json in Resources */,
+				FF308E712806BB8C00265863 /* ProgressBar.json in Resources */,
 				FF1444C9280411A50027F560 /* CountDownGo.json in Resources */,
 				FFC0C16128008F650041A937 /* LaunchScreen.storyboard in Resources */,
 				FF308E94280C67FD00265863 /* SharePictureViewCell.xib in Resources */,

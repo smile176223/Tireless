@@ -45,7 +45,18 @@ class ShareWallViewCell: UITableViewCell {
         avPlayerView.player = avPlayer
         avPlayerView.frame = contentView.bounds
         avPlayerView.videoGravity = .resizeAspectFill
+        loopVideo(avPlayer: avPlayer ?? AVPlayer())
         videoView.layer.addSublayer(avPlayerView)
+    }
+    
+    func loopVideo(avPlayer: AVPlayer) {
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+            object: nil,
+            queue: nil) { _ in
+            avPlayer.seek(to: .zero)
+            avPlayer.play()
+        }
     }
     
     func replay() {
