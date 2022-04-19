@@ -14,7 +14,7 @@ class DetectFinishViewController: UIViewController {
     
     var videoURL: URL?
     
-    let videoManager = VideoManager()
+    let videoManager = ShareManager()
     
     var isUserCanShare = false
     
@@ -53,16 +53,16 @@ class DetectFinishViewController: UIViewController {
             return
         }
         
-        let testVideo = Video(userId: "liamTest",
-                              videoName: UUID().uuidString,
-                              videoURL: videoURL,
+        let testVideo = ShareFiles(userId: "liamTest",
+                              shareName: UUID().uuidString,
+                              shareURL: videoURL,
                               createdTime: Date().millisecondsSince1970,
                               content: "",
                               comment: nil)
         
         detectFinishView.isShareButtonTap = { [weak self] in
             if self?.isUserCanShare == true {
-                self?.videoManager.uploadVideo(video: testVideo) { result in
+                self?.videoManager.uploadVideo(shareFile: testVideo) { result in
                     switch result {
                     case .success(let url):
                         self?.videoURL = url

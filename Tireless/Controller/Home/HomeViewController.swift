@@ -7,13 +7,13 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var goButton: UIButton!
     
     @IBOutlet weak var photoButton: UIButton!
     
-    let videoManager = VideoManager()
+    let shareManager = ShareManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,9 +72,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate & UI
             
             let imageData = pickedImage.jpegData(compressionQuality: 0.75)
             try? imageData?.write(to: imagePath!)
-            videoManager.uploadPicture(picture: Picture(userId: "liamTest",
-                                                        pictureName: UUID().uuidString,
-                                                        pictureURL: imagePath!,
+            shareManager.uploadPicture(shareFile: ShareFiles(userId: "liamTest",
+                                                        shareName: UUID().uuidString,
+                                                        shareURL: imagePath!,
                                                         createdTime: Date().millisecondsSince1970,
                                                         content: "")) { _ in
                 self.dismiss(animated: true)
