@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PublishVideoViewModel {
+class PublishViewModel {
     
     func uploadVideo(share: ShareFiles) {
         ShareManager.shared.uploadVideo(shareFile: share) { result in

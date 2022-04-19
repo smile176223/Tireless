@@ -12,16 +12,14 @@ class ShareWallViewController: UIViewController {
     
     var videoURL: URL?
     
-    var player: AVPlayer?
-    
-    var playerLayer: AVPlayerLayer?
-
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
         }
     }
+    
+    private var currentIndex = 0
     
     let viewModel = ShareWallViewModel()
     
@@ -39,13 +37,7 @@ class ShareWallViewController: UIViewController {
         tableView.register(UINib(nibName: "\(ShareWallViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(ShareWallViewCell.self)")
         
-        viewModel.shareViewModel.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
-        
-//        viewModel.fetchData()
+        setupBind()
     }
     
     override func viewWillLayoutSubviews() {
@@ -53,12 +45,28 @@ class ShareWallViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         viewModel.fetchData()
+        if let cell = tableView.visibleCells.first as? ShareWallViewCell {
+            cell.play()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        if let cell = tableView.visibleCells.first as? ShareWallViewCell {
+            cell.pause()
+        }
+    }
+    
+    func setupBind() {
+        viewModel.shareViewModel.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
     }
 }
 
@@ -75,25 +83,33 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cellViewModel = self.viewModel.shareViewModel.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
-        let cellVideoUrl = self.viewModel.shareViewModel.value[indexPath.row].shareFile.shareURL
         
-        player = AVPlayer(url: cellVideoUrl)
-        playerLayer = AVPlayerLayer(player: player)
-        playerLayer?.videoGravity = .resizeAspectFill
-        playerLayer?.frame = cell.contentView.frame
-        cell.videoView.layer.addSublayer(playerLayer!)
-        player?.play()
-
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         view.safeAreaLayoutGuide.layoutFrame.height + view.safeAreaInsets.top
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? ShareWallViewCell {
+            self.currentIndex = indexPath.row
+            cell.replay()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? ShareWallViewCell {
+            cell.pause()
+        }
+    }
 }
 
 extension ShareWallViewController: UIScrollViewDelegate {
+
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        player?.seek(to: .zero)
+        let cell = self.tableView.cellForRow(at: IndexPath(row: self.currentIndex, section: 0)) as? ShareWallViewCell
+        cell?.replay()
     }
+
 }

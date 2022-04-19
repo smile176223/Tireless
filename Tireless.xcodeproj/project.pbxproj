@@ -29,7 +29,7 @@
 		FF308E712806BB8C00265863 /* progressBar.json in Resources */ = {isa = PBXBuildFile; fileRef = FF308E702806BB8C00265863 /* progressBar.json */; };
 		FF308E752807A47F00265863 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E742807A47F00265863 /* Date+Extension.swift */; };
 		FF308E772807A4F400265863 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E762807A4F400265863 /* User.swift */; };
-		FF308E7A2807D4A000265863 /* PublishVideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E792807D4A000265863 /* PublishVideoViewModel.swift */; };
+		FF308E7A2807D4A000265863 /* PublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E792807D4A000265863 /* PublishViewModel.swift */; };
 		FF308E7F28080E5B00265863 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E7E28080E5B00265863 /* TabBarController.swift */; };
 		FF308E8128080FB800265863 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF308E8028080FB800265863 /* Main.storyboard */; };
 		FF308E832808106500265863 /* ShareWall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF308E822808106500265863 /* ShareWall.storyboard */; };
@@ -76,7 +76,7 @@
 		FF308E702806BB8C00265863 /* progressBar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = progressBar.json; sourceTree = "<group>"; };
 		FF308E742807A47F00265863 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		FF308E762807A4F400265863 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		FF308E792807D4A000265863 /* PublishVideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishVideoViewModel.swift; sourceTree = "<group>"; };
+		FF308E792807D4A000265863 /* PublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewModel.swift; sourceTree = "<group>"; };
 		FF308E7E28080E5B00265863 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		FF308E8028080FB800265863 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FF308E822808106500265863 /* ShareWall.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShareWall.storyboard; sourceTree = "<group>"; };
@@ -300,8 +300,7 @@
 		FF308E782807D41500265863 /* Publish */ = {
 			isa = PBXGroup;
 			children = (
-				FF308E792807D4A000265863 /* PublishVideoViewModel.swift */,
-				FF308E8E28095B6200265863 /* ShareViewModel.swift */,
+				FF308E792807D4A000265863 /* PublishViewModel.swift */,
 			);
 			path = Publish;
 			sourceTree = "<group>";
@@ -327,6 +326,7 @@
 			isa = PBXGroup;
 			children = (
 				FF308E8C2809177F00265863 /* ShareWallViewModel.swift */,
+				FF308E8E28095B6200265863 /* ShareViewModel.swift */,
 			);
 			path = ShareWall;
 			sourceTree = "<group>";
@@ -572,7 +572,7 @@
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
 				FF308E8F28095B6200265863 /* ShareViewModel.swift in Sources */,
-				FF308E7A2807D4A000265863 /* PublishVideoViewModel.swift in Sources */,
+				FF308E7A2807D4A000265863 /* PublishViewModel.swift in Sources */,
 				FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */,
 				FF308E7F28080E5B00265863 /* TabBarController.swift in Sources */,
 				FF308E6D28066E0D00265863 /* ShareManager.swift in Sources */,

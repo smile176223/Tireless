@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var goButton: UIButton!
     
