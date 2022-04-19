@@ -17,6 +17,7 @@
 		FF1444B12801A6760027F560 /* StartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444B02801A6760027F560 /* StartManager.swift */; };
 		FF1444C9280411A50027F560 /* CountDownGo.json in Resources */ = {isa = PBXBuildFile; fileRef = FF1444C8280411A50027F560 /* CountDownGo.json */; };
 		FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */; };
+		FF2FE0E5280E76C600F8890D /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = FF2FE0E4280E76C600F8890D /* Loading.json */; };
 		FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E542805478D00265863 /* VideoRecordManager.swift */; };
 		FF308E5B2805560F00265863 /* DetectDone.json in Resources */ = {isa = PBXBuildFile; fileRef = FF308E5A2805560F00265863 /* DetectDone.json */; };
 		FF308E5D28055F9700265863 /* DetectFinishView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E5C28055F9700265863 /* DetectFinishView.xib */; };
@@ -64,6 +65,7 @@
 		FF1444B02801A6760027F560 /* StartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartManager.swift; sourceTree = "<group>"; };
 		FF1444C8280411A50027F560 /* CountDownGo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountDownGo.json; sourceTree = "<group>"; };
 		FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishViewController.swift; sourceTree = "<group>"; };
+		FF2FE0E4280E76C600F8890D /* Loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		FF308E542805478D00265863 /* VideoRecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordManager.swift; sourceTree = "<group>"; };
 		FF308E5A2805560F00265863 /* DetectDone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DetectDone.json; sourceTree = "<group>"; };
 		FF308E5C28055F9700265863 /* DetectFinishView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetectFinishView.xib; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				FF1444C8280411A50027F560 /* CountDownGo.json */,
 				FF308E5A2805560F00265863 /* DetectDone.json */,
 				FF308E702806BB8C00265863 /* ProgressBar.json */,
+				FF2FE0E4280E76C600F8890D /* Loading.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF308E9A280C6B0A00265863 /* PictureWall.storyboard in Resources */,
+				FF2FE0E5280E76C600F8890D /* Loading.json in Resources */,
 				FF308E712806BB8C00265863 /* ProgressBar.json in Resources */,
 				FF1444C9280411A50027F560 /* CountDownGo.json in Resources */,
 				FFC0C16128008F650041A937 /* LaunchScreen.storyboard in Resources */,

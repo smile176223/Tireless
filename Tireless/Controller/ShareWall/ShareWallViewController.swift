@@ -7,10 +7,13 @@
 
 import UIKit
 import AVFoundation
+import Lottie
 
 class ShareWallViewController: UIViewController {
     
     var videoURL: URL?
+    
+    var lottieView: AnimationView?
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -38,6 +41,7 @@ class ShareWallViewController: UIViewController {
                            forCellReuseIdentifier: "\(ShareWallViewCell.self)")
         
         setupBind()
+        lottieLoading()
     }
     
     override func viewWillLayoutSubviews() {
@@ -69,6 +73,15 @@ class ShareWallViewController: UIViewController {
             }
         }
     }
+    
+    func lottieLoading() {
+        lottieView = .init(name: "Loading")
+        lottieView?.frame = view.bounds
+        view.addSubview(lottieView ?? UIView())
+        lottieView?.contentMode = .scaleAspectFit
+        lottieView?.loopMode = .loop
+        lottieView?.play()
+    }
 }
 
 extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
@@ -81,6 +94,8 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
             for: indexPath) as? ShareWallViewCell else {
             return UITableViewCell()
         }
+        
+        lottieView?.removeFromSuperview()
         
         let cellViewModel = self.viewModel.shareViewModel.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
