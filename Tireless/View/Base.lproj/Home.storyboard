@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,48 +18,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4A-Ee-kWE">
-                                <rect key="frame" x="147" y="742" width="120" height="40"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="2Yf-XG-eUX"/>
-                                    <constraint firstAttribute="width" secondItem="c4A-Ee-kWE" secondAttribute="height" multiplier="3:1" id="7qg-1U-9uy"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Demo"/>
-                                <connections>
-                                    <action selector="goToNext:" destination="Mb3-36-Tow" eventType="touchUpInside" id="qEs-rp-ovY"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PiZ-46-hby">
-                                <rect key="frame" x="147" y="682" width="120" height="40"/>
-                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="PiZ-46-hby" secondAttribute="height" multiplier="3:1" id="UlQ-KD-dhv"/>
-                                    <constraint firstAttribute="height" constant="40" id="wsO-UB-jL8"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Photo"/>
-                                <connections>
-                                    <action selector="photoButtonTap:" destination="Mb3-36-Tow" eventType="touchUpInside" id="tVq-5r-ZyL"/>
-                                </connections>
-                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wpT-2m-9bD">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CAc-sd-ruU">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeViewCell" id="nN9-pl-uGi" customClass="HomeViewCell" customModule="Tireless" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Vre-DI-FSD">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GdA-7v-4pY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="GdA-7v-4pY" firstAttribute="bottom" secondItem="c4A-Ee-kWE" secondAttribute="bottom" constant="80" id="PAo-wn-h05"/>
-                            <constraint firstItem="PiZ-46-hby" firstAttribute="centerX" secondItem="NAj-qK-hFU" secondAttribute="centerX" id="VGU-mJ-RCc"/>
-                            <constraint firstItem="c4A-Ee-kWE" firstAttribute="centerX" secondItem="NAj-qK-hFU" secondAttribute="centerX" id="cF8-LO-ojW"/>
-                            <constraint firstItem="c4A-Ee-kWE" firstAttribute="top" secondItem="PiZ-46-hby" secondAttribute="bottom" constant="20" id="wDj-In-HTi"/>
+                            <constraint firstItem="wpT-2m-9bD" firstAttribute="top" secondItem="GdA-7v-4pY" secondAttribute="top" id="hMt-w7-ard"/>
+                            <constraint firstItem="GdA-7v-4pY" firstAttribute="trailing" secondItem="wpT-2m-9bD" secondAttribute="trailing" id="iyC-co-IcG"/>
+                            <constraint firstItem="GdA-7v-4pY" firstAttribute="bottom" secondItem="wpT-2m-9bD" secondAttribute="bottom" id="o3k-hP-UvL"/>
+                            <constraint firstItem="wpT-2m-9bD" firstAttribute="leading" secondItem="GdA-7v-4pY" secondAttribute="leading" id="suj-Mi-6ys"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ejy-Om-81u"/>
                     <connections>
-                        <outlet property="goButton" destination="c4A-Ee-kWE" id="7WM-Il-ywi"/>
-                        <outlet property="photoButton" destination="PiZ-46-hby" id="t7t-sw-gIe"/>
+                        <outlet property="collectionView" destination="wpT-2m-9bD" id="5Rc-y1-EvQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5rw-qX-y08" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

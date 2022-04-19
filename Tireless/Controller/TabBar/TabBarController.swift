@@ -78,15 +78,15 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         viewControllers = tabs.map({ $0.controller() })
         
-        tabBar.tintColor = .black
+        tabBar.tintColor = .themeYellow
         
-        tabBar.backgroundColor = .white
+        tabBar.backgroundColor = .themeBGSecond
         
         tabBar.isTranslucent = false
         
-        tabBar.barTintColor = .white
+        tabBar.barTintColor = .themeBGSecond
         
-        tabBar.unselectedItemTintColor = .gray
+        tabBar.unselectedItemTintColor = .white
         
     }
 }

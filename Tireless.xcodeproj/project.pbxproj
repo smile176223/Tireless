@@ -18,6 +18,9 @@
 		FF1444C9280411A50027F560 /* CountDownGo.json in Resources */ = {isa = PBXBuildFile; fileRef = FF1444C8280411A50027F560 /* CountDownGo.json */; };
 		FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */; };
 		FF2FE0E9280E8FD100F8890D /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = FF2FE0E8280E8FD000F8890D /* Loading.json */; };
+		FF2FE0EB280EA8A200F8890D /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2FE0EA280EA8A200F8890D /* UIColor+Extension.swift */; };
+		FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2FE0ED280ED81700F8890D /* HomeViewCell.swift */; };
+		FF2FE0F0280EDB7900F8890D /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2FE0EF280EDB7900F8890D /* HomeHeaderView.swift */; };
 		FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E542805478D00265863 /* VideoRecordManager.swift */; };
 		FF308E5B2805560F00265863 /* DetectDone.json in Resources */ = {isa = PBXBuildFile; fileRef = FF308E5A2805560F00265863 /* DetectDone.json */; };
 		FF308E5D28055F9700265863 /* DetectFinishView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E5C28055F9700265863 /* DetectFinishView.xib */; };
@@ -66,6 +69,9 @@
 		FF1444C8280411A50027F560 /* CountDownGo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountDownGo.json; sourceTree = "<group>"; };
 		FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishViewController.swift; sourceTree = "<group>"; };
 		FF2FE0E8280E8FD000F8890D /* Loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
+		FF2FE0EA280EA8A200F8890D /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		FF2FE0ED280ED81700F8890D /* HomeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCell.swift; sourceTree = "<group>"; };
+		FF2FE0EF280EDB7900F8890D /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		FF308E542805478D00265863 /* VideoRecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordManager.swift; sourceTree = "<group>"; };
 		FF308E5A2805560F00265863 /* DetectDone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DetectDone.json; sourceTree = "<group>"; };
 		FF308E5C28055F9700265863 /* DetectFinishView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetectFinishView.xib; sourceTree = "<group>"; };
@@ -134,6 +140,7 @@
 		FF14448E28009B480027F560 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FF2FE0EC280ED80500F8890D /* HomeViewCell */,
 				FF308E92280C67DA00265863 /* SharePictureViewCell */,
 				FF308E862808292F00265863 /* ShareWallViewCell */,
 				FF308E6028055FA100265863 /* DetectFinishView */,
@@ -248,6 +255,15 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
+		FF2FE0EC280ED80500F8890D /* HomeViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FF2FE0ED280ED81700F8890D /* HomeViewCell.swift */,
+				FF2FE0EF280EDB7900F8890D /* HomeHeaderView.swift */,
+			);
+			path = HomeViewCell;
+			sourceTree = "<group>";
+		};
 		FF308E6028055FA100265863 /* DetectFinishView */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,6 +312,7 @@
 			children = (
 				FF308E842808110100265863 /* UIStoryboard+Extension.swift */,
 				FF308E742807A47F00265863 /* Date+Extension.swift */,
+				FF2FE0EA280EA8A200F8890D /* UIColor+Extension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -561,6 +578,7 @@
 				FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */,
 				FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */,
+				FF2FE0F0280EDB7900F8890D /* HomeHeaderView.swift in Sources */,
 				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
 				FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */,
 				FF308E6828057D7800265863 /* HomeViewController.swift in Sources */,
@@ -571,8 +589,10 @@
 				FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */,
 				FF308E6F2806822B00265863 /* ShareFiles.swift in Sources */,
 				FF308E852808110100265863 /* UIStoryboard+Extension.swift in Sources */,
+				FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */,
 				FF1444A6280156700027F560 /* UIUtilities.swift in Sources */,
 				FF14449428009C010027F560 /* Box.swift in Sources */,
+				FF2FE0EB280EA8A200F8890D /* UIColor+Extension.swift in Sources */,
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
 				FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */,

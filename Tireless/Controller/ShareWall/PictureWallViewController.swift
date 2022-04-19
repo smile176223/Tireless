@@ -28,7 +28,7 @@ class PictureWallViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.backgroundColor = .white
+        view.backgroundColor = .themeBG
         
         tableView.register(UINib(nibName: "\(SharePictureViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(SharePictureViewCell.self)")
