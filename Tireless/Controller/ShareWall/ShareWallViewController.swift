@@ -67,7 +67,7 @@ class ShareWallViewController: UIViewController {
     }
     
     func setupBind() {
-        viewModel.shareViewModel.bind { [weak self] _ in
+        viewModel.shareFilesViewModel.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -77,16 +77,16 @@ class ShareWallViewController: UIViewController {
     func lottieLoading() {
         lottieView = .init(name: "Loading")
         lottieView?.frame = view.bounds
-        view.addSubview(lottieView ?? UIView())
         lottieView?.contentMode = .scaleAspectFit
         lottieView?.loopMode = .loop
+        tableView.addSubview(lottieView ?? UIView())
         lottieView?.play()
     }
 }
 
 extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.viewModel.shareViewModel.value.count
+        self.viewModel.shareFilesViewModel.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -97,7 +97,7 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
         
         lottieView?.removeFromSuperview()
         
-        let cellViewModel = self.viewModel.shareViewModel.value[indexPath.row]
+        let cellViewModel = self.viewModel.shareFilesViewModel.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
         
         return cell
@@ -110,7 +110,7 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? ShareWallViewCell {
             self.currentIndex = indexPath.row
-            cell.replay()
+            cell.play()
         }
     }
     

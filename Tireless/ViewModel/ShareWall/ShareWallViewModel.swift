@@ -9,7 +9,7 @@ import Foundation
 
 class ShareWallViewModel {
     
-    let shareViewModel = Box([ShareViewModel]())
+    let shareFilesViewModel = Box([ShareFilesViewModel]())
     
     func fetchData() {
         ShareManager.shared.fetchVideo { [weak self] result in
@@ -22,17 +22,17 @@ class ShareWallViewModel {
         }
     }
     
-    func convertVideosToViewModels(from shareFiles: [ShareFiles]) -> [ShareViewModel] {
-        var viewModels = [ShareViewModel]()
+    func convertVideosToViewModels(from shareFiles: [ShareFiles]) -> [ShareFilesViewModel] {
+        var viewModels = [ShareFilesViewModel]()
         for shareFile in shareFiles {
-            let viewModel = ShareViewModel(model: shareFile)
+            let viewModel = ShareFilesViewModel(model: shareFile)
             viewModels.append(viewModel)
         }
         return viewModels
     }
     
     func setVideos(_ shareFiles: [ShareFiles]) {
-        shareViewModel.value = convertVideosToViewModels(from: shareFiles)
+        shareFilesViewModel.value = convertVideosToViewModels(from: shareFiles)
     }
     
 }

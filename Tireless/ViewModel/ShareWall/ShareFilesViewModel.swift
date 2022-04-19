@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ShareViewModel {
+class ShareFilesViewModel {
     var shareFile: ShareFiles
     
     init(model shareFile: ShareFiles) {

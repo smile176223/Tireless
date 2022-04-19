@@ -17,7 +17,7 @@
 		FF1444B12801A6760027F560 /* StartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444B02801A6760027F560 /* StartManager.swift */; };
 		FF1444C9280411A50027F560 /* CountDownGo.json in Resources */ = {isa = PBXBuildFile; fileRef = FF1444C8280411A50027F560 /* CountDownGo.json */; };
 		FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */; };
-		FF2FE0E5280E76C600F8890D /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = FF2FE0E4280E76C600F8890D /* Loading.json */; };
+		FF2FE0E9280E8FD100F8890D /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = FF2FE0E8280E8FD000F8890D /* Loading.json */; };
 		FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E542805478D00265863 /* VideoRecordManager.swift */; };
 		FF308E5B2805560F00265863 /* DetectDone.json in Resources */ = {isa = PBXBuildFile; fileRef = FF308E5A2805560F00265863 /* DetectDone.json */; };
 		FF308E5D28055F9700265863 /* DetectFinishView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E5C28055F9700265863 /* DetectFinishView.xib */; };
@@ -38,7 +38,7 @@
 		FF308E882808294900265863 /* ShareWallViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E872808294900265863 /* ShareWallViewCell.swift */; };
 		FF308E8A2808296400265863 /* ShareWallViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E892808296400265863 /* ShareWallViewCell.xib */; };
 		FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E8C2809177F00265863 /* ShareWallViewModel.swift */; };
-		FF308E8F28095B6200265863 /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E8E28095B6200265863 /* ShareViewModel.swift */; };
+		FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E8E28095B6200265863 /* ShareFilesViewModel.swift */; };
 		FF308E94280C67FD00265863 /* SharePictureViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E93280C67FD00265863 /* SharePictureViewCell.xib */; };
 		FF308E96280C680F00265863 /* SharePictureViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E95280C680F00265863 /* SharePictureViewCell.swift */; };
 		FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E97280C6AC800265863 /* PictureWallViewController.swift */; };
@@ -65,7 +65,7 @@
 		FF1444B02801A6760027F560 /* StartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartManager.swift; sourceTree = "<group>"; };
 		FF1444C8280411A50027F560 /* CountDownGo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountDownGo.json; sourceTree = "<group>"; };
 		FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishViewController.swift; sourceTree = "<group>"; };
-		FF2FE0E4280E76C600F8890D /* Loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
+		FF2FE0E8280E8FD000F8890D /* Loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		FF308E542805478D00265863 /* VideoRecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordManager.swift; sourceTree = "<group>"; };
 		FF308E5A2805560F00265863 /* DetectDone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DetectDone.json; sourceTree = "<group>"; };
 		FF308E5C28055F9700265863 /* DetectFinishView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetectFinishView.xib; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 		FF308E872808294900265863 /* ShareWallViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareWallViewCell.swift; sourceTree = "<group>"; };
 		FF308E892808296400265863 /* ShareWallViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareWallViewCell.xib; sourceTree = "<group>"; };
 		FF308E8C2809177F00265863 /* ShareWallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareWallViewModel.swift; sourceTree = "<group>"; };
-		FF308E8E28095B6200265863 /* ShareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewModel.swift; sourceTree = "<group>"; };
+		FF308E8E28095B6200265863 /* ShareFilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareFilesViewModel.swift; sourceTree = "<group>"; };
 		FF308E93280C67FD00265863 /* SharePictureViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SharePictureViewCell.xib; sourceTree = "<group>"; };
 		FF308E95280C680F00265863 /* SharePictureViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePictureViewCell.swift; sourceTree = "<group>"; };
 		FF308E97280C6AC800265863 /* PictureWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureWallViewController.swift; sourceTree = "<group>"; };
@@ -243,7 +243,7 @@
 				FF1444C8280411A50027F560 /* CountDownGo.json */,
 				FF308E5A2805560F00265863 /* DetectDone.json */,
 				FF308E702806BB8C00265863 /* ProgressBar.json */,
-				FF2FE0E4280E76C600F8890D /* Loading.json */,
+				FF2FE0E8280E8FD000F8890D /* Loading.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -329,7 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				FF308E8C2809177F00265863 /* ShareWallViewModel.swift */,
-				FF308E8E28095B6200265863 /* ShareViewModel.swift */,
+				FF308E8E28095B6200265863 /* ShareFilesViewModel.swift */,
 			);
 			path = ShareWall;
 			sourceTree = "<group>";
@@ -454,7 +454,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF308E9A280C6B0A00265863 /* PictureWall.storyboard in Resources */,
-				FF2FE0E5280E76C600F8890D /* Loading.json in Resources */,
 				FF308E712806BB8C00265863 /* ProgressBar.json in Resources */,
 				FF1444C9280411A50027F560 /* CountDownGo.json in Resources */,
 				FFC0C16128008F650041A937 /* LaunchScreen.storyboard in Resources */,
@@ -463,6 +462,7 @@
 				FF308E832808106500265863 /* ShareWall.storyboard in Resources */,
 				FFC0C15E28008F650041A937 /* Assets.xcassets in Resources */,
 				FF308E5B2805560F00265863 /* DetectDone.json in Resources */,
+				FF2FE0E9280E8FD100F8890D /* Loading.json in Resources */,
 				FF308E8128080FB800265863 /* Main.storyboard in Resources */,
 				FF308E8A2808296400265863 /* ShareWallViewCell.xib in Resources */,
 				FFC0C15C28008F640041A937 /* Home.storyboard in Resources */,
@@ -575,7 +575,7 @@
 				FF14449428009C010027F560 /* Box.swift in Sources */,
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
-				FF308E8F28095B6200265863 /* ShareViewModel.swift in Sources */,
+				FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */,
 				FF308E7A2807D4A000265863 /* PublishViewModel.swift in Sources */,
 				FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */,
 				FF308E7F28080E5B00265863 /* TabBarController.swift in Sources */,

@@ -19,11 +19,11 @@ class ShareWallViewCell: UITableViewCell {
     
     var avPlayer: AVPlayer?
     
-    var viewModel: ShareViewModel?
+    var viewModel: ShareFilesViewModel?
     
     private var isPlaying = false
     
-    func setup(viewModel: ShareViewModel) {
+    func setup(viewModel: ShareFilesViewModel) {
         self.viewModel = viewModel
         layoutCell()
         configureVideo()
