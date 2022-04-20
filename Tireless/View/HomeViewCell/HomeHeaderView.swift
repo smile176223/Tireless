@@ -8,11 +8,11 @@
 import UIKit
 
 class HomeHeaderView: UICollectionReusableView {
-    public var textLabel: UILabel = {
+    var textLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.textAlignment = .left
         label.textColor = .white
+        label.font = UIFont(name: "PingFangTC-Semibold", size: 20)
         return label
     }()
     
@@ -35,10 +35,10 @@ class HomeHeaderView: UICollectionReusableView {
         addSubview(textLabel)
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            textLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            textLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            textLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
+            textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+            textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25)
         ])
     }
 }

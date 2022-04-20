@@ -54,47 +54,44 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         return calendar?.get(.day) ?? 0
     }
     
+    private func countWeekDay(_ day: Int) -> String {
+        guard let calendar = Calendar.current.date(byAdding: .day, value: day, to: Date()) else { return ""}
+        let weekDayString = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]
+        return weekDayString[calendar.get(.weekday)]
+    }
+    
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
         collectionView.backgroundColor = .themeBG
         
+        collectionView.register(HomeDailyHeaderView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: "\(HomeDailyHeaderView.self)")
+        
         collectionView.register(HomeHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: "\(HomeHeaderView.self)")
+        
+        collectionView.register(UINib(nibName: "\(HomeDailyViewCell.self)", bundle: nil),
+                                forCellWithReuseIdentifier: "\(HomeDailyViewCell.self)")
     }
     
     private func createLayout() -> UICollectionViewLayout {
-        
-        // item
-        // group
-        // section
-        // let layout = UICollectionViewCompositionalLayout(section: section)
-        // return layout
-        
-        let layout = UICollectionViewCompositionalLayout {
-            (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-            // find out what section we are working with
+        let layout = UICollectionViewCompositionalLayout {(sectionIndex, _) -> NSCollectionLayoutSection? in
             guard let sectionType = Section(rawValue: sectionIndex) else {
                 return nil
             }
-            // how many columns
+
             let columns = sectionType.columnCount
             
-            // what's the item's container => group
-            // create the layout: item -> group -> section -> layout
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(1.0))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
             
-            // what's the group's container? => section
             let groupHeight = sectionIndex == 1 ?
             NSCollectionLayoutDimension.absolute(400) : NSCollectionLayoutDimension.fractionalWidth(0.25)
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: groupHeight)
-//            let innergroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-//                                                           subitem: item,
-//                                                           count: columns)
-            
             let innergroup = sectionIndex == 1 ?
             NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
                                                            subitem: item,
@@ -102,24 +99,17 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                            subitem: item,
                                                count: columns)
-//            let innergroup = columns == 3 ?
-//            NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
-//                                                           subitem: item,
-//                                               count: columns) :
-//            NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-//                                                           subitem: item,
-//                                               count: columns)
-            
-            let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: groupHeight)
+
+            let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
+                                                         heightDimension: groupHeight)
             let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innergroup])
             
             let section = NSCollectionLayoutSection(group: nestedGroup)
             section.orthogonalScrollingBehavior = .groupPagingCentered
-            
-            // size options: .fractional, .absolute, .estimated
-            // configure the header view
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                    heightDimension: .estimated(44))
+        
+            let headerSize = sectionIndex == 0 ?
+            NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100)) :
+            NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                      elementKind:
                                                                         UICollectionView.elementKindSectionHeader,
@@ -133,29 +123,40 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     private func configureDataSource() {
-        // 1
-        // setting up the data source
         dataSource = DataSource(collectionView: collectionView,
                                 cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
-            // configure the cell
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(HomeViewCell.self)",
                                                                 for: indexPath) as? HomeViewCell else {
                 return UICollectionViewCell()
             }
+            guard let dailyCell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(HomeDailyViewCell.self)",
+                                                                for: indexPath) as? HomeDailyViewCell else {
+                return UICollectionViewCell()
+            }
+            let weekday = [self.countWeekDay(-2),
+                           self.countWeekDay(-1),
+                           self.countWeekDay(0),
+                           self.countWeekDay(1),
+                           self.countWeekDay(2)]
+            
+            dailyCell.dailyDayLabel.text = "\(item)"
             cell.textLabel.text = "\(item)"
             
-            if indexPath.section == 0 { // first section
-                cell.backgroundColor = .white
-                cell.layer.cornerRadius = 12
-                cell.textLabel.textColor = .black
+            if indexPath.section == 0 {
+                dailyCell.layer.cornerRadius = 12
+                dailyCell.dailyWeekDayLabel.text = weekday[indexPath.row]
+                dailyCell.isUserInteractionEnabled = false
+                return dailyCell
             } else if indexPath.section == 1 {
                 cell.backgroundColor = .themeYellow
                 cell.imageView.image = UIImage(named: "Cover")
                 cell.textLabel.font = cell.textLabel.font.withSize(30)
+                cell.imageView.alpha = 1
                 cell.layer.cornerRadius = 12
             } else if indexPath.section == 2 {
                 cell.backgroundColor = .themeYellow
                 cell.imageView.image = UIImage(named: "Cover2")
+                cell.imageView.alpha = 1
                 cell.layer.cornerRadius = 12
             }
             return cell
@@ -165,11 +166,28 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             guard let headerView = self.collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: "\(HomeHeaderView.self)",
-                for: indexPath) as? HomeHeaderView else {
-                fatalError("could not dequeue a HeaderView")
+                for: indexPath) as? HomeHeaderView else { return UICollectionReusableView()}
+            guard let headerDailyView = self.collectionView.dequeueReusableSupplementaryView(
+                ofKind: UICollectionView.elementKindSectionHeader,
+                withReuseIdentifier: "\(HomeDailyHeaderView.self)",
+                for: indexPath) as? HomeDailyHeaderView else { return UICollectionReusableView()}
+            
+            if indexPath.section == 0 {
+                let formatter = DateFormatter()
+                formatter.dateStyle = .long
+                formatter.timeStyle = .none
+                formatter.string(from: Date())
+                headerDailyView.dateLabel.text = formatter.string(from: Date())
+                headerDailyView.titleLabel.text = "Daily Activity"
+                return headerDailyView
+            } else if indexPath.section == 1 {
+                headerView.textLabel.text = "個人計畫"
+            } else if indexPath.section == 2 {
+                headerView.textLabel.text = "團體計劃"
             }
-            headerView.textLabel.text = "\(Section.allCases[indexPath.section])".capitalized
             return headerView
+            
+//            headerView.textLabel.text = "\(Section.allCases[indexPath.section])".capitalized
         }
         let dayArray = ["\(countDaily(-2))",
                         "\(countDaily(-1))",
@@ -178,9 +196,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                         "\(countDaily(2))"]
         let personalPlan = ["Squat", "Plank", "PushUp"]
         let groupPlan = ["Squat X 10", "Plank X 7", "PushUp X 20", "Squat X 20", "PushUp X 30", "PushUp X 40"]
+//        let groupPlan = ["Squat X 10"]
         
-        // 2
-        // setup initial snapshot
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         snapshot.appendSections([.daily, .personalPlan, .groupPlan])
         snapshot.appendItems(dayArray, toSection: .daily)

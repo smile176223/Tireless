@@ -20,6 +20,7 @@ class HomeViewCell: UICollectionViewCell {
     public lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     
