@@ -33,6 +33,18 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         }
     }
+
+    lazy var weekday = [countWeekDay(-2),
+                        countWeekDay(-1),
+                        countWeekDay(0),
+                        countWeekDay(1),
+                        countWeekDay(2)]
+    
+    lazy var dayArray = ["\(countDaily(-2))",
+                         "\(countDaily(-1))",
+                         "\(countDaily(0))",
+                         "\(countDaily(1))",
+                         "\(countDaily(2))"]
     
     typealias DataSource = UICollectionViewDiffableDataSource<Section, String>
     
@@ -47,6 +59,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         configureCollectionView()
         configureDataSource()
+        configureDataSourceProvider()
+        configureDataSourceSnapshot()
         
     }
     private func countDaily(_ day: Int) -> Int {
@@ -85,21 +99,22 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             let columns = sectionType.columnCount
             
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .fractionalHeight(1.0))
+                                                  heightDimension: .fractionalHeight(0.9))
+            
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
             
             let groupHeight = sectionIndex == 1 ?
-            NSCollectionLayoutDimension.absolute(400) : NSCollectionLayoutDimension.fractionalWidth(0.25)
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: groupHeight)
+            NSCollectionLayoutDimension.absolute(400) : NSCollectionLayoutDimension.absolute(100)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                   heightDimension: .fractionalHeight(0.95))
             let innergroup = sectionIndex == 1 ?
-            NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
-                                                           subitem: item,
+            NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item,
                                                count: columns) :
-            NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                           subitem: item,
+            NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item,
                                                count: columns)
-
+            
             let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
                                                          heightDimension: groupHeight)
             let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innergroup])
@@ -109,11 +124,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
             let headerSize = sectionIndex == 0 ?
             NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100)) :
-            NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+            NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(60))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                      elementKind:
                                                                         UICollectionView.elementKindSectionHeader,
                                                                      alignment: .top)
+            
             section.boundarySupplementaryItems = [header]
             
             return section
@@ -133,18 +149,16 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                                                                 for: indexPath) as? HomeDailyViewCell else {
                 return UICollectionViewCell()
             }
-            let weekday = [self.countWeekDay(-2),
-                           self.countWeekDay(-1),
-                           self.countWeekDay(0),
-                           self.countWeekDay(1),
-                           self.countWeekDay(2)]
             
             dailyCell.dailyDayLabel.text = "\(item)"
             cell.textLabel.text = "\(item)"
             
             if indexPath.section == 0 {
+                if indexPath.row == 2 {
+                    dailyCell.contentView.backgroundColor = .themeYellow
+                }
                 dailyCell.layer.cornerRadius = 12
-                dailyCell.dailyWeekDayLabel.text = weekday[indexPath.row]
+                dailyCell.dailyWeekDayLabel.text = self.weekday[indexPath.row]
                 dailyCell.isUserInteractionEnabled = false
                 return dailyCell
             } else if indexPath.section == 1 {
@@ -153,15 +167,18 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 cell.textLabel.font = cell.textLabel.font.withSize(30)
                 cell.imageView.alpha = 1
                 cell.layer.cornerRadius = 12
+                cell.contentView.backgroundColor = .white
             } else if indexPath.section == 2 {
                 cell.backgroundColor = .themeYellow
                 cell.imageView.image = UIImage(named: "Cover2")
                 cell.imageView.alpha = 1
                 cell.layer.cornerRadius = 12
+                cell.contentView.backgroundColor = .white
             }
             return cell
         })
-        
+    }
+    private func configureDataSourceProvider() {
         dataSource?.supplementaryViewProvider = { (collectionView, _, indexPath) in
             guard let headerView = self.collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,
@@ -186,18 +203,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 headerView.textLabel.text = "團體計劃"
             }
             return headerView
-            
-//            headerView.textLabel.text = "\(Section.allCases[indexPath.section])".capitalized
         }
-        let dayArray = ["\(countDaily(-2))",
-                        "\(countDaily(-1))",
-                        "\(countDaily(0))",
-                        "\(countDaily(1))",
-                        "\(countDaily(2))"]
+    }
+    
+    private func configureDataSourceSnapshot() {
         let personalPlan = ["Squat", "Plank", "PushUp"]
         let groupPlan = ["Squat X 10", "Plank X 7", "PushUp X 20", "Squat X 20", "PushUp X 30", "PushUp X 40"]
-//        let groupPlan = ["Squat X 10"]
-        
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         snapshot.appendSections([.daily, .personalPlan, .groupPlan])
         snapshot.appendItems(dayArray, toSection: .daily)
