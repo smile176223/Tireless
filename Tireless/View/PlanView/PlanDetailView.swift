@@ -14,7 +14,7 @@ class PlanDetailView: UIView {
     private var imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-        image.image = UIImage(named: "Cover")
+        image.image = UIImage(named: "pexels_squat")
         return image
     }()
     
@@ -29,11 +29,30 @@ class PlanDetailView: UIView {
     
     private var titleLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
+        label.font = .bold(size: 30)
+        label.text = "深蹲"
         label.textAlignment = .left
+        return label
+    }()
+    
+    private var infoLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .regular(size: 15)
+        label.text = "深蹲，又稱蹲舉，在力量練習中，是個複合的、全身性的練習動作，它可以訓練到大腿、臀部、大腿後肌，同時可以增強骨頭、韌帶和橫貫下半身的肌腱。"
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+    
+    private var timesAlertLabel: UILabel = {
+        let label = UILabel()
         label.textColor = .white
         label.font = .bold(size: 20)
-        label.text = "Squat"
-        label.textAlignment = .left
+        label.text = "每日提醒時間"
+        label.textAlignment = .center
         return label
     }()
     
@@ -54,6 +73,26 @@ class PlanDetailView: UIView {
         return button
     }()
     
+    private var daysLabel: UILabel = {
+        let label = UILabel()
+        label.font = .bold(size: 20)
+        label.text = "天數"
+        label.textColor = .white
+        return label
+    }()
+    
+    private var daysCounter = CounterView()
+    
+    private var timesLabel: UILabel = {
+        let label = UILabel()
+        label.font = .bold(size: 20)
+        label.text = "次數"
+        label.textColor = .white
+        return label
+    }()
+    
+    private var timesCounter = CounterView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -67,11 +106,17 @@ class PlanDetailView: UIView {
     private func commonInit() {
         viewConstraints()
         buttonConstraints()
+        labelConstraints()
         self.backgroundColor = .themeBG
         backButton.addTarget(self, action: #selector(backButtonTap), for: .touchUpInside)
+        createButton.addTarget(self, action: #selector(createButtonTap), for: .touchUpInside)
     }
     
     @objc private func backButtonTap() {
+        isBackButtonTap?()
+    }
+    
+    @objc private func createButtonTap() {
         isBackButtonTap?()
     }
     
@@ -84,7 +129,6 @@ class PlanDetailView: UIView {
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2)
         ])
-        
         addSubview(bottomView)
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -92,14 +136,6 @@ class PlanDetailView: UIView {
             bottomView.leadingAnchor.constraint(equalTo: leadingAnchor),
             bottomView.trailingAnchor.constraint(equalTo: trailingAnchor),
             bottomView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-        
-        bottomView.addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 100),
-            titleLabel.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 25),
-            titleLabel.trailingAnchor.constraint(greaterThanOrEqualTo: bottomView.trailingAnchor, constant: -25)
         ])
     }
     
@@ -110,13 +146,64 @@ class PlanDetailView: UIView {
             backButton.topAnchor.constraint(equalTo: topAnchor, constant: 60),
             backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25)
         ])
-        
         bottomView.addSubview(createButton)
         createButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            createButton.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -40),
+            createButton.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -30),
             createButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             createButton.widthAnchor.constraint(equalToConstant: 150)
+        ])
+        bottomView.addSubview(daysCounter)
+        daysCounter.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            daysCounter.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -100),
+            daysCounter.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -80),
+            daysCounter.widthAnchor.constraint(equalToConstant: 130),
+            daysCounter.heightAnchor.constraint(equalToConstant: 45)
+        ])
+        bottomView.addSubview(timesCounter)
+        timesCounter.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            timesCounter.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -100),
+            timesCounter.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 80),
+            timesCounter.widthAnchor.constraint(equalToConstant: 130),
+            timesCounter.heightAnchor.constraint(equalToConstant: 45)
+        ])
+    }
+    
+    private func labelConstraints() {
+        bottomView.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 50),
+            titleLabel.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 25),
+            titleLabel.trailingAnchor.constraint(greaterThanOrEqualTo: bottomView.trailingAnchor, constant: -25)
+        ])
+        bottomView.addSubview(infoLabel)
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            infoLabel.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 25),
+            infoLabel.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -25)
+        ])
+        bottomView.addSubview(daysLabel)
+        daysLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            daysLabel.bottomAnchor.constraint(equalTo: daysCounter.topAnchor, constant: -10),
+            daysLabel.centerXAnchor.constraint(equalTo: daysCounter.centerXAnchor)
+        ])
+        bottomView.addSubview(timesLabel)
+        timesLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            timesLabel.bottomAnchor.constraint(equalTo: timesCounter.topAnchor, constant: -10),
+            timesLabel.centerXAnchor.constraint(equalTo: timesCounter.centerXAnchor)
+        ])
+        
+        bottomView.addSubview(timesAlertLabel)
+        timesAlertLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            timesAlertLabel.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor),
+            timesAlertLabel.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor, constant: -20)
         ])
     }
 }

@@ -169,14 +169,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 return dailyCell
             } else if indexPath.section == 1 {
                 cell.backgroundColor = .themeYellow
-                cell.imageView.image = UIImage(named: "Cover")
+                cell.imageView.image = UIImage(named: "pexels_squat")
                 cell.textLabel.font = cell.textLabel.font.withSize(30)
                 cell.imageView.alpha = 1
                 cell.layer.cornerRadius = 12
                 cell.contentView.backgroundColor = .white
             } else if indexPath.section == 2 {
                 cell.backgroundColor = .themeYellow
-                cell.imageView.image = UIImage(named: "Cover2")
+                cell.imageView.image = UIImage(named: "pexels_squat")
                 cell.imageView.alpha = 1
                 cell.layer.cornerRadius = 12
                 cell.contentView.backgroundColor = .white
