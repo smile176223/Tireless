@@ -47,6 +47,56 @@ class CounterView: UIView {
         textFieldConstraints()
         self.backgroundColor = .themeBGSecond
         self.layer.cornerRadius = 23
+        minusButton.addTarget(self, action: #selector(minusButtonTap), for: .touchUpInside)
+        plusButton.addTarget(self, action: #selector(plusButtonTap), for: .touchUpInside)
+    }
+    
+    @objc func minusButtonTap() {
+        guard let text = inputTextField.text,
+              let amount = Int(text)
+        else { return }
+
+        inputTextField.text = String(amount - 1)
+        checkData()
+    }
+    
+    @objc func plusButtonTap() {
+        guard let text = inputTextField.text,
+              let amount = Int(text)
+        else { return }
+
+        inputTextField.text = String(amount + 1)
+        checkData()
+    }
+    
+    private func checkData() {
+        if inputTextField.text == "1" {
+            disable(item: minusButton)
+        } else {
+            enable(item: minusButton)
+        }
+    }
+    
+    private func disable(item: UIControl) {
+
+        item.layer.borderColor = UIColor.white.withAlphaComponent(0.4).cgColor
+
+        item.tintColor = UIColor.white.withAlphaComponent(0.4)
+
+        item.isEnabled = false
+    }
+
+    private func enable(item: UIControl) {
+
+        item.layer.borderColor = UIColor.white.cgColor
+
+        item.tintColor = UIColor.white
+
+        item.isEnabled = true
+    }
+    
+    func setInputField(_ num: Int) {
+        inputTextField.text = "\(num)"
     }
     
     private func buttonConstraints() {

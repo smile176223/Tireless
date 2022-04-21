@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 class PlanDetailView: UIView {
     
@@ -47,13 +48,22 @@ class PlanDetailView: UIView {
         return label
     }()
     
-    private var timesAlertLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = .bold(size: 20)
-        label.text = "每日提醒時間"
-        label.textAlignment = .center
-        return label
+//    private var timesAlertLabel: UILabel = {
+//        let label = UILabel()
+//        label.textColor = .white
+//        label.font = .bold(size: 20)
+//        label.text = "每日提醒時間"
+//        label.textAlignment = .center
+//        return label
+//    }()
+    
+    private var lottieAnimate: AnimationView = {
+        var lottie = AnimationView()
+        lottie = .init(name: "Squat")
+        lottie.contentMode = .scaleAspectFit
+        lottie.loopMode = .loop
+        lottie.play()
+        return lottie
     }()
     
     private var createButton: UIButton = {
@@ -107,9 +117,12 @@ class PlanDetailView: UIView {
         viewConstraints()
         buttonConstraints()
         labelConstraints()
+        lottieConstraints()
         self.backgroundColor = .themeBG
         backButton.addTarget(self, action: #selector(backButtonTap), for: .touchUpInside)
         createButton.addTarget(self, action: #selector(createButtonTap), for: .touchUpInside)
+        daysCounter.setInputField(7)
+        timesCounter.setInputField(10)
     }
     
     @objc private func backButtonTap() {
@@ -199,11 +212,22 @@ class PlanDetailView: UIView {
             timesLabel.centerXAnchor.constraint(equalTo: timesCounter.centerXAnchor)
         ])
         
-        bottomView.addSubview(timesAlertLabel)
-        timesAlertLabel.translatesAutoresizingMaskIntoConstraints = false
+//        bottomView.addSubview(timesAlertLabel)
+//        timesAlertLabel.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            timesAlertLabel.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor),
+//            timesAlertLabel.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor, constant: -20)
+//        ])
+    }
+    
+    private func lottieConstraints() {
+        bottomView.addSubview(lottieAnimate)
+        lottieAnimate.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            timesAlertLabel.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor),
-            timesAlertLabel.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor, constant: -20)
+            lottieAnimate.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 200),
+            lottieAnimate.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -150),
+            lottieAnimate.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            lottieAnimate.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
         ])
     }
 }
