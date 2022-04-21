@@ -9,14 +9,16 @@ import UIKit
 
 class PlanDetailViewController: UIViewController {
     
+    @IBOutlet var planDetailView: PlanDetailView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLayout() 
+        isBackButtonTap()
     }
-}
-
-extension PlanDetailViewController {
-    func setupLayout() {
-        
+    
+    func isBackButtonTap() {
+        planDetailView?.isBackButtonTap = {
+            self.dismiss(animated: true)
+        }
     }
 }

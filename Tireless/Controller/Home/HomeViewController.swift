@@ -46,6 +46,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                          "\(countDaily(1))",
                          "\(countDaily(2))"]
     
+    var personalPlan = ["Squat", "Plank", "PushUp"]
+    var groupPlan = ["Squat X 10", "Plank X 7", "PushUp X 20", "Squat X 20", "PushUp X 30", "PushUp X 40"]
+    
     typealias DataSource = UICollectionViewDiffableDataSource<Section, String>
     
     private var dataSource: DataSource?
@@ -70,8 +73,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     private func countWeekDay(_ day: Int) -> String {
         guard let calendar = Calendar.current.date(byAdding: .day, value: day, to: Date()) else { return ""}
-        let weekDayString = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]
-        return weekDayString[calendar.get(.weekday)]
+        let weekDayString = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        return weekDayString[calendar.get(.weekday) - 1]
     }
     
     private func configureCollectionView() {
@@ -97,31 +100,31 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
 
             let columns = sectionType.columnCount
-            
+
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .fractionalHeight(0.9))
-            
+                                                  heightDimension: .fractionalHeight(1.0))
+
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
+
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-            
+
             let groupHeight = sectionIndex == 1 ?
             NSCollectionLayoutDimension.absolute(400) : NSCollectionLayoutDimension.absolute(100)
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                   heightDimension: .fractionalHeight(0.95))
+                                                   heightDimension: .fractionalHeight(1.0))
             let innergroup = sectionIndex == 1 ?
             NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item,
                                                count: columns) :
             NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item,
                                                count: columns)
-            
+
             let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
                                                          heightDimension: groupHeight)
             let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innergroup])
-            
+
             let section = NSCollectionLayoutSection(group: nestedGroup)
             section.orthogonalScrollingBehavior = .groupPagingCentered
-        
+
             let headerSize = sectionIndex == 0 ?
             NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100)) :
             NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(60))
@@ -129,13 +132,16 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                                                                      elementKind:
                                                                         UICollectionView.elementKindSectionHeader,
                                                                      alignment: .top)
-            
+
             section.boundarySupplementaryItems = [header]
-            
+
+            section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+
             return section
         }
-        
+
         return layout
+   
     }
     
     private func configureDataSource() {
@@ -207,8 +213,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     private func configureDataSourceSnapshot() {
-        let personalPlan = ["Squat", "Plank", "PushUp"]
-        let groupPlan = ["Squat X 10", "Plank X 7", "PushUp X 20", "Squat X 20", "PushUp X 30", "PushUp X 40"]
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         snapshot.appendSections([.daily, .personalPlan, .groupPlan])
         snapshot.appendItems(dayArray, toSection: .daily)
@@ -276,6 +280,16 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
+        guard let detailVC = UIStoryboard.home.instantiateViewController(
+            withIdentifier: "\(PlanDetailViewController.self)")
+                as? PlanDetailViewController
+        else {
+            return
+        }
+        detailVC.modalPresentationStyle = .fullScreen
+        self.present(detailVC, animated: true)
+        
+//        self.navigationItem.backButtonTitle = ""
+//        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

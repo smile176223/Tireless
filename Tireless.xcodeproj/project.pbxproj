@@ -51,6 +51,8 @@
 		FF3FBE4C280FA83900E6B5DC /* HomeDailyViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */; };
 		FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */; };
 		FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */; };
+		FF3FBE562810648000E6B5DC /* PlanDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE552810648000E6B5DC /* PlanDetailView.swift */; };
+		FF3FBE5A2811538500E6B5DC /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE592811538500E6B5DC /* UIFont+Extension.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -106,6 +108,8 @@
 		FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDailyViewCell.xib; sourceTree = "<group>"; };
 		FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDailyViewCell.swift; sourceTree = "<group>"; };
 		FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
+		FF3FBE552810648000E6B5DC /* PlanDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailView.swift; sourceTree = "<group>"; };
+		FF3FBE592811538500E6B5DC /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 		FF14448E28009B480027F560 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FF3FBE542810646500E6B5DC /* PlanView */,
 				FF2FE0EC280ED80500F8890D /* HomeViewCell */,
 				FF308E92280C67DA00265863 /* SharePictureViewCell */,
 				FF308E862808292F00265863 /* ShareWallViewCell */,
@@ -325,6 +330,7 @@
 				FF308E842808110100265863 /* UIStoryboard+Extension.swift */,
 				FF308E742807A47F00265863 /* Date+Extension.swift */,
 				FF2FE0EA280EA8A200F8890D /* UIColor+Extension.swift */,
+				FF3FBE592811538500E6B5DC /* UIFont+Extension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -378,6 +384,14 @@
 				FF308E9C280C717A00265863 /* KingFisherWrapper.swift */,
 			);
 			path = "Third Party Wrapper";
+			sourceTree = "<group>";
+		};
+		FF3FBE542810646500E6B5DC /* PlanView */ = {
+			isa = PBXGroup;
+			children = (
+				FF3FBE552810648000E6B5DC /* PlanDetailView.swift */,
+			);
+			path = PlanView;
 			sourceTree = "<group>";
 		};
 		FFC0C14828008F640041A937 = {
@@ -590,6 +604,7 @@
 				FF1444B12801A6760027F560 /* StartManager.swift in Sources */,
 				FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */,
 				FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */,
+				FF3FBE5A2811538500E6B5DC /* UIFont+Extension.swift in Sources */,
 				FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */,
 				FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */,
@@ -605,6 +620,7 @@
 				FF308E6F2806822B00265863 /* ShareFiles.swift in Sources */,
 				FF308E852808110100265863 /* UIStoryboard+Extension.swift in Sources */,
 				FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */,
+				FF3FBE562810648000E6B5DC /* PlanDetailView.swift in Sources */,
 				FF1444A6280156700027F560 /* UIUtilities.swift in Sources */,
 				FF2FE0F4280F9A5E00F8890D /* HomeDailyHeaderView.swift in Sources */,
 				FF14449428009C010027F560 /* Box.swift in Sources */,

@@ -135,12 +135,15 @@
         <scene sceneID="Tbe-ak-MY7">
             <objects>
                 <viewController storyboardIdentifier="PlanDetailViewController" id="yrA-Zk-Ov9" customClass="PlanDetailViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="LYa-dB-BfQ">
+                    <view key="view" contentMode="scaleToFill" id="LYa-dB-BfQ" customClass="PlanDetailView" customModule="Tireless" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="GlW-bt-hVa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="planDetailView" destination="LYa-dB-BfQ" id="2xl-TR-ppy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r31-JG-Fid" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

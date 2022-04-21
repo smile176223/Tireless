@@ -13,7 +13,7 @@ class HomeDailyHeaderView: UICollectionReusableView {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .white
-        label.font = UIFont(name: "PingFangTC", size: 20)
+        label.font = .regular(size: 20)
         return label
     }()
     
@@ -21,7 +21,7 @@ class HomeDailyHeaderView: UICollectionReusableView {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .white
-        label.font = UIFont(name: "PingFangTC-Semibold", size: 35)
+        label.font = .bold(size: 35)
         return label
     }()
     
