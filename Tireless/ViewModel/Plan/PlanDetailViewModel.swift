@@ -9,14 +9,13 @@ import Foundation
 
 class PlanDetailViewModel {
     
-    let planManager = PlanManager()
-    
     var planManage: PlanManage = PlanManage(planName: "",
                                             planTimes: "",
                                             planDays: "",
                                             createdTime: -1,
                                             planGroup: false,
-                                            progress: 0.0)
+                                            progress: 0.0,
+                                            uuid: UUID().uuidString)
     
     func getPlanData(name: String, times: String, days: String, createdTime: Int64, planGroup: Bool) {
         self.planManage.planName = name
@@ -26,14 +25,13 @@ class PlanDetailViewModel {
         self.planManage.planGroup = planGroup
     }
     
-    func createPlan() {
+    func createPlan(success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
         PlanManager.shared.createPlan(plan: planManage) { result in
             switch result {
             case .success:
-                print("success")
-                
+                success()
             case .failure(let error):
-                print(error)
+                failure(error)
             }
         }
     }

@@ -20,6 +20,7 @@ struct PlanManage: Codable {
     var createdTime: Int64
     var planGroup: Bool
     var progress: Double
+    var uuid: String
     
     enum CodingKeys: String, CodingKey {
         case planName
@@ -28,5 +29,16 @@ struct PlanManage: Codable {
         case createdTime
         case planGroup
         case progress
+        case uuid
+    }
+}
+
+extension PlanManage: Hashable {
+    static func == (lhs: PlanManage, rhs: PlanManage) -> Bool {
+        return lhs.uuid == rhs.uuid
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(uuid)
     }
 }

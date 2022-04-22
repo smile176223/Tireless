@@ -12,6 +12,8 @@ class PlanManageViewCell: UICollectionViewCell {
     
     var isStartButtonTap: (() -> Void)?
     
+    var isDeleteButtonTap: (() -> Void)?
+    
     @IBOutlet weak var planImageView: UIImageView!
 
     @IBOutlet weak var planTitleLabel: UILabel!
@@ -20,7 +22,14 @@ class PlanManageViewCell: UICollectionViewCell {
     
     @IBOutlet weak var planStartButton: UIButton!
 
+    @IBOutlet weak var planDeleteButton: UIButton!
+    
     @IBAction func startButtonTap(_ sender: UIButton) {
         isStartButtonTap?()
     }
+    
+    @IBAction func deleteButtonTap(_ sender: Any) {
+        isDeleteButtonTap?()
+    }
+    
 }

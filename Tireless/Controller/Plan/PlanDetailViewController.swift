@@ -32,7 +32,12 @@ class PlanDetailViewController: UIViewController {
                                   days: days,
                                   createdTime: Date().millisecondsSince1970,
                                   planGroup: false)
-            self.viewModel.createPlan()
+            self.viewModel.createPlan(
+                success: {
+                    self.dismiss(animated: true)
+                }, failure: { error in
+                    print(error)
+                })
         }
     }
 }

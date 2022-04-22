@@ -39,4 +39,8 @@ class PlanManager {
             }
         }
     }
+    
+    func deletePlan(time: Int64) {
+        planDB.whereField("createdTime", isEqualTo: time)
+    }
 }

@@ -194,8 +194,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 }
             } else if indexPath.section == 2 {
                 cell.backgroundColor = .themeYellow
+                cell.textLabel.font = .bold(size: 15)
+                cell.textLabel.textColor = .black
                 cell.imageView.image = UIImage(named: "pexels_squat")
-                cell.imageView.alpha = 1
+                cell.imageView.alpha = 0.7
                 cell.layer.cornerRadius = 12
                 cell.contentView.backgroundColor = .white
             }

@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mje-E9-i75">
-                    <rect key="frame" x="354" y="55" width="40" height="40"/>
+                    <rect key="frame" x="354" y="35" width="40" height="40"/>
                     <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -35,6 +35,17 @@
                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eV4-0A-Itr">
                     <rect key="frame" x="120" y="93" width="214" height="4"/>
                 </progressView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gdJ-y9-adP">
+                    <rect key="frame" x="364" y="98.5" width="30" height="33"/>
+                    <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="15"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="刪除">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="deleteButtonTap:" destination="aQa-Qu-Rft" eventType="touchUpInside" id="9Fy-CQ-BSN"/>
+                    </connections>
+                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6t-93-SL0">
                     <rect key="frame" x="120" y="43" width="34.5" height="24"/>
                     <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="17"/>
@@ -45,6 +56,7 @@
             <viewLayoutGuide key="safeArea" id="fDc-2v-KgS"/>
             <color key="backgroundColor" name="themeBGSecond"/>
             <constraints>
+                <constraint firstItem="fDc-2v-KgS" firstAttribute="trailing" secondItem="gdJ-y9-adP" secondAttribute="trailing" constant="20" id="3Gc-SS-fuw"/>
                 <constraint firstItem="eV4-0A-Itr" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" constant="20" id="IIg-hY-tKX"/>
                 <constraint firstItem="ztc-o5-EjR" firstAttribute="leading" secondItem="fDc-2v-KgS" secondAttribute="leading" constant="20" id="Pzf-5q-iMU"/>
                 <constraint firstItem="eV4-0A-Itr" firstAttribute="leading" secondItem="ztc-o5-EjR" secondAttribute="trailing" constant="20" id="Q36-I5-KNW"/>
@@ -52,10 +64,12 @@
                 <constraint firstItem="h6t-93-SL0" firstAttribute="leading" secondItem="ztc-o5-EjR" secondAttribute="trailing" constant="20" id="WiU-LQ-huE"/>
                 <constraint firstItem="ztc-o5-EjR" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" id="ZHF-Th-MHn"/>
                 <constraint firstItem="fDc-2v-KgS" firstAttribute="trailing" secondItem="Mje-E9-i75" secondAttribute="trailing" constant="20" id="aRv-ez-k12"/>
+                <constraint firstItem="gdJ-y9-adP" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" constant="40" id="nKH-MD-NSB"/>
                 <constraint firstItem="h6t-93-SL0" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" constant="-20" id="qLI-TC-1Vj"/>
-                <constraint firstItem="Mje-E9-i75" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" id="sVY-5U-Niu"/>
+                <constraint firstItem="Mje-E9-i75" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" constant="-20" id="sVY-5U-Niu"/>
             </constraints>
             <connections>
+                <outlet property="planDeleteButton" destination="gdJ-y9-adP" id="D2M-kf-pIn"/>
                 <outlet property="planImageView" destination="ztc-o5-EjR" id="Vie-w7-79m"/>
                 <outlet property="planProgressView" destination="eV4-0A-Itr" id="pVN-4v-4wL"/>
                 <outlet property="planStartButton" destination="Mje-E9-i75" id="0nT-id-NAR"/>

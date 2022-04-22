@@ -11,24 +11,9 @@ class PlanManageViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let personal = [Plan(planName: "深蹲：每天10次/10天", planDetail: "", planImage: "pexels_squat")]
-    let group = [Plan]()
+    let viewModel = FetchPlanViewModel()
     
-    enum Section: Int, CaseIterable {
-        case personalPlan
-        case groupPlan
-        
-        var columnCount: Int {
-            switch self {
-            case .personalPlan:
-                return 1
-            case .groupPlan:
-                return 0
-            }
-        }
-    }
-    
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Plan>
+    typealias DataSource = UICollectionViewDiffableDataSource<Int, PlanManage>
     
     private var dataSource: DataSource?
     
@@ -45,6 +30,11 @@ class PlanManageViewController: UIViewController {
         configureDataSource()
         configureDataSourceProvider()
         configureDataSourceSnapshot()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.fatchPlan()
     }
     
     private func configureCollectionView() {
@@ -69,6 +59,15 @@ class PlanManageViewController: UIViewController {
                                                          subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(60)) 
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
+                                                                 elementKind:
+                                                                    UICollectionView.elementKindSectionHeader,
+                                                                 alignment: .top)
+
+        section.boundarySupplementaryItems = [header]
+        
         section.interGroupSpacing = 5
         section.contentInsets = .init(top: 5, leading: 15, bottom: 5, trailing: 15)
         
@@ -87,14 +86,17 @@ class PlanManageViewController: UIViewController {
                 self.present()
             }
             
+            cell.isDeleteButtonTap = {
+                
+            }
+            
             cell.planImageView.layer.cornerRadius = cell.planImageView.frame.height / 2
             cell.planImageView.image = UIImage(named: "pexels_squat")
-            
-            cell.planProgressView.progress = 0.5
             
             cell.layer.cornerRadius = 20
    
             cell.planTitleLabel.text = "\(item.planName)"
+            cell.planProgressView.progress = Float(item.progress)
             
             return cell
         })
@@ -116,11 +118,14 @@ class PlanManageViewController: UIViewController {
     }
     
     private func configureDataSourceSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Plan>()
-        snapshot.appendSections([.personalPlan, .groupPlan])
-        snapshot.appendItems(personal, toSection: .personalPlan)
-        snapshot.appendItems(group, toSection: .groupPlan)
-        dataSource?.apply(snapshot, animatingDifferences: false)
+        var snapshot = NSDiffableDataSourceSnapshot<Int, PlanManage>()
+        snapshot.appendSections([0, 1])
+        
+        viewModel.planManage.bind { plan in
+            snapshot.appendItems(plan, toSection: 0)
+            self.dataSource?.apply(snapshot, animatingDifferences: false)
+        }
+        
     }
     
     private func present() {

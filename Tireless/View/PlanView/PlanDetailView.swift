@@ -123,7 +123,7 @@ class PlanDetailView: UIView {
     }
     
     @objc private func createButtonTap() {
-        isCreateButtonTap?(daysCounter.getInputField(),timesCounter.getInputField())
+        isCreateButtonTap?(daysCounter.getInputField(), timesCounter.getInputField())
     }
     
     private func viewConstraints() {
