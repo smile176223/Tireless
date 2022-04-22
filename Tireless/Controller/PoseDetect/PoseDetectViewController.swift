@@ -143,7 +143,10 @@ class PoseDetectViewController: UIViewController {
         videoRecordManager.userTapBack()
         self.navigationController?.popToRootViewController(animated: true)
     }
-                                               
+    @IBAction func bacKButtonTap(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
     func lottieCountDownGo() {
         countLabel.isHidden = true
         lottieView = .init(name: "CountDownGo")

@@ -17,6 +17,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     let shareManager = ShareManager()
     
+    let homeViewModel = HomeViewModel()
+    
+    var plans: [Plan]?
+    
     enum Section: Int, CaseIterable {
         case daily
         case personalPlan
@@ -65,6 +69,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         configureDataSourceProvider()
         configureDataSourceSnapshot()
         
+        homeViewModel.setDefault()
+        
+        homeViewModel.personalPlan.bind { plan in
+            self.plans = plan
+        }
+
     }
     private func countDaily(_ day: Int) -> Int {
         let calendar = Calendar.current.date(byAdding: .day, value: day, to: Date())
@@ -135,7 +145,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
             section.boundarySupplementaryItems = [header]
 
-            section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 15)
 
             return section
         }
@@ -168,12 +178,20 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 dailyCell.isUserInteractionEnabled = false
                 return dailyCell
             } else if indexPath.section == 1 {
-                cell.backgroundColor = .themeYellow
-                cell.imageView.image = UIImage(named: "pexels_squat")
-                cell.textLabel.font = cell.textLabel.font.withSize(30)
-                cell.imageView.alpha = 1
+                cell.textLabel.font = .bold(size: 30)
+                cell.textLabel.textColor = .black
+                cell.imageView.alpha = 0.7
                 cell.layer.cornerRadius = 12
                 cell.contentView.backgroundColor = .white
+                cell.imageView.image = UIImage(named: self.plans?[indexPath.row].planImage ?? "")
+                
+                if indexPath.row == 0 {
+                    cell.imageView.image = UIImage(named: "pexels_squat")
+                } else if indexPath.row == 1 {
+                    cell.imageView.image = UIImage(named: "pexels_plank")
+                } else if indexPath.row == 2 {
+                    cell.imageView.image = UIImage(named: "pexels_pushup")
+                }
             } else if indexPath.section == 2 {
                 cell.backgroundColor = .themeYellow
                 cell.imageView.image = UIImage(named: "pexels_squat")
@@ -221,33 +239,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         dataSource?.apply(snapshot, animatingDifferences: false)
     }
     
-    @IBAction func goToNext(_ sender: UIButton) {
-        guard let poseVC = UIStoryboard.home.instantiateViewController(
-            withIdentifier: "\(PoseDetectViewController.self)")
-                as? PoseDetectViewController
-        else {
-            return
-        }
-        //        poseVC.hidesBottomBarWhenPushed = true
-        //        self.navigationItem.backButtonTitle = ""
-        //        self.navigationController?.pushViewController(poseVC, animated: true)
-        poseVC.modalPresentationStyle = .fullScreen
-        self.present(poseVC, animated: true)
-    }
-    
-    func setupTitle() {
-        let titleView = UIImageView()
-        titleView.image = UIImage(named: "TirelessLogo")
-        titleView.contentMode = .scaleAspectFill
-        titleView.clipsToBounds = true
-        view.addSubview(titleView)
-        titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
-        titleView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        titleView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        titleView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -120).isActive = true
-    }
-    
     @IBAction func photoButtonTap(_ sender: UIButton) {
         let imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = false
@@ -288,8 +279,5 @@ extension HomeViewController: UICollectionViewDelegate {
         }
         detailVC.modalPresentationStyle = .fullScreen
         self.present(detailVC, animated: true)
-        
-//        self.navigationItem.backButtonTitle = ""
-//        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

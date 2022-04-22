@@ -18,21 +18,21 @@ class ShareManager {
     
     var uploadProgress: ((Progress) -> Void)?
     
-    func uploadVideo(shareFile: ShareFiles, comletion: @escaping (Result<URL, Error>) -> Void) {
+    func uploadVideo(shareFile: ShareFiles, completion: @escaping (Result<URL, Error>) -> Void) {
         let videoRef = Storage.storage().reference().child("Videos/\(shareFile.shareName)")
         let uploadTask = videoRef.putFile(from: shareFile.shareURL, metadata: nil) { _, error in
             if let error = error {
-                comletion(.failure(error))
+                completion(.failure(error))
                 return
             }
             videoRef.downloadURL { url, error in
                 if let error = error {
-                    comletion(.failure(error))
+                    completion(.failure(error))
                 }
                 guard let downloadURL = url else {
                     return
                 }
-                comletion(.success(downloadURL))
+                completion(.success(downloadURL))
                 do {
                     var tempVideo = shareFile
                     tempVideo.shareURL = downloadURL

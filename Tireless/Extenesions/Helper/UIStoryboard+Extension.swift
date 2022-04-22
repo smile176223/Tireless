@@ -12,6 +12,8 @@ private struct StoryboardCategory {
     
     static let home = "Home"
     
+    static let plan = "Plan"
+    
     static let shareWall = "ShareWall"
     
     static let pictureWall = "PictureWall"
@@ -22,6 +24,8 @@ extension UIStoryboard {
     static var main: UIStoryboard { return tlStoryboard(name: StoryboardCategory.main)}
     
     static var home: UIStoryboard { return tlStoryboard(name: StoryboardCategory.home)}
+    
+    static var plan: UIStoryboard { return tlStoryboard(name: StoryboardCategory.plan)}
     
     static var shareWall: UIStoryboard { return tlStoryboard(name: StoryboardCategory.shareWall)}
     

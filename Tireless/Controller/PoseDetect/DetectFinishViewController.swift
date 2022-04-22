@@ -44,7 +44,7 @@ class DetectFinishViewController: UIViewController {
 //        shareVC.videoURL = videoURL
         self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
         if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
-            tabBarController.selectedIndex = 1
+            tabBarController.selectedIndex = 2
         }
         
     }

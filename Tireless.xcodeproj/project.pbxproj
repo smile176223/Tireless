@@ -55,6 +55,13 @@
 		FF3FBE5A2811538500E6B5DC /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE592811538500E6B5DC /* UIFont+Extension.swift */; };
 		FF3FBE602811A1B600E6B5DC /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE5F2811A1B600E6B5DC /* CounterView.swift */; };
 		FF3FBE622811B5EC00E6B5DC /* Squat.json in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE612811B5EC00E6B5DC /* Squat.json */; };
+		FF3FBE652811BE7A00E6B5DC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE642811BE7A00E6B5DC /* HomeViewModel.swift */; };
+		FF3FBE672811C2E100E6B5DC /* Plan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE662811C2E100E6B5DC /* Plan.storyboard */; };
+		FF3FBE6A2811C33B00E6B5DC /* PlanManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE692811C33B00E6B5DC /* PlanManageViewController.swift */; };
+		FF3FBE6C281238FE00E6B5DC /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE6B281238FE00E6B5DC /* Plan.swift */; };
+		FF3FBE6E28123A0800E6B5DC /* PlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE6D28123A0800E6B5DC /* PlanViewModel.swift */; };
+		FF3FBE7028125E4E00E6B5DC /* PlanManageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE6F28125E4E00E6B5DC /* PlanManageViewCell.swift */; };
+		FF3FBE7228125E5800E6B5DC /* PlanManageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE7128125E5800E6B5DC /* PlanManageViewCell.xib */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -114,6 +121,13 @@
 		FF3FBE592811538500E6B5DC /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		FF3FBE5F2811A1B600E6B5DC /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 		FF3FBE612811B5EC00E6B5DC /* Squat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Squat.json; sourceTree = "<group>"; };
+		FF3FBE642811BE7A00E6B5DC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		FF3FBE662811C2E100E6B5DC /* Plan.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Plan.storyboard; sourceTree = "<group>"; };
+		FF3FBE692811C33B00E6B5DC /* PlanManageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManageViewController.swift; sourceTree = "<group>"; };
+		FF3FBE6B281238FE00E6B5DC /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
+		FF3FBE6D28123A0800E6B5DC /* PlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewModel.swift; sourceTree = "<group>"; };
+		FF3FBE6F28125E4E00E6B5DC /* PlanManageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManageViewCell.swift; sourceTree = "<group>"; };
+		FF3FBE7128125E5800E6B5DC /* PlanManageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanManageViewCell.xib; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +176,7 @@
 				FF308E862808292F00265863 /* ShareWallViewCell */,
 				FF308E6028055FA100265863 /* DetectFinishView */,
 				FFC0C15A28008F640041A937 /* Home.storyboard */,
+				FF3FBE662811C2E100E6B5DC /* Plan.storyboard */,
 				FF308E8028080FB800265863 /* Main.storyboard */,
 				FF308E822808106500265863 /* ShareWall.storyboard */,
 				FF308E99280C6B0A00265863 /* PictureWall.storyboard */,
@@ -172,6 +187,7 @@
 		FF14448F28009B5A0027F560 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FF3FBE682811C2FE00E6B5DC /* Plan */,
 				FF308E7D28080E4D00265863 /* TabBar */,
 				FF308E6528057D5D00265863 /* Home */,
 				FF308E612805787300265863 /* PoseDetect */,
@@ -183,6 +199,7 @@
 		FF14449028009B640027F560 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				FF3FBE632811BE6E00E6B5DC /* Home */,
 				FF308E8B2809176D00265863 /* ShareWall */,
 				FF308E782807D41500265863 /* Publish */,
 				FF1444AD2801836E0027F560 /* PoseDetect */,
@@ -196,6 +213,7 @@
 				FF1444A92801623E0027F560 /* PosePoint.swift */,
 				FF308E6E2806822B00265863 /* ShareFiles.swift */,
 				FF308E762807A4F400265863 /* User.swift */,
+				FF3FBE6B281238FE00E6B5DC /* Plan.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -316,7 +334,6 @@
 			isa = PBXGroup;
 			children = (
 				FF308E6728057D7800265863 /* HomeViewController.swift */,
-				FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -396,8 +413,28 @@
 			children = (
 				FF3FBE552810648000E6B5DC /* PlanDetailView.swift */,
 				FF3FBE5F2811A1B600E6B5DC /* CounterView.swift */,
+				FF3FBE6F28125E4E00E6B5DC /* PlanManageViewCell.swift */,
+				FF3FBE7128125E5800E6B5DC /* PlanManageViewCell.xib */,
 			);
 			path = PlanView;
+			sourceTree = "<group>";
+		};
+		FF3FBE632811BE6E00E6B5DC /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				FF3FBE642811BE7A00E6B5DC /* HomeViewModel.swift */,
+				FF3FBE6D28123A0800E6B5DC /* PlanViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		FF3FBE682811C2FE00E6B5DC /* Plan */ = {
+			isa = PBXGroup;
+			children = (
+				FF3FBE692811C33B00E6B5DC /* PlanManageViewController.swift */,
+				FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */,
+			);
+			path = Plan;
 			sourceTree = "<group>";
 		};
 		FFC0C14828008F640041A937 = {
@@ -508,8 +545,10 @@
 				FFC0C16128008F650041A937 /* LaunchScreen.storyboard in Resources */,
 				FF3FBE622811B5EC00E6B5DC /* Squat.json in Resources */,
 				FF308E94280C67FD00265863 /* SharePictureViewCell.xib in Resources */,
+				FF3FBE7228125E5800E6B5DC /* PlanManageViewCell.xib in Resources */,
 				FF308E5D28055F9700265863 /* DetectFinishView.xib in Resources */,
 				FF308E832808106500265863 /* ShareWall.storyboard in Resources */,
+				FF3FBE672811C2E100E6B5DC /* Plan.storyboard in Resources */,
 				FFC0C15E28008F650041A937 /* Assets.xcassets in Resources */,
 				FF308E5B2805560F00265863 /* DetectDone.json in Resources */,
 				FF2FE0E9280E8FD100F8890D /* Loading.json in Resources */,
@@ -613,10 +652,12 @@
 				FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */,
 				FF3FBE5A2811538500E6B5DC /* UIFont+Extension.swift in Sources */,
 				FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */,
+				FF3FBE6A2811C33B00E6B5DC /* PlanManageViewController.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */,
 				FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */,
 				FF2FE0F0280EDB7900F8890D /* HomeHeaderView.swift in Sources */,
 				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
+				FF3FBE6E28123A0800E6B5DC /* PlanViewModel.swift in Sources */,
 				FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */,
 				FF308E6828057D7800265863 /* HomeViewController.swift in Sources */,
 				FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */,
@@ -624,13 +665,16 @@
 				FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */,
 				FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */,
 				FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */,
+				FF3FBE652811BE7A00E6B5DC /* HomeViewModel.swift in Sources */,
 				FF308E6F2806822B00265863 /* ShareFiles.swift in Sources */,
 				FF308E852808110100265863 /* UIStoryboard+Extension.swift in Sources */,
 				FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */,
+				FF3FBE6C281238FE00E6B5DC /* Plan.swift in Sources */,
 				FF3FBE562810648000E6B5DC /* PlanDetailView.swift in Sources */,
 				FF1444A6280156700027F560 /* UIUtilities.swift in Sources */,
 				FF2FE0F4280F9A5E00F8890D /* HomeDailyHeaderView.swift in Sources */,
 				FF14449428009C010027F560 /* Box.swift in Sources */,
+				FF3FBE7028125E4E00E6B5DC /* PlanManageViewCell.swift in Sources */,
 				FF3FBE602811A1B600E6B5DC /* CounterView.swift in Sources */,
 				FF2FE0EB280EA8A200F8890D /* UIColor+Extension.swift in Sources */,
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
