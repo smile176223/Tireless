@@ -16,17 +16,28 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mje-E9-i75">
-                    <rect key="frame" x="341" y="59.5" width="53" height="31"/>
+                    <rect key="frame" x="354" y="55" width="40" height="40"/>
+                    <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="開始"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="開始"/>
                     <connections>
                         <action selector="startButtonTap:" destination="aQa-Qu-Rft" eventType="touchUpInside" id="7t6-W3-HE0"/>
                     </connections>
                 </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ztc-o5-EjR">
+                    <rect key="frame" x="20" y="35" width="80" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="ztc-o5-EjR" secondAttribute="height" id="LsQ-kU-9mM"/>
+                        <constraint firstAttribute="width" constant="80" id="mIP-eA-2n2"/>
+                    </constraints>
+                </imageView>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eV4-0A-Itr">
+                    <rect key="frame" x="120" y="93" width="214" height="4"/>
+                </progressView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6t-93-SL0">
-                    <rect key="frame" x="20" y="64.5" width="33" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <rect key="frame" x="120" y="43" width="34.5" height="24"/>
+                    <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -34,13 +45,19 @@
             <viewLayoutGuide key="safeArea" id="fDc-2v-KgS"/>
             <color key="backgroundColor" name="themeBGSecond"/>
             <constraints>
-                <constraint firstItem="h6t-93-SL0" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" id="4dq-Lf-qaE"/>
-                <constraint firstItem="h6t-93-SL0" firstAttribute="leading" secondItem="fDc-2v-KgS" secondAttribute="leading" constant="20" id="TVe-VF-oyL"/>
+                <constraint firstItem="eV4-0A-Itr" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" constant="20" id="IIg-hY-tKX"/>
+                <constraint firstItem="ztc-o5-EjR" firstAttribute="leading" secondItem="fDc-2v-KgS" secondAttribute="leading" constant="20" id="Pzf-5q-iMU"/>
+                <constraint firstItem="eV4-0A-Itr" firstAttribute="leading" secondItem="ztc-o5-EjR" secondAttribute="trailing" constant="20" id="Q36-I5-KNW"/>
+                <constraint firstItem="Mje-E9-i75" firstAttribute="leading" secondItem="eV4-0A-Itr" secondAttribute="trailing" constant="20" id="TUk-Ff-uKm"/>
+                <constraint firstItem="h6t-93-SL0" firstAttribute="leading" secondItem="ztc-o5-EjR" secondAttribute="trailing" constant="20" id="WiU-LQ-huE"/>
+                <constraint firstItem="ztc-o5-EjR" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" id="ZHF-Th-MHn"/>
                 <constraint firstItem="fDc-2v-KgS" firstAttribute="trailing" secondItem="Mje-E9-i75" secondAttribute="trailing" constant="20" id="aRv-ez-k12"/>
-                <constraint firstItem="fDc-2v-KgS" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="h6t-93-SL0" secondAttribute="trailing" constant="20" id="gDQ-DW-Emc"/>
+                <constraint firstItem="h6t-93-SL0" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" constant="-20" id="qLI-TC-1Vj"/>
                 <constraint firstItem="Mje-E9-i75" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" id="sVY-5U-Niu"/>
             </constraints>
             <connections>
+                <outlet property="planImageView" destination="ztc-o5-EjR" id="Vie-w7-79m"/>
+                <outlet property="planProgressView" destination="eV4-0A-Itr" id="pVN-4v-4wL"/>
                 <outlet property="planStartButton" destination="Mje-E9-i75" id="0nT-id-NAR"/>
                 <outlet property="planTitleLabel" destination="h6t-93-SL0" id="72c-Ka-yDR"/>
             </connections>

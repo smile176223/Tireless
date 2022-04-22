@@ -29,6 +29,7 @@ class CounterView: UIView {
         textField.textColor = .white
         textField.text = "1"
         textField.textAlignment = .center
+        textField.keyboardType = .numberPad
         return textField
     }()
     
@@ -49,6 +50,7 @@ class CounterView: UIView {
         self.layer.cornerRadius = 23
         minusButton.addTarget(self, action: #selector(minusButtonTap), for: .touchUpInside)
         plusButton.addTarget(self, action: #selector(plusButtonTap), for: .touchUpInside)
+        inputTextField.delegate = self
     }
     
     @objc func minusButtonTap() {
@@ -99,6 +101,10 @@ class CounterView: UIView {
         inputTextField.text = "\(num)"
     }
     
+    func getInputField() -> String {
+        return inputTextField.text ?? ""
+    }
+    
     private func buttonConstraints() {
         addSubview(minusButton)
         minusButton.translatesAutoresizingMaskIntoConstraints = false
@@ -129,5 +135,11 @@ class CounterView: UIView {
             inputTextField.heightAnchor.constraint(equalTo: plusButton.heightAnchor),
             inputTextField.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
+    }
+}
+
+extension CounterView: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+         checkData()
     }
 }

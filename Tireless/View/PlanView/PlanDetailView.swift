@@ -12,6 +12,8 @@ class PlanDetailView: UIView {
     
     var isBackButtonTap: (() -> Void)?
     
+    var isCreateButtonTap: ((String, String) -> Void)?
+
     private var imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
@@ -47,15 +49,6 @@ class PlanDetailView: UIView {
         label.lineBreakMode = .byWordWrapping
         return label
     }()
-    
-//    private var timesAlertLabel: UILabel = {
-//        let label = UILabel()
-//        label.textColor = .white
-//        label.font = .bold(size: 20)
-//        label.text = "每日提醒時間"
-//        label.textAlignment = .center
-//        return label
-//    }()
     
     private var lottieAnimate: AnimationView = {
         var lottie = AnimationView()
@@ -130,7 +123,7 @@ class PlanDetailView: UIView {
     }
     
     @objc private func createButtonTap() {
-        isBackButtonTap?()
+        isCreateButtonTap?(daysCounter.getInputField(),timesCounter.getInputField())
     }
     
     private func viewConstraints() {
@@ -211,13 +204,6 @@ class PlanDetailView: UIView {
             timesLabel.bottomAnchor.constraint(equalTo: timesCounter.topAnchor, constant: -10),
             timesLabel.centerXAnchor.constraint(equalTo: timesCounter.centerXAnchor)
         ])
-        
-//        bottomView.addSubview(timesAlertLabel)
-//        timesAlertLabel.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            timesAlertLabel.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor),
-//            timesAlertLabel.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor, constant: -20)
-//        ])
     }
     
     private func lottieConstraints() {

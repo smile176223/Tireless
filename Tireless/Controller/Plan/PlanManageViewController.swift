@@ -11,6 +11,9 @@ class PlanManageViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    let personal = [Plan(planName: "深蹲：每天10次/10天", planDetail: "", planImage: "pexels_squat")]
+    let group = [Plan]()
+    
     enum Section: Int, CaseIterable {
         case personalPlan
         case groupPlan
@@ -18,9 +21,9 @@ class PlanManageViewController: UIViewController {
         var columnCount: Int {
             switch self {
             case .personalPlan:
-                return 3
+                return 1
             case .groupPlan:
-                return 3
+                return 0
             }
         }
     }
@@ -36,6 +39,7 @@ class PlanManageViewController: UIViewController {
         
         self.navigationController?.navigationBar.titleTextAttributes =
         [NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.barTintColor = .themeBG
         
         configureCollectionView()
         configureDataSource()
@@ -57,7 +61,7 @@ class PlanManageViewController: UIViewController {
     
     private func createLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                             heightDimension: .estimated(50))
+                                             heightDimension: .absolute(130))
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
       
@@ -83,7 +87,12 @@ class PlanManageViewController: UIViewController {
                 self.present()
             }
             
-            cell.layer.cornerRadius = 15
+            cell.planImageView.layer.cornerRadius = cell.planImageView.frame.height / 2
+            cell.planImageView.image = UIImage(named: "pexels_squat")
+            
+            cell.planProgressView.progress = 0.5
+            
+            cell.layer.cornerRadius = 20
    
             cell.planTitleLabel.text = "\(item.planName)"
             
@@ -108,12 +117,9 @@ class PlanManageViewController: UIViewController {
     
     private func configureDataSourceSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Plan>()
-        let personal = [Plan(planName: "Squat", planDetail: "", planImage: "Cover"),
-                        Plan(planName: "Plank", planDetail: "", planImage: "Cover"),
-                        Plan(planName: "PushUp", planDetail: "", planImage: "Cover")]
         snapshot.appendSections([.personalPlan, .groupPlan])
         snapshot.appendItems(personal, toSection: .personalPlan)
-        snapshot.appendItems(personal, toSection: .groupPlan)
+        snapshot.appendItems(group, toSection: .groupPlan)
         dataSource?.apply(snapshot, animatingDifferences: false)
     }
     
