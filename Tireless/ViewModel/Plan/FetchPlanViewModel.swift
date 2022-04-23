@@ -34,4 +34,16 @@ class FetchPlanViewModel {
             }
         }
     }
+    
+    func updatePlan(planManage: PlanManage) {
+        PlanManager.shared.updatePlan(planManage: planManage) { result in
+            switch result {
+            case .success(let success):
+                print(success)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

@@ -38,7 +38,11 @@ class PoseDetectViewController: UIViewController {
     
     private let viewModel = PoseDetectViewModel()
     
+    private let planViewModel = FetchPlanViewModel()
+    
     var planTarget: Int = 0
+    
+    var planManage: PlanManage?
     
     private var counter = 0 {
         didSet {
@@ -317,8 +321,26 @@ class PoseDetectViewController: UIViewController {
         self.present(navShowVC, animated: true, completion: { [weak self] in
             self?.blurEffect()
             self?.stopSession()
+            self?.updateValue()
+            self?.updatePlan()
         })
     }
+    
+    private func updateValue() {
+        guard let planManage = planManage,
+              let days = Double(planManage.planDays) else {
+            return
+        }
+        let done = round(planManage.progress * days) + 1
+        self.planManage?.progress = done / days
+    }
+    private func updatePlan() {
+        guard let planManage = planManage else {
+            return
+        }
+        planViewModel.updatePlan(planManage: planManage)
+    }
+    
 }
 
 extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate {

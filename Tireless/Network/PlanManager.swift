@@ -51,4 +51,13 @@ class PlanManager {
             }
         }
     }
+    
+    func updatePlan(planManage: PlanManage, completion: @escaping (Result<String, Error>) -> Void ) {
+        do {
+            try planDB.document(planManage.uuid).setData(from: planManage)
+            completion(.success("Success"))
+        } catch {
+            completion(.failure(error))
+        }
+    }
 }

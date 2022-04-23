@@ -96,14 +96,13 @@ class PlanManageViewController: UIViewController {
             }
             
             cell.isStartButtonTap = {
-                self.present(target: item.planTimes)
+                self.present(target: item.planTimes, planManage: item)
             }
             
             cell.isDeleteButtonTap = {
                 self.viewModel.deletePlan(uuid: item.uuid)
                 var snapshot = self.dataSource?.snapshot()
                 snapshot?.deleteItems([item])
-//                self.dataSource?.apply(snapshot!, animatingDifferences: true)
                 self.dataSource?.apply(snapshot!, animatingDifferences: true)
             }
             switch item.planName {
@@ -154,13 +153,14 @@ class PlanManageViewController: UIViewController {
         
         if let planManages = planManages {
             snapshot.appendItems(planManages, toSection: 0)
+            snapshot.reloadItems(planManages)
         } else {
             return snapshot
         }
         return snapshot
     }
     
-    private func present(target: String) {
+    private func present(target: String, planManage: PlanManage) {
         guard let poseVC = UIStoryboard.home.instantiateViewController(
             withIdentifier: "\(PoseDetectViewController.self)")
                 as? PoseDetectViewController
@@ -168,6 +168,7 @@ class PlanManageViewController: UIViewController {
             return
         }
         poseVC.planTarget = Int(target) ?? 0
+        poseVC.planManage = planManage
         poseVC.modalPresentationStyle = .fullScreen
         self.present(poseVC, animated: true)
     }
