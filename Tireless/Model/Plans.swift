@@ -7,7 +7,12 @@
 
 import Foundation
 
-struct Plan: Hashable {
+struct WeeklyDays: Hashable {
+    let days: String
+    let weekDays: String
+}
+
+struct Plans: Hashable {
     let planName: String
     let planDetail: String
     let planImage: String
@@ -42,3 +47,4 @@ extension PlanManage: Hashable {
         hasher.combine(uuid)
     }
 }
+

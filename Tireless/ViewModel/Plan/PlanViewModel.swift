@@ -8,9 +8,9 @@
 import Foundation
 
 class PlanViewModel {
-    var plan: Plan
+    var plan: Plans
     
-    init(model plan: Plan) {
+    init(model plan: Plans) {
         self.plan = plan
     }
 }

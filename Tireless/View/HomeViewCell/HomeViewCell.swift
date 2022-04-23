@@ -10,18 +10,26 @@ import UIKit
 
 class HomeViewCell: UICollectionViewCell {
     
-    public lazy var textLabel: UILabel = {
+    lazy var textLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = .white
+        label.textColor = .black
         return label
     }()
     
-    public lazy var imageView: UIImageView = {
+    lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.alpha = 1
         return imageView
+    }()
+    
+    lazy var masksView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.alpha = 0.5
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -37,6 +45,8 @@ class HomeViewCell: UICollectionViewCell {
     private func commonInit() {
         textLabelConstraints()
         self.backgroundColor = .themeBG
+        self.layer.cornerRadius = 12
+        self.contentView.backgroundColor = .white
     }
     
     private func textLabelConstraints() {
@@ -48,6 +58,15 @@ class HomeViewCell: UICollectionViewCell {
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
+        addSubview(masksView)
+        masksView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            masksView.topAnchor.constraint(equalTo: imageView.topAnchor),
+            masksView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
+            masksView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            masksView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor)
         ])
         
         addSubview(textLabel)

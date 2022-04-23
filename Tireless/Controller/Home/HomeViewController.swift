@@ -17,9 +17,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     let shareManager = ShareManager()
     
-    let homeViewModel = HomeViewModel()
-    
-    var plans: [Plan]?
+    let viewModel = HomeViewModel()
     
     enum Section: Int, CaseIterable {
         case daily
@@ -37,23 +35,16 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         }
     }
-
-    lazy var weekday = [countWeekDay(-2),
-                        countWeekDay(-1),
-                        countWeekDay(0),
-                        countWeekDay(1),
-                        countWeekDay(2)]
     
-    lazy var dayArray = ["\(countDaily(-2))",
-                         "\(countDaily(-1))",
-                         "\(countDaily(0))",
-                         "\(countDaily(1))",
-                         "\(countDaily(2))"]
+    enum SectionItem: Hashable {
+        case daily(WeeklyDays)
+        case personalPlan(Plans)
+        case groupPlan(Plans)
+    }
     
-    var personalPlan = ["Squat", "Plank", "PushUp"]
-    var groupPlan = ["Squat X 10", "Plank X 7", "PushUp X 20", "Squat X 20", "PushUp X 30", "PushUp X 40"]
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, SectionItem>
     
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, String>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SectionItem>
     
     private var dataSource: DataSource?
     
@@ -69,22 +60,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         configureDataSourceProvider()
         configureDataSourceSnapshot()
         
-        homeViewModel.setDefault()
-        
-        homeViewModel.personalPlan.bind { plan in
-            self.plans = plan
-        }
+        viewModel.setDefault()
 
-    }
-    private func countDaily(_ day: Int) -> Int {
-        let calendar = Calendar.current.date(byAdding: .day, value: day, to: Date())
-        return calendar?.get(.day) ?? 0
-    }
-    
-    private func countWeekDay(_ day: Int) -> String {
-        guard let calendar = Calendar.current.date(byAdding: .day, value: day, to: Date()) else { return ""}
-        let weekDayString = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-        return weekDayString[calendar.get(.weekday) - 1]
     }
     
     private func configureCollectionView() {
@@ -166,42 +143,26 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 return UICollectionViewCell()
             }
             
-            dailyCell.dailyDayLabel.text = "\(item)"
-            cell.textLabel.text = "\(item)"
-            
-            if indexPath.section == 0 {
-                if indexPath.row == 2 {
+            switch item {
+            case .daily(let text):
+                if indexPath.section == 0, indexPath.row == 2 {
                     dailyCell.contentView.backgroundColor = .themeYellow
                 }
-                dailyCell.layer.cornerRadius = 12
-                dailyCell.dailyWeekDayLabel.text = self.weekday[indexPath.row]
-                dailyCell.isUserInteractionEnabled = false
+                cell.textLabel.text = "\(text)"
+                dailyCell.dailyWeekDayLabel.text = text.weekDays
+                dailyCell.dailyDayLabel.text = text.days
                 return dailyCell
-            } else if indexPath.section == 1 {
+            case .personalPlan(let plans):
                 cell.textLabel.font = .bold(size: 30)
-                cell.textLabel.textColor = .black
-                cell.imageView.alpha = 0.7
-                cell.layer.cornerRadius = 12
-                cell.contentView.backgroundColor = .white
-                cell.imageView.image = UIImage(named: self.plans?[indexPath.row].planImage ?? "")
-                
-                if indexPath.row == 0 {
-                    cell.imageView.image = UIImage(named: "pexels_squat")
-                } else if indexPath.row == 1 {
-                    cell.imageView.image = UIImage(named: "pexels_plank")
-                } else if indexPath.row == 2 {
-                    cell.imageView.image = UIImage(named: "pexels_pushup")
-                }
-            } else if indexPath.section == 2 {
-                cell.backgroundColor = .themeYellow
+                cell.textLabel.text = plans.planName
+                cell.imageView.image = UIImage(named: plans.planImage)
+                return cell
+            case .groupPlan(let plans):
                 cell.textLabel.font = .bold(size: 15)
-                cell.textLabel.textColor = .black
-                cell.imageView.image = UIImage(named: "pexels_squat")
-                cell.imageView.alpha = 0.7
-                cell.layer.cornerRadius = 12
-                cell.contentView.backgroundColor = .white
+                cell.textLabel.text = plans.planName
+                cell.imageView.image = UIImage(named: plans.planImage)
+                return cell
             }
-            return cell
         })
     }
     private func configureDataSourceProvider() {
@@ -233,42 +194,42 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     private func configureDataSourceSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+        var snapshot = Snapshot()
         snapshot.appendSections([.daily, .personalPlan, .groupPlan])
-        snapshot.appendItems(dayArray, toSection: .daily)
-        snapshot.appendItems(personalPlan, toSection: .personalPlan)
-        snapshot.appendItems(groupPlan, toSection: .groupPlan)
+        snapshot.appendItems(viewModel.weeklyDay.map({SectionItem.daily($0)}), toSection: .daily)
+        snapshot.appendItems(viewModel.plans.map({SectionItem.personalPlan($0)}), toSection: .personalPlan)
+        snapshot.appendItems(viewModel.plans.map({SectionItem.groupPlan($0)}), toSection: .groupPlan)
         dataSource?.apply(snapshot, animatingDifferences: false)
     }
     
-    @IBAction func photoButtonTap(_ sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .camera
-        imagePicker.delegate = self
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        
-        let fileManager = FileManager.default
-        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-        let imagePath = documentsPath?.appendingPathComponent("image.jpg")
-        
-        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            
-            let imageData = pickedImage.jpegData(compressionQuality: 0.75)
-            try? imageData?.write(to: imagePath!)
-            shareManager.uploadPicture(shareFile: ShareFiles(userId: "liamTest",
-                                                             shareName: UUID().uuidString,
-                                                             shareURL: imagePath!,
-                                                             createdTime: Date().millisecondsSince1970,
-                                                             content: "")) { _ in
-                self.dismiss(animated: true)
-            }
-        }
-    }
+//    @IBAction func photoButtonTap(_ sender: UIButton) {
+//        let imagePicker = UIImagePickerController()
+//        imagePicker.allowsEditing = false
+//        imagePicker.sourceType = .camera
+//        imagePicker.delegate = self
+//        present(imagePicker, animated: true, completion: nil)
+//    }
+//    
+//    func imagePickerController(_ picker: UIImagePickerController,
+//                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+//        
+//        let fileManager = FileManager.default
+//        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+//        let imagePath = documentsPath?.appendingPathComponent("image.jpg")
+//        
+//        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+//            
+//            let imageData = pickedImage.jpegData(compressionQuality: 0.75)
+//            try? imageData?.write(to: imagePath!)
+//            shareManager.uploadPicture(shareFile: ShareFiles(userId: "liamTest",
+//                                                             shareName: UUID().uuidString,
+//                                                             shareURL: imagePath!,
+//                                                             createdTime: Date().millisecondsSince1970,
+//                                                             content: "")) { _ in
+//                self.dismiss(animated: true)
+//            }
+//        }
+//    }
 }
 
 extension HomeViewController: UICollectionViewDelegate {

@@ -58,7 +58,7 @@
 		FF3FBE652811BE7A00E6B5DC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE642811BE7A00E6B5DC /* HomeViewModel.swift */; };
 		FF3FBE672811C2E100E6B5DC /* Plan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE662811C2E100E6B5DC /* Plan.storyboard */; };
 		FF3FBE6A2811C33B00E6B5DC /* PlanManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE692811C33B00E6B5DC /* PlanManageViewController.swift */; };
-		FF3FBE6C281238FE00E6B5DC /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE6B281238FE00E6B5DC /* Plan.swift */; };
+		FF3FBE6C281238FE00E6B5DC /* Plans.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE6B281238FE00E6B5DC /* Plans.swift */; };
 		FF3FBE6E28123A0800E6B5DC /* PlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE6D28123A0800E6B5DC /* PlanViewModel.swift */; };
 		FF3FBE7028125E4E00E6B5DC /* PlanManageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE6F28125E4E00E6B5DC /* PlanManageViewCell.swift */; };
 		FF3FBE7228125E5800E6B5DC /* PlanManageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE7128125E5800E6B5DC /* PlanManageViewCell.xib */; };
@@ -128,7 +128,7 @@
 		FF3FBE642811BE7A00E6B5DC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		FF3FBE662811C2E100E6B5DC /* Plan.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Plan.storyboard; sourceTree = "<group>"; };
 		FF3FBE692811C33B00E6B5DC /* PlanManageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManageViewController.swift; sourceTree = "<group>"; };
-		FF3FBE6B281238FE00E6B5DC /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
+		FF3FBE6B281238FE00E6B5DC /* Plans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plans.swift; sourceTree = "<group>"; };
 		FF3FBE6D28123A0800E6B5DC /* PlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewModel.swift; sourceTree = "<group>"; };
 		FF3FBE6F28125E4E00E6B5DC /* PlanManageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManageViewCell.swift; sourceTree = "<group>"; };
 		FF3FBE7128125E5800E6B5DC /* PlanManageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanManageViewCell.xib; sourceTree = "<group>"; };
@@ -222,7 +222,7 @@
 				FF1444A92801623E0027F560 /* PosePoint.swift */,
 				FF308E6E2806822B00265863 /* ShareFiles.swift */,
 				FF308E762807A4F400265863 /* User.swift */,
-				FF3FBE6B281238FE00E6B5DC /* Plan.swift */,
+				FF3FBE6B281238FE00E6B5DC /* Plans.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -693,7 +693,7 @@
 				FF308E6F2806822B00265863 /* ShareFiles.swift in Sources */,
 				FF308E852808110100265863 /* UIStoryboard+Extension.swift in Sources */,
 				FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */,
-				FF3FBE6C281238FE00E6B5DC /* Plan.swift in Sources */,
+				FF3FBE6C281238FE00E6B5DC /* Plans.swift in Sources */,
 				FF3FBE562810648000E6B5DC /* PlanDetailView.swift in Sources */,
 				FF1444A6280156700027F560 /* UIUtilities.swift in Sources */,
 				FF2FE0F4280F9A5E00F8890D /* HomeDailyHeaderView.swift in Sources */,
