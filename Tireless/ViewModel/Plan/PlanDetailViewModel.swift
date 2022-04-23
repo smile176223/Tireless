@@ -15,6 +15,7 @@ class PlanDetailViewModel {
                                             createdTime: -1,
                                             planGroup: false,
                                             progress: 0.0,
+                                            finishTime: [],
                                             uuid: "")
     
     func getPlanData(name: String, times: String, days: String, createdTime: Int64, planGroup: Bool) {

@@ -333,6 +333,7 @@ class PoseDetectViewController: UIViewController {
         }
         let done = round(planManage.progress * days) + 1
         self.planManage?.progress = done / days
+        self.planManage?.finishTime.append(FinishTime(day: Int(done), time: Date().millisecondsSince1970))
     }
     private func updatePlan() {
         guard let planManage = planManage else {

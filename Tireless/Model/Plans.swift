@@ -26,6 +26,7 @@ struct PlanManage: Codable {
     var createdTime: Int64
     var planGroup: Bool
     var progress: Double
+    var finishTime: [FinishTime?]
     var uuid: String
     
     enum CodingKeys: String, CodingKey {
@@ -35,6 +36,7 @@ struct PlanManage: Codable {
         case createdTime
         case planGroup
         case progress
+        case finishTime
         case uuid
     }
 }
@@ -47,4 +49,9 @@ extension PlanManage: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(uuid)
     }
+}
+
+struct FinishTime: Codable {
+    let day: Int
+    let time: Int64
 }
