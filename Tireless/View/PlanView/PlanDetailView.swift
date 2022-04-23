@@ -34,7 +34,7 @@ class PlanDetailView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.font = .bold(size: 30)
-        label.text = "深蹲"
+        label.text = "運動項目"
         label.textAlignment = .left
         return label
     }()
@@ -43,20 +43,11 @@ class PlanDetailView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.font = .regular(size: 15)
-        label.text = "深蹲，又稱蹲舉，在力量練習中，是個複合的、全身性的練習動作，它可以訓練到大腿、臀部、大腿後肌，同時可以增強骨頭、韌帶和橫貫下半身的肌腱。"
+        label.text = "描述"
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         return label
-    }()
-    
-    private var lottieAnimate: AnimationView = {
-        var lottie = AnimationView()
-        lottie = .init(name: "Squat")
-        lottie.contentMode = .scaleAspectFit
-        lottie.loopMode = .loop
-        lottie.play()
-        return lottie
     }()
     
     private var createButton: UIButton = {
@@ -110,7 +101,6 @@ class PlanDetailView: UIView {
         viewConstraints()
         buttonConstraints()
         labelConstraints()
-        lottieConstraints()
         self.backgroundColor = .themeBG
         backButton.addTarget(self, action: #selector(backButtonTap), for: .touchUpInside)
         createButton.addTarget(self, action: #selector(createButtonTap), for: .touchUpInside)
@@ -126,6 +116,29 @@ class PlanDetailView: UIView {
         isCreateButtonTap?(daysCounter.getInputField(), timesCounter.getInputField())
     }
     
+    func setupLayout(plan: Plans) {
+        titleLabel.text = plan.planName
+        imageView.image = UIImage(named: plan.planImage)
+        infoLabel.text = plan.planDetail
+        setLottie(plan.planLottie)
+    }
+    
+    func setLottie(_ name: String) {
+        var lottieAnimate = AnimationView()
+        lottieAnimate = .init(name: name)
+        lottieAnimate.contentMode = .scaleAspectFit
+        lottieAnimate.loopMode = .loop
+        lottieAnimate.play()
+        bottomView.addSubview(lottieAnimate)
+        lottieAnimate.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            lottieAnimate.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 200),
+            lottieAnimate.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -150),
+            lottieAnimate.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            lottieAnimate.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+        ])
+    }
+    
     private func viewConstraints() {
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -133,7 +146,7 @@ class PlanDetailView: UIView {
             imageView.topAnchor.constraint(equalTo: topAnchor),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2)
+            imageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3.5)
         ])
         addSubview(bottomView)
         bottomView.translatesAutoresizingMaskIntoConstraints = false
@@ -203,17 +216,6 @@ class PlanDetailView: UIView {
         NSLayoutConstraint.activate([
             timesLabel.bottomAnchor.constraint(equalTo: timesCounter.topAnchor, constant: -10),
             timesLabel.centerXAnchor.constraint(equalTo: timesCounter.centerXAnchor)
-        ])
-    }
-    
-    private func lottieConstraints() {
-        bottomView.addSubview(lottieAnimate)
-        lottieAnimate.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            lottieAnimate.topAnchor.constraint(equalTo: bottomView.topAnchor, constant: 200),
-            lottieAnimate.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -150),
-            lottieAnimate.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            lottieAnimate.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
         ])
     }
 }

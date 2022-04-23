@@ -19,6 +19,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     let viewModel = HomeViewModel()
     
+    var plans: [Plans]?
+    
     enum Section: Int, CaseIterable {
         case daily
         case personalPlan
@@ -61,6 +63,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         configureDataSourceSnapshot()
         
         viewModel.setDefault()
+        
+        viewModel.personalPlan.bind { plans in
+            self.plans = plans
+        }
 
     }
     
@@ -240,6 +246,7 @@ extension HomeViewController: UICollectionViewDelegate {
         else {
             return
         }
+        detailVC.plan = plans?[indexPath.row]
         detailVC.modalPresentationStyle = .fullScreen
         self.present(detailVC, animated: true)
     }

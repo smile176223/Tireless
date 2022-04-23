@@ -16,6 +16,7 @@ struct Plans: Hashable {
     let planName: String
     let planDetail: String
     let planImage: String
+    let planLottie: String
 }
 
 struct PlanManage: Codable {

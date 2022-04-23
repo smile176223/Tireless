@@ -11,12 +11,22 @@ class PlanDetailViewController: UIViewController {
     
     @IBOutlet var planDetailView: PlanDetailView!
     
+    var plan: Plans?
+    
     let viewModel = PlanDetailViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         isBackButtonTap()
         isCreateButtonTap()
+        setupLayout()
+    }
+    
+    func setupLayout() {
+        guard let plan = plan else {
+            return
+        }
+        planDetailView.setupLayout(plan: plan)
     }
     
     func isBackButtonTap() {
@@ -26,8 +36,11 @@ class PlanDetailViewController: UIViewController {
     }
     
     func isCreateButtonTap() {
+        guard let plan = plan else {
+            return
+        }
         planDetailView.isCreateButtonTap = { days, times in
-            self.viewModel.getPlanData(name: "Squat",
+            self.viewModel.getPlanData(name: plan.planName,
                                   times: times,
                                   days: days,
                                   createdTime: Date().millisecondsSince1970,
