@@ -100,10 +100,20 @@ class PlanManageViewController: UIViewController {
             }
             
             cell.isDeleteButtonTap = {
-                self.viewModel.deletePlan(uuid: item.uuid)
-                var snapshot = self.dataSource?.snapshot()
-                snapshot?.deleteItems([item])
-                self.dataSource?.apply(snapshot!, animatingDifferences: true)
+                let alertController = UIAlertController(title: "確認刪除!", message: "刪除的計畫無法再度復原!", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "確定", style: .default) { _ in
+                    self.viewModel.deletePlan(uuid: item.uuid)
+                    var snapshot = self.dataSource?.snapshot()
+                    snapshot?.deleteItems([item])
+                    self.dataSource?.apply(snapshot!, animatingDifferences: true)
+                    alertController.dismiss(animated: true)
+                }
+                let cancelAction = UIAlertAction(title: "放棄", style: .default) { _ in
+                    alertController.dismiss(animated: true)
+                }
+                alertController.addAction(okAction)
+                alertController.addAction(cancelAction)
+                self.present(alertController, animated: true)
             }
             switch item.planName {
             case "深蹲":
@@ -172,5 +182,4 @@ class PlanManageViewController: UIViewController {
         poseVC.modalPresentationStyle = .fullScreen
         self.present(poseVC, animated: true)
     }
-        
 }
