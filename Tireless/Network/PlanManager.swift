@@ -14,9 +14,11 @@ class PlanManager {
     
     lazy var planDB = Firestore.firestore().collection("plan")
     
-    func createPlan(plan: PlanManage, completion: @escaping (Result<String, Error>) -> Void) {
+    func createPlan(planManage: inout PlanManage, completion: @escaping (Result<String, Error>) -> Void) {
         do {
-            try _ = planDB.addDocument(from: plan)
+            let document = Firestore.firestore().collection("plan").document()
+            planManage.uuid = document.documentID
+            try document.setData(from: planManage)
             completion(.success("Success"))
         } catch {
             completion(.failure(error))
@@ -40,7 +42,13 @@ class PlanManager {
         }
     }
     
-    func deletePlan(time: Int64) {
-        planDB.whereField("createdTime", isEqualTo: time)
+    func deletePlan(uuid: String, completion: @escaping (Result<String, Error>) -> Void ) {
+        planDB.document(uuid).delete { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(uuid))
+            }
+        }
     }
 }

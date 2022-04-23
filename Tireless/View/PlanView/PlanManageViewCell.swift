@@ -24,12 +24,24 @@ class PlanManageViewCell: UICollectionViewCell {
 
     @IBOutlet weak var planDeleteButton: UIButton!
     
+    @IBOutlet weak var planTimesLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupLayout()
+    }
+    
     @IBAction func startButtonTap(_ sender: UIButton) {
         isStartButtonTap?()
     }
     
     @IBAction func deleteButtonTap(_ sender: Any) {
         isDeleteButtonTap?()
+    }
+    
+    private func setupLayout() {
+        self.layer.cornerRadius = 20
+        planImageView.layer.cornerRadius = planImageView.frame.height / 2
     }
     
 }

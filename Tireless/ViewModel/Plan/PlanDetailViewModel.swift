@@ -15,7 +15,7 @@ class PlanDetailViewModel {
                                             createdTime: -1,
                                             planGroup: false,
                                             progress: 0.0,
-                                            uuid: UUID().uuidString)
+                                            uuid: "")
     
     func getPlanData(name: String, times: String, days: String, createdTime: Int64, planGroup: Bool) {
         self.planManage.planName = name
@@ -26,7 +26,7 @@ class PlanDetailViewModel {
     }
     
     func createPlan(success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
-        PlanManager.shared.createPlan(plan: planManage) { result in
+        PlanManager.shared.createPlan(planManage: &planManage) { result in
             switch result {
             case .success:
                 success()

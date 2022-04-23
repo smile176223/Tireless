@@ -48,4 +48,3 @@ extension PlanManage: Hashable {
         hasher.combine(uuid)
     }
 }
-

@@ -22,4 +22,16 @@ class FetchPlanViewModel {
             }
         }
     }
+    
+    func deletePlan(uuid: String) {
+        PlanManager.shared.deletePlan(uuid: uuid) { result in
+            switch result {
+            case .success(let uuid):
+                print(uuid)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

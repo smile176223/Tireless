@@ -15,6 +15,8 @@ class PlanManageViewController: UIViewController {
     
     typealias DataSource = UICollectionViewDiffableDataSource<Int, PlanManage>
     
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, PlanManage>
+    
     private var dataSource: DataSource?
     
     override func viewDidLoad() {
@@ -87,13 +89,26 @@ class PlanManageViewController: UIViewController {
             }
             
             cell.isDeleteButtonTap = {
-                
+                self.viewModel.deletePlan(uuid: item.uuid)
+                var snapshot = self.dataSource?.snapshot()
+                snapshot?.deleteItems([item])
+//                self.dataSource?.apply(snapshot!, animatingDifferences: true)
+                self.dataSource?.apply(snapshot!, animatingDifferences: true)
             }
-            
-            cell.planImageView.layer.cornerRadius = cell.planImageView.frame.height / 2
-            cell.planImageView.image = UIImage(named: "pexels_squat")
-            
-            cell.layer.cornerRadius = 20
+            switch item.planName {
+            case "深蹲":
+                cell.planImageView.image = UIImage(named: "pexels_squat")
+                cell.planTimesLabel.text = "\(item.planTimes)次/\(item.planDays)天"
+            case "棒式":
+                cell.planImageView.image = UIImage(named: "pexels_plank")
+                cell.planTimesLabel.text = "\(item.planTimes)秒/\(item.planDays)天"
+            case "伏地挺身":
+                cell.planImageView.image = UIImage(named: "pexels_pushup")
+                cell.planTimesLabel.text = "\(item.planTimes)次/\(item.planDays)天"
+                
+            default:
+                cell.planImageView.image = UIImage(named: "Cover")
+            }
    
             cell.planTitleLabel.text = "\(item.planName)"
             cell.planProgressView.progress = Float(item.progress)
@@ -101,6 +116,7 @@ class PlanManageViewController: UIViewController {
             return cell
         })
     }
+    
     private func configureDataSourceProvider() {
         dataSource?.supplementaryViewProvider = { (collectionView, _, indexPath) in
             guard let headerView = self.collectionView.dequeueReusableSupplementaryView(
@@ -118,12 +134,12 @@ class PlanManageViewController: UIViewController {
     }
     
     private func configureDataSourceSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, PlanManage>()
+        var snapshot = Snapshot()
         snapshot.appendSections([0, 1])
         
         viewModel.planManage.bind { plan in
             snapshot.appendItems(plan, toSection: 0)
-            self.dataSource?.apply(snapshot, animatingDifferences: false)
+            self.dataSource?.apply(snapshot, animatingDifferences: true)
         }
         
     }

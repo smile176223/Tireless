@@ -121,6 +121,9 @@ class PlanDetailView: UIView {
         imageView.image = UIImage(named: plan.planImage)
         infoLabel.text = plan.planDetail
         setLottie(plan.planLottie)
+        if plan.planName == "棒式" {
+            timesLabel.text = "秒數"
+        }
     }
     
     func setLottie(_ name: String) {
