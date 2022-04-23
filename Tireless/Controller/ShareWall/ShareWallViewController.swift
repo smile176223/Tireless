@@ -29,6 +29,8 @@ class ShareWallViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .themeBG
+        
         navigationItem.hidesBackButton = true
         
         tableView.backgroundColor = .white
