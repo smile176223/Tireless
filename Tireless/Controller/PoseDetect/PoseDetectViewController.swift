@@ -38,9 +38,11 @@ class PoseDetectViewController: UIViewController {
     
     private let viewModel = PoseDetectViewModel()
     
+    var planTarget: Int = 0
+    
     private var counter = 0 {
         didSet {
-            if counter == 5 {
+            if counter == planTarget {
                 self.lottieDetectDone()
             }
         }
@@ -119,7 +121,7 @@ class PoseDetectViewController: UIViewController {
     }
     
     @IBAction func recordTap(_ sender: Any) {
-        counter = 5
+        counter += 1
     }
     
     func blurEffect() {

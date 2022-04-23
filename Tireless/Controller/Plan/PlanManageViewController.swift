@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 
 class PlanManageViewController: UIViewController {
     
@@ -18,6 +19,12 @@ class PlanManageViewController: UIViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, PlanManage>
     
     private var dataSource: DataSource?
+    
+    private var planManages: [PlanManage]? {
+        didSet {
+            dataSource?.apply(snapshot(), animatingDifferences: true)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +39,10 @@ class PlanManageViewController: UIViewController {
         configureDataSource()
         configureDataSourceProvider()
         configureDataSourceSnapshot()
+        
+        viewModel.planManage.bind { planManages in
+            self.planManages = planManages
+        }
         
     }
     
@@ -85,7 +96,7 @@ class PlanManageViewController: UIViewController {
             }
             
             cell.isStartButtonTap = {
-                self.present()
+                self.present(target: item.planTimes)
             }
             
             cell.isDeleteButtonTap = {
@@ -134,23 +145,29 @@ class PlanManageViewController: UIViewController {
     }
     
     private func configureDataSourceSnapshot() {
+        dataSource?.apply(snapshot(), animatingDifferences: true)
+    }
+    
+    private func snapshot() -> Snapshot {
         var snapshot = Snapshot()
         snapshot.appendSections([0, 1])
         
-        viewModel.planManage.bind { plan in
-            snapshot.appendItems(plan, toSection: 0)
-            self.dataSource?.apply(snapshot, animatingDifferences: true)
+        if let planManages = planManages {
+            snapshot.appendItems(planManages, toSection: 0)
+        } else {
+            return snapshot
         }
-        
+        return snapshot
     }
     
-    private func present() {
+    private func present(target: String) {
         guard let poseVC = UIStoryboard.home.instantiateViewController(
             withIdentifier: "\(PoseDetectViewController.self)")
                 as? PoseDetectViewController
         else {
             return
         }
+        poseVC.planTarget = Int(target) ?? 0
         poseVC.modalPresentationStyle = .fullScreen
         self.present(poseVC, animated: true)
     }
