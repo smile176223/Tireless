@@ -68,6 +68,8 @@
 		FF3FBE7C281299DE00E6B5DC /* PlanManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE7B281299DE00E6B5DC /* PlanManageViewModel.swift */; };
 		FF3FBE80281439A000E6B5DC /* Plank.json in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE7F281439A000E6B5DC /* Plank.json */; };
 		FF3FBE8628143B3200E6B5DC /* Pushup.json in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE8528143B3200E6B5DC /* Pushup.json */; };
+		FF3FBE8828148C3500E6B5DC /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE8728148C3500E6B5DC /* Profile.storyboard */; };
+		FF3FBE8B28148CAC00E6B5DC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE8A28148CAC00E6B5DC /* ProfileViewController.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -140,6 +142,8 @@
 		FF3FBE7B281299DE00E6B5DC /* PlanManageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManageViewModel.swift; sourceTree = "<group>"; };
 		FF3FBE7F281439A000E6B5DC /* Plank.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Plank.json; sourceTree = "<group>"; };
 		FF3FBE8528143B3200E6B5DC /* Pushup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Pushup.json; sourceTree = "<group>"; };
+		FF3FBE8728148C3500E6B5DC /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		FF3FBE8A28148CAC00E6B5DC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 				FF3FBE662811C2E100E6B5DC /* Plan.storyboard */,
 				FF308E8028080FB800265863 /* Main.storyboard */,
 				FF308E822808106500265863 /* ShareWall.storyboard */,
+				FF3FBE8728148C3500E6B5DC /* Profile.storyboard */,
 				FF308E99280C6B0A00265863 /* PictureWall.storyboard */,
 			);
 			path = View;
@@ -199,6 +204,7 @@
 		FF14448F28009B5A0027F560 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FF3FBE8928148C9800E6B5DC /* Profile */,
 				FF3FBE682811C2FE00E6B5DC /* Plan */,
 				FF308E6528057D5D00265863 /* Home */,
 				FF308E612805787300265863 /* PoseDetect */,
@@ -463,6 +469,14 @@
 			path = Plan;
 			sourceTree = "<group>";
 		};
+		FF3FBE8928148C9800E6B5DC /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FF3FBE8A28148CAC00E6B5DC /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		FFC0C14828008F640041A937 = {
 			isa = PBXGroup;
 			children = (
@@ -577,6 +591,7 @@
 				FF3FBE672811C2E100E6B5DC /* Plan.storyboard in Resources */,
 				FFC0C15E28008F650041A937 /* Assets.xcassets in Resources */,
 				FF3FBE80281439A000E6B5DC /* Plank.json in Resources */,
+				FF3FBE8828148C3500E6B5DC /* Profile.storyboard in Resources */,
 				FF308E5B2805560F00265863 /* DetectDone.json in Resources */,
 				FF2FE0E9280E8FD100F8890D /* Loading.json in Resources */,
 				FF308E8128080FB800265863 /* Main.storyboard in Resources */,
@@ -680,6 +695,7 @@
 				FF3FBE7828128C2700E6B5DC /* PlanDetailViewModel.swift in Sources */,
 				FF1444B12801A6760027F560 /* StartManager.swift in Sources */,
 				FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */,
+				FF3FBE8B28148CAC00E6B5DC /* ProfileViewController.swift in Sources */,
 				FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */,
 				FF3FBE5A2811538500E6B5DC /* UIFont+Extension.swift in Sources */,
 				FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */,
