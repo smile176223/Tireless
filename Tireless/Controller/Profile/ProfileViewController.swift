@@ -20,14 +20,20 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.barTintColor = .themeBG
-        
         view.backgroundColor = .themeBG
         
         configureCollectionView()
         configureDataSource()
         configureDataSourceProvider()
         configureDataSourceSnapshot()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     private func configureCollectionView() {
@@ -37,9 +43,9 @@ class ProfileViewController: UIViewController {
         collectionView.register(UINib(nibName: "\(FriendListViewCell.self)", bundle: nil),
                                 forCellWithReuseIdentifier: "\(FriendListViewCell.self)")
         
-        collectionView.register(HomeHeaderView.self,
+        collectionView.register(ProfileHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: "\(HomeHeaderView.self)")
+                                withReuseIdentifier: "\(ProfileHeaderView.self)")
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -53,12 +59,13 @@ class ProfileViewController: UIViewController {
 
         let section = NSCollectionLayoutSection(group: group)
         
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(60))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(200))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                  elementKind:
                                                                     UICollectionView.elementKindSectionHeader,
                                                                  alignment: .top)
-
+        header.pinToVisibleBounds = true
+        
         section.boundarySupplementaryItems = [header]
         
         section.interGroupSpacing = 5
@@ -86,10 +93,10 @@ class ProfileViewController: UIViewController {
         dataSource?.supplementaryViewProvider = { (collectionView, _, indexPath) in
             guard let headerView = self.collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: "\(HomeHeaderView.self)",
-                for: indexPath) as? HomeHeaderView else { return UICollectionReusableView()}
+                withReuseIdentifier: "\(ProfileHeaderView.self)",
+                for: indexPath) as? ProfileHeaderView else { return UICollectionReusableView()}
         
-            headerView.textLabel.text = "好友列表"
+//            headerView.textLabel.text = "好友列表"
   
             return headerView
         }
