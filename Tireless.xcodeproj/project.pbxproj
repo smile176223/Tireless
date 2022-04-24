@@ -70,6 +70,8 @@
 		FF3FBE8628143B3200E6B5DC /* Pushup.json in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE8528143B3200E6B5DC /* Pushup.json */; };
 		FF3FBE8828148C3500E6B5DC /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE8728148C3500E6B5DC /* Profile.storyboard */; };
 		FF3FBE8B28148CAC00E6B5DC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE8A28148CAC00E6B5DC /* ProfileViewController.swift */; };
+		FF3FBE8E2814F8ED00E6B5DC /* FriendListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE8D2814F8ED00E6B5DC /* FriendListViewCell.swift */; };
+		FF3FBE902814F8FB00E6B5DC /* FriendListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE8F2814F8FB00E6B5DC /* FriendListViewCell.xib */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -144,6 +146,8 @@
 		FF3FBE8528143B3200E6B5DC /* Pushup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Pushup.json; sourceTree = "<group>"; };
 		FF3FBE8728148C3500E6B5DC /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		FF3FBE8A28148CAC00E6B5DC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FF3FBE8D2814F8ED00E6B5DC /* FriendListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewCell.swift; sourceTree = "<group>"; };
+		FF3FBE8F2814F8FB00E6B5DC /* FriendListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendListViewCell.xib; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 		FF14448E28009B480027F560 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FF3FBE8C2814F8D400E6B5DC /* Profile */,
 				FF3FBE542810646500E6B5DC /* PlanView */,
 				FF2FE0EC280ED80500F8890D /* HomeViewCell */,
 				FF308E92280C67DA00265863 /* SharePictureViewCell */,
@@ -477,6 +482,15 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		FF3FBE8C2814F8D400E6B5DC /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FF3FBE8D2814F8ED00E6B5DC /* FriendListViewCell.swift */,
+				FF3FBE8F2814F8FB00E6B5DC /* FriendListViewCell.xib */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		FFC0C14828008F640041A937 = {
 			isa = PBXGroup;
 			children = (
@@ -593,6 +607,7 @@
 				FF3FBE80281439A000E6B5DC /* Plank.json in Resources */,
 				FF3FBE8828148C3500E6B5DC /* Profile.storyboard in Resources */,
 				FF308E5B2805560F00265863 /* DetectDone.json in Resources */,
+				FF3FBE902814F8FB00E6B5DC /* FriendListViewCell.xib in Resources */,
 				FF2FE0E9280E8FD100F8890D /* Loading.json in Resources */,
 				FF308E8128080FB800265863 /* Main.storyboard in Resources */,
 				FF308E8A2808296400265863 /* ShareWallViewCell.xib in Resources */,
@@ -721,6 +736,7 @@
 				FF3FBE562810648000E6B5DC /* PlanDetailView.swift in Sources */,
 				FF1444A6280156700027F560 /* UIUtilities.swift in Sources */,
 				FF2FE0F4280F9A5E00F8890D /* HomeDailyHeaderView.swift in Sources */,
+				FF3FBE8E2814F8ED00E6B5DC /* FriendListViewCell.swift in Sources */,
 				FF14449428009C010027F560 /* Box.swift in Sources */,
 				FF3FBE7028125E4E00E6B5DC /* PlanManageViewCell.swift in Sources */,
 				FF3FBE602811A1B600E6B5DC /* CounterView.swift in Sources */,

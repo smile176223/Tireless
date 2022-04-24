@@ -22,7 +22,7 @@ class PlanManageViewController: UIViewController {
     
     private var planManages: [PlanManage]? {
         didSet {
-            dataSource?.apply(snapshot(), animatingDifferences: true)
+            dataSource?.apply(snapshot(), animatingDifferences: false)
         }
     }
     
@@ -154,7 +154,7 @@ class PlanManageViewController: UIViewController {
     }
     
     private func configureDataSourceSnapshot() {
-        dataSource?.apply(snapshot(), animatingDifferences: true)
+        dataSource?.apply(snapshot(), animatingDifferences: false)
     }
     
     private func snapshot() -> Snapshot {
