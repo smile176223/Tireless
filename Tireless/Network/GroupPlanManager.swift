@@ -28,6 +28,9 @@ class GroupPlanManager {
                         friends.append(friend.userId)
                     }
                 }
+                if friends.isEmpty == true {
+                    return
+                }
                 self?.fetchPlan(userId: friends) { result in
                     switch result {
                     case .success(let groupPlans):

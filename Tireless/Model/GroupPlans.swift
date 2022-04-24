@@ -13,6 +13,7 @@ struct GroupPlans: Codable {
     var planDays: String
     var createdTime: Int64
     var createdUserId: String
+    var createdName: String
     var uuid: String
     
     enum CodingKeys: String, CodingKey {
@@ -21,6 +22,7 @@ struct GroupPlans: Codable {
         case planDays
         case createdTime
         case createdUserId
+        case createdName
         case uuid
     }
 }

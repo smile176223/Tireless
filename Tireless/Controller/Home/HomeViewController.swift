@@ -70,7 +70,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         viewModel.setDefault()
         
-        viewModel.fetchGroupPlans(userId: "pa0MXmCzJopbeEK9PGD3")
+        viewModel.fetchGroupPlans(userId: DemoUser.demoUser)
         
         viewModel.personalPlan.bind { plans in
             self.plans = plans
@@ -177,7 +177,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 return cell
             case .groupPlan(let groupPlans):
                 cell.textLabel.font = .bold(size: 15)
-                cell.textLabel.text = groupPlans.planName
+                cell.textLabel.text = "\(groupPlans.planName)\n\(groupPlans.createdName)"
 //                cell.imageView.image = UIImage(named: plans.planImage)
                 return cell
             }
@@ -195,7 +195,15 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 for: indexPath) as? HomeDailyHeaderView else { return UICollectionReusableView()}
             
             headerView.isCreateButtonTap = {
-                print("JoinGroup")
+                guard let setGroupPlanVC = UIStoryboard.groupPlan.instantiateViewController(
+                    withIdentifier: "\(SetGroupPlanViewController.self)")
+                        as? SetGroupPlanViewController
+                else {
+                    return
+                }
+                setGroupPlanVC.plans = self.plans
+                setGroupPlanVC.modalPresentationStyle = .formSheet
+                self.present(setGroupPlanVC, animated: true)
             }
             
             if indexPath.section == 0 {

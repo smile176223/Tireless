@@ -14,6 +14,7 @@ class HomeViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .black
+        label.numberOfLines = 0
         return label
     }()
     

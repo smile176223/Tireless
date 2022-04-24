@@ -48,9 +48,6 @@ class ProfileViewController: UIViewController {
         configureDataSourceProvider()
         configureDataSourceSnapshot()
         
-        viewModel.fetchUser(userId: "pa0MXmCzJopbeEK9PGD3")
-        viewModel.fetchFriends(userId: "pa0MXmCzJopbeEK9PGD3")
-        
         viewModel.userInfo.bind { user in
             self.userInfo = user
         }
@@ -62,6 +59,8 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
+        viewModel.fetchUser(userId: DemoUser.demoUser)
+        viewModel.fetchFriends(userId: DemoUser.demoUser)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -158,8 +157,8 @@ class ProfileViewController: UIViewController {
         let controller = UIAlertController(title: "好友設定", message: nil, preferredStyle: .actionSheet)
         let names = ["刪除", "封鎖"]
         for name in names {
-           let action = UIAlertAction(title: name, style: .default) { action in
-              print(action.title)
+           let action = UIAlertAction(title: name, style: .default) { _ in
+              // need to delete and ban user here
            }
            controller.addAction(action)
         }
