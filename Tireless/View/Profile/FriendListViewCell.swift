@@ -15,6 +15,8 @@ class FriendListViewCell: UICollectionViewCell {
     
     @IBOutlet weak var friendSetButton: UIView!
     
+    var isSetButtonTap: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setuLayout()
@@ -24,4 +26,9 @@ class FriendListViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 15
         friendImageView.layer.cornerRadius = friendImageView.frame.height / 2
     }
+    
+    @IBAction func setButtonTap(_ sender: UIButton) {
+        isSetButtonTap?()
+    }
+    
 }

@@ -113,6 +113,10 @@ class ProfileViewController: UIViewController {
                                                                 for: indexPath) as? FriendListViewCell else {
                 return UICollectionViewCell()
             }
+            cell.isSetButtonTap = {
+                self.setButtonAlert()
+            }
+            
             switch item {
             case .friends(let friends):
                 cell.friendImageView.loadImage(friends.picture)
@@ -148,5 +152,19 @@ class ProfileViewController: UIViewController {
             snapshot.appendItems(friendsList.map({SectionItem.friends($0)}), toSection: .user)
         }
         return snapshot
+    }
+    
+    private func setButtonAlert() {
+        let controller = UIAlertController(title: "好友設定", message: nil, preferredStyle: .actionSheet)
+        let names = ["刪除", "封鎖"]
+        for name in names {
+           let action = UIAlertAction(title: name, style: .default) { action in
+              print(action.title)
+           }
+           controller.addAction(action)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
     }
 }

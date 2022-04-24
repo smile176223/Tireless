@@ -11,6 +11,8 @@ class HomeViewModel {
     
     let personalPlan = Box([Plans]())
     
+    var groupPlans = Box([GroupPlans]())
+    
     var plans = [Plans(planName: "深蹲",
                        planDetail:
                         "深蹲，又稱蹲舉，在力量練習中，是個複合的、全身性的練習動作，它可以訓練到大腿、臀部、大腿後肌，同時可以增強骨頭、韌帶和橫貫下半身的肌腱。",
@@ -46,5 +48,16 @@ class HomeViewModel {
         guard let calendar = Calendar.current.date(byAdding: .day, value: day, to: Date()) else { return ""}
         let weekDayString = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
         return weekDayString[calendar.get(.weekday) - 1]
+    }
+    
+    func fetchGroupPlans(userId: String) {
+        GroupPlanManager.shared.fetchFriendsPlan(userId: userId) { result in
+            switch result {
+            case .success(let groupPlans):
+                self.groupPlans.value = groupPlans
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

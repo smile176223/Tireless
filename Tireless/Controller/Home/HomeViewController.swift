@@ -41,7 +41,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     enum SectionItem: Hashable {
         case daily(WeeklyDays)
         case personalPlan(Plans)
-        case groupPlan(Plans)
+        case groupPlan(GroupPlans)
     }
     
     typealias DataSource = UICollectionViewDiffableDataSource<Section, SectionItem>
@@ -49,6 +49,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SectionItem>
     
     private var dataSource: DataSource?
+    
+    private var groupPlans: [GroupPlans]? {
+        didSet {
+            dataSource?.apply(snapshot(), animatingDifferences: false)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,8 +70,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         viewModel.setDefault()
         
+        viewModel.fetchGroupPlans(userId: "pa0MXmCzJopbeEK9PGD3")
+        
         viewModel.personalPlan.bind { plans in
             self.plans = plans
+        }
+        
+        viewModel.groupPlans.bind { groupPlans in
+            self.groupPlans = groupPlans
         }
 
     }
@@ -163,10 +175,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 cell.textLabel.text = plans.planName
                 cell.imageView.image = UIImage(named: plans.planImage)
                 return cell
-            case .groupPlan(let plans):
+            case .groupPlan(let groupPlans):
                 cell.textLabel.font = .bold(size: 15)
-                cell.textLabel.text = plans.planName
-                cell.imageView.image = UIImage(named: plans.planImage)
+                cell.textLabel.text = groupPlans.planName
+//                cell.imageView.image = UIImage(named: plans.planImage)
                 return cell
             }
         })
@@ -182,6 +194,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 withReuseIdentifier: "\(HomeDailyHeaderView.self)",
                 for: indexPath) as? HomeDailyHeaderView else { return UICollectionReusableView()}
             
+            headerView.isCreateButtonTap = {
+                print("JoinGroup")
+            }
+            
             if indexPath.section == 0 {
                 let formatter = DateFormatter()
                 formatter.dateStyle = .long
@@ -192,20 +208,28 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 return headerDailyView
             } else if indexPath.section == 1 {
                 headerView.textLabel.text = "個人計畫"
+                headerView.createGroupButton.isHidden = true
             } else if indexPath.section == 2 {
                 headerView.textLabel.text = "團體計劃"
+                headerView.createGroupButton.isHidden = false
             }
             return headerView
         }
     }
     
     private func configureDataSourceSnapshot() {
+        dataSource?.apply(snapshot(), animatingDifferences: false)
+    }
+    
+    private func snapshot() -> Snapshot {
         var snapshot = Snapshot()
         snapshot.appendSections([.daily, .personalPlan, .groupPlan])
         snapshot.appendItems(viewModel.weeklyDay.map({SectionItem.daily($0)}), toSection: .daily)
         snapshot.appendItems(viewModel.plans.map({SectionItem.personalPlan($0)}), toSection: .personalPlan)
-        snapshot.appendItems(viewModel.plans.map({SectionItem.groupPlan($0)}), toSection: .groupPlan)
-        dataSource?.apply(snapshot, animatingDifferences: false)
+        if let groupPlans = groupPlans {
+            snapshot.appendItems(groupPlans.map({SectionItem.groupPlan($0)}), toSection: .groupPlan)
+        }
+        return snapshot
     }
     
 //    @IBAction func photoButtonTap(_ sender: UIButton) {
