@@ -1,32 +1,26 @@
 //
-//  User.swift
+//  Friends.swift
 //  Tireless
 //
-//  Created by Hao on 2022/4/14.
+//  Created by Hao on 2022/4/24.
 //
 
 import Foundation
 
-struct User: Codable {
-    let emailAccount: String
+struct Friends: Codable {
     let userId: String
     let name: String
-    let token: String
     let picture: String
-    let maxVideoUploadCount: Int
     
     enum CodingKeys: String, CodingKey {
-        case emailAccount
         case userId
         case name
-        case token
         case picture
-        case maxVideoUploadCount
     }
 }
 
-extension User: Hashable {
-    static func == (lhs: User, rhs: User) -> Bool {
+extension Friends: Hashable {
+    static func == (lhs: Friends, rhs: Friends) -> Bool {
         return lhs.userId == rhs.userId
     }
     

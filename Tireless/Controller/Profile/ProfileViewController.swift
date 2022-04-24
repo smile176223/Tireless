@@ -8,14 +8,35 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-   
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
-    typealias DataSource = UICollectionViewDiffableDataSource<Int, String>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, SectionItem>
     
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, String>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SectionItem>
     
     private var dataSource: DataSource?
+    
+    let viewModel = ProfileViewModel()
+    
+    var userInfo: [User]? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    var friendsList: [Friends]? {
+        didSet {
+            dataSource?.apply(snapshot(), animatingDifferences: false)
+        }
+    }
+    
+    enum Section: Hashable {
+        case user
+    }
+    
+    enum SectionItem: Hashable {
+        case friends(Friends)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +47,17 @@ class ProfileViewController: UIViewController {
         configureDataSource()
         configureDataSourceProvider()
         configureDataSourceSnapshot()
+        
+        viewModel.fetchUser(userId: "pa0MXmCzJopbeEK9PGD3")
+        viewModel.fetchFriends(userId: "pa0MXmCzJopbeEK9PGD3")
+        
+        viewModel.userInfo.bind { user in
+            self.userInfo = user
+        }
+        
+        viewModel.friends.bind { friends in
+            self.friendsList = friends
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,10 +85,10 @@ class ProfileViewController: UIViewController {
                                               heightDimension: .estimated(80))
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-      
+        
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
-                                                         subitems: [item])
-
+                                                       subitems: [item])
+        
         let section = NSCollectionLayoutSection(group: group)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(200))
@@ -81,9 +113,11 @@ class ProfileViewController: UIViewController {
                                                                 for: indexPath) as? FriendListViewCell else {
                 return UICollectionViewCell()
             }
-            
-            cell.friendImageView.image = UIImage(named: "Cover")
-            cell.friendNameLabel.text = "\(item)"
+            switch item {
+            case .friends(let friends):
+                cell.friendImageView.loadImage(friends.picture)
+                cell.friendNameLabel.text = friends.name
+            }
             
             return cell
         })
@@ -96,8 +130,9 @@ class ProfileViewController: UIViewController {
                 withReuseIdentifier: "\(ProfileHeaderView.self)",
                 for: indexPath) as? ProfileHeaderView else { return UICollectionReusableView()}
         
-//            headerView.textLabel.text = "好友列表"
-  
+            headerView.userImageView.loadImage(self.userInfo?.first?.picture)
+            headerView.userNameLabel.text = self.userInfo?.first?.name
+            
             return headerView
         }
     }
@@ -108,10 +143,10 @@ class ProfileViewController: UIViewController {
     
     private func snapshot() -> Snapshot {
         var snapshot = Snapshot()
-        snapshot.appendSections([0])
-        
-        snapshot.appendItems(["test", "123"], toSection: 0)
-
+        snapshot.appendSections([.user])
+        if let friendsList = friendsList {
+            snapshot.appendItems(friendsList.map({SectionItem.friends($0)}), toSection: .user)
+        }
         return snapshot
     }
 }

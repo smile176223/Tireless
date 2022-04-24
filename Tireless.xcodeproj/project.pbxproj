@@ -74,6 +74,9 @@
 		FF3FBE902814F8FB00E6B5DC /* FriendListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE8F2814F8FB00E6B5DC /* FriendListViewCell.xib */; };
 		FF3FBE922814FE6100E6B5DC /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE912814FE6100E6B5DC /* ProfileHeaderView.swift */; };
 		FF3FBE962814FE7C00E6B5DC /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE952814FE7C00E6B5DC /* ProfileHeaderView.xib */; };
+		FF3FBE9828150DEC00E6B5DC /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE9728150DEC00E6B5DC /* UserManager.swift */; };
+		FF3FBE9B28150FB000E6B5DC /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE9A28150FB000E6B5DC /* ProfileViewModel.swift */; };
+		FF3FBE9D28151FF000E6B5DC /* Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE9C28151FF000E6B5DC /* Friends.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -152,6 +155,9 @@
 		FF3FBE8F2814F8FB00E6B5DC /* FriendListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendListViewCell.xib; sourceTree = "<group>"; };
 		FF3FBE912814FE6100E6B5DC /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		FF3FBE952814FE7C00E6B5DC /* ProfileHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
+		FF3FBE9728150DEC00E6B5DC /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		FF3FBE9A28150FB000E6B5DC /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		FF3FBE9C28151FF000E6B5DC /* Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -226,6 +232,7 @@
 		FF14449028009B640027F560 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				FF3FBE9928150FA200E6B5DC /* Profile */,
 				FF3FBE7628128C1400E6B5DC /* Plan */,
 				FF3FBE632811BE6E00E6B5DC /* Home */,
 				FF308E8B2809176D00265863 /* ShareWall */,
@@ -242,6 +249,7 @@
 				FF308E6E2806822B00265863 /* ShareFiles.swift */,
 				FF308E762807A4F400265863 /* User.swift */,
 				FF3FBE6B281238FE00E6B5DC /* Plans.swift */,
+				FF3FBE9C28151FF000E6B5DC /* Friends.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -373,6 +381,7 @@
 			children = (
 				FF308E6C28066E0D00265863 /* ShareManager.swift */,
 				FF3FBE732812835300E6B5DC /* PlanManager.swift */,
+				FF3FBE9728150DEC00E6B5DC /* UserManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -493,6 +502,14 @@
 				FF3FBE8F2814F8FB00E6B5DC /* FriendListViewCell.xib */,
 				FF3FBE912814FE6100E6B5DC /* ProfileHeaderView.swift */,
 				FF3FBE952814FE7C00E6B5DC /* ProfileHeaderView.xib */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		FF3FBE9928150FA200E6B5DC /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FF3FBE9A28150FB000E6B5DC /* ProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -712,6 +729,7 @@
 				FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */,
 				FF308E96280C680F00265863 /* SharePictureViewCell.swift in Sources */,
 				FF3FBE7C281299DE00E6B5DC /* PlanManageViewModel.swift in Sources */,
+				FF3FBE9D28151FF000E6B5DC /* Friends.swift in Sources */,
 				FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */,
 				FF3FBE742812835300E6B5DC /* PlanManager.swift in Sources */,
 				FF3FBE7828128C2700E6B5DC /* PlanDetailViewModel.swift in Sources */,
@@ -727,6 +745,7 @@
 				FF2FE0F0280EDB7900F8890D /* HomeHeaderView.swift in Sources */,
 				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
 				FF3FBE6E28123A0800E6B5DC /* PlanViewModel.swift in Sources */,
+				FF3FBE9828150DEC00E6B5DC /* UserManager.swift in Sources */,
 				FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */,
 				FF308E6828057D7800265863 /* HomeViewController.swift in Sources */,
 				FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */,
@@ -738,6 +757,7 @@
 				FF3FBE652811BE7A00E6B5DC /* HomeViewModel.swift in Sources */,
 				FF308E6F2806822B00265863 /* ShareFiles.swift in Sources */,
 				FF308E852808110100265863 /* UIStoryboard+Extension.swift in Sources */,
+				FF3FBE9B28150FB000E6B5DC /* ProfileViewModel.swift in Sources */,
 				FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */,
 				FF3FBE6C281238FE00E6B5DC /* Plans.swift in Sources */,
 				FF3FBE562810648000E6B5DC /* PlanDetailView.swift in Sources */,
