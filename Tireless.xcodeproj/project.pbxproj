@@ -84,6 +84,7 @@
 		FF3FBEA7281570B000E6B5DC /* SetGroupPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEA6281570B000E6B5DC /* SetGroupPlanViewController.swift */; };
 		FF3FBEA92815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEA82815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift */; };
 		FF3FBEAB2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBEAA2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib */; };
+		FF3FBEAD2815C4A400E6B5DC /* SetGroupPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEAC2815C4A400E6B5DC /* SetGroupPlanViewModel.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -172,6 +173,7 @@
 		FF3FBEA6281570B000E6B5DC /* SetGroupPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGroupPlanViewController.swift; sourceTree = "<group>"; };
 		FF3FBEA82815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGroupPlanDetailViewCell.swift; sourceTree = "<group>"; };
 		FF3FBEAA2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetGroupPlanDetailViewCell.xib; sourceTree = "<group>"; };
+		FF3FBEAC2815C4A400E6B5DC /* SetGroupPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGroupPlanViewModel.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 				FF3FBE792812972100E6B5DC /* FetchPlanViewModel.swift */,
 				FF3FBE7B281299DE00E6B5DC /* PlanManageViewModel.swift */,
 				FF3FBE6D28123A0800E6B5DC /* PlanViewModel.swift */,
+				FF3FBEAC2815C4A400E6B5DC /* SetGroupPlanViewModel.swift */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 				FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */,
 				FF3FBE6C281238FE00E6B5DC /* Plans.swift in Sources */,
 				FF3FBE562810648000E6B5DC /* PlanDetailView.swift in Sources */,
+				FF3FBEAD2815C4A400E6B5DC /* SetGroupPlanViewModel.swift in Sources */,
 				FF1444A6280156700027F560 /* UIUtilities.swift in Sources */,
 				FF2FE0F4280F9A5E00F8890D /* HomeDailyHeaderView.swift in Sources */,
 				FF3FBE8E2814F8ED00E6B5DC /* FriendListViewCell.swift in Sources */,

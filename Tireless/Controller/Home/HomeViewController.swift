@@ -271,14 +271,18 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let detailVC = UIStoryboard.home.instantiateViewController(
-            withIdentifier: "\(PlanDetailViewController.self)")
-                as? PlanDetailViewController
-        else {
-            return
+        if indexPath.section == 1 {
+            guard let detailVC = UIStoryboard.home.instantiateViewController(
+                withIdentifier: "\(PlanDetailViewController.self)")
+                    as? PlanDetailViewController
+            else {
+                return
+            }
+            detailVC.plan = plans?[indexPath.row]
+            detailVC.modalPresentationStyle = .fullScreen
+            self.present(detailVC, animated: true)
+        } else if indexPath.section == 2 {
+            print("good")
         }
-        detailVC.plan = plans?[indexPath.row]
-        detailVC.modalPresentationStyle = .fullScreen
-        self.present(detailVC, animated: true)
     }
 }

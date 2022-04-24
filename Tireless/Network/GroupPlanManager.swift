@@ -28,6 +28,7 @@ class GroupPlanManager {
                         friends.append(friend.userId)
                     }
                 }
+                friends.append(userId)
                 if friends.isEmpty == true {
                     return
                 }
@@ -57,6 +58,17 @@ class GroupPlanManager {
                 }
                 completion(.success(groupPlans))
             }
+        }
+    }
+    
+    func createGroupPlan(groupPlan: inout GroupPlans, completion: @escaping (Result<String, Error>) -> Void) {
+        do {
+            let document = Firestore.firestore().collection("GroupPlans").document()
+            groupPlan.uuid = document.documentID
+            try document.setData(from: groupPlan)
+            completion(.success("Success"))
+        } catch {
+            completion(.failure(error))
         }
     }
 }

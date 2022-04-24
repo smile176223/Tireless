@@ -29,6 +29,8 @@ class SetGroupPlanViewController: UIViewController {
         }
     }
     
+    let viewModel = SetGroupPlanViewModel()
+    
     enum Section: Int, CaseIterable {
         case plan
         case detail
@@ -141,6 +143,21 @@ class SetGroupPlanViewController: UIViewController {
             case .detail(let text):
                 detailCell.groupPlanDetailLabel.text = text
                 detailCell.groupCreatedUserLabel.text = "發起人：\(DemoUser.demoName)"
+                detailCell.isCreateButtonTap = { days, times in
+                    if let selectPlan = self.selectPlan {
+                        self.viewModel.getPlanData(name: selectPlan.planName,
+                                              times: times,
+                                              days: days,
+                                              createdName: DemoUser.demoName,
+                                              createdUserId: DemoUser.demoUser)
+                        self.viewModel.createPlan(
+                            success: {
+                                self.dismiss(animated: true)
+                            }, failure: { error in
+                                print(error)
+                            })
+                    }
+                }
                 return detailCell
             }
         })
