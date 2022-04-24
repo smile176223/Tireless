@@ -34,3 +34,11 @@ extension User: Hashable {
         hasher.combine(userId)
     }
 }
+
+struct UserId: Codable {
+    let userId: String
+    
+    enum CodingKeys: String, CodingKey {
+        case userId
+    }
+}

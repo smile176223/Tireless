@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -178,6 +179,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             case .groupPlan(let groupPlans):
                 cell.textLabel.font = .bold(size: 15)
                 cell.textLabel.text = "\(groupPlans.planName)\n\(groupPlans.createdName)"
+                if groupPlans.createdUserId == DemoUser.demoUser {
+                    cell.masksView.backgroundColor = .themeYellow
+                } else {
+                    cell.masksView.backgroundColor = .white
+                }
 //                cell.imageView.image = UIImage(named: plans.planImage)
                 return cell
             }
@@ -282,7 +288,28 @@ extension HomeViewController: UICollectionViewDelegate {
             detailVC.modalPresentationStyle = .fullScreen
             self.present(detailVC, animated: true)
         } else if indexPath.section == 2 {
-            print("good")
+            guard let groupVC = UIStoryboard.groupPlan.instantiateViewController(
+                withIdentifier: "\(GroupPlanViewController.self)")
+                    as? GroupPlanViewController
+            else {
+                return
+            }
+            groupVC.groupPlan = self.groupPlans?[indexPath.row]
+            guard let plans = plans else { return }
+            switch groupPlans?[indexPath.row].planName {
+            case "深蹲":
+                groupVC.plan = plans[0]
+            case "棒式":
+                groupVC.plan = plans[1]
+            case "伏地挺身":
+                groupVC.plan = plans[2]
+            case .none:
+                print("none")
+            case .some(let string):
+                print(string)
+            }
+            groupVC.modalPresentationStyle = .fullScreen
+            self.present(groupVC, animated: true)
         }
     }
 }

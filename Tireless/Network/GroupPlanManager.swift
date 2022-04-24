@@ -71,4 +71,31 @@ class GroupPlanManager {
             completion(.failure(error))
         }
     }
+    
+    func joinGroupPlan(uuid: String, completion: @escaping (Result<String, Error>) -> Void) {
+        do {
+            let document = groupPlanDB.document(uuid).collection("JoinUsers").document(DemoUser.demoUser)
+            try document.setData(["userId": DemoUser.demoUser])
+            completion(.success("Success"))
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    func fetchPlanJoinUser(uuid: String, completion: @escaping (Result<[UserId], Error>) -> Void) {
+        groupPlanDB.document(uuid).collection("JoinUsers").getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if let error = error {
+                print(error)
+            } else {
+                var joinUsers = [UserId]()
+                for document in querySnapshot.documents {
+                    if let joinUser = try? document.data(as: UserId.self, decoder: Firestore.Decoder()) {
+                        joinUsers.append(joinUser)
+                    }
+                }
+                completion(.success(joinUsers))
+            }
+        }
+    }
 }
