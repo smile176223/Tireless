@@ -82,6 +82,8 @@
 		FF3FBEA3281567DA00E6B5DC /* DemoUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEA2281567DA00E6B5DC /* DemoUser.swift */; };
 		FF3FBEA528156FF100E6B5DC /* GroupPlan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBEA428156FF100E6B5DC /* GroupPlan.storyboard */; };
 		FF3FBEA7281570B000E6B5DC /* SetGroupPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEA6281570B000E6B5DC /* SetGroupPlanViewController.swift */; };
+		FF3FBEA92815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEA82815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift */; };
+		FF3FBEAB2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBEAA2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -168,6 +170,8 @@
 		FF3FBEA2281567DA00E6B5DC /* DemoUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoUser.swift; sourceTree = "<group>"; };
 		FF3FBEA428156FF100E6B5DC /* GroupPlan.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GroupPlan.storyboard; sourceTree = "<group>"; };
 		FF3FBEA6281570B000E6B5DC /* SetGroupPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGroupPlanViewController.swift; sourceTree = "<group>"; };
+		FF3FBEA82815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGroupPlanDetailViewCell.swift; sourceTree = "<group>"; };
+		FF3FBEAA2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetGroupPlanDetailViewCell.xib; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -469,6 +473,8 @@
 				FF3FBE5F2811A1B600E6B5DC /* CounterView.swift */,
 				FF3FBE6F28125E4E00E6B5DC /* PlanManageViewCell.swift */,
 				FF3FBE7128125E5800E6B5DC /* PlanManageViewCell.xib */,
+				FF3FBEA82815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift */,
+				FF3FBEAA2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib */,
 			);
 			path = PlanViewCell;
 			sourceTree = "<group>";
@@ -648,6 +654,7 @@
 				FF308E5B2805560F00265863 /* DetectDone.json in Resources */,
 				FF3FBE902814F8FB00E6B5DC /* FriendListViewCell.xib in Resources */,
 				FF2FE0E9280E8FD100F8890D /* Loading.json in Resources */,
+				FF3FBEAB2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib in Resources */,
 				FF308E8128080FB800265863 /* Main.storyboard in Resources */,
 				FF308E8A2808296400265863 /* ShareWallViewCell.xib in Resources */,
 				FF3FBEA528156FF100E6B5DC /* GroupPlan.storyboard in Resources */,
@@ -791,6 +798,7 @@
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
 				FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */,
 				FF3FBEA1281546F700E6B5DC /* GroupPlanManager.swift in Sources */,
+				FF3FBEA92815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift in Sources */,
 				FF308E7A2807D4A000265863 /* PublishViewModel.swift in Sources */,
 				FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */,
 				FF308E7F28080E5B00265863 /* TabBarController.swift in Sources */,

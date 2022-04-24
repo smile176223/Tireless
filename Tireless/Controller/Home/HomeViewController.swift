@@ -140,7 +140,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
             section.boundarySupplementaryItems = [header]
 
-            section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 15)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 15, trailing: 15)
 
             return section
         }
@@ -202,7 +202,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                     return
                 }
                 setGroupPlanVC.plans = self.plans
-                setGroupPlanVC.modalPresentationStyle = .formSheet
                 self.present(setGroupPlanVC, animated: true)
             }
             

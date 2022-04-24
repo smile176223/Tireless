@@ -9,7 +9,7 @@ import UIKit
 
 private enum FontName: String {
 
-    case regular = "PingFangTC"
+    case regular = "PingFang TC"
     
     case bold = "PingFangTC-Semibold"
 }

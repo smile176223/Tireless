@@ -23,8 +23,29 @@ class SetGroupPlanViewController: UIViewController {
     
     var plans: [Plans]?
     
+    var selectPlan: Plans? {
+        didSet {
+            dataSource?.apply(snapshot(), animatingDifferences: false)
+        }
+    }
+    
+    enum Section: Int, CaseIterable {
+        case plan
+        case detail
+        
+        var columnCount: Int {
+            switch self {
+            case .plan:
+                return 3
+            case .detail:
+                return 1
+            }
+        }
+    }
+    
     enum SectionItem: Hashable {
         case plan(Plans)
+        case detail(String)
     }
     
     override func viewDidLoad() {
@@ -40,40 +61,64 @@ class SetGroupPlanViewController: UIViewController {
         collectionView.collectionViewLayout = createLayout()
         collectionView.backgroundColor = .themeBG
         
+        collectionView.register(UINib(nibName: "\(SetGroupPlanDetailViewCell.self)", bundle: nil),
+                                forCellWithReuseIdentifier: "\(SetGroupPlanDetailViewCell.self)")
+        
         collectionView.register(HomeHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: "\(HomeHeaderView.self)")
+        
     }
     
     private func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .fractionalHeight(1.0))
-        
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-        
-        let innergroup = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize, subitem: item,
-                                                            count: 3)
-        
-        let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                     heightDimension: .fractionalWidth(0.3))
-        let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innergroup])
-        
-        let section = NSCollectionLayoutSection(group: nestedGroup)
-        
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(60))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                 elementKind:
-                                                                    UICollectionView.elementKindSectionHeader,
-                                                                 alignment: .top)
+        let layout = UICollectionViewCompositionalLayout {(sectionIndex, _) -> NSCollectionLayoutSection? in
+            guard let sectionType = Section(rawValue: sectionIndex) else {
+                return nil
+            }
 
-        section.boundarySupplementaryItems = [header]
-        
-        section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-        
-        return UICollectionViewCompositionalLayout(section: section)
+            let columns = sectionType.columnCount
 
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                  heightDimension: .fractionalHeight(1.0))
+
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+            item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+
+            let groupHeight = sectionIndex == 1 ?
+            NSCollectionLayoutDimension.fractionalHeight(0.6) : NSCollectionLayoutDimension.absolute(100)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                   heightDimension: .fractionalHeight(1.0))
+            let innergroup = sectionIndex == 1 ?
+            NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item,
+                                               count: columns) :
+            NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item,
+                                               count: columns)
+
+            let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
+                                                         heightDimension: groupHeight)
+            let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innergroup])
+
+            let section = NSCollectionLayoutSection(group: nestedGroup)
+            section.orthogonalScrollingBehavior = .groupPagingCentered
+
+            let headerSize = sectionIndex == 0 ?
+            NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100)) :
+            NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(60))
+            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
+                                                                     elementKind:
+                                                                        UICollectionView.elementKindSectionHeader,
+                                                                     alignment: .top)
+
+            section.boundarySupplementaryItems = [header]
+
+            section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 15)
+
+            return section
+        }
+
+        return layout
+   
     }
     
     private func configureDataSource() {
@@ -82,14 +127,22 @@ class SetGroupPlanViewController: UIViewController {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "\(HomeViewCell.self)",
                 for: indexPath) as? HomeViewCell else { return UICollectionViewCell() }
+
+            guard let detailCell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "\(SetGroupPlanDetailViewCell.self)",
+                for: indexPath) as? SetGroupPlanDetailViewCell else { return UICollectionViewCell() }
             
             switch item {
             case .plan(let plans):
                 cell.textLabel.text = plans.planName
                 cell.textLabel.font = .bold(size: 20)
                 cell.imageView.image = UIImage(named: plans.planImage)
+                return cell
+            case .detail(let text):
+                detailCell.groupPlanDetailLabel.text = text
+                detailCell.groupCreatedUserLabel.text = "發起人：\(DemoUser.demoName)"
+                return detailCell
             }
-            return cell
         })
     }
     
@@ -100,8 +153,10 @@ class SetGroupPlanViewController: UIViewController {
                 withReuseIdentifier: "\(HomeHeaderView.self)",
                 for: indexPath) as? HomeHeaderView else { return UICollectionReusableView()}
         
-            headerView.textLabel.text = "發起揪團"
-            headerView.textLabel.textAlignment = .center
+            if indexPath.section == 0 {
+                headerView.textLabel.text = "發起揪團"
+                headerView.textLabel.textAlignment = .center
+            }
 
             return headerView
         }
@@ -113,7 +168,8 @@ class SetGroupPlanViewController: UIViewController {
     
     private func snapshot() -> Snapshot {
         var snapshot = Snapshot()
-        snapshot.appendSections([0])
+        snapshot.appendSections([0, 1])
+        snapshot.appendItems([SectionItem.detail(selectPlan?.planDetail ?? "")], toSection: 1)
         if let plans = plans {
             snapshot.appendItems(plans.map({SectionItem.plan($0)}), toSection: 0)
         }
@@ -124,10 +180,13 @@ class SetGroupPlanViewController: UIViewController {
 extension SetGroupPlanViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-        UIView.animate(withDuration: 0.3) {
-            cell?.layer.borderWidth = 5.0
-            let color = UIColor.themeYellow
-            cell?.layer.borderColor = color?.cgColor
+        if indexPath.section == 0 {
+            UIView.animate(withDuration: 0.3) {
+                cell?.layer.borderWidth = 5.0
+                let color = UIColor.themeYellow
+                cell?.layer.borderColor = color?.cgColor
+                self.selectPlan = self.plans?[indexPath.row]
+            }
         }
     }
     
