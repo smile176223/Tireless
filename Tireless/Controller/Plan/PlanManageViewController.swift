@@ -14,13 +14,13 @@ class PlanManageViewController: UIViewController {
     
     let viewModel = FetchPlanViewModel()
     
-    typealias DataSource = UICollectionViewDiffableDataSource<Int, PlanManage>
+    typealias DataSource = UICollectionViewDiffableDataSource<Int, PersonalPlan>
     
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, PlanManage>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, PersonalPlan>
     
     private var dataSource: DataSource?
     
-    private var planManages: [PlanManage]? {
+    private var personalPlans: [PersonalPlan]? {
         didSet {
             dataSource?.apply(snapshot(), animatingDifferences: false)
         }
@@ -40,8 +40,8 @@ class PlanManageViewController: UIViewController {
         configureDataSourceProvider()
         configureDataSourceSnapshot()
         
-        viewModel.planManage.bind { planManages in
-            self.planManages = planManages
+        viewModel.personalPlan.bind { personalPlans in
+            self.personalPlans = personalPlans
         }
         
     }
@@ -96,7 +96,7 @@ class PlanManageViewController: UIViewController {
             }
             
             cell.isStartButtonTap = {
-                self.present(target: item.planTimes, planManage: item)
+                self.present(target: item.planTimes, personalPlan: item)
             }
             
             cell.isDeleteButtonTap = {
@@ -161,16 +161,16 @@ class PlanManageViewController: UIViewController {
         var snapshot = Snapshot()
         snapshot.appendSections([0, 1])
         
-        if let planManages = planManages {
-            snapshot.appendItems(planManages, toSection: 0)
-            snapshot.reloadItems(planManages)
+        if let personalPlans = personalPlans {
+            snapshot.appendItems(personalPlans, toSection: 0)
+            snapshot.reloadItems(personalPlans)
         } else {
             return snapshot
         }
         return snapshot
     }
     
-    private func present(target: String, planManage: PlanManage) {
+    private func present(target: String, personalPlan: PersonalPlan) {
         guard let poseVC = UIStoryboard.home.instantiateViewController(
             withIdentifier: "\(PoseDetectViewController.self)")
                 as? PoseDetectViewController
@@ -178,7 +178,7 @@ class PlanManageViewController: UIViewController {
             return
         }
         poseVC.planTarget = Int(target) ?? 0
-        poseVC.planManage = planManage
+        poseVC.personalPlan = personalPlan
         poseVC.modalPresentationStyle = .fullScreen
         self.present(poseVC, animated: true)
     }

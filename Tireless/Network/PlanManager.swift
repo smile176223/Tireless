@@ -14,30 +14,32 @@ class PlanManager {
     
     lazy var planDB = Firestore.firestore().collection("plan")
     
-    func createPlan(planManage: inout PlanManage, completion: @escaping (Result<String, Error>) -> Void) {
+    lazy var groupPlanDB = Firestore.firestore().collection("GroupPlans")
+    
+    func createPlan(personalPlan: inout PersonalPlan, completion: @escaping (Result<String, Error>) -> Void) {
         do {
             let document = Firestore.firestore().collection("plan").document()
-            planManage.uuid = document.documentID
-            try document.setData(from: planManage)
+            personalPlan.uuid = document.documentID
+            try document.setData(from: personalPlan)
             completion(.success("Success"))
         } catch {
             completion(.failure(error))
         }
     }
     
-    func fetchPlan(completion: @escaping (Result<[PlanManage], Error>) -> Void) {
+    func fetchPlan(completion: @escaping (Result<[PersonalPlan], Error>) -> Void) {
         planDB.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))
             } else {
-                var planManages = [PlanManage]()
+                var personalPlans = [PersonalPlan]()
                 for document in querySnapshot.documents {
-                    if let planManage = try? document.data(as: PlanManage.self, decoder: Firestore.Decoder()) {
-                        planManages.append(planManage)
+                    if let personalPlan = try? document.data(as: PersonalPlan.self, decoder: Firestore.Decoder()) {
+                        personalPlans.append(personalPlan)
                     }
                 }
-                completion(.success(planManages))
+                completion(.success(personalPlans))
             }
         }
     }
@@ -52,12 +54,29 @@ class PlanManager {
         }
     }
     
-    func updatePlan(planManage: PlanManage, completion: @escaping (Result<String, Error>) -> Void ) {
+    func updatePlan(personalPlan: PersonalPlan, completion: @escaping (Result<String, Error>) -> Void ) {
         do {
-            try planDB.document(planManage.uuid).setData(from: planManage)
+            try planDB.document(personalPlan.uuid).setData(from: personalPlan)
             completion(.success("Success"))
         } catch {
             completion(.failure(error))
+        }
+    }
+    
+    func fetchGroupPlan(completion: @escaping (Result<[GroupPlan], Error>) -> Void) {
+        groupPlanDB.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                var groupPlans = [GroupPlan]()
+                for document in querySnapshot.documents {
+                    if let groupPlan = try? document.data(as: GroupPlan.self, decoder: Firestore.Decoder()) {
+                        groupPlans.append(groupPlan)
+                    }
+                }
+                completion(.success(groupPlans))
+            }
         }
     }
 }

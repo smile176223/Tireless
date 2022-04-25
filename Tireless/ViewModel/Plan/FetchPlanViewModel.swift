@@ -9,13 +9,13 @@ import Foundation
 
 class FetchPlanViewModel {
     
-    var planManage = Box([PlanManage]())
+    var personalPlan = Box([PersonalPlan]())
 
     func fatchPlan() {
         PlanManager.shared.fetchPlan { result in
             switch result {
-            case .success(let planManage):
-                self.planManage.value = planManage
+            case .success(let personalPlan):
+                self.personalPlan.value = personalPlan
                 
             case .failure(let error):
                 print(error)
@@ -35,8 +35,8 @@ class FetchPlanViewModel {
         }
     }
     
-    func updatePlan(planManage: PlanManage) {
-        PlanManager.shared.updatePlan(planManage: planManage) { result in
+    func updatePlan(personalPlan: PersonalPlan) {
+        PlanManager.shared.updatePlan(personalPlan: personalPlan) { result in
             switch result {
             case .success(let success):
                 print(success)

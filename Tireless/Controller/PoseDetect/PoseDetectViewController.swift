@@ -42,7 +42,7 @@ class PoseDetectViewController: UIViewController {
     
     var planTarget: Int = 0
     
-    var planManage: PlanManage?
+    var personalPlan: PersonalPlan?
     
     private var counter = 0 {
         didSet {
@@ -327,19 +327,19 @@ class PoseDetectViewController: UIViewController {
     }
     
     private func updateValue() {
-        guard let planManage = planManage,
-              let days = Double(planManage.planDays) else {
+        guard let personalPlan = personalPlan,
+              let days = Double(personalPlan.planDays) else {
             return
         }
-        let done = round(planManage.progress * days) + 1
-        self.planManage?.progress = done / days
-        self.planManage?.finishTime.append(FinishTime(day: Int(done), time: Date().millisecondsSince1970))
+        let done = round(personalPlan.progress * days) + 1
+        self.personalPlan?.progress = done / days
+        self.personalPlan?.finishTime.append(FinishTime(day: Int(done), time: Date().millisecondsSince1970))
     }
     private func updatePlan() {
-        guard let planManage = planManage else {
+        guard let personalPlan = personalPlan else {
             return
         }
-        planViewModel.updatePlan(planManage: planManage)
+        planViewModel.updatePlan(personalPlan: personalPlan)
     }
     
 }
