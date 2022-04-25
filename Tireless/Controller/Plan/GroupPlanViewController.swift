@@ -29,7 +29,7 @@ class GroupPlanViewController: UIViewController {
         }
     }
     
-    let viewModel = GroupPlanViewModel()
+    let viewModel = JoinGroupViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -12,6 +12,7 @@ struct WeeklyDays: Hashable {
     let weekDays: String
 }
 
+// for default plans
 struct Plans: Hashable {
     let planName: String
     let planDetail: String

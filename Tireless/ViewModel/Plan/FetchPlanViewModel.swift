@@ -10,12 +10,23 @@ import Foundation
 class FetchPlanViewModel {
     
     var personalPlan = Box([PersonalPlan]())
+    
+    var groupPlan = Box([GroupPlan]())
 
     func fatchPlan() {
         PlanManager.shared.fetchPlan { result in
             switch result {
             case .success(let personalPlan):
                 self.personalPlan.value = personalPlan
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+        PlanManager.shared.fetchGroupPlan { result in
+            switch result {
+            case .success(let groupPlan):
+                self.groupPlan.value = groupPlan
                 
             case .failure(let error):
                 print(error)
