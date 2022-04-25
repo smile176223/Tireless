@@ -7,18 +7,18 @@
 
 import Foundation
 
-struct Video: Codable {
+struct ShareFiles: Codable {
     var userId: String
-    var videoName: String
-    var videoURL: URL
+    var shareName: String
+    var shareURL: URL
     var createdTime: Int64
     var content: String
     var comment: Comment?
 
     enum CodingKeys: String, CodingKey {
         case userId
-        case videoName
-        case videoURL
+        case shareName
+        case shareURL
         case createdTime
         case content
         case comment

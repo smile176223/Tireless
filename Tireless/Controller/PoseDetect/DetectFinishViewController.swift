@@ -14,9 +14,9 @@ class DetectFinishViewController: UIViewController {
     
     var videoURL: URL?
     
-    let videoManager = VideoManager()
+    let videoManager = ShareManager()
     
-    var isUserCanShare = false
+    var isUserCanShare = true
     
     var isUserRejectRecording = false
     
@@ -34,39 +34,39 @@ class DetectFinishViewController: UIViewController {
         }
     }
 
-    private func finishPresent() {
-//        guard let shareVC = UIStoryboard.shareWall.instantiateViewController(
-//            withIdentifier: "\(ShareWallViewController.self)")
-//                as? ShareWallViewController
-//        else {
-//            return
-//        }
-//        shareVC.videoURL = videoURL
+    private func sharePresent() {
         self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
         if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
-            tabBarController.selectedIndex = 1
+            tabBarController.selectedIndex = 2
         }
-        
     }
+    
+    private func finishPresent() {
+        self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
+        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
+            tabBarController.selectedIndex = 0
+        }
+    }
+
     private func shareButtonTap() {
         guard let videoURL = videoURL else {
             return
         }
         
-        let testVideo = Video(userId: "liamTest",
-                              videoName: UUID().uuidString,
-                              videoURL: videoURL,
+        let testVideo = ShareFiles(userId: "liamTest",
+                              shareName: UUID().uuidString,
+                              shareURL: videoURL,
                               createdTime: Date().millisecondsSince1970,
                               content: "",
                               comment: nil)
         
         detectFinishView.isShareButtonTap = { [weak self] in
             if self?.isUserCanShare == true {
-                self?.videoManager.uploadVideo(video: testVideo) { result in
+                self?.videoManager.uploadVideo(shareFile: testVideo) { result in
                     switch result {
                     case .success(let url):
                         self?.videoURL = url
-                        self?.finishPresent()
+                        self?.sharePresent()
                     case .failure(let error):
                         print("error", error)
                     }

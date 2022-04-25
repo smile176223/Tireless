@@ -8,7 +8,7 @@
 import ReplayKit
 import Photos
 
-class VideoRecord {
+class VideoRecordManager {
     private let recorder = RPScreenRecorder.shared()
     
     private var countTime = 0

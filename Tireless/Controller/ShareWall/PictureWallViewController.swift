@@ -10,9 +10,9 @@ import UIKit
 
 class PictureWallViewController: UIViewController {
     
-    let videoManager = VideoManager()
+    let shareManager = ShareManager()
     
-    var pictures: [Picture]? {
+    var shareFiles: [ShareFiles]? {
         didSet {
             tableView.reloadData()
         }
@@ -28,7 +28,7 @@ class PictureWallViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.backgroundColor = .white
+        view.backgroundColor = .themeBG
         
         tableView.register(UINib(nibName: "\(SharePictureViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(SharePictureViewCell.self)")
@@ -37,10 +37,10 @@ class PictureWallViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        videoManager.fetchPicture { result in
+        shareManager.fetchPicture { result in
             switch result {
-            case .success(let pictures):
-                self.pictures = pictures
+            case .success(let shareFiles):
+                self.shareFiles = shareFiles
             case .failure(let error):
                 print(error)
             }
@@ -50,7 +50,7 @@ class PictureWallViewController: UIViewController {
 
 extension PictureWallViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        pictures?.count ?? 0
+        shareFiles?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,10 +58,10 @@ extension PictureWallViewController: UITableViewDelegate, UITableViewDataSource 
             for: indexPath) as? SharePictureViewCell else {
             return UITableViewCell()
         }
-        guard let pictures = pictures else { return UITableViewCell()}
-        cell.pictureTitle.text = "\(pictures[indexPath.row].pictureName)"
-        cell.pictureDate.text = "\(pictures[indexPath.row].createdTime)"
-        cell.pictureImageView.loadImage("\(pictures[indexPath.row].pictureURL)")
+        guard let shareFiles = shareFiles else { return UITableViewCell()}
+        cell.pictureTitle.text = "\(shareFiles[indexPath.row].shareName)"
+        cell.pictureDate.text = "\(shareFiles[indexPath.row].createdTime)"
+        cell.pictureImageView.loadImage("\(shareFiles[indexPath.row].shareURL)")
         cell.pictureImageView.contentMode = .scaleAspectFill
         
         cell.pictureTitle.textColor = .black

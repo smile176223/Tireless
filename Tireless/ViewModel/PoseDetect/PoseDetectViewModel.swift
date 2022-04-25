@@ -15,7 +15,7 @@ class PoseDetectViewModel {
         case pose = "Pose Detection"
     }
     
-    let posePointViewModels = Box([PosePointViewModel]())
+//    let posePointViewModels = Box([PosePointViewModel]())
     
     let poseViewModels = Box([Pose]())
     
@@ -97,16 +97,16 @@ class PoseDetectViewModel {
         self.lastDetector = activeDetector
     }
     
-    private func convertPosePointToViewModel(from posePoints: [PosePoint]) -> [PosePointViewModel] {
-        var viewModels = [PosePointViewModel]()
-        for posePoint in posePoints {
-            let viewModel = PosePointViewModel(model: posePoint)
-            viewModels.append(viewModel)
-        }
-        return viewModels
-    }
-    
-    private func setPosePoint(_ posePoint: [PosePoint]) {
-        posePointViewModels.value = convertPosePointToViewModel(from: posePoint)
-    }
+//    private func convertPosePointToViewModel(from posePoints: [PosePoint]) -> [PosePointViewModel] {
+//        var viewModels = [PosePointViewModel]()
+//        for posePoint in posePoints {
+//            let viewModel = PosePointViewModel(model: posePoint)
+//            viewModels.append(viewModel)
+//        }
+//        return viewModels
+//    }
+//
+//    private func setPosePoint(_ posePoint: [PosePoint]) {
+//        posePointViewModels.value = convertPosePointToViewModel(from: posePoint)
+//    }
 }

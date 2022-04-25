@@ -10,10 +10,14 @@ import UIKit
 private enum Tab {
 
     case home
+    
+    case plan
 
     case shareWall
     
     case pictureWall
+    
+    case profile
 
     func controller() -> UIViewController {
 
@@ -24,11 +28,17 @@ private enum Tab {
         case .home:
             controller = UIStoryboard.home.instantiateInitialViewController() ?? UIViewController()
             
+        case .plan:
+            controller = UIStoryboard.plan.instantiateInitialViewController() ?? UIViewController()
+            
         case .shareWall:
             controller = UIStoryboard.shareWall.instantiateInitialViewController() ?? UIViewController()
             
         case .pictureWall:
             controller = UIStoryboard.pictureWall.instantiateInitialViewController() ?? UIViewController()
+            
+        case .profile:
+            controller = UIStoryboard.profile.instantiateInitialViewController() ?? UIViewController()
 
         }
         
@@ -49,19 +59,33 @@ private enum Tab {
                 image: UIImage(systemName: "house"),
                 selectedImage: UIImage(systemName: "house.fill")
             )
+            
+        case .plan:
+            return UITabBarItem(
+                title: nil,
+                image: UIImage(systemName: "scroll"),
+                selectedImage: UIImage(systemName: "scroll.fill")
+            )
 
         case .shareWall:
             return UITabBarItem(
                 title: nil,
-                image: UIImage(systemName: "video.circle"),
-                selectedImage: UIImage(systemName: "video.circle.fill")
+                image: UIImage(systemName: "video"),
+                selectedImage: UIImage(systemName: "video.fill")
             )
             
         case .pictureWall:
             return UITabBarItem(
                 title: nil,
-                image: UIImage(systemName: "personalhotspot.circle"),
-                selectedImage: UIImage(systemName: "personalhotspot.circle.fill")
+                image: UIImage(systemName: "magnifyingglass"),
+                selectedImage: UIImage(systemName: "magnifyingglass")
+            )
+            
+        case .profile:
+            return UITabBarItem(
+                title: nil,
+                image: UIImage(systemName: "person"),
+                selectedImage: UIImage(systemName: "person.fill")
             )
         }
     }
@@ -69,7 +93,7 @@ private enum Tab {
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
-    private let tabs: [Tab] = [.home, .shareWall, .pictureWall]
+    private let tabs: [Tab] = [.home, .plan, .shareWall, .pictureWall, .profile]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,15 +102,15 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         viewControllers = tabs.map({ $0.controller() })
         
-        tabBar.tintColor = .black
+        tabBar.tintColor = .themeYellow
         
-        tabBar.backgroundColor = .white
+        tabBar.backgroundColor = .themeBGSecond
         
         tabBar.isTranslucent = false
         
-        tabBar.barTintColor = .white
+        tabBar.barTintColor = .themeBGSecond
         
-        tabBar.unselectedItemTintColor = .gray
-    
+        tabBar.unselectedItemTintColor = .white
+        
     }
 }

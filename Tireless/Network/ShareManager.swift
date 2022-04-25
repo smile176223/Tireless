@@ -9,34 +9,34 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
-class VideoManager {
-    static let shared = VideoManager()
+class ShareManager {
+    static let shared = ShareManager()
     
-    lazy var firestoreDB = Firestore.firestore().collection("shareWall")
+    lazy var shareWallDB = Firestore.firestore().collection("shareWall")
     
     lazy var picturesDB = Firestore.firestore().collection("pictures")
     
     var uploadProgress: ((Progress) -> Void)?
     
-    func uploadVideo(video: Video, comletion: @escaping (Result<URL, Error>) -> Void) {
-        let videoRef = Storage.storage().reference().child("Videos/\(video.videoName)")
-        let uploadTask = videoRef.putFile(from: video.videoURL, metadata: nil) { _, error in
+    func uploadVideo(shareFile: ShareFiles, completion: @escaping (Result<URL, Error>) -> Void) {
+        let videoRef = Storage.storage().reference().child("Videos/\(shareFile.shareName)")
+        let uploadTask = videoRef.putFile(from: shareFile.shareURL, metadata: nil) { _, error in
             if let error = error {
-                comletion(.failure(error))
+                completion(.failure(error))
                 return
             }
             videoRef.downloadURL { url, error in
                 if let error = error {
-                    comletion(.failure(error))
+                    completion(.failure(error))
                 }
                 guard let downloadURL = url else {
                     return
                 }
-                comletion(.success(downloadURL))
+                completion(.success(downloadURL))
                 do {
-                    var tempVideo = video
-                    tempVideo.videoURL = downloadURL
-                    try _ = self.firestoreDB.addDocument(from: tempVideo)
+                    var tempVideo = shareFile
+                    tempVideo.shareURL = downloadURL
+                    try _ = self.shareWallDB.addDocument(from: tempVideo)
                 } catch {
                     print(error)
                 }
@@ -50,15 +50,15 @@ class VideoManager {
         }
     }
     
-    func fetchShareWallVideo(completion: @escaping (Result<[Video], Error>) -> Void) {
-        firestoreDB.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
+    func fetchVideo(completion: @escaping (Result<[ShareFiles], Error>) -> Void) {
+        shareWallDB.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))
             } else {
-                var videos = [Video]()
+                var videos = [ShareFiles]()
                 for document in querySnapshot.documents {
-                    if let video = try? document.data(as: Video.self, decoder: Firestore.Decoder()) {
+                    if let video = try? document.data(as: ShareFiles.self, decoder: Firestore.Decoder()) {
                         videos.append(video)
                     }
                 }
@@ -67,9 +67,9 @@ class VideoManager {
         }
     }
     
-    func uploadPicture(picture: Picture, comletion: @escaping (Result<URL, Error>) -> Void) {
-        let videoRef = Storage.storage().reference().child("Pictures/\(picture.pictureName)")
-        _ = videoRef.putFile(from: picture.pictureURL, metadata: nil) { _, error in
+    func uploadPicture(shareFile: ShareFiles, comletion: @escaping (Result<URL, Error>) -> Void) {
+        let videoRef = Storage.storage().reference().child("Pictures/\(shareFile.shareName)")
+        _ = videoRef.putFile(from: shareFile.shareURL, metadata: nil) { _, error in
             if let error = error {
                 comletion(.failure(error))
                 return
@@ -83,8 +83,8 @@ class VideoManager {
                 }
                 comletion(.success(downloadURL))
                 do {
-                    var tempPicture = picture
-                    tempPicture.pictureURL = downloadURL
+                    var tempPicture = shareFile
+                    tempPicture.shareURL = downloadURL
                     try _ = self.picturesDB.addDocument(from: tempPicture)
                 } catch {
                     print(error)
@@ -93,19 +93,19 @@ class VideoManager {
         }
     }
     
-    func fetchPicture(completion: @escaping (Result<[Picture], Error>) -> Void) {
+    func fetchPicture(completion: @escaping (Result<[ShareFiles], Error>) -> Void) {
         picturesDB.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))
             } else {
-                var pictures = [Picture]()
+                var shareFiles = [ShareFiles]()
                 for document in querySnapshot.documents {
-                    if let picture = try? document.data(as: Picture.self, decoder: Firestore.Decoder()) {
-                        pictures.append(picture)
+                    if let shareFile = try? document.data(as: ShareFiles.self, decoder: Firestore.Decoder()) {
+                        shareFiles.append(shareFile)
                     }
                 }
-                completion(.success(pictures))
+                completion(.success(shareFiles))
             }
         }
     }
