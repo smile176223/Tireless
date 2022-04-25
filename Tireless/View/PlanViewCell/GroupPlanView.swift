@@ -123,6 +123,7 @@ class GroupPlanView: UIView {
         viewConstraints()
         buttonConstraints()
         labelConstraints()
+        imageConstraints()
         self.backgroundColor = .themeBG
         backButton.addTarget(self, action: #selector(backButtonTap), for: .touchUpInside)
         joinButton.addTarget(self, action: #selector(joinButtonTap), for: .touchUpInside)
@@ -214,6 +215,9 @@ class GroupPlanView: UIView {
             createdUserLabel.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 25),
             createdUserLabel.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -25)
         ])
+    }
+    
+    private func imageConstraints() {
         bottomView.addSubview(createdUserImage)
         createdUserImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -235,6 +239,5 @@ class GroupPlanView: UIView {
             joinUserImage.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 25),
             joinUserImage.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -25)
         ])
- 
     }
 }

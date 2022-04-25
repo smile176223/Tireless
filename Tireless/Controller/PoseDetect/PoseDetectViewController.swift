@@ -107,11 +107,11 @@ class PoseDetectViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         videoRecordManager.startRecording { [weak self] in
-//            self?.startSession()
-//            self?.drawStart = true
+            self?.startSession()
+            self?.drawStart = true
         }
-        startSession()
-        drawStart = true
+//        startSession()
+//        drawStart = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
