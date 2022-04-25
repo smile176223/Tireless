@@ -22,6 +22,7 @@ class GroupPlanViewController: UIViewController {
                 if joinUsers?[index].userId == DemoUser.demoUser {
                     groupPlanView.joinButton.isEnabled = false
                     groupPlanView.joinButton.setTitle("已加入", for: .normal)
+                    groupPlanView.leaveButton.isHidden = false
                     groupPlanView.joinUserImage.text = joinUsers?[index].name
                 }
             }
@@ -32,9 +33,10 @@ class GroupPlanViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isBackButtonTap()
         setupLayout()
+        isBackButtonTap()
         isJoinButtonTap()
+        isLeaveButtonTap()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +51,8 @@ class GroupPlanViewController: UIViewController {
         }
         if groupPlan.createdUserId == DemoUser.demoUser {
             groupPlanView.joinButton.setTitle("開始計畫", for: .normal)
+            groupPlanView.leaveButton.isHidden = false
+            groupPlanView.leaveButton.setTitle("放棄計畫", for: .normal)
         }
     }
     
@@ -76,7 +80,34 @@ class GroupPlanViewController: UIViewController {
             } else {
                 self?.dismiss(animated: true)
             }
-
+            
+        }
+    }
+    
+    func isLeaveButtonTap() {
+        guard let groupPlan = groupPlan else { return }
+        groupPlanView.isLeaveButtonTap = { [weak self] in
+            if groupPlan.createdUserId == DemoUser.demoUser {
+                self?.viewModel.deleteGroupPlan(uuid: groupPlan.uuid) { result in
+                    switch result {
+                    case .success(let string):
+                        print(string)
+                        self?.dismiss(animated: true)
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            } else {
+                self?.viewModel.leaveGroupPlan(uuid: groupPlan.uuid, userId: DemoUser.demoUser, completion: { result in
+                    switch result {
+                    case .success(let string):
+                        print(string)
+                        self?.dismiss(animated: true)
+                    case .failure(let error):
+                        print(error)
+                    }
+                })
+            }
         }
     }
 }

@@ -30,4 +30,26 @@ class GroupPlanViewModel {
             }
         }
     }
+    
+    func deleteGroupPlan(uuid: String, completion: @escaping (Result<String, Error>) -> Void) {
+        GroupPlanManager.shared.deleteGroupPlan(uuid: uuid) { result in
+            switch result {
+            case .success(let success):
+                completion(.success(success))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func leaveGroupPlan(uuid: String, userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+        GroupPlanManager.shared.leaveGroupPlan(uuid: uuid, userId: userId, completion: { result in
+            switch result {
+            case .success(let success):
+                completion(.success(success))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        })
+    }
 }

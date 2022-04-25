@@ -108,4 +108,24 @@ class GroupPlanManager {
             }
         }
     }
+    
+    func deleteGroupPlan(uuid: String, completion: @escaping (Result<String, Error>) -> Void ) {
+        groupPlanDB.document(uuid).delete { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(uuid))
+            }
+        }
+    }
+    
+    func leaveGroupPlan(uuid: String, userId: String, completion: @escaping (Result<String, Error>) -> Void ) {
+        groupPlanDB.document(uuid).collection("JoinUsers").document(userId).delete { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(uuid))
+            }
+        }
+    }
 }
