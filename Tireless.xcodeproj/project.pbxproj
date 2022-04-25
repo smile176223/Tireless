@@ -78,7 +78,7 @@
 		FF3FBE9B28150FB000E6B5DC /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE9A28150FB000E6B5DC /* ProfileViewModel.swift */; };
 		FF3FBE9D28151FF000E6B5DC /* Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE9C28151FF000E6B5DC /* Friends.swift */; };
 		FF3FBE9F2815320500E6B5DC /* GroupPlans.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE9E2815320500E6B5DC /* GroupPlans.swift */; };
-		FF3FBEA1281546F700E6B5DC /* GroupPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEA0281546F700E6B5DC /* GroupPlanManager.swift */; };
+		FF3FBEA1281546F700E6B5DC /* JoinGroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEA0281546F700E6B5DC /* JoinGroupManager.swift */; };
 		FF3FBEA3281567DA00E6B5DC /* DemoUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEA2281567DA00E6B5DC /* DemoUser.swift */; };
 		FF3FBEA528156FF100E6B5DC /* GroupPlan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBEA428156FF100E6B5DC /* GroupPlan.storyboard */; };
 		FF3FBEA7281570B000E6B5DC /* SetGroupPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEA6281570B000E6B5DC /* SetGroupPlanViewController.swift */; };
@@ -88,6 +88,7 @@
 		FF3FBEAF2815C81A00E6B5DC /* GroupPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEAE2815C81A00E6B5DC /* GroupPlanViewController.swift */; };
 		FF3FBEB12815D38E00E6B5DC /* GroupPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB02815D38E00E6B5DC /* GroupPlanView.swift */; };
 		FF3FBEB32815E29E00E6B5DC /* GroupPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB22815E29E00E6B5DC /* GroupPlanViewModel.swift */; };
+		FF3FBEB52816F52C00E6B5DC /* JoinGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB42816F52C00E6B5DC /* JoinGroups.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -170,7 +171,7 @@
 		FF3FBE9A28150FB000E6B5DC /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		FF3FBE9C28151FF000E6B5DC /* Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
 		FF3FBE9E2815320500E6B5DC /* GroupPlans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlans.swift; sourceTree = "<group>"; };
-		FF3FBEA0281546F700E6B5DC /* GroupPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanManager.swift; sourceTree = "<group>"; };
+		FF3FBEA0281546F700E6B5DC /* JoinGroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupManager.swift; sourceTree = "<group>"; };
 		FF3FBEA2281567DA00E6B5DC /* DemoUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoUser.swift; sourceTree = "<group>"; };
 		FF3FBEA428156FF100E6B5DC /* GroupPlan.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GroupPlan.storyboard; sourceTree = "<group>"; };
 		FF3FBEA6281570B000E6B5DC /* SetGroupPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGroupPlanViewController.swift; sourceTree = "<group>"; };
@@ -180,6 +181,7 @@
 		FF3FBEAE2815C81A00E6B5DC /* GroupPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanViewController.swift; sourceTree = "<group>"; };
 		FF3FBEB02815D38E00E6B5DC /* GroupPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanView.swift; sourceTree = "<group>"; };
 		FF3FBEB22815E29E00E6B5DC /* GroupPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanViewModel.swift; sourceTree = "<group>"; };
+		FF3FBEB42816F52C00E6B5DC /* JoinGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroups.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				FF3FBE6B281238FE00E6B5DC /* Plans.swift */,
 				FF3FBE9C28151FF000E6B5DC /* Friends.swift */,
 				FF3FBE9E2815320500E6B5DC /* GroupPlans.swift */,
+				FF3FBEB42816F52C00E6B5DC /* JoinGroups.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -406,7 +409,7 @@
 				FF308E6C28066E0D00265863 /* ShareManager.swift */,
 				FF3FBE732812835300E6B5DC /* PlanManager.swift */,
 				FF3FBE9728150DEC00E6B5DC /* UserManager.swift */,
-				FF3FBEA0281546F700E6B5DC /* GroupPlanManager.swift */,
+				FF3FBEA0281546F700E6B5DC /* JoinGroupManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -806,6 +809,7 @@
 				FF2FE0F4280F9A5E00F8890D /* HomeDailyHeaderView.swift in Sources */,
 				FF3FBE8E2814F8ED00E6B5DC /* FriendListViewCell.swift in Sources */,
 				FF14449428009C010027F560 /* Box.swift in Sources */,
+				FF3FBEB52816F52C00E6B5DC /* JoinGroups.swift in Sources */,
 				FF3FBE7028125E4E00E6B5DC /* PlanManageViewCell.swift in Sources */,
 				FF3FBEAF2815C81A00E6B5DC /* GroupPlanViewController.swift in Sources */,
 				FF3FBE602811A1B600E6B5DC /* CounterView.swift in Sources */,
@@ -813,7 +817,7 @@
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
 				FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */,
-				FF3FBEA1281546F700E6B5DC /* GroupPlanManager.swift in Sources */,
+				FF3FBEA1281546F700E6B5DC /* JoinGroupManager.swift in Sources */,
 				FF3FBEA92815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift in Sources */,
 				FF308E7A2807D4A000265863 /* PublishViewModel.swift in Sources */,
 				FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */,

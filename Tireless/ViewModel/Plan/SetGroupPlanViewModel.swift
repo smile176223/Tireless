@@ -9,7 +9,7 @@ import Foundation
 
 class SetGroupPlanViewModel {
     
-    var groupPlan: GroupPlans = GroupPlans(planName: "",
+    var joinGroup: JoinGroup = JoinGroup(planName: "",
                                            planTimes: "",
                                            planDays: "",
                                            createdTime: -1,
@@ -22,16 +22,16 @@ class SetGroupPlanViewModel {
                      days: String,
                      createdName: String,
                      createdUserId: String) {
-        self.groupPlan.planName = name
-        self.groupPlan.planTimes = times
-        self.groupPlan.planDays = days
-        self.groupPlan.createdTime = Date().millisecondsSince1970
-        self.groupPlan.createdName = createdName
-        self.groupPlan.createdUserId = createdUserId
+        self.joinGroup.planName = name
+        self.joinGroup.planTimes = times
+        self.joinGroup.planDays = days
+        self.joinGroup.createdTime = Date().millisecondsSince1970
+        self.joinGroup.createdName = createdName
+        self.joinGroup.createdUserId = createdUserId
     }
     
     func createPlan(success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
-        GroupPlanManager.shared.createGroupPlan(groupPlan: &groupPlan) { result in
+        JoinGroupManager.shared.createJoinGroup(joinGroup: &joinGroup) { result in
             switch result {
             case .success:
                 success()

@@ -1,19 +1,19 @@
 //
-//  GroupPlans.swift
+//  JoinGroups.swift
 //  Tireless
 //
-//  Created by Hao on 2022/4/24.
+//  Created by Hao on 2022/4/25.
 //
 
 import Foundation
 
-struct GroupPlan: Codable {
+struct JoinGroup: Codable {
     var planName: String
     var planTimes: String
     var planDays: String
     var createdTime: Int64
     var createdUserId: String
-    var joinUserId: [String]
+    var createdName: String
     var uuid: String
     
     enum CodingKeys: String, CodingKey {
@@ -22,13 +22,13 @@ struct GroupPlan: Codable {
         case planDays
         case createdTime
         case createdUserId
-        case joinUserId
+        case createdName
         case uuid
     }
 }
 
-extension GroupPlan: Hashable {
-    static func == (lhs: GroupPlan, rhs: GroupPlan) -> Bool {
+extension JoinGroup: Hashable {
+    static func == (lhs: JoinGroup, rhs: JoinGroup) -> Bool {
         return lhs.uuid == rhs.uuid
     }
     

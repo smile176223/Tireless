@@ -9,8 +9,25 @@ import Foundation
 
 class GroupPlanViewModel {
     
+    var groupPlan: GroupPlan = GroupPlan(planName: "",
+                                         planTimes: "",
+                                         planDays: "",
+                                         createdTime: -1,
+                                         createdUserId: DemoUser.demoUser,
+                                         joinUserId: [""],
+                                         uuid: "")
+    
+    func getGroupPlan(name: String, times: String, days: String, joinUserId: [String], uuid: String) {
+        self.groupPlan.planName = name
+        self.groupPlan.planTimes = times
+        self.groupPlan.planDays = days
+        self.groupPlan.createdTime = Date().millisecondsSince1970
+        self.groupPlan.joinUserId = joinUserId
+        self.groupPlan.uuid = uuid
+    }
+    
     func joinGroup(uuid: String, success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
-        GroupPlanManager.shared.joinGroupPlan(uuid: uuid) { result in
+        JoinGroupManager.shared.joinGroupPlan(uuid: uuid) { result in
             switch result {
             case .success:
                 success()
@@ -21,7 +38,7 @@ class GroupPlanViewModel {
     }
     
     func fetchJoinUsers(uuid: String, completion: @escaping (Result<[User], Error>) -> Void) {
-        GroupPlanManager.shared.fetchPlanJoinUser(uuid: uuid) { result in
+        JoinGroupManager.shared.fetchPlanJoinUser(uuid: uuid) { result in
             switch result {
             case .success(let user):
                 completion(.success(user))
@@ -31,8 +48,8 @@ class GroupPlanViewModel {
         }
     }
     
-    func deleteGroupPlan(uuid: String, completion: @escaping (Result<String, Error>) -> Void) {
-        GroupPlanManager.shared.deleteGroupPlan(uuid: uuid) { result in
+    func deleteJoinGroup(uuid: String, completion: @escaping (Result<String, Error>) -> Void) {
+        JoinGroupManager.shared.deleteJoinGroup(uuid: uuid) { result in
             switch result {
             case .success(let success):
                 completion(.success(success))
@@ -42,8 +59,8 @@ class GroupPlanViewModel {
         }
     }
     
-    func leaveGroupPlan(uuid: String, userId: String, completion: @escaping (Result<String, Error>) -> Void) {
-        GroupPlanManager.shared.leaveGroupPlan(uuid: uuid, userId: userId, completion: { result in
+    func leaveJoinGroup(uuid: String, userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+        JoinGroupManager.shared.leaveJoinGroup(uuid: uuid, userId: userId, completion: { result in
             switch result {
             case .success(let success):
                 completion(.success(success))
@@ -51,5 +68,16 @@ class GroupPlanViewModel {
                 completion(.failure(error))
             }
         })
+    }
+    
+    func startJoinGroup(uuid: String, completion: @escaping (Result<String, Error>) -> Void) {
+        JoinGroupManager.shared.startJoinGroup(uuid: uuid, groupPlan: groupPlan) { result in
+            switch result {
+            case .success(let success):
+                completion(.success(success))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

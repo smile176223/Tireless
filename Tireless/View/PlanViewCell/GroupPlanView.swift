@@ -153,15 +153,15 @@ class GroupPlanView: UIView {
         isLeaveButtonTap?()
     }
     
-    func setupLayout(groupPlan: GroupPlans, plan: Plans) {
+    func setupLayout(joinGroup: JoinGroup, plan: Plans) {
         imageView.image = UIImage(named: plan.planImage)
-        titleLabel.text = groupPlan.planName
+        titleLabel.text = joinGroup.planName
         infoLabel.text = plan.planDetail
-        createdUserImage.text = groupPlan.createdName
-        if groupPlan.planName == "棒式" {
-            timesDaysLabel.text = "\(groupPlan.planTimes)秒/\(groupPlan.planDays)天"
+        createdUserImage.text = joinGroup.createdName
+        if joinGroup.planName == "棒式" {
+            timesDaysLabel.text = "\(joinGroup.planTimes)秒/\(joinGroup.planDays)天"
         } else {
-            timesDaysLabel.text = "\(groupPlan.planTimes)次/\(groupPlan.planDays)天"
+            timesDaysLabel.text = "\(joinGroup.planTimes)次/\(joinGroup.planDays)天"
         }
 //        for index in userId {
 //            joinUserImage.text = index.userId
