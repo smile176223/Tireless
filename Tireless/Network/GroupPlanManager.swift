@@ -82,19 +82,27 @@ class GroupPlanManager {
         }
     }
     
-    func fetchPlanJoinUser(uuid: String, completion: @escaping (Result<[UserId], Error>) -> Void) {
+    func fetchPlanJoinUser(uuid: String, completion: @escaping (Result<[User], Error>) -> Void) {
         groupPlanDB.document(uuid).collection("JoinUsers").getDocuments { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 print(error)
             } else {
-                var joinUsers = [UserId]()
+                var joinUsers = [User]()
                 for document in querySnapshot.documents {
                     if let joinUser = try? document.data(as: UserId.self, decoder: Firestore.Decoder()) {
-                        joinUsers.append(joinUser)
+//                        joinUsers.append(joinUser)
+                        UserManager.shared.fetchUser(userId: joinUser.userId) { result in
+                            switch result {
+                            case .success(let user):
+                                joinUsers.append(user)
+                                completion(.success(joinUsers))
+                            case .failure(let error):
+                                completion(.failure(error))
+                            }
+                        }
                     }
                 }
-                completion(.success(joinUsers))
             }
         }
     }

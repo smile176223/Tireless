@@ -16,13 +16,13 @@ class GroupPlanViewController: UIViewController {
     
     var plan: Plans?
     
-    var joinUsers: [UserId]? {
+    var joinUsers: [User]? {
         didSet {
             for index in 0..<(joinUsers?.count ?? 0) {
                 if joinUsers?[index].userId == DemoUser.demoUser {
                     groupPlanView.joinButton.isEnabled = false
                     groupPlanView.joinButton.setTitle("已加入", for: .normal)
-                    groupPlanView.joinUserImage.text = joinUsers?[index].userId 
+                    groupPlanView.joinUserImage.text = joinUsers?[index].name
                 }
             }
         }
@@ -43,17 +43,19 @@ class GroupPlanViewController: UIViewController {
             switch result {
             case .success(let joinUsers):
                 self.joinUsers = joinUsers
-                print(joinUsers)
             case .failure(let error):
                 print(error)
             }
+        }
+        if groupPlan.createdUserId == DemoUser.demoUser {
+            groupPlanView.joinButton.setTitle("開始計畫", for: .normal)
         }
     }
     
     func setupLayout() {
         guard let groupPlan = groupPlan,
               let plan = plan else { return }
-        groupPlanView.setupLayout(groupPlan: groupPlan, plan: plan, userId: joinUsers ?? [UserId(userId: "")])
+        groupPlanView.setupLayout(groupPlan: groupPlan, plan: plan)
     }
     
     func isBackButtonTap() {
@@ -65,10 +67,14 @@ class GroupPlanViewController: UIViewController {
     func isJoinButtonTap() {
         guard let groupPlan = groupPlan else { return }
         groupPlanView.isJoinButtonTap = { [weak self] in
-            self?.viewModel.joinGroup(uuid: groupPlan.uuid) {
+            if groupPlan.createdUserId != DemoUser.demoUser {
+                self?.viewModel.joinGroup(uuid: groupPlan.uuid) {
+                    self?.dismiss(animated: true)
+                } failure: { error in
+                    print(error)
+                }
+            } else {
                 self?.dismiss(animated: true)
-            } failure: { error in
-                print(error)
             }
 
         }

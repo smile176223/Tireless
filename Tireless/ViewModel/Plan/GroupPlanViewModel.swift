@@ -20,7 +20,7 @@ class GroupPlanViewModel {
         }
     }
     
-    func fetchJoinUsers(uuid: String, completion: @escaping (Result<[UserId], Error>) -> Void) {
+    func fetchJoinUsers(uuid: String, completion: @escaping (Result<[User], Error>) -> Void) {
         GroupPlanManager.shared.fetchPlanJoinUser(uuid: uuid) { result in
             switch result {
             case .success(let user):

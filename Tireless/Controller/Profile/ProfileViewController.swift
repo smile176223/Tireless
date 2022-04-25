@@ -157,10 +157,10 @@ class ProfileViewController: UIViewController {
         let controller = UIAlertController(title: "好友設定", message: nil, preferredStyle: .actionSheet)
         let names = ["刪除", "封鎖"]
         for name in names {
-           let action = UIAlertAction(title: name, style: .default) { _ in
-              // need to delete and ban user here
-           }
-           controller.addAction(action)
+            let action = UIAlertAction(title: name, style: .destructive) { _ in
+                // need to delete and ban user here
+            }
+            controller.addAction(action)
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)

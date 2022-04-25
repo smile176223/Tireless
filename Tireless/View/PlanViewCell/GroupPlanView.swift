@@ -135,7 +135,7 @@ class GroupPlanView: UIView {
         isJoinButtonTap?()
     }
     
-    func setupLayout(groupPlan: GroupPlans, plan: Plans, userId: [UserId]) {
+    func setupLayout(groupPlan: GroupPlans, plan: Plans) {
         imageView.image = UIImage(named: plan.planImage)
         titleLabel.text = groupPlan.planName
         infoLabel.text = plan.planDetail
@@ -145,9 +145,9 @@ class GroupPlanView: UIView {
         } else {
             timesDaysLabel.text = "\(groupPlan.planTimes)次/\(groupPlan.planDays)天"
         }
-        for index in userId {
-            joinUserImage.text = index.userId
-        }
+//        for index in userId {
+//            joinUserImage.text = index.userId
+//        }
     }
     
     private func viewConstraints() {
