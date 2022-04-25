@@ -30,7 +30,7 @@ class ShareWallViewCell: UITableViewCell {
     }
     
     func layoutCell() {
-        videoTitleText.text = viewModel?.shareFile.shareName
+        videoTitleText.text = viewModel?.shareFile.userId
         videoContentText.text = Date.dateFormatter.string(
             from: Date.init(milliseconds: viewModel?.shareFile.createdTime ?? 0))
     }

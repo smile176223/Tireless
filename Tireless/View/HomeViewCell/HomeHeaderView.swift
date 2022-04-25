@@ -16,6 +16,17 @@ class HomeHeaderView: UICollectionReusableView {
         return label
     }()
     
+    var createGroupButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("發起揪團", for: .normal)
+        button.titleLabel?.font = .regular(size: 15)
+        button.titleLabel?.textColor = .darkGray
+        button.backgroundColor = .clear
+        return button
+    }()
+    
+    var isCreateButtonTap: (() -> Void)?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -29,6 +40,12 @@ class HomeHeaderView: UICollectionReusableView {
     private func commonInit() {
         textLabelConstraints()
         self.backgroundColor = .themeBG
+        createGroupButton.isHidden = true
+        createGroupButton.addTarget(self, action: #selector(createButtonTap), for: .touchUpInside)
+    }
+    
+    @objc func createButtonTap() {
+        isCreateButtonTap?()
     }
     
     private func textLabelConstraints() {
@@ -39,6 +56,13 @@ class HomeHeaderView: UICollectionReusableView {
             textLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
             textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25)
+        ])
+        
+        addSubview(createGroupButton)
+        createGroupButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            createGroupButton.centerYAnchor.constraint(equalTo: textLabel.centerYAnchor),
+            createGroupButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25)
         ])
     }
 }

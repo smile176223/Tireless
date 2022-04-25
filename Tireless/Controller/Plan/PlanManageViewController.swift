@@ -22,7 +22,7 @@ class PlanManageViewController: UIViewController {
     
     private var planManages: [PlanManage]? {
         didSet {
-            dataSource?.apply(snapshot(), animatingDifferences: true)
+            dataSource?.apply(snapshot(), animatingDifferences: false)
         }
     }
     
@@ -101,14 +101,14 @@ class PlanManageViewController: UIViewController {
             
             cell.isDeleteButtonTap = {
                 let alertController = UIAlertController(title: "確認刪除!", message: "刪除的計畫無法再度復原!", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "確定", style: .default) { _ in
+                let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
                     self.viewModel.deletePlan(uuid: item.uuid)
                     var snapshot = self.dataSource?.snapshot()
                     snapshot?.deleteItems([item])
                     self.dataSource?.apply(snapshot!, animatingDifferences: true)
                     alertController.dismiss(animated: true)
                 }
-                let cancelAction = UIAlertAction(title: "放棄", style: .default) { _ in
+                let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
                     alertController.dismiss(animated: true)
                 }
                 alertController.addAction(okAction)
@@ -154,7 +154,7 @@ class PlanManageViewController: UIViewController {
     }
     
     private func configureDataSourceSnapshot() {
-        dataSource?.apply(snapshot(), animatingDifferences: true)
+        dataSource?.apply(snapshot(), animatingDifferences: false)
     }
     
     private func snapshot() -> Snapshot {
