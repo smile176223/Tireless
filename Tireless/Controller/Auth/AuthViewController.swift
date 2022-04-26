@@ -6,9 +6,7 @@
 //
 
 import UIKit
-import CryptoKit
 import AuthenticationServices
-import FirebaseAuth
 
 class AuthViewController: UIViewController {
     
@@ -32,7 +30,11 @@ class AuthViewController: UIViewController {
         super.viewDidLoad()
         
         setupLayout()
-        
+        makeSigninWithAppleButton()
+    
+    }
+    
+    private func makeSigninWithAppleButton() {
         let appleIDButton: ASAuthorizationAppleIDButton =
         ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
         appleIDButton.addTarget(self, action: #selector(pressSignInWithAppleButton), for: .touchUpInside)
@@ -47,16 +49,15 @@ class AuthViewController: UIViewController {
             appleIDButton.leadingAnchor.constraint(equalTo: appleView.leadingAnchor),
             appleIDButton.trailingAnchor.constraint(equalTo: appleView.trailingAnchor)
         ])
-    
     }
     
     @objc func pressSignInWithAppleButton() {
         let appleIDRequest: ASAuthorizationAppleIDRequest =
         ASAuthorizationAppleIDProvider().createRequest()
         appleIDRequest.requestedScopes = [.fullName, .email]
-        
-        self.currentNonce = randomNonceString()
-        appleIDRequest.nonce = sha256(currentNonce!)
+
+        self.currentNonce = CryptoKitHelper.randomNonceString()
+        appleIDRequest.nonce = CryptoKitHelper.sha256(currentNonce!)
         
         let controller: ASAuthorizationController =
         ASAuthorizationController(authorizationRequests: [appleIDRequest])
@@ -70,52 +71,15 @@ class AuthViewController: UIViewController {
                                                 .font: UIFont.bold(size: 15)!], for: .normal)
         segmetedControl.setTitleTextAttributes([.foregroundColor: UIColor.white,
                                                 .font: UIFont.bold(size: 15)!], for: .selected)
-        checkButton.layer.cornerRadius = 25
+        checkButton.layer.cornerRadius = 20
         authView.clipsToBounds = true
         authView.layer.cornerRadius = 25
         authView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",
+                                                                  attributes: [.foregroundColor: UIColor.darkGray])
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password",
+                                                                     attributes: [.foregroundColor: UIColor.darkGray])
         
-    }
-    
-    private func randomNonceString(length: Int = 32) -> String {
-        precondition(length > 0)
-        let charset = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-        var result = ""
-        var remainingLength = length
-        
-        while remainingLength > 0 {
-            let randoms: [UInt8] = (0 ..< 16).map { _ in
-                var random: UInt8 = 0
-                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
-                if errorCode != errSecSuccess {
-                    print("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
-                }
-                return random
-            }
-            
-            randoms.forEach { random in
-                if remainingLength == 0 {
-                    return
-                }
-                
-                if random < charset.count {
-                    result.append(charset[Int(random)])
-                    remainingLength -= 1
-                }
-            }
-        }
-        
-        return result
-    }
-    
-    private func sha256(_ input: String) -> String {
-        let inputData = Data(input.utf8)
-        let hashedData = SHA256.hash(data: inputData)
-        let hashString = hashedData.compactMap {
-            return String(format: "%02x", $0)
-        }.joined()
-        
-        return hashString
     }
 }
 
@@ -125,44 +89,37 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
         
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             guard let nonce = currentNonce else {
-                print("Invalid state: A login callback was received, but no login request was sent.")
                 return
             }
             guard let appleIDToken = appleIDCredential.identityToken else {
-                print("Failed to fetch identity token")
                 return
             }
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                print("Failed to decode identity token")
                 return
             }
-            let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com",
-                                                              idToken: idTokenString,
-                                                              rawNonce: nonce)
-            
-            Auth.auth().signIn(with: firebaseCredential) { [weak self] (authResult, error) in
-                if let error = error {
+            guard let appleName = appleIDCredential.fullName else {
+                return
+            }
+            let formatter = PersonNameComponentsFormatter()
+            formatter.style = .default
+            let name = formatter.string(from: appleName)
+            AuthManager.shared.signInWithApple(idToken: idTokenString,
+                                               nonce: nonce,
+                                               appleName: name) { [weak self] result in
+                switch result {
+                case .success(let authResult):
+                    UserManager.shared.getCurrentUser()
+                    if name != "" {
+                        self?.viewModel.getUser(email: authResult.user.email ?? "",
+                                                userId: authResult.user.uid,
+                                                name: name,
+                                                picture: "")
+                        self?.viewModel.createUser()
+                    }
+                    self?.finishPresent()
+                case .failure(let error):
                     print(error)
-                    return
                 }
-                guard let authResult = authResult else {
-                    return
-                }
-                guard let appleName = appleIDCredential.fullName else {
-                    return
-                }
-                let formatter = PersonNameComponentsFormatter()
-                formatter.style = .default
-                let name = formatter.string(from: appleName)
-                UserManager.shared.getCurrentUser()
-                if name != "" {
-                    self?.viewModel.getUser(email: authResult.user.email ?? "",
-                                            userId: authResult.user.uid,
-                                            name: name,
-                                            picture: "")
-                    self?.viewModel.createUser()
-                }
-                self?.finishPresent()
             }
         }
     }

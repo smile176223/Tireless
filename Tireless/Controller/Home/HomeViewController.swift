@@ -223,7 +223,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 formatter.timeStyle = .none
                 formatter.string(from: Date())
                 headerDailyView.dateLabel.text = formatter.string(from: Date())
-                headerDailyView.titleLabel.text = "Daily Activity"
+                headerDailyView.titleLabel.text = "每日運動計畫"
                 return headerDailyView
             } else if indexPath.section == 1 {
                 headerView.textLabel.text = "個人計畫"

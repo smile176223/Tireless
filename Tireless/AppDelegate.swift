@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.toolbarTintColor = .white
         return true
     }
     // MARK: UISceneSession Lifecycle

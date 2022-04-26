@@ -12,6 +12,8 @@ import FirebaseFirestoreSwift
 class JoinGroupManager {
     static let shared = JoinGroupManager()
     
+    private init() {}
+    
     lazy var joinGroupDB = Firestore.firestore().collection("JoinGroups")
     
     lazy var userDB = Firestore.firestore().collection("Users")

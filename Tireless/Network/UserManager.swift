@@ -13,6 +13,8 @@ import FirebaseAuth
 class UserManager {
     static let shared = UserManager()
     
+    private init() {}
+    
     var currentUser = String()
     
     lazy var userDB = Firestore.firestore().collection("Users")
