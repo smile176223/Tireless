@@ -116,7 +116,9 @@ class PlanManageViewController: UIViewController {
                 }
                 
                 cell.isDeleteButtonTap = {
-                    let alertController = UIAlertController(title: "確認刪除!", message: "刪除的計畫無法再度復原!", preferredStyle: .alert)
+                    let alertController = UIAlertController(title: "確認刪除!",
+                                                            message: "刪除的計畫無法再度復原!",
+                                                            preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
                         self.viewModel.deletePlan(uuid: personalPlan.uuid)
                         var snapshot = self.dataSource?.snapshot()

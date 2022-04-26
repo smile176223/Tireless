@@ -14,7 +14,7 @@ class FetchPlanViewModel {
     var groupPlan = Box([GroupPlan]())
 
     func fatchPlan() {
-        PlanManager.shared.fetchPlan { result in
+        PlanManager.shared.fetchPlan(userId: DemoUser.demoUser) { result in
             switch result {
             case .success(let personalPlan):
                 self.personalPlan.value = personalPlan
@@ -35,7 +35,7 @@ class FetchPlanViewModel {
     }
     
     func deletePlan(uuid: String) {
-        PlanManager.shared.deletePlan(uuid: uuid) { result in
+        PlanManager.shared.deletePlan(userId: DemoUser.demoUser, uuid: uuid) { result in
             switch result {
             case .success(let uuid):
                 print(uuid)
@@ -47,7 +47,7 @@ class FetchPlanViewModel {
     }
     
     func updatePlan(personalPlan: PersonalPlan) {
-        PlanManager.shared.updatePlan(personalPlan: personalPlan) { result in
+        PlanManager.shared.updatePlan(userId: DemoUser.demoUser, personalPlan: personalPlan) { result in
             switch result {
             case .success(let success):
                 print(success)

@@ -12,13 +12,14 @@ import FirebaseFirestoreSwift
 class PlanManager {
     static let shared = PlanManager()
     
-    lazy var planDB = Firestore.firestore().collection("plan")
+    lazy var userDB = Firestore.firestore().collection("Users")
     
     lazy var groupPlanDB = Firestore.firestore().collection("GroupPlans")
     
-    func createPlan(personalPlan: inout PersonalPlan, completion: @escaping (Result<String, Error>) -> Void) {
+    func createPlan(userId: String, personalPlan: inout PersonalPlan,
+                    completion: @escaping (Result<String, Error>) -> Void) {
         do {
-            let document = Firestore.firestore().collection("plan").document()
+            let document = userDB.document(userId).collection("Plans").document()
             personalPlan.uuid = document.documentID
             try document.setData(from: personalPlan)
             completion(.success("Success"))
@@ -27,8 +28,9 @@ class PlanManager {
         }
     }
     
-    func fetchPlan(completion: @escaping (Result<[PersonalPlan], Error>) -> Void) {
-        planDB.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
+    func fetchPlan(userId: String, completion: @escaping (Result<[PersonalPlan], Error>) -> Void) {
+        let ref = userDB.document(userId).collection("Plans")
+        ref.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))
@@ -44,8 +46,9 @@ class PlanManager {
         }
     }
     
-    func deletePlan(uuid: String, completion: @escaping (Result<String, Error>) -> Void ) {
-        planDB.document(uuid).delete { error in
+    func deletePlan(userId: String, uuid: String, completion: @escaping (Result<String, Error>) -> Void ) {
+        let ref = userDB.document(userId).collection("Plans")
+        ref.document(uuid).delete { error in
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -54,9 +57,11 @@ class PlanManager {
         }
     }
     
-    func updatePlan(personalPlan: PersonalPlan, completion: @escaping (Result<String, Error>) -> Void ) {
+    func updatePlan(userId: String, personalPlan: PersonalPlan,
+                    completion: @escaping (Result<String, Error>) -> Void ) {
         do {
-            try planDB.document(personalPlan.uuid).setData(from: personalPlan)
+            let ref = userDB.document(userId).collection("Plans")
+            try ref.document(personalPlan.uuid).setData(from: personalPlan)
             completion(.success("Success"))
         } catch {
             completion(.failure(error))
