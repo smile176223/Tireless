@@ -143,19 +143,23 @@ class SetGroupPlanViewController: UIViewController {
             case .detail(let text):
                 detailCell.groupPlanDetailLabel.text = text
                 detailCell.groupCreatedUserLabel.text = "發起人：\(DemoUser.demoName)"
-                detailCell.isCreateButtonTap = { days, times in
-                    if let selectPlan = self.selectPlan {
-                        self.viewModel.getPlanData(name: selectPlan.planName,
-                                              times: times,
-                                              days: days,
-                                              createdName: DemoUser.demoName,
-                                              createdUserId: UserManager.shared.currentUser)
-                        self.viewModel.createPlan(
-                            success: {
-                                self.dismiss(animated: true)
-                            }, failure: { error in
-                                print(error)
-                            })
+                detailCell.isCreateButtonTap = { [weak self] days, times in
+                    if AuthManager.shared.checkCurrentUser() == true {
+                        if let selectPlan = self?.selectPlan {
+                            self?.viewModel.getPlanData(name: selectPlan.planName,
+                                                       times: times,
+                                                       days: days,
+                                                       createdName: DemoUser.demoName,
+                                                       createdUserId: UserManager.shared.currentUser)
+                            self?.viewModel.createPlan(
+                                success: {
+                                    self?.dismiss(animated: true)
+                                }, failure: { error in
+                                    print(error)
+                                })
+                        }
+                    } else {
+                        self?.authPresent()
                     }
                 }
                 return detailCell
@@ -191,6 +195,12 @@ class SetGroupPlanViewController: UIViewController {
             snapshot.appendItems(plans.map({SectionItem.plan($0)}), toSection: 0)
         }
         return snapshot
+    }
+    
+    func authPresent() {
+        if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+            present(authVC, animated: true, completion: nil)
+        }
     }
 }
 

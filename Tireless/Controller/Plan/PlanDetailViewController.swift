@@ -39,18 +39,29 @@ class PlanDetailViewController: UIViewController {
         guard let plan = plan else {
             return
         }
-        planDetailView.isCreateButtonTap = { days, times in
-            self.viewModel.getPlanData(name: plan.planName,
-                                  times: times,
-                                  days: days,
-                                  createdTime: Date().millisecondsSince1970,
-                                  planGroup: false)
-            self.viewModel.createPlan(
-                success: {
-                    self.dismiss(animated: true)
-                }, failure: { error in
-                    print(error)
-                })
+        planDetailView.isCreateButtonTap = { [weak self] days, times in
+            if AuthManager.shared.checkCurrentUser() == true {
+                self?.viewModel.getPlanData(name: plan.planName,
+                                      times: times,
+                                      days: days,
+                                      createdTime: Date().millisecondsSince1970,
+                                      planGroup: false)
+                self?.viewModel.createPlan(
+                    success: {
+                        self?.dismiss(animated: true)
+                    }, failure: { error in
+                        print(error)
+                    })
+            } else {
+                self?.authPresent()
+            }
+            
+        }
+    }
+    
+    func authPresent() {
+        if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+            present(authVC, animated: true, completion: nil)
         }
     }
 }

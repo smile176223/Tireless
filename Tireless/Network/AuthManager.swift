@@ -30,4 +30,11 @@ class AuthManager {
             completion(.success(authResult))
         }
     }
+    
+    func checkCurrentUser() -> Bool {
+        if Auth.auth().currentUser != nil {
+            return true
+        }
+        return false
+    }
 }
