@@ -25,7 +25,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     enum Section: Int, CaseIterable {
         case daily
         case personalPlan
-        case groupPlan
+        case joinGroup
         
         var columnCount: Int {
             switch self {
@@ -33,7 +33,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 return 5
             case .personalPlan:
                 return 3
-            case .groupPlan:
+            case .joinGroup:
                 return 3
             }
         }
@@ -42,7 +42,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     enum SectionItem: Hashable {
         case daily(WeeklyDays)
         case personalPlan(Plans)
-        case groupPlan(GroupPlans)
+        case joinGroup(JoinGroup)
     }
     
     typealias DataSource = UICollectionViewDiffableDataSource<Section, SectionItem>
@@ -51,7 +51,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     private var dataSource: DataSource?
     
-    private var groupPlans: [GroupPlans]? {
+    private var joinGroup: [JoinGroup]? {
         didSet {
             dataSource?.apply(snapshot(), animatingDifferences: false)
         }
@@ -71,14 +71,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         viewModel.setDefault()
         
-        viewModel.fetchGroupPlans(userId: DemoUser.demoUser)
+        viewModel.fetchJoinGroup(userId: DemoUser.demoUser)
         
         viewModel.personalPlan.bind { plans in
             self.plans = plans
         }
         
-        viewModel.groupPlans.bind { groupPlans in
-            self.groupPlans = groupPlans
+        viewModel.joinGroup.bind { joinGroup in
+            self.joinGroup = joinGroup
         }
 
     }
@@ -175,16 +175,17 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 cell.textLabel.font = .bold(size: 30)
                 cell.textLabel.text = plans.planName
                 cell.imageView.image = UIImage(named: plans.planImage)
+                cell.masksView.backgroundColor = .white
                 return cell
-            case .groupPlan(let groupPlans):
+            case .joinGroup(let joinGroup):
                 cell.textLabel.font = .bold(size: 15)
-                cell.textLabel.text = "\(groupPlans.planName)\n\(groupPlans.createdName)"
-                if groupPlans.createdUserId == DemoUser.demoUser {
+                cell.textLabel.text = "\(joinGroup.planName)\n\(joinGroup.createdName)"
+                if joinGroup.createdUserId == DemoUser.demoUser {
                     cell.masksView.backgroundColor = .themeYellow
                 } else {
                     cell.masksView.backgroundColor = .white
                 }
-//                cell.imageView.image = UIImage(named: plans.planImage)
+                cell.imageView.alpha = 0
                 return cell
             }
         })
@@ -236,11 +237,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     private func snapshot() -> Snapshot {
         var snapshot = Snapshot()
-        snapshot.appendSections([.daily, .personalPlan, .groupPlan])
+        snapshot.appendSections([.daily, .personalPlan, .joinGroup])
         snapshot.appendItems(viewModel.weeklyDay.map({SectionItem.daily($0)}), toSection: .daily)
         snapshot.appendItems(viewModel.plans.map({SectionItem.personalPlan($0)}), toSection: .personalPlan)
-        if let groupPlans = groupPlans {
-            snapshot.appendItems(groupPlans.map({SectionItem.groupPlan($0)}), toSection: .groupPlan)
+        if let joinGroup = joinGroup {
+            snapshot.appendItems(joinGroup.map({SectionItem.joinGroup($0)}), toSection: .joinGroup)
         }
         return snapshot
     }
@@ -294,9 +295,9 @@ extension HomeViewController: UICollectionViewDelegate {
             else {
                 return
             }
-            groupVC.groupPlan = self.groupPlans?[indexPath.row]
+            groupVC.joinGroup = self.joinGroup?[indexPath.row]
             guard let plans = plans else { return }
-            switch groupPlans?[indexPath.row].planName {
+            switch joinGroup?[indexPath.row].planName {
             case "深蹲":
                 groupVC.plan = plans[0]
             case "棒式":

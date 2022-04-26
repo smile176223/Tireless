@@ -13,7 +13,7 @@
         <!--運動計畫-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="PersonalPlanViewController" id="Y6W-OH-hqX" customClass="PlanManageViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlanManageViewController" id="Y6W-OH-hqX" customClass="PlanManageViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

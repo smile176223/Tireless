@@ -38,11 +38,11 @@ class PoseDetectViewController: UIViewController {
     
     private let viewModel = PoseDetectViewModel()
     
-    private let planViewModel = FetchPlanViewModel()
+    private let planViewModel = PlanManageViewModel()
     
     var planTarget: Int = 0
     
-    var planManage: PlanManage?
+    var personalPlan: PersonalPlan?
     
     private var counter = 0 {
         didSet {
@@ -107,11 +107,11 @@ class PoseDetectViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         videoRecordManager.startRecording { [weak self] in
-//            self?.startSession()
-//            self?.drawStart = true
+            self?.startSession()
+            self?.drawStart = true
         }
-        startSession()
-        drawStart = true
+//        startSession()
+//        drawStart = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -310,6 +310,7 @@ class PoseDetectViewController: UIViewController {
             return
         }
         showAlert.videoURL = videoURL
+        showAlert.personalPlan = personalPlan
         if isUserRejectRecording == true {
             showAlert.isUserRejectRecording = true
         }
@@ -321,27 +322,8 @@ class PoseDetectViewController: UIViewController {
         self.present(navShowVC, animated: true, completion: { [weak self] in
             self?.blurEffect()
             self?.stopSession()
-            self?.updateValue()
-            self?.updatePlan()
         })
     }
-    
-    private func updateValue() {
-        guard let planManage = planManage,
-              let days = Double(planManage.planDays) else {
-            return
-        }
-        let done = round(planManage.progress * days) + 1
-        self.planManage?.progress = done / days
-        self.planManage?.finishTime.append(FinishTime(day: Int(done), time: Date().millisecondsSince1970))
-    }
-    private func updatePlan() {
-        guard let planManage = planManage else {
-            return
-        }
-        planViewModel.updatePlan(planManage: planManage)
-    }
-    
 }
 
 extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate {

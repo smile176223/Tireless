@@ -11,7 +11,7 @@ class HomeViewModel {
     
     let personalPlan = Box([Plans]())
     
-    var groupPlans = Box([GroupPlans]())
+    var joinGroup = Box([JoinGroup]())
     
     var plans = [Plans(planName: "深蹲",
                        planDetail:
@@ -50,11 +50,11 @@ class HomeViewModel {
         return weekDayString[calendar.get(.weekday) - 1]
     }
     
-    func fetchGroupPlans(userId: String) {
-        GroupPlanManager.shared.fetchFriendsPlan(userId: userId) { result in
+    func fetchJoinGroup(userId: String) {
+        JoinGroupManager.shared.fetchFriendsPlan(userId: userId) { result in
             switch result {
-            case .success(let groupPlans):
-                self.groupPlans.value = groupPlans
+            case .success(let joinGroup):
+                self.joinGroup.value = joinGroup
             case .failure(let error):
                 print(error)
             }

@@ -9,7 +9,7 @@ import Foundation
 
 class PlanDetailViewModel {
     
-    var planManage: PlanManage = PlanManage(planName: "",
+    var personalPlan: PersonalPlan = PersonalPlan(planName: "",
                                             planTimes: "",
                                             planDays: "",
                                             createdTime: -1,
@@ -19,15 +19,15 @@ class PlanDetailViewModel {
                                             uuid: "")
     
     func getPlanData(name: String, times: String, days: String, createdTime: Int64, planGroup: Bool) {
-        self.planManage.planName = name
-        self.planManage.planTimes = times
-        self.planManage.planDays = days
-        self.planManage.createdTime = createdTime
-        self.planManage.planGroup = planGroup
+        self.personalPlan.planName = name
+        self.personalPlan.planTimes = times
+        self.personalPlan.planDays = days
+        self.personalPlan.createdTime = createdTime
+        self.personalPlan.planGroup = planGroup
     }
     
     func createPlan(success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
-        PlanManager.shared.createPlan(planManage: &planManage) { result in
+        PlanManager.shared.createPlan(userId: DemoUser.demoUser, personalPlan: &personalPlan) { result in
             switch result {
             case .success:
                 success()

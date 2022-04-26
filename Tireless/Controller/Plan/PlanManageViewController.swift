@@ -12,15 +12,26 @@ class PlanManageViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let viewModel = FetchPlanViewModel()
+    let viewModel = PlanManageViewModel()
     
-    typealias DataSource = UICollectionViewDiffableDataSource<Int, PlanManage>
+    typealias DataSource = UICollectionViewDiffableDataSource<Int, SectionItem>
     
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, PlanManage>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, SectionItem>
     
     private var dataSource: DataSource?
     
-    private var planManages: [PlanManage]? {
+    enum SectionItem: Hashable {
+        case personalPlan(PersonalPlan)
+        case groupPlan(GroupPlan)
+    }
+    
+    var personalPlans: [PersonalPlan]? {
+        didSet {
+            dataSource?.apply(snapshot(), animatingDifferences: false)
+        }
+    }
+    
+    private var groupPlans: [GroupPlan]? {
         didSet {
             dataSource?.apply(snapshot(), animatingDifferences: false)
         }
@@ -40,14 +51,20 @@ class PlanManageViewController: UIViewController {
         configureDataSourceProvider()
         configureDataSourceSnapshot()
         
-        viewModel.planManage.bind { planManages in
-            self.planManages = planManages
+        viewModel.personalPlan.bind { personalPlans in
+            self.personalPlans = personalPlans
         }
+        
+        viewModel.groupPlan.bind { groupPlans in
+            self.groupPlans = groupPlans
+        }
+        
+        self.viewModel.fetchPlan()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.fatchPlan()
+//        self.viewModel.fetchPlan()
     }
     
     private func configureCollectionView() {
@@ -64,21 +81,21 @@ class PlanManageViewController: UIViewController {
     
     private func createLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                             heightDimension: .absolute(130))
+                                              heightDimension: .absolute(130))
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-      
+        
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
-                                                         subitems: [item])
-
+                                                       subitems: [item])
+        
         let section = NSCollectionLayoutSection(group: group)
         
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(60)) 
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(60))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                  elementKind:
                                                                     UICollectionView.elementKindSectionHeader,
                                                                  alignment: .top)
-
+        
         section.boundarySupplementaryItems = [header]
         
         section.interGroupSpacing = 5
@@ -94,45 +111,52 @@ class PlanManageViewController: UIViewController {
                                                                 for: indexPath) as? PlanManageViewCell else {
                 return UICollectionViewCell()
             }
-            
-            cell.isStartButtonTap = {
-                self.present(target: item.planTimes, planManage: item)
-            }
-            
-            cell.isDeleteButtonTap = {
-                let alertController = UIAlertController(title: "確認刪除!", message: "刪除的計畫無法再度復原!", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
-                    self.viewModel.deletePlan(uuid: item.uuid)
-                    var snapshot = self.dataSource?.snapshot()
-                    snapshot?.deleteItems([item])
-                    self.dataSource?.apply(snapshot!, animatingDifferences: true)
-                    alertController.dismiss(animated: true)
+            switch item {
+            case .personalPlan(let personalPlan):
+                cell.isStartButtonTap = {
+                    self.present(target: personalPlan.planTimes, personalPlan: personalPlan)
                 }
-                let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-                    alertController.dismiss(animated: true)
-                }
-                alertController.addAction(okAction)
-                alertController.addAction(cancelAction)
-                self.present(alertController, animated: true)
-            }
-            switch item.planName {
-            case "深蹲":
-                cell.planImageView.image = UIImage(named: "pexels_squat")
-                cell.planTimesLabel.text = "\(item.planTimes)次/\(item.planDays)天"
-            case "棒式":
-                cell.planImageView.image = UIImage(named: "pexels_plank")
-                cell.planTimesLabel.text = "\(item.planTimes)秒/\(item.planDays)天"
-            case "伏地挺身":
-                cell.planImageView.image = UIImage(named: "pexels_pushup")
-                cell.planTimesLabel.text = "\(item.planTimes)次/\(item.planDays)天"
                 
-            default:
-                cell.planImageView.image = UIImage(named: "Cover")
+                cell.isDeleteButtonTap = {
+                    let alertController = UIAlertController(title: "確認刪除!",
+                                                            message: "刪除的計畫無法再度復原!",
+                                                            preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
+                        self.viewModel.deletePlan(uuid: personalPlan.uuid)
+                        var snapshot = self.dataSource?.snapshot()
+                        snapshot?.deleteItems([SectionItem.personalPlan(personalPlan)])
+                        self.dataSource?.apply(snapshot!, animatingDifferences: false)
+                        alertController.dismiss(animated: true)
+                    }
+                    let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+                        alertController.dismiss(animated: true)
+                    }
+                    alertController.addAction(okAction)
+                    alertController.addAction(cancelAction)
+                    self.present(alertController, animated: true)
+                }
+                switch personalPlan.planName {
+                case "深蹲":
+                    cell.planImageView.image = UIImage(named: "pexels_squat")
+                    cell.planTimesLabel.text = "\(personalPlan.planTimes)次/\(personalPlan.planDays)天"
+                case "棒式":
+                    cell.planImageView.image = UIImage(named: "pexels_plank")
+                    cell.planTimesLabel.text = "\(personalPlan.planTimes)秒/\(personalPlan.planDays)天"
+                case "伏地挺身":
+                    cell.planImageView.image = UIImage(named: "pexels_pushup")
+                    cell.planTimesLabel.text = "\(personalPlan.planTimes)次/\(personalPlan.planDays)天"
+                    
+                default:
+                    cell.planImageView.image = UIImage(named: "Cover")
+                }
+                
+                cell.planTitleLabel.text = "\(personalPlan.planName)"
+                cell.planProgressView.progress = Float(personalPlan.progress)
+                
+                return cell
+            case .groupPlan(let groupPlan):
+                cell.planTitleLabel.text = groupPlan.planName
             }
-   
-            cell.planTitleLabel.text = "\(item.planName)"
-            cell.planProgressView.progress = Float(item.progress)
-            
             return cell
         })
     }
@@ -143,7 +167,7 @@ class PlanManageViewController: UIViewController {
                 ofKind: UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: "\(HomeHeaderView.self)",
                 for: indexPath) as? HomeHeaderView else { return UICollectionReusableView()}
-        
+            
             if indexPath.section == 0 {
                 headerView.textLabel.text = "個人計畫"
             } else if indexPath.section == 1 {
@@ -160,17 +184,18 @@ class PlanManageViewController: UIViewController {
     private func snapshot() -> Snapshot {
         var snapshot = Snapshot()
         snapshot.appendSections([0, 1])
-        
-        if let planManages = planManages {
-            snapshot.appendItems(planManages, toSection: 0)
-            snapshot.reloadItems(planManages)
-        } else {
-            return snapshot
+        if let personalPlans = personalPlans {
+            snapshot.appendItems(personalPlans.map({SectionItem.personalPlan($0)}), toSection: 0)
+            snapshot.reloadItems(personalPlans.map({SectionItem.personalPlan($0)}))
+        }
+        if let groupPlans = groupPlans {
+            snapshot.appendItems(groupPlans.map({SectionItem.groupPlan($0)}), toSection: 1)
+            snapshot.reloadItems(groupPlans.map({SectionItem.groupPlan($0)}))
         }
         return snapshot
     }
     
-    private func present(target: String, planManage: PlanManage) {
+    private func present(target: String, personalPlan: PersonalPlan) {
         guard let poseVC = UIStoryboard.home.instantiateViewController(
             withIdentifier: "\(PoseDetectViewController.self)")
                 as? PoseDetectViewController
@@ -178,7 +203,7 @@ class PlanManageViewController: UIViewController {
             return
         }
         poseVC.planTarget = Int(target) ?? 0
-        poseVC.planManage = planManage
+        poseVC.personalPlan = personalPlan
         poseVC.modalPresentationStyle = .fullScreen
         self.present(poseVC, animated: true)
     }

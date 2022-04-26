@@ -13,6 +13,8 @@ class GroupPlanView: UIView {
     
     var isJoinButtonTap: (() -> Void)?
     
+    var isLeaveButtonTap: (() -> Void)?
+    
     private var imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
@@ -109,6 +111,17 @@ class GroupPlanView: UIView {
         return button
     }()
     
+    var leaveButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 16
+        button.backgroundColor = .themeBGSecond
+        button.setTitle("退出揪團", for: .normal)
+        button.titleLabel?.font = .bold(size: 20)
+        button.titleLabel?.textColor = .red
+        button.isHidden = true
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -123,9 +136,11 @@ class GroupPlanView: UIView {
         viewConstraints()
         buttonConstraints()
         labelConstraints()
+        imageConstraints()
         self.backgroundColor = .themeBG
         backButton.addTarget(self, action: #selector(backButtonTap), for: .touchUpInside)
         joinButton.addTarget(self, action: #selector(joinButtonTap), for: .touchUpInside)
+        leaveButton.addTarget(self, action: #selector(leaveButtonTap), for: .touchUpInside)
     }
     
     @objc private func backButtonTap() {
@@ -134,16 +149,19 @@ class GroupPlanView: UIView {
     @objc private func joinButtonTap() {
         isJoinButtonTap?()
     }
+    @objc private func leaveButtonTap() {
+        isLeaveButtonTap?()
+    }
     
-    func setupLayout(groupPlan: GroupPlans, plan: Plans) {
+    func setupLayout(joinGroup: JoinGroup, plan: Plans) {
         imageView.image = UIImage(named: plan.planImage)
-        titleLabel.text = groupPlan.planName
+        titleLabel.text = joinGroup.planName
         infoLabel.text = plan.planDetail
-        createdUserImage.text = groupPlan.createdName
-        if groupPlan.planName == "棒式" {
-            timesDaysLabel.text = "\(groupPlan.planTimes)秒/\(groupPlan.planDays)天"
+        createdUserImage.text = joinGroup.createdName
+        if joinGroup.planName == "棒式" {
+            timesDaysLabel.text = "\(joinGroup.planTimes)秒/\(joinGroup.planDays)天"
         } else {
-            timesDaysLabel.text = "\(groupPlan.planTimes)次/\(groupPlan.planDays)天"
+            timesDaysLabel.text = "\(joinGroup.planTimes)次/\(joinGroup.planDays)天"
         }
 //        for index in userId {
 //            joinUserImage.text = index.userId
@@ -179,9 +197,16 @@ class GroupPlanView: UIView {
         bottomView.addSubview(joinButton)
         joinButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            joinButton.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -30),
+            joinButton.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -60),
             joinButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             joinButton.widthAnchor.constraint(equalToConstant: 150)
+        ])
+        bottomView.addSubview(leaveButton)
+        leaveButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            leaveButton.bottomAnchor.constraint(equalTo: joinButton.topAnchor, constant: -10),
+            leaveButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            leaveButton.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
     
@@ -214,6 +239,9 @@ class GroupPlanView: UIView {
             createdUserLabel.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 25),
             createdUserLabel.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -25)
         ])
+    }
+    
+    private func imageConstraints() {
         bottomView.addSubview(createdUserImage)
         createdUserImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -235,6 +263,6 @@ class GroupPlanView: UIView {
             joinUserImage.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 25),
             joinUserImage.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -25)
         ])
- 
+
     }
 }

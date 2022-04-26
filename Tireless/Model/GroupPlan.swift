@@ -7,28 +7,30 @@
 
 import Foundation
 
-struct GroupPlans: Codable {
+struct GroupPlan: Codable {
     var planName: String
     var planTimes: String
     var planDays: String
+    var planGroup: Bool
     var createdTime: Int64
     var createdUserId: String
-    var createdName: String
+    var joinUserId: [String]
     var uuid: String
     
     enum CodingKeys: String, CodingKey {
         case planName
         case planTimes
         case planDays
+        case planGroup
         case createdTime
         case createdUserId
-        case createdName
+        case joinUserId
         case uuid
     }
 }
 
-extension GroupPlans: Hashable {
-    static func == (lhs: GroupPlans, rhs: GroupPlans) -> Bool {
+extension GroupPlan: Hashable {
+    static func == (lhs: GroupPlan, rhs: GroupPlan) -> Bool {
         return lhs.uuid == rhs.uuid
     }
     

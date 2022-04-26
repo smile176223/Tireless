@@ -12,7 +12,7 @@ class GroupPlanViewController: UIViewController {
     
     @IBOutlet var groupPlanView: GroupPlanView!
     
-    var groupPlan: GroupPlans?
+    var joinGroup: JoinGroup?
     
     var plan: Plans?
     
@@ -22,24 +22,26 @@ class GroupPlanViewController: UIViewController {
                 if joinUsers?[index].userId == DemoUser.demoUser {
                     groupPlanView.joinButton.isEnabled = false
                     groupPlanView.joinButton.setTitle("已加入", for: .normal)
+                    groupPlanView.leaveButton.isHidden = false
                     groupPlanView.joinUserImage.text = joinUsers?[index].name
                 }
             }
         }
     }
     
-    let viewModel = GroupPlanViewModel()
+    let viewModel = JoinGroupViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isBackButtonTap()
         setupLayout()
+        isBackButtonTap()
         isJoinButtonTap()
+        isLeaveButtonTap()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let groupPlan = groupPlan else { return }
-        viewModel.fetchJoinUsers(uuid: groupPlan.uuid) { result in
+        guard let joinGroup = joinGroup else { return }
+        viewModel.fetchJoinUsers(uuid: joinGroup.uuid) { result in
             switch result {
             case .success(let joinUsers):
                 self.joinUsers = joinUsers
@@ -47,15 +49,17 @@ class GroupPlanViewController: UIViewController {
                 print(error)
             }
         }
-        if groupPlan.createdUserId == DemoUser.demoUser {
+        if joinGroup.createdUserId == DemoUser.demoUser {
             groupPlanView.joinButton.setTitle("開始計畫", for: .normal)
+            groupPlanView.leaveButton.isHidden = false
+            groupPlanView.leaveButton.setTitle("放棄計畫", for: .normal)
         }
     }
     
     func setupLayout() {
-        guard let groupPlan = groupPlan,
+        guard let joinGroup = joinGroup,
               let plan = plan else { return }
-        groupPlanView.setupLayout(groupPlan: groupPlan, plan: plan)
+        groupPlanView.setupLayout(joinGroup: joinGroup, plan: plan)
     }
     
     func isBackButtonTap() {
@@ -65,18 +69,60 @@ class GroupPlanViewController: UIViewController {
     }
     
     func isJoinButtonTap() {
-        guard let groupPlan = groupPlan else { return }
+        guard let joinGroup = joinGroup else { return }
         groupPlanView.isJoinButtonTap = { [weak self] in
-            if groupPlan.createdUserId != DemoUser.demoUser {
-                self?.viewModel.joinGroup(uuid: groupPlan.uuid) {
+            if joinGroup.createdUserId != DemoUser.demoUser {
+                self?.viewModel.joinGroup(uuid: joinGroup.uuid) {
                     self?.dismiss(animated: true)
                 } failure: { error in
                     print(error)
                 }
             } else {
+                var joinUsersId = [String]()
+                self?.joinUsers?.forEach({joinUsersId.append($0.userId)})
+                self?.viewModel.getGroupPlan(name: joinGroup.planName,
+                                             times: joinGroup.planTimes,
+                                             days: joinGroup.planDays,
+                                             joinUserId: joinUsersId,
+                                             uuid: joinGroup.uuid)
+                self?.viewModel.startJoinGroup(uuid: joinGroup.uuid, completion: { result in
+                    switch result {
+                    case .success(let string):
+                        print(string)
+                    case .failure(let error):
+                        print(error)
+                    }
+                })
                 self?.dismiss(animated: true)
             }
-
+            
+        }
+    }
+    
+    func isLeaveButtonTap() {
+        guard let joinGroup = joinGroup else { return }
+        groupPlanView.isLeaveButtonTap = { [weak self] in
+            if joinGroup.createdUserId == DemoUser.demoUser {
+                self?.viewModel.deleteJoinGroup(uuid: joinGroup.uuid) { result in
+                    switch result {
+                    case .success(let string):
+                        print(string)
+                        self?.dismiss(animated: true)
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            } else {
+                self?.viewModel.leaveJoinGroup(uuid: joinGroup.uuid, userId: DemoUser.demoUser, completion: { result in
+                    switch result {
+                    case .success(let string):
+                        print(string)
+                        self?.dismiss(animated: true)
+                    case .failure(let error):
+                        print(error)
+                    }
+                })
+            }
         }
     }
 }
