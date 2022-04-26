@@ -59,12 +59,11 @@ class PlanManageViewController: UIViewController {
             self.groupPlans = groupPlans
         }
         
-        self.viewModel.fetchPlan()
-        
     }
-    
     override func viewWillAppear(_ animated: Bool) {
-//        self.viewModel.fetchPlan()
+        if UserManager.shared.currentUser != "" {
+            self.viewModel.fetchPlan()
+        }
     }
     
     private func configureCollectionView() {

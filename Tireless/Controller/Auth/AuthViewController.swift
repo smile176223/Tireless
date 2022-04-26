@@ -12,7 +12,17 @@ import FirebaseAuth
 
 class AuthViewController: UIViewController {
     
-    @IBOutlet var authView: UIView!
+    @IBOutlet weak var authView: UIView!
+    
+    @IBOutlet weak var appleView: UIView!
+    
+    @IBOutlet weak var segmetedControl: UISegmentedControl!
+    
+    @IBOutlet weak var emailTextField: UITextField!
+    
+    @IBOutlet weak var passwordTextField: UITextField!
+    
+    @IBOutlet weak var checkButton: UIButton!
     
     var currentNonce: String?
     
@@ -21,22 +31,23 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        authView.layer.cornerRadius = 20
+        setupLayout()
         
         let appleIDButton: ASAuthorizationAppleIDButton =
         ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
         appleIDButton.addTarget(self, action: #selector(pressSignInWithAppleButton), for: .touchUpInside)
         
-        appleIDButton.frame = self.authView.bounds
-        self.authView.addSubview(appleIDButton)
+        appleIDButton.frame = self.appleView.bounds
+        self.appleView.addSubview(appleIDButton)
         appleIDButton.cornerRadius = 15
         appleIDButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            appleIDButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            appleIDButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            appleIDButton.widthAnchor.constraint(equalToConstant: 300),
-            appleIDButton.heightAnchor.constraint(equalToConstant: 55)
+            appleIDButton.topAnchor.constraint(equalTo: appleView.topAnchor),
+            appleIDButton.bottomAnchor.constraint(equalTo: appleView.bottomAnchor),
+            appleIDButton.leadingAnchor.constraint(equalTo: appleView.leadingAnchor),
+            appleIDButton.trailingAnchor.constraint(equalTo: appleView.trailingAnchor)
         ])
+    
     }
     
     @objc func pressSignInWithAppleButton() {
@@ -54,6 +65,18 @@ class AuthViewController: UIViewController {
         controller.performRequests()
     }
     
+    private func setupLayout() {
+        segmetedControl.setTitleTextAttributes([.foregroundColor: UIColor.themeYellow!,
+                                                .font: UIFont.bold(size: 15)!], for: .normal)
+        segmetedControl.setTitleTextAttributes([.foregroundColor: UIColor.white,
+                                                .font: UIFont.bold(size: 15)!], for: .selected)
+        checkButton.layer.cornerRadius = 25
+        authView.clipsToBounds = true
+        authView.layer.cornerRadius = 25
+        authView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
+    }
+    
     private func randomNonceString(length: Int = 32) -> String {
         precondition(length > 0)
         let charset = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
@@ -65,7 +88,7 @@ class AuthViewController: UIViewController {
                 var random: UInt8 = 0
                 let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
                 if errorCode != errSecSuccess {
-                    fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+                    print("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
                 }
                 return random
             }
@@ -125,37 +148,33 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                 guard let authResult = authResult else {
                     return
                 }
-                guard let name = appleIDCredential.fullName else {
+                guard let appleName = appleIDCredential.fullName else {
                     return
                 }
                 let formatter = PersonNameComponentsFormatter()
                 formatter.style = .default
-                self?.viewModel.getUser(email: authResult.user.email ?? "",
-                                        userId: authResult.user.uid,
-                                        name: formatter.string(from: name),
-                                        picture: "")
-                self?.viewModel.createUser()
-                self?.dismiss(animated: true)
+                let name = formatter.string(from: appleName)
+                UserManager.shared.getCurrentUser()
+                if name != "" {
+                    self?.viewModel.getUser(email: authResult.user.email ?? "",
+                                            userId: authResult.user.uid,
+                                            name: name,
+                                            picture: "")
+                    self?.viewModel.createUser()
+                }
+                self?.finishPresent()
             }
         }
     }
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        
-        switch error {
-        case ASAuthorizationError.canceled:
-            print(error)
-        case ASAuthorizationError.failed:
-            print(error)
-        case ASAuthorizationError.invalidResponse:
-            print(error)
-        case ASAuthorizationError.notHandled:
-            print(error)
-        case ASAuthorizationError.unknown:
-            print(error)
-        default:
-            break
-        }
         print("didCompleteWithError: \(error.localizedDescription)")
+    }
+    
+    func finishPresent() {
+        self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
+        if let tabBarController = self.presentingViewController as? UITabBarController {
+            tabBarController.selectedIndex = 4
+        }
     }
 }
 

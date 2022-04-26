@@ -60,8 +60,8 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
-        viewModel.fetchUser(userId: DemoUser.demoUser)
-        viewModel.fetchFriends(userId: DemoUser.demoUser)
+        viewModel.fetchUser(userId: UserManager.shared.currentUser)
+        viewModel.fetchFriends(userId: UserManager.shared.currentUser)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -138,11 +138,7 @@ class ProfileViewController: UIViewController {
             headerView.userNameLabel.text = self.userInfo?.first?.name
             
             headerView.isUserImageTap = {
-                do {
-                    try Auth.auth().signOut()
-                } catch {
-                    print(error)
-                }
+                self.setUserAlert()
             }
             
             return headerView
@@ -171,6 +167,26 @@ class ProfileViewController: UIViewController {
             }
             controller.addAction(action)
         }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+    }
+    
+    private func setUserAlert() {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let delete = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
+            print("lol delete")
+        }
+        let logout = UIAlertAction(title: "登出", style: .default) { _ in
+            do {
+                try Auth.auth().signOut()
+                self.tabBarController?.selectedIndex = 0
+            } catch {
+                print(error)
+            }
+        }
+        controller.addAction(delete)
+        controller.addAction(logout)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)

@@ -149,7 +149,7 @@ class SetGroupPlanViewController: UIViewController {
                                               times: times,
                                               days: days,
                                               createdName: DemoUser.demoName,
-                                              createdUserId: DemoUser.demoUser)
+                                              createdUserId: UserManager.shared.currentUser)
                         self.viewModel.createPlan(
                             success: {
                                 self.dismiss(animated: true)

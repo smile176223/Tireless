@@ -63,14 +63,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         navigationController?.navigationBar.isHidden = true
 
+        UserManager.shared.getCurrentUser()
+        
         configureCollectionView()
         configureDataSource()
         configureDataSourceProvider()
         configureDataSourceSnapshot()
         
         viewModel.setDefault()
-        
-        viewModel.fetchJoinGroup(userId: DemoUser.demoUser)
         
         viewModel.personalPlan.bind { plans in
             self.plans = plans
@@ -80,6 +80,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             self.joinGroup = joinGroup
         }
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if UserManager.shared.currentUser != "" {
+            viewModel.fetchJoinGroup(userId: UserManager.shared.currentUser)
+        }
     }
     
     private func configureCollectionView() {
@@ -179,7 +185,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             case .joinGroup(let joinGroup):
                 cell.textLabel.font = .bold(size: 15)
                 cell.textLabel.text = "\(joinGroup.planName)\n\(joinGroup.createdName)"
-                if joinGroup.createdUserId == DemoUser.demoUser {
+                if joinGroup.createdUserId == UserManager.shared.currentUser {
                     cell.masksView.backgroundColor = .themeYellow
                 } else {
                     cell.masksView.backgroundColor = .white
@@ -313,4 +319,3 @@ extension HomeViewController: UICollectionViewDelegate {
         }
     }
 }
-

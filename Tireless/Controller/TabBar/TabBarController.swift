@@ -126,9 +126,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
             if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
 
-                authVC.modalPresentationStyle = .overCurrentContext
+//                authVC.modalPresentationStyle = .overCurrentContext
 
-                present(authVC, animated: false, completion: nil)
+                present(authVC, animated: true, completion: nil)
             }
             
             return false

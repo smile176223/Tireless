@@ -43,7 +43,6 @@ class ProfileHeaderView: UICollectionReusableView {
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-//        let tappedImage = tapGestureRecognizer.view as? UIImageView
         isUserImageTap?()
     }
     

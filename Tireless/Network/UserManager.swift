@@ -8,17 +8,28 @@
 import Foundation
 import Firebase
 import FirebaseFirestoreSwift
+import FirebaseAuth
 
 class UserManager {
     static let shared = UserManager()
     
+    var currentUser = String()
+    
     lazy var userDB = Firestore.firestore().collection("Users")
+    
+    func getCurrentUser() {
+        guard let user = Auth.auth().currentUser else {
+            currentUser = ""
+            return
+        }
+        currentUser = user.uid
+    }
     
     func createUser(user: User, completion: @escaping (Result<String, Error>) -> Void) {
         let document = userDB.document(user.userId)
         do {
             try document.setData(from: user)
-            completion(.success("Loigin Success"))
+            completion(.success("Sign in Success"))
         } catch {
             completion(.failure(error))
         }
