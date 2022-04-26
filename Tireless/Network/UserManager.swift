@@ -29,7 +29,7 @@ class UserManager {
     }
     
     func fetchFriends(userId: String, completion: @escaping (Result<[Friends], Error>) -> Void) {
-        
+        // need to change "Friends"
         userDB.document(userId).collection("friends").getDocuments { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {

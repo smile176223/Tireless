@@ -50,7 +50,7 @@ class HomeViewModel {
         return weekDayString[calendar.get(.weekday) - 1]
     }
     
-    func fetchJpinGroup(userId: String) {
+    func fetchJoinGroup(userId: String) {
         JoinGroupManager.shared.fetchFriendsPlan(userId: userId) { result in
             switch result {
             case .success(let joinGroup):

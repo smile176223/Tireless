@@ -7,13 +7,13 @@
 
 import Foundation
 
-class FetchPlanViewModel {
+class PlanManageViewModel {
     
     var personalPlan = Box([PersonalPlan]())
     
     var groupPlan = Box([GroupPlan]())
 
-    func fatchPlan() {
+    func fetchPlan() {
         PlanManager.shared.fetchPlan(userId: DemoUser.demoUser) { result in
             switch result {
             case .success(let personalPlan):
@@ -48,6 +48,21 @@ class FetchPlanViewModel {
     
     func updatePlan(personalPlan: PersonalPlan) {
         PlanManager.shared.updatePlan(userId: DemoUser.demoUser, personalPlan: personalPlan) { result in
+            switch result {
+            case .success(let success):
+                if personalPlan.progress == 1 {
+                    self.deletePlan(uuid: personalPlan.uuid)
+                }
+                print(success)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func finishPlan(personalPlan: PersonalPlan) {
+        PlanManager.shared.finishPlan(userId: DemoUser.demoUser, personalPlan: personalPlan) { result in
             switch result {
             case .success(let success):
                 print(success)

@@ -16,6 +16,10 @@ class DetectFinishViewController: UIViewController {
     
     let videoManager = ShareManager()
     
+    let planViewModel = PlanManageViewModel()
+    
+    var personalPlan: PersonalPlan?
+    
     var isUserCanShare = true
     
     var isUserRejectRecording = false
@@ -28,6 +32,8 @@ class DetectFinishViewController: UIViewController {
         finishButtonTap()
         
         uploadProgressShow()
+        
+        updateValue()
         
         if isUserRejectRecording == true {
             detectFinishView.shareButton.isHidden = true
@@ -43,9 +49,9 @@ class DetectFinishViewController: UIViewController {
     
     private func finishPresent() {
         self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
-        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
-            tabBarController.selectedIndex = 0
-        }
+//        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
+//            tabBarController.selectedIndex = 0
+//        }
     }
 
     private func shareButtonTap() {
@@ -92,5 +98,32 @@ class DetectFinishViewController: UIViewController {
         videoManager.uploadProgress = { progress in
             self.detectFinishView.lottieProgress(progress.fractionCompleted)
         }
+    }
+    
+    private func updateValue() {
+        guard let personalPlan = personalPlan,
+              let days = Double(personalPlan.planDays) else {
+            return
+        }
+        let done = round(personalPlan.progress * days) + 1
+        let progress = done / days
+        self.personalPlan?.progress = progress
+        self.personalPlan?.finishTime.append(FinishTime(day: Int(done), time: Date().millisecondsSince1970))
+        updatePlan()
+        if progress == 1 {
+            finishPlan()
+        }
+    }
+    private func updatePlan() {
+        guard let personalPlan = personalPlan else {
+            return
+        }
+        planViewModel.updatePlan(personalPlan: personalPlan)
+    }
+    private func finishPlan() {
+        guard let personalPlan = personalPlan else {
+            return
+        }
+        planViewModel.finishPlan(personalPlan: personalPlan)
     }
 }

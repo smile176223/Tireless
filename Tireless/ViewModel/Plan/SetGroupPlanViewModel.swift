@@ -10,12 +10,13 @@ import Foundation
 class SetGroupPlanViewModel {
     
     var joinGroup: JoinGroup = JoinGroup(planName: "",
-                                           planTimes: "",
-                                           planDays: "",
-                                           createdTime: -1,
-                                           createdUserId: "",
-                                           createdName: "",
-                                           uuid: "")
+                                         planTimes: "",
+                                         planDays: "",
+                                         planGroup: true,
+                                         createdTime: -1,
+                                         createdUserId: "",
+                                         createdName: "",
+                                         uuid: "")
     
     func getPlanData(name: String,
                      times: String,

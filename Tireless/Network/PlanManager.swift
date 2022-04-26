@@ -30,7 +30,7 @@ class PlanManager {
     
     func fetchPlan(userId: String, completion: @escaping (Result<[PersonalPlan], Error>) -> Void) {
         let ref = userDB.document(userId).collection("Plans")
-        ref.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
+        ref.order(by: "createdTime", descending: true).addSnapshotListener { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))
@@ -69,7 +69,7 @@ class PlanManager {
     }
     
     func fetchGroupPlan(completion: @escaping (Result<[GroupPlan], Error>) -> Void) {
-        groupPlanDB.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
+        groupPlanDB.order(by: "createdTime", descending: true).addSnapshotListener { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))
@@ -82,6 +82,16 @@ class PlanManager {
                 }
                 completion(.success(groupPlans))
             }
+        }
+    }
+    
+    func finishPlan(userId: String, personalPlan: PersonalPlan, completion: @escaping (Result<String, Error>) -> Void) {
+        let ref = userDB.document(userId).collection("FinishPersonalPlans").document(personalPlan.uuid)
+        do {
+            try ref.setData(from: personalPlan)
+            completion(.success("Success"))
+        } catch {
+            completion(.failure(error))
         }
     }
 }

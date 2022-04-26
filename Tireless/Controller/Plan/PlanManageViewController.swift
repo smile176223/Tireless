@@ -12,7 +12,7 @@ class PlanManageViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let viewModel = FetchPlanViewModel()
+    let viewModel = PlanManageViewModel()
     
     typealias DataSource = UICollectionViewDiffableDataSource<Int, SectionItem>
     
@@ -25,7 +25,7 @@ class PlanManageViewController: UIViewController {
         case groupPlan(GroupPlan)
     }
     
-    private var personalPlans: [PersonalPlan]? {
+    var personalPlans: [PersonalPlan]? {
         didSet {
             dataSource?.apply(snapshot(), animatingDifferences: false)
         }
@@ -59,10 +59,12 @@ class PlanManageViewController: UIViewController {
             self.groupPlans = groupPlans
         }
         
+        self.viewModel.fetchPlan()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.fatchPlan()
+//        self.viewModel.fetchPlan()
     }
     
     private func configureCollectionView() {
@@ -123,7 +125,7 @@ class PlanManageViewController: UIViewController {
                         self.viewModel.deletePlan(uuid: personalPlan.uuid)
                         var snapshot = self.dataSource?.snapshot()
                         snapshot?.deleteItems([SectionItem.personalPlan(personalPlan)])
-                        self.dataSource?.apply(snapshot!, animatingDifferences: true)
+                        self.dataSource?.apply(snapshot!, animatingDifferences: false)
                         alertController.dismiss(animated: true)
                     }
                     let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in

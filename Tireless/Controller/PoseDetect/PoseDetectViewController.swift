@@ -38,7 +38,7 @@ class PoseDetectViewController: UIViewController {
     
     private let viewModel = PoseDetectViewModel()
     
-    private let planViewModel = FetchPlanViewModel()
+    private let planViewModel = PlanManageViewModel()
     
     var planTarget: Int = 0
     
@@ -310,6 +310,7 @@ class PoseDetectViewController: UIViewController {
             return
         }
         showAlert.videoURL = videoURL
+        showAlert.personalPlan = personalPlan
         if isUserRejectRecording == true {
             showAlert.isUserRejectRecording = true
         }
@@ -321,27 +322,8 @@ class PoseDetectViewController: UIViewController {
         self.present(navShowVC, animated: true, completion: { [weak self] in
             self?.blurEffect()
             self?.stopSession()
-            self?.updateValue()
-            self?.updatePlan()
         })
     }
-    
-    private func updateValue() {
-        guard let personalPlan = personalPlan,
-              let days = Double(personalPlan.planDays) else {
-            return
-        }
-        let done = round(personalPlan.progress * days) + 1
-        self.personalPlan?.progress = done / days
-        self.personalPlan?.finishTime.append(FinishTime(day: Int(done), time: Date().millisecondsSince1970))
-    }
-    private func updatePlan() {
-        guard let personalPlan = personalPlan else {
-            return
-        }
-        planViewModel.updatePlan(personalPlan: personalPlan)
-    }
-    
 }
 
 extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate {

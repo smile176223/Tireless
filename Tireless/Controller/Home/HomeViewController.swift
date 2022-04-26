@@ -71,7 +71,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         viewModel.setDefault()
         
-        viewModel.fetchJpinGroup(userId: DemoUser.demoUser)
+        viewModel.fetchJoinGroup(userId: DemoUser.demoUser)
         
         viewModel.personalPlan.bind { plans in
             self.plans = plans

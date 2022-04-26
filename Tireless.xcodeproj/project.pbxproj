@@ -64,7 +64,7 @@
 		FF3FBE7228125E5800E6B5DC /* PlanManageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE7128125E5800E6B5DC /* PlanManageViewCell.xib */; };
 		FF3FBE742812835300E6B5DC /* PlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE732812835300E6B5DC /* PlanManager.swift */; };
 		FF3FBE7828128C2700E6B5DC /* PlanDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE7728128C2700E6B5DC /* PlanDetailViewModel.swift */; };
-		FF3FBE7A2812972100E6B5DC /* FetchPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE792812972100E6B5DC /* FetchPlanViewModel.swift */; };
+		FF3FBE7A2812972100E6B5DC /* PlanManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE792812972100E6B5DC /* PlanManageViewModel.swift */; };
 		FF3FBE7C281299DE00E6B5DC /* PersonalPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE7B281299DE00E6B5DC /* PersonalPlanViewModel.swift */; };
 		FF3FBE80281439A000E6B5DC /* Plank.json in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE7F281439A000E6B5DC /* Plank.json */; };
 		FF3FBE8628143B3200E6B5DC /* Pushup.json in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE8528143B3200E6B5DC /* Pushup.json */; };
@@ -158,7 +158,7 @@
 		FF3FBE7128125E5800E6B5DC /* PlanManageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanManageViewCell.xib; sourceTree = "<group>"; };
 		FF3FBE732812835300E6B5DC /* PlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManager.swift; sourceTree = "<group>"; };
 		FF3FBE7728128C2700E6B5DC /* PlanDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewModel.swift; sourceTree = "<group>"; };
-		FF3FBE792812972100E6B5DC /* FetchPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPlanViewModel.swift; sourceTree = "<group>"; };
+		FF3FBE792812972100E6B5DC /* PlanManageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanManageViewModel.swift; sourceTree = "<group>"; };
 		FF3FBE7B281299DE00E6B5DC /* PersonalPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPlanViewModel.swift; sourceTree = "<group>"; };
 		FF3FBE7F281439A000E6B5DC /* Plank.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Plank.json; sourceTree = "<group>"; };
 		FF3FBE8528143B3200E6B5DC /* Pushup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Pushup.json; sourceTree = "<group>"; };
@@ -516,7 +516,7 @@
 			isa = PBXGroup;
 			children = (
 				FF3FBE7728128C2700E6B5DC /* PlanDetailViewModel.swift */,
-				FF3FBE792812972100E6B5DC /* FetchPlanViewModel.swift */,
+				FF3FBE792812972100E6B5DC /* PlanManageViewModel.swift */,
 				FF3FBE7B281299DE00E6B5DC /* PersonalPlanViewModel.swift */,
 				FF3FBEB628170A8600E6B5DC /* GroupPlanViewModel.swift */,
 				FF3FBE6D28123A0800E6B5DC /* PlanViewModel.swift */,
@@ -799,7 +799,7 @@
 				FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */,
 				FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */,
 				FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */,
-				FF3FBE7A2812972100E6B5DC /* FetchPlanViewModel.swift in Sources */,
+				FF3FBE7A2812972100E6B5DC /* PlanManageViewModel.swift in Sources */,
 				FF3FBE652811BE7A00E6B5DC /* HomeViewModel.swift in Sources */,
 				FF3FBEA7281570B000E6B5DC /* SetGroupPlanViewController.swift in Sources */,
 				FF308E6F2806822B00265863 /* ShareFiles.swift in Sources */,

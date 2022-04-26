@@ -12,6 +12,7 @@ class JoinGroupViewModel {
     var groupPlan: GroupPlan = GroupPlan(planName: "",
                                          planTimes: "",
                                          planDays: "",
+                                         planGroup: true,
                                          createdTime: -1,
                                          createdUserId: DemoUser.demoUser,
                                          joinUserId: [""],

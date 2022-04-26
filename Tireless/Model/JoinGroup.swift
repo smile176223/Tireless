@@ -11,6 +11,7 @@ struct JoinGroup: Codable {
     var planName: String
     var planTimes: String
     var planDays: String
+    var planGroup: Bool
     var createdTime: Int64
     var createdUserId: String
     var createdName: String
@@ -20,6 +21,7 @@ struct JoinGroup: Codable {
         case planName
         case planTimes
         case planDays
+        case planGroup
         case createdTime
         case createdUserId
         case createdName
