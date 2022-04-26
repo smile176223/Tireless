@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ProfileViewController: UIViewController {
     
@@ -135,6 +136,14 @@ class ProfileViewController: UIViewController {
         
             headerView.userImageView.loadImage(self.userInfo?.first?.picture)
             headerView.userNameLabel.text = self.userInfo?.first?.name
+            
+            headerView.isUserImageTap = {
+                do {
+                    try Auth.auth().signOut()
+                } catch {
+                    print(error)
+                }
+            }
             
             return headerView
         }

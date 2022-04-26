@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 private enum Tab {
 
@@ -112,5 +113,27 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         tabBar.unselectedItemTintColor = .white
         
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController,
+                          shouldSelect viewController: UIViewController) -> Bool {
+        guard let navVC = viewController as? UINavigationController,
+              navVC.viewControllers.first is ProfileViewController else {
+            return true
+        }
+
+        guard Auth.auth().currentUser != nil else {
+
+            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+
+                authVC.modalPresentationStyle = .overCurrentContext
+
+                present(authVC, animated: false, completion: nil)
+            }
+            
+            return false
+        }
+        
+        return true
     }
 }

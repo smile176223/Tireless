@@ -14,8 +14,17 @@ class UserManager {
     
     lazy var userDB = Firestore.firestore().collection("Users")
     
+    func createUser(user: User, completion: @escaping (Result<String, Error>) -> Void) {
+        let document = userDB.document(user.userId)
+        do {
+            try document.setData(from: user)
+            completion(.success("Loigin Success"))
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
     func fetchUser(userId: String, completion: @escaping (Result<User, Error>) -> Void) {
-        
         userDB.document(userId).getDocument { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
@@ -29,8 +38,7 @@ class UserManager {
     }
     
     func fetchFriends(userId: String, completion: @escaping (Result<[Friends], Error>) -> Void) {
-        // need to change "Friends"
-        userDB.document(userId).collection("friends").getDocuments { querySnapshot, error in
+        userDB.document(userId).collection("Friends").getDocuments { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))

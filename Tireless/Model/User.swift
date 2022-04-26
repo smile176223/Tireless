@@ -8,18 +8,16 @@
 import Foundation
 
 struct User: Codable {
-    let emailAccount: String
-    let userId: String
-    let name: String
-    let token: String
-    let picture: String
-    let maxVideoUploadCount: Int
+    var emailAccount: String
+    var userId: String
+    var name: String
+    var picture: String
+    var maxVideoUploadCount: Int
     
     enum CodingKeys: String, CodingKey {
         case emailAccount
         case userId
         case name
-        case token
         case picture
         case maxVideoUploadCount
     }

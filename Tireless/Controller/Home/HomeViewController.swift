@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -61,7 +60,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.viewDidLoad()
         
         view.backgroundColor = .themeBG
-        
+
         navigationController?.navigationBar.isHidden = true
 
         configureCollectionView()
@@ -80,7 +79,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         viewModel.joinGroup.bind { joinGroup in
             self.joinGroup = joinGroup
         }
-
+        
     }
     
     private func configureCollectionView() {
@@ -314,3 +313,4 @@ extension HomeViewController: UICollectionViewDelegate {
         }
     }
 }
+

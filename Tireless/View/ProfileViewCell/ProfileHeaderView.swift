@@ -15,6 +15,8 @@ class ProfileHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var headerLineView: UIView!
     
+    var isUserImageTap: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -30,6 +32,19 @@ class ProfileHeaderView: UICollectionReusableView {
         view.frame = self.bounds
         self.addSubview(view)
         setupLayout()
+        imageViewTap()
+    }
+    
+    private func imageViewTap() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                          action: #selector(imageTapped(tapGestureRecognizer:)))
+        userImageView.isUserInteractionEnabled = true
+        userImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+//        let tappedImage = tapGestureRecognizer.view as? UIImageView
+        isUserImageTap?()
     }
     
     private func loadViewFromNib() -> UIView? {
