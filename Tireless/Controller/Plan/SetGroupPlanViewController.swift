@@ -128,11 +128,15 @@ class SetGroupPlanViewController: UIViewController {
                                 cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "\(HomeViewCell.self)",
-                for: indexPath) as? HomeViewCell else { return UICollectionViewCell() }
+                for: indexPath) as? HomeViewCell else {
+                return UICollectionViewCell()
+            }
 
             guard let detailCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "\(SetGroupPlanDetailViewCell.self)",
-                for: indexPath) as? SetGroupPlanDetailViewCell else { return UICollectionViewCell() }
+                for: indexPath) as? SetGroupPlanDetailViewCell else {
+                return UICollectionViewCell()
+            }
             
             switch item {
             case .plan(let plans):
@@ -142,20 +146,24 @@ class SetGroupPlanViewController: UIViewController {
                 return cell
             case .detail(let text):
                 detailCell.groupPlanDetailLabel.text = text
-                detailCell.groupCreatedUserLabel.text = "發起人：\(DemoUser.demoName)"
-                detailCell.isCreateButtonTap = { days, times in
-                    if let selectPlan = self.selectPlan {
-                        self.viewModel.getPlanData(name: selectPlan.planName,
-                                              times: times,
-                                              days: days,
-                                              createdName: DemoUser.demoName,
-                                              createdUserId: DemoUser.demoUser)
-                        self.viewModel.createPlan(
-                            success: {
-                                self.dismiss(animated: true)
-                            }, failure: { error in
-                                print(error)
-                            })
+                detailCell.groupCreatedUserLabel.text = "發起人：\(AuthManager.shared.currentUserData?.name ?? "User")"
+                detailCell.isCreateButtonTap = { [weak self] days, times in
+                    if AuthManager.shared.checkCurrentUser() == true {
+                        if let selectPlan = self?.selectPlan {
+                            self?.viewModel.getPlanData(name: selectPlan.planName,
+                                                       times: times,
+                                                       days: days,
+                                                       createdName: AuthManager.shared.currentUserData?.name ?? "User",
+                                                       createdUserId: AuthManager.shared.currentUser)
+                            self?.viewModel.createPlan(
+                                success: {
+                                    self?.dismiss(animated: true)
+                                }, failure: { error in
+                                    print(error)
+                                })
+                        }
+                    } else {
+                        self?.authPresent()
                     }
                 }
                 return detailCell
@@ -191,6 +199,12 @@ class SetGroupPlanViewController: UIViewController {
             snapshot.appendItems(plans.map({SectionItem.plan($0)}), toSection: 0)
         }
         return snapshot
+    }
+    
+    func authPresent() {
+        if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+            present(authVC, animated: true, completion: nil)
+        }
     }
 }
 

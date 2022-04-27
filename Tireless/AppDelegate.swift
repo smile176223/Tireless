@@ -15,7 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        AuthManager.shared.getCurrentUser()
         IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.toolbarTintColor = .white
         return true
     }
     // MARK: UISceneSession Lifecycle

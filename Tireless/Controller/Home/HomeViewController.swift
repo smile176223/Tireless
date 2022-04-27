@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -59,11 +58,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .themeBG
-        
-        navigationController?.navigationBar.isHidden = true
 
+        navigationController?.navigationBar.isHidden = true
+        
         configureCollectionView()
         configureDataSource()
         configureDataSourceProvider()
@@ -71,16 +69,24 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         viewModel.setDefault()
         
-        viewModel.fetchJoinGroup(userId: DemoUser.demoUser)
-        
-        viewModel.personalPlan.bind { plans in
-            self.plans = plans
+        if AuthManager.shared.currentUser != "" {
+            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
         }
         
-        viewModel.joinGroup.bind { joinGroup in
-            self.joinGroup = joinGroup
+        viewModel.personalPlan.bind { [weak self] plans in
+            self?.plans = plans
         }
-
+        
+        viewModel.joinGroup.bind { [weak self] joinGroup in
+            self?.joinGroup = joinGroup
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if AuthManager.shared.currentUser != "" {
+            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
+        }
     }
     
     private func configureCollectionView() {
@@ -180,7 +186,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             case .joinGroup(let joinGroup):
                 cell.textLabel.font = .bold(size: 15)
                 cell.textLabel.text = "\(joinGroup.planName)\n\(joinGroup.createdName)"
-                if joinGroup.createdUserId == DemoUser.demoUser {
+                if joinGroup.createdUserId == AuthManager.shared.currentUser {
                     cell.masksView.backgroundColor = .themeYellow
                 } else {
                     cell.masksView.backgroundColor = .white
@@ -201,15 +207,15 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 withReuseIdentifier: "\(HomeDailyHeaderView.self)",
                 for: indexPath) as? HomeDailyHeaderView else { return UICollectionReusableView()}
             
-            headerView.isCreateButtonTap = {
+            headerView.isCreateButtonTap = { [weak self] in
                 guard let setGroupPlanVC = UIStoryboard.groupPlan.instantiateViewController(
                     withIdentifier: "\(SetGroupPlanViewController.self)")
                         as? SetGroupPlanViewController
                 else {
                     return
                 }
-                setGroupPlanVC.plans = self.plans
-                self.present(setGroupPlanVC, animated: true)
+                setGroupPlanVC.plans = self?.plans
+                self?.present(setGroupPlanVC, animated: true)
             }
             
             if indexPath.section == 0 {
@@ -218,7 +224,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 formatter.timeStyle = .none
                 formatter.string(from: Date())
                 headerDailyView.dateLabel.text = formatter.string(from: Date())
-                headerDailyView.titleLabel.text = "Daily Activity"
+                headerDailyView.titleLabel.text = "每日運動計畫"
                 return headerDailyView
             } else if indexPath.section == 1 {
                 headerView.textLabel.text = "個人計畫"

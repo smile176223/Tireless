@@ -48,6 +48,8 @@
 		FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E97280C6AC800265863 /* PictureWallViewController.swift */; };
 		FF308E9A280C6B0A00265863 /* PictureWall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF308E99280C6B0A00265863 /* PictureWall.storyboard */; };
 		FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E9C280C717A00265863 /* KingFisherWrapper.swift */; };
+		FF3F77E228185D4C00D8360A /* CryptoKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77E128185D4C00D8360A /* CryptoKitHelper.swift */; };
+		FF3F77E428185E6C00D8360A /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77E328185E6C00D8360A /* AuthManager.swift */; };
 		FF3FBE4C280FA83900E6B5DC /* HomeDailyViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */; };
 		FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */; };
 		FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */; };
@@ -90,6 +92,9 @@
 		FF3FBEB32815E29E00E6B5DC /* JoinGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB22815E29E00E6B5DC /* JoinGroupViewModel.swift */; };
 		FF3FBEB52816F52C00E6B5DC /* JoinGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB42816F52C00E6B5DC /* JoinGroup.swift */; };
 		FF3FBEB728170A8600E6B5DC /* GroupPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB628170A8600E6B5DC /* GroupPlanViewModel.swift */; };
+		FF3FBEBC2817925300E6B5DC /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBEBB2817925300E6B5DC /* Auth.storyboard */; };
+		FF3FBEBF2817927000E6B5DC /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */; };
+		FF3FBEC22817DEDB00E6B5DC /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -142,6 +147,8 @@
 		FF308E97280C6AC800265863 /* PictureWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureWallViewController.swift; sourceTree = "<group>"; };
 		FF308E99280C6B0A00265863 /* PictureWall.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PictureWall.storyboard; sourceTree = "<group>"; };
 		FF308E9C280C717A00265863 /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
+		FF3F77E128185D4C00D8360A /* CryptoKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKitHelper.swift; sourceTree = "<group>"; };
+		FF3F77E328185E6C00D8360A /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDailyViewCell.xib; sourceTree = "<group>"; };
 		FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDailyViewCell.swift; sourceTree = "<group>"; };
 		FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +191,10 @@
 		FF3FBEB22815E29E00E6B5DC /* JoinGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupViewModel.swift; sourceTree = "<group>"; };
 		FF3FBEB42816F52C00E6B5DC /* JoinGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroup.swift; sourceTree = "<group>"; };
 		FF3FBEB628170A8600E6B5DC /* GroupPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanViewModel.swift; sourceTree = "<group>"; };
+		FF3FBEBA2817921400E6B5DC /* Tireless.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tireless.entitlements; sourceTree = "<group>"; };
+		FF3FBEBB2817925300E6B5DC /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
+		FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -233,6 +244,7 @@
 				FF308E862808292F00265863 /* ShareWallViewCell */,
 				FF308E6028055FA100265863 /* DetectFinishView */,
 				FFC0C15A28008F640041A937 /* Home.storyboard */,
+				FF3FBEBB2817925300E6B5DC /* Auth.storyboard */,
 				FF3FBE662811C2E100E6B5DC /* Plan.storyboard */,
 				FF3FBEA428156FF100E6B5DC /* GroupPlan.storyboard */,
 				FF308E8028080FB800265863 /* Main.storyboard */,
@@ -246,6 +258,7 @@
 		FF14448F28009B5A0027F560 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FF3FBEBD2817925E00E6B5DC /* Auth */,
 				FF3FBE8928148C9800E6B5DC /* Profile */,
 				FF3FBE682811C2FE00E6B5DC /* Plan */,
 				FF308E6528057D5D00265863 /* Home */,
@@ -259,6 +272,7 @@
 		FF14449028009B640027F560 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				FF3FBEC02817DED000E6B5DC /* Auth */,
 				FF3FBE9928150FA200E6B5DC /* Profile */,
 				FF3FBE7628128C1400E6B5DC /* Plan */,
 				FF3FBE632811BE6E00E6B5DC /* Home */,
@@ -297,6 +311,7 @@
 				FF308E9B280C716000265863 /* Third Party Wrapper */,
 				FF308E722807A46700265863 /* Helper */,
 				FF1444A4280156600027F560 /* MLKit */,
+				FF3F77E028185CD700D8360A /* CryptoKit */,
 			);
 			path = Extenesions;
 			sourceTree = "<group>";
@@ -412,6 +427,7 @@
 				FF3FBE732812835300E6B5DC /* PlanManager.swift */,
 				FF3FBE9728150DEC00E6B5DC /* UserManager.swift */,
 				FF3FBEA0281546F700E6B5DC /* JoinGroupManager.swift */,
+				FF3F77E328185E6C00D8360A /* AuthManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -477,6 +493,14 @@
 				FF308E9C280C717A00265863 /* KingFisherWrapper.swift */,
 			);
 			path = "Third Party Wrapper";
+			sourceTree = "<group>";
+		};
+		FF3F77E028185CD700D8360A /* CryptoKit */ = {
+			isa = PBXGroup;
+			children = (
+				FF3F77E128185D4C00D8360A /* CryptoKitHelper.swift */,
+			);
+			path = CryptoKit;
 			sourceTree = "<group>";
 		};
 		FF3FBE542810646500E6B5DC /* PlanViewCell */ = {
@@ -553,6 +577,22 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		FF3FBEBD2817925E00E6B5DC /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		FF3FBEC02817DED000E6B5DC /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		FFC0C14828008F640041A937 = {
 			isa = PBXGroup;
 			children = (
@@ -574,6 +614,7 @@
 		FFC0C15328008F640041A937 /* Tireless */ = {
 			isa = PBXGroup;
 			children = (
+				FF3FBEBA2817921400E6B5DC /* Tireless.entitlements */,
 				FF308E6B28066DF200265863 /* Network */,
 				FF1444C12803AEA50027F560 /* Exercise */,
 				FF1444BB280336170027F560 /* VideoRecord */,
@@ -677,6 +718,7 @@
 				FF308E8A2808296400265863 /* ShareWallViewCell.xib in Resources */,
 				FF3FBEA528156FF100E6B5DC /* GroupPlan.storyboard in Resources */,
 				FF3FBE4C280FA83900E6B5DC /* HomeDailyViewCell.xib in Resources */,
+				FF3FBEBC2817925300E6B5DC /* Auth.storyboard in Resources */,
 				FFC0C15C28008F640041A937 /* Home.storyboard in Resources */,
 				FF3FBE8628143B3200E6B5DC /* Pushup.json in Resources */,
 				FF308E6A2806658F00265863 /* GoogleService-Info.plist in Resources */,
@@ -771,12 +813,14 @@
 				FF308E96280C680F00265863 /* SharePictureViewCell.swift in Sources */,
 				FF3FBE7C281299DE00E6B5DC /* PersonalPlanViewModel.swift in Sources */,
 				FF3FBE9D28151FF000E6B5DC /* Friends.swift in Sources */,
+				FF3FBEBF2817927000E6B5DC /* AuthViewController.swift in Sources */,
 				FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */,
 				FF3FBEA3281567DA00E6B5DC /* DemoUser.swift in Sources */,
 				FF3FBE742812835300E6B5DC /* PlanManager.swift in Sources */,
 				FF3FBE9F2815320500E6B5DC /* GroupPlan.swift in Sources */,
 				FF3FBEB32815E29E00E6B5DC /* JoinGroupViewModel.swift in Sources */,
 				FF3FBE7828128C2700E6B5DC /* PlanDetailViewModel.swift in Sources */,
+				FF3F77E428185E6C00D8360A /* AuthManager.swift in Sources */,
 				FF1444B12801A6760027F560 /* StartManager.swift in Sources */,
 				FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */,
 				FF3FBE8B28148CAC00E6B5DC /* ProfileViewController.swift in Sources */,
@@ -816,10 +860,12 @@
 				FF3FBEB52816F52C00E6B5DC /* JoinGroup.swift in Sources */,
 				FF3FBE7028125E4E00E6B5DC /* PlanManageViewCell.swift in Sources */,
 				FF3FBEAF2815C81A00E6B5DC /* GroupPlanViewController.swift in Sources */,
+				FF3FBEC22817DEDB00E6B5DC /* AuthViewModel.swift in Sources */,
 				FF3FBE602811A1B600E6B5DC /* CounterView.swift in Sources */,
 				FF2FE0EB280EA8A200F8890D /* UIColor+Extension.swift in Sources */,
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
+				FF3F77E228185D4C00D8360A /* CryptoKitHelper.swift in Sources */,
 				FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */,
 				FF3FBEA1281546F700E6B5DC /* JoinGroupManager.swift in Sources */,
 				FF3FBEA92815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift in Sources */,
@@ -976,6 +1022,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Tireless/Tireless.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3F3N8USCH4;
@@ -1009,6 +1056,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Tireless/Tireless.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3F3N8USCH4;

@@ -20,6 +20,8 @@ class PlanManageViewController: UIViewController {
     
     private var dataSource: DataSource?
     
+    private var planEmptyView = UIImageView()
+    
     enum SectionItem: Hashable {
         case personalPlan(PersonalPlan)
         case groupPlan(GroupPlan)
@@ -28,18 +30,32 @@ class PlanManageViewController: UIViewController {
     var personalPlans: [PersonalPlan]? {
         didSet {
             dataSource?.apply(snapshot(), animatingDifferences: false)
+            if personalPlans == [], groupPlans == [] {
+                planEmptyView.isHidden = false
+                collectionView.isHidden = true
+            } else {
+                planEmptyView.isHidden = true
+                collectionView.isHidden = false
+            }
         }
     }
     
     private var groupPlans: [GroupPlan]? {
         didSet {
             dataSource?.apply(snapshot(), animatingDifferences: false)
+            if personalPlans == [], groupPlans == [] {
+                planEmptyView.isHidden = false
+                collectionView.isHidden = true
+            } else {
+                planEmptyView.isHidden = true
+                collectionView.isHidden = false
+            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setPlanEmptyView()
         self.view.backgroundColor = .themeBG
         
         self.navigationController?.navigationBar.titleTextAttributes =
@@ -51,20 +67,33 @@ class PlanManageViewController: UIViewController {
         configureDataSourceProvider()
         configureDataSourceSnapshot()
         
-        viewModel.personalPlan.bind { personalPlans in
-            self.personalPlans = personalPlans
+        viewModel.personalPlan.bind { [weak self] personalPlans in
+            self?.personalPlans = personalPlans
         }
         
-        viewModel.groupPlan.bind { groupPlans in
-            self.groupPlans = groupPlans
+        viewModel.groupPlan.bind { [weak self] groupPlans in
+            self?.groupPlans = groupPlans
         }
-        
-        self.viewModel.fetchPlan()
         
     }
-    
     override func viewWillAppear(_ animated: Bool) {
-//        self.viewModel.fetchPlan()
+        if AuthManager.shared.currentUser != "" {
+            self.viewModel.fetchPlan()
+        }
+    }
+    
+    private func setPlanEmptyView() {
+        planEmptyView.image = UIImage(named: "TirelessLogo")
+        planEmptyView.contentMode = .scaleAspectFill
+        self.view.addSubview(planEmptyView)
+        planEmptyView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            planEmptyView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            planEmptyView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            planEmptyView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
+            planEmptyView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
+        ])
+        
     }
     
     private func configureCollectionView() {
@@ -82,12 +111,9 @@ class PlanManageViewController: UIViewController {
     private func createLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .absolute(130))
-        
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
                                                        subitems: [item])
-        
         let section = NSCollectionLayoutSection(group: group)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(60))
@@ -95,12 +121,9 @@ class PlanManageViewController: UIViewController {
                                                                  elementKind:
                                                                     UICollectionView.elementKindSectionHeader,
                                                                  alignment: .top)
-        
         section.boundarySupplementaryItems = [header]
-        
         section.interGroupSpacing = 5
         section.contentInsets = .init(top: 5, leading: 15, bottom: 5, trailing: 15)
-        
         return UICollectionViewCompositionalLayout(section: section)
     }
     
@@ -113,27 +136,12 @@ class PlanManageViewController: UIViewController {
             }
             switch item {
             case .personalPlan(let personalPlan):
-                cell.isStartButtonTap = {
-                    self.present(target: personalPlan.planTimes, personalPlan: personalPlan)
+                cell.isStartButtonTap = { [weak self] in
+                    self?.present(target: personalPlan.planTimes, personalPlan: personalPlan)
                 }
                 
-                cell.isDeleteButtonTap = {
-                    let alertController = UIAlertController(title: "確認刪除!",
-                                                            message: "刪除的計畫無法再度復原!",
-                                                            preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
-                        self.viewModel.deletePlan(uuid: personalPlan.uuid)
-                        var snapshot = self.dataSource?.snapshot()
-                        snapshot?.deleteItems([SectionItem.personalPlan(personalPlan)])
-                        self.dataSource?.apply(snapshot!, animatingDifferences: false)
-                        alertController.dismiss(animated: true)
-                    }
-                    let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-                        alertController.dismiss(animated: true)
-                    }
-                    alertController.addAction(okAction)
-                    alertController.addAction(cancelAction)
-                    self.present(alertController, animated: true)
+                cell.isDeleteButtonTap = { [weak self] in
+                    self?.showDeleteAlert(personalPlan: personalPlan)
                 }
                 switch personalPlan.planName {
                 case "深蹲":
@@ -206,5 +214,24 @@ class PlanManageViewController: UIViewController {
         poseVC.personalPlan = personalPlan
         poseVC.modalPresentationStyle = .fullScreen
         self.present(poseVC, animated: true)
+    }
+    
+    private func showDeleteAlert(personalPlan: PersonalPlan) {
+        let alertController = UIAlertController(title: "確認刪除!",
+                                                message: "刪除的計畫無法再度復原!",
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "確定", style: .destructive) { [weak self] _ in
+            self?.viewModel.deletePlan(uuid: personalPlan.uuid)
+            var snapshot = self?.dataSource?.snapshot()
+            snapshot?.deleteItems([SectionItem.personalPlan(personalPlan)])
+            self?.dataSource?.apply(snapshot!, animatingDifferences: false)
+            alertController.dismiss(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true)
     }
 }

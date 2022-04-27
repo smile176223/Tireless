@@ -12,6 +12,8 @@ import FirebaseFirestoreSwift
 class PlanManager {
     static let shared = PlanManager()
     
+    private init() {}
+    
     lazy var userDB = Firestore.firestore().collection("Users")
     
     lazy var groupPlanDB = Firestore.firestore().collection("GroupPlans")

@@ -42,11 +42,11 @@ class ShareManager {
                 }
             }
         }
-        uploadTask.observe(.progress) { snapshot in
+        uploadTask.observe(.progress) { [weak self] snapshot in
             guard let progress = snapshot.progress else {
                 return
             }
-            self.uploadProgress?(progress)
+            self?.uploadProgress?(progress)
         }
     }
     

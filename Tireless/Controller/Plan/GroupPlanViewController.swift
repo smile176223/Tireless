@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreMIDI
 
 class GroupPlanViewController: UIViewController {
     
@@ -19,7 +18,7 @@ class GroupPlanViewController: UIViewController {
     var joinUsers: [User]? {
         didSet {
             for index in 0..<(joinUsers?.count ?? 0) {
-                if joinUsers?[index].userId == DemoUser.demoUser {
+                if joinUsers?[index].userId == AuthManager.shared.currentUser {
                     groupPlanView.joinButton.isEnabled = false
                     groupPlanView.joinButton.setTitle("已加入", for: .normal)
                     groupPlanView.leaveButton.isHidden = false
@@ -41,15 +40,15 @@ class GroupPlanViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         guard let joinGroup = joinGroup else { return }
-        viewModel.fetchJoinUsers(uuid: joinGroup.uuid) { result in
+        viewModel.fetchJoinUsers(uuid: joinGroup.uuid) { [weak self] result in
             switch result {
             case .success(let joinUsers):
-                self.joinUsers = joinUsers
+                self?.joinUsers = joinUsers
             case .failure(let error):
                 print(error)
             }
         }
-        if joinGroup.createdUserId == DemoUser.demoUser {
+        if joinGroup.createdUserId == AuthManager.shared.currentUser {
             groupPlanView.joinButton.setTitle("開始計畫", for: .normal)
             groupPlanView.leaveButton.isHidden = false
             groupPlanView.leaveButton.setTitle("放棄計畫", for: .normal)
@@ -71,7 +70,7 @@ class GroupPlanViewController: UIViewController {
     func isJoinButtonTap() {
         guard let joinGroup = joinGroup else { return }
         groupPlanView.isJoinButtonTap = { [weak self] in
-            if joinGroup.createdUserId != DemoUser.demoUser {
+            if joinGroup.createdUserId != AuthManager.shared.currentUser {
                 self?.viewModel.joinGroup(uuid: joinGroup.uuid) {
                     self?.dismiss(animated: true)
                 } failure: { error in
@@ -102,7 +101,7 @@ class GroupPlanViewController: UIViewController {
     func isLeaveButtonTap() {
         guard let joinGroup = joinGroup else { return }
         groupPlanView.isLeaveButtonTap = { [weak self] in
-            if joinGroup.createdUserId == DemoUser.demoUser {
+            if joinGroup.createdUserId == AuthManager.shared.currentUser {
                 self?.viewModel.deleteJoinGroup(uuid: joinGroup.uuid) { result in
                     switch result {
                     case .success(let string):
@@ -113,7 +112,9 @@ class GroupPlanViewController: UIViewController {
                     }
                 }
             } else {
-                self?.viewModel.leaveJoinGroup(uuid: joinGroup.uuid, userId: DemoUser.demoUser, completion: { result in
+                self?.viewModel.leaveJoinGroup(uuid: joinGroup.uuid,
+                                               userId: AuthManager.shared.currentUser,
+                                               completion: { result in
                     switch result {
                     case .success(let string):
                         print(string)

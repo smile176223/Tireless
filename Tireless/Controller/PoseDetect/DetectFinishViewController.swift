@@ -95,8 +95,8 @@ class DetectFinishViewController: UIViewController {
     }
     
     private func uploadProgressShow() {
-        videoManager.uploadProgress = { progress in
-            self.detectFinishView.lottieProgress(progress.fractionCompleted)
+        videoManager.uploadProgress = { [weak self] progress in
+            self?.detectFinishView.lottieProgress(progress.fractionCompleted)
         }
     }
     

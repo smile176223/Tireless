@@ -59,8 +59,8 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
-        viewModel.fetchUser(userId: DemoUser.demoUser)
-        viewModel.fetchFriends(userId: DemoUser.demoUser)
+        viewModel.fetchUser(userId: AuthManager.shared.currentUser)
+        viewModel.fetchFriends(userId: AuthManager.shared.currentUser)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -136,6 +136,10 @@ class ProfileViewController: UIViewController {
             headerView.userImageView.loadImage(self.userInfo?.first?.picture)
             headerView.userNameLabel.text = self.userInfo?.first?.name
             
+            headerView.isUserImageTap = {
+                self.setUserAlert()
+            }
+            
             return headerView
         }
     }
@@ -162,6 +166,47 @@ class ProfileViewController: UIViewController {
             }
             controller.addAction(action)
         }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+    }
+    
+    private func setUserAlert() {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let delete = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
+            AuthManager.shared.deleteUser { [weak self] result in
+                switch result {
+                case .success(let string):
+                    print(string)
+                    self?.tabBarController?.selectedIndex = 0
+                case .failure(let error):
+                    print(error)
+                    let alert = UIAlertController(title: "錯誤",
+                                                  message: "麻煩再次登入才可刪除帳號!",
+                                                  preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "ok", style: .default) { _ in
+                        if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                            self?.present(authVC, animated: true, completion: nil)
+                        }
+                    }
+                    alert.addAction(okAction)
+                    self?.present(alert, animated: true)
+                }
+            }
+        }
+        let logout = UIAlertAction(title: "登出", style: .default) { _ in
+            AuthManager.shared.singOut { [weak self] result in
+                switch result {
+                case .success(let success):
+                    self?.tabBarController?.selectedIndex = 0
+                    print(success)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        controller.addAction(delete)
+        controller.addAction(logout)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
