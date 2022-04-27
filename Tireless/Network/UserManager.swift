@@ -59,19 +59,28 @@ class UserManager {
         }
     }
     
-    func fetchFriends(userId: String, completion: @escaping (Result<[Friends], Error>) -> Void) {
-        userDB.document(userId).collection("Friends").getDocuments { querySnapshot, error in
+    func fetchFriends(userId: String, completion: @escaping (Result<[User], Error>) -> Void) {
+        userDB.document(userId).collection("Friends").addSnapshotListener { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))
             } else {
-                var friends = [Friends]()
+                var friends = [Friend]()
                 for document in querySnapshot.documents {
-                    if let firend = try? document.data(as: Friends.self, decoder: Firestore.Decoder()) {
+                    if let firend = try? document.data(as: Friend.self, decoder: Firestore.Decoder()) {
                         friends.append(firend)
                     }
                 }
-                completion(.success(friends))
+                var users = [User]()
+                friends.forEach({self.fetchUser(userId: $0.userId) { result in
+                    switch result {
+                    case .success(let user):
+                        users.append(user)
+                    case .failure(let error):
+                        print(error)
+                    }
+                    completion(.success(users.sorted {$0.name < $1.name}))
+                }})
             }
         }
     }

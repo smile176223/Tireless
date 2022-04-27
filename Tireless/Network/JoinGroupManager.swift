@@ -26,7 +26,7 @@ class JoinGroupManager {
             } else {
                 var friends = [String]()
                 for document in querySnapshot.documents {
-                    if let friend = try? document.data(as: Friends.self, decoder: Firestore.Decoder()) {
+                    if let friend = try? document.data(as: Friend.self, decoder: Firestore.Decoder()) {
                         friends.append(friend.userId)
                     }
                 }

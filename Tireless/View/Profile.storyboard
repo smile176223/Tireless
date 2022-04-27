@@ -57,6 +57,21 @@
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="83.705357142857139"/>
         </scene>
+        <!--Search Friend View Controller-->
+        <scene sceneID="CK6-pz-9gP">
+            <objects>
+                <viewController storyboardIdentifier="SearchFriendViewController" id="mmf-AN-0Fu" customClass="SearchFriendViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cAd-by-j8o">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="LoN-eU-yqU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lPY-Xq-x2y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1946" y="84"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Lb0-fb-qbK">
             <objects>

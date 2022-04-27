@@ -17,6 +17,8 @@ class ProfileHeaderView: UICollectionReusableView {
     
     var isUserImageTap: (() -> Void)?
     
+    var isSearchButtonTap: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -44,6 +46,10 @@ class ProfileHeaderView: UICollectionReusableView {
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         isUserImageTap?()
+    }
+    
+    @IBAction func searchButtonTap(_ sender: UIButton) {
+        isSearchButtonTap?()
     }
     
     private func loadViewFromNib() -> UIView? {
