@@ -30,8 +30,8 @@ class PlanDetailViewController: UIViewController {
     }
     
     func isBackButtonTap() {
-        planDetailView?.isBackButtonTap = {
-            self.dismiss(animated: true)
+        planDetailView?.isBackButtonTap = { [weak self] in
+            self?.dismiss(animated: true)
         }
     }
     

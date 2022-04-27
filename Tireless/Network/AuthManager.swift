@@ -36,16 +36,16 @@ class AuthManager {
     }
     
     func getCurrentUser() {
-        Auth.auth().addStateDidChangeListener { auth, user in
+        Auth.auth().addStateDidChangeListener { [weak self] auth, user in
             guard let user = auth.currentUser else {
-                self.currentUser = ""
+                self?.currentUser = ""
                 return
             }
-            self.currentUser = user.uid
-            UserManager.shared.fetchUser(userId: user.uid) { result in
+            self?.currentUser = user.uid
+            UserManager.shared.fetchUser(userId: user.uid) { [weak self]result in
                 switch result {
                 case .success(let user):
-                    self.currentUserData = user
+                    self?.currentUserData = user
                 case .failure(let error):
                     print(error)
                 }

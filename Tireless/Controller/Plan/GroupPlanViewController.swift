@@ -40,10 +40,10 @@ class GroupPlanViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         guard let joinGroup = joinGroup else { return }
-        viewModel.fetchJoinUsers(uuid: joinGroup.uuid) { result in
+        viewModel.fetchJoinUsers(uuid: joinGroup.uuid) { [weak self] result in
             switch result {
             case .success(let joinUsers):
-                self.joinUsers = joinUsers
+                self?.joinUsers = joinUsers
             case .failure(let error):
                 print(error)
             }

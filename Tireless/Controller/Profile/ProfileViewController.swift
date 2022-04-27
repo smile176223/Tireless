@@ -174,11 +174,11 @@ class ProfileViewController: UIViewController {
     private func setUserAlert() {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
-            AuthManager.shared.deleteUser { result in
+            AuthManager.shared.deleteUser { [weak self] result in
                 switch result {
                 case .success(let string):
                     print(string)
-                    self.tabBarController?.selectedIndex = 0
+                    self?.tabBarController?.selectedIndex = 0
                 case .failure(let error):
                     print(error)
                     let alert = UIAlertController(title: "錯誤",
@@ -186,19 +186,19 @@ class ProfileViewController: UIViewController {
                                                   preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "ok", style: .default) { _ in
                         if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-                            self.present(authVC, animated: true, completion: nil)
+                            self?.present(authVC, animated: true, completion: nil)
                         }
                     }
                     alert.addAction(okAction)
-                    self.present(alert, animated: true)
+                    self?.present(alert, animated: true)
                 }
             }
         }
         let logout = UIAlertAction(title: "登出", style: .default) { _ in
-            AuthManager.shared.singOut { result in
+            AuthManager.shared.singOut { [weak self] result in
                 switch result {
                 case .success(let success):
-                    self.tabBarController?.selectedIndex = 0
+                    self?.tabBarController?.selectedIndex = 0
                     print(success)
                 case .failure(let error):
                     print(error)

@@ -73,12 +73,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
         }
         
-        viewModel.personalPlan.bind { plans in
-            self.plans = plans
+        viewModel.personalPlan.bind { [weak self] plans in
+            self?.plans = plans
         }
         
-        viewModel.joinGroup.bind { joinGroup in
-            self.joinGroup = joinGroup
+        viewModel.joinGroup.bind { [weak self] joinGroup in
+            self?.joinGroup = joinGroup
         }
         
     }
@@ -207,15 +207,15 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 withReuseIdentifier: "\(HomeDailyHeaderView.self)",
                 for: indexPath) as? HomeDailyHeaderView else { return UICollectionReusableView()}
             
-            headerView.isCreateButtonTap = {
+            headerView.isCreateButtonTap = { [weak self] in
                 guard let setGroupPlanVC = UIStoryboard.groupPlan.instantiateViewController(
                     withIdentifier: "\(SetGroupPlanViewController.self)")
                         as? SetGroupPlanViewController
                 else {
                     return
                 }
-                setGroupPlanVC.plans = self.plans
-                self.present(setGroupPlanVC, animated: true)
+                setGroupPlanVC.plans = self?.plans
+                self?.present(setGroupPlanVC, animated: true)
             }
             
             if indexPath.section == 0 {

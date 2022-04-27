@@ -67,12 +67,12 @@ class PlanManageViewController: UIViewController {
         configureDataSourceProvider()
         configureDataSourceSnapshot()
         
-        viewModel.personalPlan.bind { personalPlans in
-            self.personalPlans = personalPlans
+        viewModel.personalPlan.bind { [weak self] personalPlans in
+            self?.personalPlans = personalPlans
         }
         
-        viewModel.groupPlan.bind { groupPlans in
-            self.groupPlans = groupPlans
+        viewModel.groupPlan.bind { [weak self] groupPlans in
+            self?.groupPlans = groupPlans
         }
         
     }
@@ -136,27 +136,12 @@ class PlanManageViewController: UIViewController {
             }
             switch item {
             case .personalPlan(let personalPlan):
-                cell.isStartButtonTap = {
-                    self.present(target: personalPlan.planTimes, personalPlan: personalPlan)
+                cell.isStartButtonTap = { [weak self] in
+                    self?.present(target: personalPlan.planTimes, personalPlan: personalPlan)
                 }
                 
-                cell.isDeleteButtonTap = {
-                    let alertController = UIAlertController(title: "確認刪除!",
-                                                            message: "刪除的計畫無法再度復原!",
-                                                            preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
-                        self.viewModel.deletePlan(uuid: personalPlan.uuid)
-                        var snapshot = self.dataSource?.snapshot()
-                        snapshot?.deleteItems([SectionItem.personalPlan(personalPlan)])
-                        self.dataSource?.apply(snapshot!, animatingDifferences: false)
-                        alertController.dismiss(animated: true)
-                    }
-                    let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-                        alertController.dismiss(animated: true)
-                    }
-                    alertController.addAction(okAction)
-                    alertController.addAction(cancelAction)
-                    self.present(alertController, animated: true)
+                cell.isDeleteButtonTap = { [weak self] in
+                    self?.showDeleteAlert(personalPlan: personalPlan)
                 }
                 switch personalPlan.planName {
                 case "深蹲":
@@ -229,5 +214,24 @@ class PlanManageViewController: UIViewController {
         poseVC.personalPlan = personalPlan
         poseVC.modalPresentationStyle = .fullScreen
         self.present(poseVC, animated: true)
+    }
+    
+    private func showDeleteAlert(personalPlan: PersonalPlan) {
+        let alertController = UIAlertController(title: "確認刪除!",
+                                                message: "刪除的計畫無法再度復原!",
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "確定", style: .destructive) { [weak self] _ in
+            self?.viewModel.deletePlan(uuid: personalPlan.uuid)
+            var snapshot = self?.dataSource?.snapshot()
+            snapshot?.deleteItems([SectionItem.personalPlan(personalPlan)])
+            self?.dataSource?.apply(snapshot!, animatingDifferences: false)
+            alertController.dismiss(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true)
     }
 }
