@@ -69,19 +69,18 @@ class AuthManager {
         }
     }
     
-    func deleteUser() {
+    func deleteUser(completion: @escaping (Result<String, Error>) -> Void) {
         let needDeleteUser = self.currentUser
         Auth.auth().currentUser?.delete { error in
             if let error = error {
-                print(error)
+                completion(.failure(error))
             } else {
-                print("success delete")
                 UserManager.shared.deleteUser(userId: needDeleteUser) { result in
                     switch result {
                     case .success(let string):
-                        print(string)
+                        completion(.success(string))
                     case .failure(let error):
-                        print(error)
+                        completion(.failure(error))
                     }
                 }
             }
