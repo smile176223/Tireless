@@ -84,6 +84,7 @@ class AuthViewController: UIViewController {
 }
 
 extension AuthViewController: ASAuthorizationControllerDelegate {
+    
     func authorizationController(controller: ASAuthorizationController,
                                  didCompleteWithAuthorization authorization: ASAuthorization) {
         
@@ -100,22 +101,24 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
             guard let appleName = appleIDCredential.fullName else {
                 return
             }
+            print(appleIDCredential.realUserStatus.rawValue)
             let formatter = PersonNameComponentsFormatter()
             formatter.style = .default
-            let name = formatter.string(from: appleName)
+            var name = formatter.string(from: appleName)
             AuthManager.shared.signInWithApple(idToken: idTokenString,
                                                nonce: nonce,
                                                appleName: name) { [weak self] result in
                 switch result {
                 case .success(let authResult):
                     AuthManager.shared.getCurrentUser()
-                    if name != "" {
-                        self?.viewModel.getUser(email: authResult.user.email ?? "",
-                                                userId: authResult.user.uid,
-                                                name: name,
-                                                picture: "")
-                        self?.viewModel.createUser()
+                    if name == "" {
+                        name = "Tireless User"
                     }
+                    self?.viewModel.getUser(email: authResult.user.email ?? "",
+                                            userId: authResult.user.uid,
+                                            name: name,
+                                            picture: "")
+                    self?.viewModel.createUser()
                     self?.finishPresent()
                 case .failure(let error):
                     print(error)
