@@ -78,7 +78,7 @@ class UserManager {
     
     func deleteUser(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
         let joinDB = Firestore.firestore().collection("JoinGroups")
-//        let groupPlanDB = Firestore.firestore().collection("GroupPlans")
+        let groupPlanDB = Firestore.firestore().collection("GroupPlans")
         userDB.document(userId).delete()
         joinDB.whereField("createdUserId", isEqualTo: userId).getDocuments { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
@@ -100,6 +100,22 @@ class UserManager {
             } else {
                 for document in querySnapshot.documents {
                     document.reference.delete()
+                }
+            }
+        }
+        groupPlanDB.whereField("joinUserId", arrayContains: userId).getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if let error = error {
+                completion(.failure(error))
+                return
+            } else {
+                for document in querySnapshot.documents {
+                    if var data = try? document.data(as: GroupPlan.self, decoder: Firestore.Decoder()) {
+                        data.joinUserId.removeAll { joinUserId in
+                            return joinUserId == userId
+                        }
+                        try? document.reference.setData(from: data)
+                    }
                 }
             }
         }

@@ -58,7 +58,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UserManager.shared.test()
         view.backgroundColor = .themeBG
 
         navigationController?.navigationBar.isHidden = true

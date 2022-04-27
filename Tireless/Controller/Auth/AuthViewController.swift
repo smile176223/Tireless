@@ -101,7 +101,6 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
             guard let appleName = appleIDCredential.fullName else {
                 return
             }
-            print(appleIDCredential.realUserStatus.rawValue)
             let formatter = PersonNameComponentsFormatter()
             formatter.style = .default
             var name = formatter.string(from: appleName)
