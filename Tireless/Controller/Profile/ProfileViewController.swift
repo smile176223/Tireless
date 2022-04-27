@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 class ProfileViewController: UIViewController {
     
@@ -60,8 +59,8 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
-        viewModel.fetchUser(userId: UserManager.shared.currentUser)
-        viewModel.fetchFriends(userId: UserManager.shared.currentUser)
+        viewModel.fetchUser(userId: AuthManager.shared.currentUser)
+        viewModel.fetchFriends(userId: AuthManager.shared.currentUser)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -175,14 +174,18 @@ class ProfileViewController: UIViewController {
     private func setUserAlert() {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
-            print("lol delete")
+            AuthManager.shared.deleteUser()
+            self.tabBarController?.selectedIndex = 0
         }
         let logout = UIAlertAction(title: "登出", style: .default) { _ in
-            do {
-                try Auth.auth().signOut()
-                self.tabBarController?.selectedIndex = 0
-            } catch {
-                print(error)
+            AuthManager.shared.singOut { result in
+                switch result {
+                case .success(let success):
+                    self.tabBarController?.selectedIndex = 0
+                    print(success)
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
         controller.addAction(delete)

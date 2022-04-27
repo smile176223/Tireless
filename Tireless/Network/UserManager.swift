@@ -15,17 +15,7 @@ class UserManager {
     
     private init() {}
     
-    var currentUser = String()
-    
     lazy var userDB = Firestore.firestore().collection("Users")
-    
-    func getCurrentUser() {
-        guard let user = Auth.auth().currentUser else {
-            currentUser = ""
-            return
-        }
-        currentUser = user.uid
-    }
     
     func createUser(user: User, completion: @escaping (Result<String, Error>) -> Void) {
         let document = userDB.document(user.userId)
@@ -65,5 +55,35 @@ class UserManager {
                 completion(.success(friends))
             }
         }
+    }
+    
+    func deleteUser(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+        let joinDB = Firestore.firestore().collection("JoinGroups")
+//        let groupPlanDB = Firestore.firestore().collection("GroupPlans")
+        userDB.document(userId).delete()
+        joinDB.whereField("createdUserId", isEqualTo: userId).getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if let error = error {
+                completion(.failure(error))
+                return
+            } else {
+                for document in querySnapshot.documents {
+                    document.reference.delete()
+                }
+            }
+        }
+        joinDB.document().collection("JoinUsers").whereField("userId",
+                                                             isEqualTo: userId).getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if let error = error {
+                completion(.failure(error))
+                return
+            } else {
+                for document in querySnapshot.documents {
+                    document.reference.delete()
+                }
+            }
+        }
+        completion(.success("success"))
     }
 }

@@ -18,7 +18,7 @@ class GroupPlanViewController: UIViewController {
     var joinUsers: [User]? {
         didSet {
             for index in 0..<(joinUsers?.count ?? 0) {
-                if joinUsers?[index].userId == UserManager.shared.currentUser {
+                if joinUsers?[index].userId == AuthManager.shared.currentUser {
                     groupPlanView.joinButton.isEnabled = false
                     groupPlanView.joinButton.setTitle("已加入", for: .normal)
                     groupPlanView.leaveButton.isHidden = false
@@ -48,7 +48,7 @@ class GroupPlanViewController: UIViewController {
                 print(error)
             }
         }
-        if joinGroup.createdUserId == UserManager.shared.currentUser {
+        if joinGroup.createdUserId == AuthManager.shared.currentUser {
             groupPlanView.joinButton.setTitle("開始計畫", for: .normal)
             groupPlanView.leaveButton.isHidden = false
             groupPlanView.leaveButton.setTitle("放棄計畫", for: .normal)
@@ -70,7 +70,7 @@ class GroupPlanViewController: UIViewController {
     func isJoinButtonTap() {
         guard let joinGroup = joinGroup else { return }
         groupPlanView.isJoinButtonTap = { [weak self] in
-            if joinGroup.createdUserId != UserManager.shared.currentUser {
+            if joinGroup.createdUserId != AuthManager.shared.currentUser {
                 self?.viewModel.joinGroup(uuid: joinGroup.uuid) {
                     self?.dismiss(animated: true)
                 } failure: { error in
@@ -101,7 +101,7 @@ class GroupPlanViewController: UIViewController {
     func isLeaveButtonTap() {
         guard let joinGroup = joinGroup else { return }
         groupPlanView.isLeaveButtonTap = { [weak self] in
-            if joinGroup.createdUserId == UserManager.shared.currentUser {
+            if joinGroup.createdUserId == AuthManager.shared.currentUser {
                 self?.viewModel.deleteJoinGroup(uuid: joinGroup.uuid) { result in
                     switch result {
                     case .success(let string):
@@ -113,7 +113,7 @@ class GroupPlanViewController: UIViewController {
                 }
             } else {
                 self?.viewModel.leaveJoinGroup(uuid: joinGroup.uuid,
-                                               userId: UserManager.shared.currentUser,
+                                               userId: AuthManager.shared.currentUser,
                                                completion: { result in
                     switch result {
                     case .success(let string):

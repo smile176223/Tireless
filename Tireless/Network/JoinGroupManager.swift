@@ -77,8 +77,8 @@ class JoinGroupManager {
     
     func joinGroupPlan(uuid: String, completion: @escaping (Result<String, Error>) -> Void) {
         
-        let document = joinGroupDB.document(uuid).collection("JoinUsers").document(UserManager.shared.currentUser)
-        document.setData(["userId": UserManager.shared.currentUser]) { error in
+        let document = joinGroupDB.document(uuid).collection("JoinUsers").document(AuthManager.shared.currentUser)
+        document.setData(["userId": AuthManager.shared.currentUser]) { error in
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -150,7 +150,7 @@ class JoinGroupManager {
     }
     
     private func setJoinUsersGroupPlan(uuid: String, joinUsers: [String]) {
-        let document = userDB.document(UserManager.shared.currentUser).collection("GroupPlans").document()
+        let document = userDB.document(AuthManager.shared.currentUser).collection("GroupPlans").document()
         document.setData(["GroupPlanId": uuid])
         for user in joinUsers {
             userDB.document(user).collection("GroupPlans").document().setData(["GroupPlanId": uuid])

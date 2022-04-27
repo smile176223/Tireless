@@ -108,7 +108,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                                                appleName: name) { [weak self] result in
                 switch result {
                 case .success(let authResult):
-                    UserManager.shared.getCurrentUser()
+                    AuthManager.shared.getCurrentUser()
                     if name != "" {
                         self?.viewModel.getUser(email: authResult.user.email ?? "",
                                                 userId: authResult.user.uid,

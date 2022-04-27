@@ -20,6 +20,8 @@ class PlanManageViewController: UIViewController {
     
     private var dataSource: DataSource?
     
+    private var planEmptyView = UIImageView()
+    
     enum SectionItem: Hashable {
         case personalPlan(PersonalPlan)
         case groupPlan(GroupPlan)
@@ -28,18 +30,32 @@ class PlanManageViewController: UIViewController {
     var personalPlans: [PersonalPlan]? {
         didSet {
             dataSource?.apply(snapshot(), animatingDifferences: false)
+            if personalPlans == [], groupPlans == [] {
+                planEmptyView.isHidden = false
+                collectionView.isHidden = true
+            } else {
+                planEmptyView.isHidden = true
+                collectionView.isHidden = false
+            }
         }
     }
     
     private var groupPlans: [GroupPlan]? {
         didSet {
             dataSource?.apply(snapshot(), animatingDifferences: false)
+            if personalPlans == [], groupPlans == [] {
+                planEmptyView.isHidden = false
+                collectionView.isHidden = true
+            } else {
+                planEmptyView.isHidden = true
+                collectionView.isHidden = false
+            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setPlanEmptyView()
         self.view.backgroundColor = .themeBG
         
         self.navigationController?.navigationBar.titleTextAttributes =
@@ -61,9 +77,23 @@ class PlanManageViewController: UIViewController {
         
     }
     override func viewWillAppear(_ animated: Bool) {
-        if UserManager.shared.currentUser != "" {
+        if AuthManager.shared.currentUser != "" {
             self.viewModel.fetchPlan()
         }
+    }
+    
+    private func setPlanEmptyView() {
+        planEmptyView.image = UIImage(named: "TirelessLogo")
+        planEmptyView.contentMode = .scaleAspectFill
+        self.view.addSubview(planEmptyView)
+        planEmptyView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            planEmptyView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            planEmptyView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            planEmptyView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
+            planEmptyView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
+        ])
+        
     }
     
     private func configureCollectionView() {
@@ -81,12 +111,9 @@ class PlanManageViewController: UIViewController {
     private func createLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .absolute(130))
-        
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
                                                        subitems: [item])
-        
         let section = NSCollectionLayoutSection(group: group)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(60))
@@ -94,12 +121,9 @@ class PlanManageViewController: UIViewController {
                                                                  elementKind:
                                                                     UICollectionView.elementKindSectionHeader,
                                                                  alignment: .top)
-        
         section.boundarySupplementaryItems = [header]
-        
         section.interGroupSpacing = 5
         section.contentInsets = .init(top: 5, leading: 15, bottom: 5, trailing: 15)
-        
         return UICollectionViewCompositionalLayout(section: section)
     }
     

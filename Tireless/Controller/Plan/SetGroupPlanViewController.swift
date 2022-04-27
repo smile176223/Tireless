@@ -128,11 +128,15 @@ class SetGroupPlanViewController: UIViewController {
                                 cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "\(HomeViewCell.self)",
-                for: indexPath) as? HomeViewCell else { return UICollectionViewCell() }
+                for: indexPath) as? HomeViewCell else {
+                return UICollectionViewCell()
+            }
 
             guard let detailCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "\(SetGroupPlanDetailViewCell.self)",
-                for: indexPath) as? SetGroupPlanDetailViewCell else { return UICollectionViewCell() }
+                for: indexPath) as? SetGroupPlanDetailViewCell else {
+                return UICollectionViewCell()
+            }
             
             switch item {
             case .plan(let plans):
@@ -142,15 +146,15 @@ class SetGroupPlanViewController: UIViewController {
                 return cell
             case .detail(let text):
                 detailCell.groupPlanDetailLabel.text = text
-                detailCell.groupCreatedUserLabel.text = "發起人：\(DemoUser.demoName)"
+                detailCell.groupCreatedUserLabel.text = "發起人：\(AuthManager.shared.currentUserData?.name ?? "User")"
                 detailCell.isCreateButtonTap = { [weak self] days, times in
                     if AuthManager.shared.checkCurrentUser() == true {
                         if let selectPlan = self?.selectPlan {
                             self?.viewModel.getPlanData(name: selectPlan.planName,
                                                        times: times,
                                                        days: days,
-                                                       createdName: DemoUser.demoName,
-                                                       createdUserId: UserManager.shared.currentUser)
+                                                       createdName: AuthManager.shared.currentUserData?.name ?? "User",
+                                                       createdUserId: AuthManager.shared.currentUser)
                             self?.viewModel.createPlan(
                                 success: {
                                     self?.dismiss(animated: true)

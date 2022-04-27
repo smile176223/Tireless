@@ -14,7 +14,7 @@ class JoinGroupViewModel {
                                          planDays: "",
                                          planGroup: true,
                                          createdTime: -1,
-                                         createdUserId: UserManager.shared.currentUser,
+                                         createdUserId: AuthManager.shared.currentUser,
                                          joinUserId: [""],
                                          uuid: "")
     

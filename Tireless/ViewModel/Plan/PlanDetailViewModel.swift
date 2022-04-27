@@ -27,7 +27,7 @@ class PlanDetailViewModel {
     }
     
     func createPlan(success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
-        PlanManager.shared.createPlan(userId: UserManager.shared.currentUser, personalPlan: &personalPlan) { result in
+        PlanManager.shared.createPlan(userId: AuthManager.shared.currentUser, personalPlan: &personalPlan) { result in
             switch result {
             case .success:
                 success()

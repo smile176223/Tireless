@@ -62,8 +62,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         view.backgroundColor = .themeBG
 
         navigationController?.navigationBar.isHidden = true
-
-        UserManager.shared.getCurrentUser()
         
         configureCollectionView()
         configureDataSource()
@@ -71,6 +69,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         configureDataSourceSnapshot()
         
         viewModel.setDefault()
+        
+        if AuthManager.shared.currentUser != "" {
+            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
+        }
         
         viewModel.personalPlan.bind { plans in
             self.plans = plans
@@ -83,8 +85,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if UserManager.shared.currentUser != "" {
-            viewModel.fetchJoinGroup(userId: UserManager.shared.currentUser)
+        if AuthManager.shared.currentUser != "" {
+            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
         }
     }
     
@@ -185,7 +187,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             case .joinGroup(let joinGroup):
                 cell.textLabel.font = .bold(size: 15)
                 cell.textLabel.text = "\(joinGroup.planName)\n\(joinGroup.createdName)"
-                if joinGroup.createdUserId == UserManager.shared.currentUser {
+                if joinGroup.createdUserId == AuthManager.shared.currentUser {
                     cell.masksView.backgroundColor = .themeYellow
                 } else {
                     cell.masksView.backgroundColor = .white
