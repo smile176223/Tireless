@@ -54,8 +54,8 @@
 		FF3F77E82819C3F900D8360A /* SearchFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77E72819C3F900D8360A /* SearchFriendViewController.swift */; };
 		FF3F77EA281A1A5000D8360A /* SearchFriendHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3F77E9281A1A5000D8360A /* SearchFriendHeaderView.xib */; };
 		FF3F77EC281A1A5600D8360A /* SearchFriendHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77EB281A1A5600D8360A /* SearchFriendHeaderView.swift */; };
-		FF3F77EE281A1EB500D8360A /* SearchFirendViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3F77ED281A1EB500D8360A /* SearchFirendViewCell.xib */; };
-		FF3F77F0281A1EBA00D8360A /* SearchFirendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77EF281A1EBA00D8360A /* SearchFirendViewCell.swift */; };
+		FF3F77EE281A1EB500D8360A /* SearchFriendViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3F77ED281A1EB500D8360A /* SearchFriendViewCell.xib */; };
+		FF3F77F0281A1EBA00D8360A /* SearchFriendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77EF281A1EBA00D8360A /* SearchFriendViewCell.swift */; };
 		FF3FBE4C280FA83900E6B5DC /* HomeDailyViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */; };
 		FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */; };
 		FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */; };
@@ -159,8 +159,8 @@
 		FF3F77E72819C3F900D8360A /* SearchFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendViewController.swift; sourceTree = "<group>"; };
 		FF3F77E9281A1A5000D8360A /* SearchFriendHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchFriendHeaderView.xib; sourceTree = "<group>"; };
 		FF3F77EB281A1A5600D8360A /* SearchFriendHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendHeaderView.swift; sourceTree = "<group>"; };
-		FF3F77ED281A1EB500D8360A /* SearchFirendViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchFirendViewCell.xib; sourceTree = "<group>"; };
-		FF3F77EF281A1EBA00D8360A /* SearchFirendViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFirendViewCell.swift; sourceTree = "<group>"; };
+		FF3F77ED281A1EB500D8360A /* SearchFriendViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchFriendViewCell.xib; sourceTree = "<group>"; };
+		FF3F77EF281A1EBA00D8360A /* SearchFriendViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendViewCell.swift; sourceTree = "<group>"; };
 		FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDailyViewCell.xib; sourceTree = "<group>"; };
 		FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDailyViewCell.swift; sourceTree = "<group>"; };
 		FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
@@ -580,8 +580,8 @@
 				FF3FBE952814FE7C00E6B5DC /* ProfileHeaderView.xib */,
 				FF3F77EB281A1A5600D8360A /* SearchFriendHeaderView.swift */,
 				FF3F77E9281A1A5000D8360A /* SearchFriendHeaderView.xib */,
-				FF3F77EF281A1EBA00D8360A /* SearchFirendViewCell.swift */,
-				FF3F77ED281A1EB500D8360A /* SearchFirendViewCell.xib */,
+				FF3F77EF281A1EBA00D8360A /* SearchFriendViewCell.swift */,
+				FF3F77ED281A1EB500D8360A /* SearchFriendViewCell.xib */,
 			);
 			path = ProfileViewCell;
 			sourceTree = "<group>";
@@ -724,7 +724,7 @@
 				FF308E94280C67FD00265863 /* SharePictureViewCell.xib in Resources */,
 				FF3FBE7228125E5800E6B5DC /* PlanManageViewCell.xib in Resources */,
 				FF308E5D28055F9700265863 /* DetectFinishView.xib in Resources */,
-				FF3F77EE281A1EB500D8360A /* SearchFirendViewCell.xib in Resources */,
+				FF3F77EE281A1EB500D8360A /* SearchFriendViewCell.xib in Resources */,
 				FF308E832808106500265863 /* ShareWall.storyboard in Resources */,
 				FF3FBE672811C2E100E6B5DC /* Plan.storyboard in Resources */,
 				FFC0C15E28008F650041A937 /* Assets.xcassets in Resources */,
@@ -886,7 +886,7 @@
 				FF2FE0EB280EA8A200F8890D /* UIColor+Extension.swift in Sources */,
 				FF3F77E82819C3F900D8360A /* SearchFriendViewController.swift in Sources */,
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
-				FF3F77F0281A1EBA00D8360A /* SearchFirendViewCell.swift in Sources */,
+				FF3F77F0281A1EBA00D8360A /* SearchFriendViewCell.swift in Sources */,
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
 				FF3F77E228185D4C00D8360A /* CryptoKitHelper.swift in Sources */,
 				FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */,

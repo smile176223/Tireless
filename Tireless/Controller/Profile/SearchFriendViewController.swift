@@ -31,8 +31,8 @@ class SearchFriendViewController: UIViewController {
         tableView.register(UINib(nibName: "\(SearchFriendHeaderView.self)", bundle: nil),
                            forHeaderFooterViewReuseIdentifier: "\(SearchFriendHeaderView.self)")
         
-        tableView.register(UINib(nibName: "\(SearchFirendViewCell.self)", bundle: nil),
-                           forCellReuseIdentifier: "\(SearchFirendViewCell.self)")
+        tableView.register(UINib(nibName: "\(SearchFriendViewCell.self)", bundle: nil),
+                           forCellReuseIdentifier: "\(SearchFriendViewCell.self)")
     }
 }
 
@@ -43,7 +43,7 @@ extension SearchFriendViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: "\(SearchFirendViewCell.self)", for: indexPath) as? SearchFirendViewCell else {
+            withIdentifier: "\(SearchFriendViewCell.self)", for: indexPath) as? SearchFriendViewCell else {
             return UITableViewCell()
         }
         
@@ -63,7 +63,19 @@ extension SearchFriendViewController: UITableViewDelegate, UITableViewDataSource
             ) as? SearchFriendHeaderView else {
                 return nil
         }
+        headerView.searchFriendBar.delegate = self
         
         return headerView
     }
+}
+
+extension SearchFriendViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else {
+            return
+        }
+        searchBar.resignFirstResponder()
+        print(text)
+    }
+    
 }

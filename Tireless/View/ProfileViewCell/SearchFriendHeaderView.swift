@@ -9,4 +9,5 @@ import UIKit
 
 class SearchFriendHeaderView: UITableViewHeaderFooterView {
     
+    @IBOutlet weak var searchFriendBar: UISearchBar!
 }

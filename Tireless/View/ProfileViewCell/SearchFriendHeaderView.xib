@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <searchBar contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UfS-yk-O9E">
+                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="UfS-yk-O9E">
                         <rect key="frame" x="20" y="79" width="374" height="51"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -44,6 +44,9 @@
                     <constraint firstItem="oCn-iX-Ket" firstAttribute="leading" secondItem="lql-c8-tTq" secondAttribute="leading" constant="30" id="wEr-7q-Gjw"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="searchFriendBar" destination="UfS-yk-O9E" id="kYE-B2-fga"/>
+            </connections>
             <point key="canvasLocation" x="-186" y="137"/>
         </tableViewCell>
     </objects>
