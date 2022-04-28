@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchFirendViewCell" id="tre-LP-oqd" customClass="SearchFirendViewCell" customModule="Tireless" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tre-LP-oqd" id="SC2-gU-3JT">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="PDv-4u-Bna">
+                        <rect key="frame" x="20" y="10" width="60" height="60"/>
+                        <color key="backgroundColor" name="themeBG"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="YPM-ac-UHq"/>
+                            <constraint firstAttribute="width" secondItem="PDv-4u-Bna" secondAttribute="height" id="t4a-9X-zPt"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldo-Lk-hR5">
+                        <rect key="frame" x="105" y="29.5" width="45" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AE6-df-aVb">
+                        <rect key="frame" x="354" y="22" width="40" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="AE6-df-aVb" secondAttribute="height" id="htd-vf-6yd"/>
+                            <constraint firstAttribute="height" constant="40" id="qGr-0z-vWC"/>
+                        </constraints>
+                        <color key="tintColor" name="themeYellow"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" backgroundImage="plus" catalog="system"/>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" name="themeBGSecond"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="AE6-df-aVb" secondAttribute="trailing" constant="20" id="0pC-NN-naY"/>
+                    <constraint firstItem="AE6-df-aVb" firstAttribute="centerY" secondItem="Ldo-Lk-hR5" secondAttribute="centerY" id="19c-un-hJo"/>
+                    <constraint firstItem="Ldo-Lk-hR5" firstAttribute="centerY" secondItem="PDv-4u-Bna" secondAttribute="centerY" id="2FC-w6-aVs"/>
+                    <constraint firstItem="PDv-4u-Bna" firstAttribute="centerY" secondItem="SC2-gU-3JT" secondAttribute="centerY" id="AWa-AE-hHt"/>
+                    <constraint firstItem="PDv-4u-Bna" firstAttribute="leading" secondItem="SC2-gU-3JT" secondAttribute="leading" constant="20" id="ZXk-qj-lqg"/>
+                    <constraint firstAttribute="bottom" secondItem="PDv-4u-Bna" secondAttribute="bottom" constant="10" id="bY4-FF-U7G"/>
+                    <constraint firstItem="Ldo-Lk-hR5" firstAttribute="leading" secondItem="PDv-4u-Bna" secondAttribute="trailing" constant="25" id="dBw-U2-VtY"/>
+                    <constraint firstItem="PDv-4u-Bna" firstAttribute="top" secondItem="SC2-gU-3JT" secondAttribute="top" constant="10" id="wMO-Mn-0sK"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="-65.217391304347828" y="112.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="TirelessLogo" width="500" height="500"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <namedColor name="themeBG">
+            <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themeBGSecond">
+            <color red="0.12941176470588237" green="0.15686274509803921" blue="0.24705882352941178" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themeYellow">
+            <color red="1" green="0.61176470588235299" blue="0.25490196078431371" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
