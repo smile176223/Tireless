@@ -32,4 +32,15 @@ class AuthViewModel {
             }
         }
     }
+    
+    func signInWithFirebase(email: String, password: String) {
+        AuthManager.shared.signInWithFirebase(email: email, password: password) { result in
+            switch result {
+            case .success(let result):
+                print(result)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

@@ -14,13 +14,11 @@ class AuthViewController: UIViewController {
     
     @IBOutlet weak var appleView: UIView!
     
-    @IBOutlet weak var segmetedControl: UISegmentedControl!
-    
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
     
-    @IBOutlet weak var checkButton: UIButton!
+    @IBOutlet weak var signInButton: UIButton!
     
     var currentNonce: String?
     
@@ -32,6 +30,27 @@ class AuthViewController: UIViewController {
         setupLayout()
         makeSigninWithAppleButton()
     
+    }
+    @IBAction func signInButtonTap(_ sender: UIButton) {
+        guard let emailText = emailTextField.text else {
+            return
+        }
+        guard let passwordText = passwordTextField.text else {
+            return
+        }
+        AuthManager.shared.signInWithFirebase(email: emailText, password: passwordText) { result in
+            switch result {
+            case .success(let result):
+                print(result)
+                self.finishPresent()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    @IBAction func signUpButtonTap(_ sender: UIButton) {
+        signUpPush()
     }
     
     private func makeSigninWithAppleButton() {
@@ -67,11 +86,7 @@ class AuthViewController: UIViewController {
     }
     
     private func setupLayout() {
-        segmetedControl.setTitleTextAttributes([.foregroundColor: UIColor.themeYellow!,
-                                                .font: UIFont.bold(size: 15)!], for: .normal)
-        segmetedControl.setTitleTextAttributes([.foregroundColor: UIColor.white,
-                                                .font: UIFont.bold(size: 15)!], for: .selected)
-        checkButton.layer.cornerRadius = 20
+        signInButton.layer.cornerRadius = 20
         authView.clipsToBounds = true
         authView.layer.cornerRadius = 25
         authView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
@@ -134,6 +149,16 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
         if let tabBarController = self.presentingViewController as? UITabBarController {
             tabBarController.selectedIndex = 4
         }
+    }
+    
+    private func signUpPush() {
+        guard let signupVC = storyboard?.instantiateViewController(withIdentifier: "\(SignUpViewController.self)")
+                as? SignUpViewController
+        else {
+            return
+        }
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(signupVC, animated: true)
     }
 }
 

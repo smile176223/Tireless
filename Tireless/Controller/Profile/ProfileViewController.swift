@@ -136,9 +136,12 @@ class ProfileViewController: UIViewController {
                 ofKind: UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: "\(ProfileHeaderView.self)",
                 for: indexPath) as? ProfileHeaderView else { return UICollectionReusableView()}
-        
-            headerView.userImageView.loadImage(self.userInfo?.first?.picture)
-            headerView.userNameLabel.text = self.userInfo?.first?.name
+            if AuthManager.shared.currentUserData?.picture == "" {
+                headerView.userImageView.image = UIImage(named: "TirelessLogo")
+            } else {
+                headerView.userImageView.loadImage(AuthManager.shared.currentUserData?.picture)
+            }
+            headerView.userNameLabel.text = AuthManager.shared.currentUserData?.name
             
             headerView.isUserImageTap = { [weak self] in
                 self?.setUserAlert()
