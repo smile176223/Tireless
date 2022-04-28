@@ -143,6 +143,9 @@ class PlanManageViewController: UIViewController {
                 cell.isDeleteButtonTap = { [weak self] in
                     self?.showDeleteAlert(personalPlan: personalPlan)
                 }
+                cell.isSettingButtonTap = { [weak self] in
+                    self?.showSettingAlert(personalPlan: personalPlan)
+                }
                 switch personalPlan.planName {
                 case "深蹲":
                     cell.planImageView.image = UIImage(named: "pexels_squat")
@@ -225,6 +228,38 @@ class PlanManageViewController: UIViewController {
             var snapshot = self?.dataSource?.snapshot()
             snapshot?.deleteItems([SectionItem.personalPlan(personalPlan)])
             self?.dataSource?.apply(snapshot!, animatingDifferences: false)
+            alertController.dismiss(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true)
+    }
+    
+    private func showSettingAlert(personalPlan: PersonalPlan) {
+        let alertController = UIAlertController(title: "計畫修改",
+                                                message: "可以調整計畫的次數",
+                                                preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "次數"
+            textField.keyboardType = .phonePad
+        }
+        let okAction = UIAlertAction(title: "修改", style: .destructive) { _ in
+            let times = alertController.textFields?[0].text
+            guard let times = times else {
+                return
+            }
+            PlanManager.shared.modifyPlan(planUid: personalPlan.uuid,
+                                          times: times) { result in
+                switch result {
+                case .success(let text):
+                    print(text)
+                case .failure(let error):
+                    print(error)
+                }
+            }
             alertController.dismiss(animated: true)
         }
         let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in

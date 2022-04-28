@@ -96,4 +96,19 @@ class PlanManager {
             completion(.failure(error))
         }
     }
+    
+    func modifyPlan(planUid: String, times: String,
+                    completion: @escaping (Result<String, Error>) -> Void) {
+        let ref = userDB.document(AuthManager.shared.currentUser).collection("Plans")
+        ref.whereField("uuid", isEqualTo: planUid).getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                for document in querySnapshot.documents {
+                    ref.document(document.documentID).setData(["planTimes": times], merge: true)
+                }
+            }
+        }
+    }
 }

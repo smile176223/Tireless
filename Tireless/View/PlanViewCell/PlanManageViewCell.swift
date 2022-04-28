@@ -14,6 +14,8 @@ class PlanManageViewCell: UICollectionViewCell {
     
     var isDeleteButtonTap: (() -> Void)?
     
+    var isSettingButtonTap: (() -> Void)?
+    
     @IBOutlet weak var planImageView: UIImageView!
 
     @IBOutlet weak var planTitleLabel: UILabel!
@@ -35,10 +37,13 @@ class PlanManageViewCell: UICollectionViewCell {
         isStartButtonTap?()
     }
     
-    @IBAction func deleteButtonTap(_ sender: Any) {
+    @IBAction func deleteButtonTap(_ sender: UIButton) {
         isDeleteButtonTap?()
     }
     
+    @IBAction func settingButtonTap(_ sender: UIButton) {
+        isSettingButtonTap?()
+    }
     private func setupLayout() {
         self.layer.cornerRadius = 20
         planImageView.layer.cornerRadius = planImageView.frame.height / 2

@@ -55,4 +55,5 @@ extension PersonalPlan: Hashable {
 struct FinishTime: Codable {
     let day: Int
     let time: Int64
+    let planTimes: String
 }

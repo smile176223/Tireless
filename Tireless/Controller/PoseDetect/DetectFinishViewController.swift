@@ -108,7 +108,9 @@ class DetectFinishViewController: UIViewController {
         let done = round(personalPlan.progress * days) + 1
         let progress = done / days
         self.personalPlan?.progress = progress
-        self.personalPlan?.finishTime.append(FinishTime(day: Int(done), time: Date().millisecondsSince1970))
+        self.personalPlan?.finishTime.append(FinishTime(day: Int(done),
+                                                        time: Date().millisecondsSince1970,
+                                                        planTimes: personalPlan.planTimes))
         updatePlan()
         if progress == 1 {
             finishPlan()
