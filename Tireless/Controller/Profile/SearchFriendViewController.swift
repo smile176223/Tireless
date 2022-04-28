@@ -16,10 +16,16 @@ class SearchFriendViewController: UIViewController {
         }
     }
     
+    let viewModel = SearchFriendViewModel()
+    
+    var checkList = [String]()
+    
+    var friendList: [User]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .themeBG
+        self.tableView.backgroundColor = .themeBG
         
         if #available(iOS 15.0, *) {
             UITableView.appearance().sectionHeaderTopPadding = 0.0
@@ -33,18 +39,42 @@ class SearchFriendViewController: UIViewController {
         
         tableView.register(UINib(nibName: "\(SearchFriendViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(SearchFriendViewCell.self)")
+        
+        viewModel.friendViewModels.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+        
+        makeCheckList()
+    }
+    private func makeCheckList() {
+        guard let friendList = friendList else {
+            return
+        }
+        for friend in friendList {
+            self.checkList.append(friend.userId)
+        }
     }
 }
 
 extension SearchFriendViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        self.viewModel.friendViewModels.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "\(SearchFriendViewCell.self)", for: indexPath) as? SearchFriendViewCell else {
             return UITableViewCell()
+        }
+        let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
+        cell.setup(viewModel: cellViewModel)
+        
+        if checkList.contains(cellViewModel.user.userId) == true {
+            cell.cellAddButon.isHidden = true
+        } else {
+            cell.cellAddButon.isHidden = false
         }
         
         return cell
@@ -74,8 +104,8 @@ extension SearchFriendViewController: UISearchBarDelegate {
         guard let text = searchBar.text else {
             return
         }
+        viewModel.searchFriend(name: text)
         searchBar.resignFirstResponder()
-        print(text)
     }
     
 }

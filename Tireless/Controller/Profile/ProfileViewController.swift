@@ -227,6 +227,7 @@ class ProfileViewController: UIViewController {
         else {
             return
         }
+        searchVC.friendList = self.friendsList
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(searchVC, animated: true)
     }

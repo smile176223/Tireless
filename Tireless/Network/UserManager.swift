@@ -71,16 +71,23 @@ class UserManager {
                         friends.append(firend)
                     }
                 }
+                let fetchGroup = DispatchGroup()
                 var users = [User]()
-                friends.forEach({self.fetchUser(userId: $0.userId) { result in
-                    switch result {
-                    case .success(let user):
-                        users.append(user)
-                    case .failure(let error):
-                        print(error)
+                for friend in friends {
+                    fetchGroup.enter()
+                    self.fetchUser(userId: friend.userId) { result in
+                        switch result {
+                        case .success(let user):
+                            users.append(user)
+                        case .failure(let error):
+                            print(error)
+                        }
+                        fetchGroup.leave()
                     }
+                }
+                fetchGroup.notify(queue: DispatchQueue.main) {
                     completion(.success(users.sorted {$0.name < $1.name}))
-                }})
+                }
             }
         }
     }
