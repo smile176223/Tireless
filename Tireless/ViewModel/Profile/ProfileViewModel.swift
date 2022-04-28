@@ -38,6 +38,17 @@ class ProfileViewModel {
         }
     }
     
+    func deleteFriend(userId: String) {
+        FriendManager.shared.deleteFriend(userId: userId) { result in
+            switch result {
+            case .success(let text):
+                print(text)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     func convertFriendsToViewModels(from friends: [User]) -> [FriendsViewModel] {
         var viewModels = [FriendsViewModel]()
         for friend in friends {

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,20 +19,20 @@
                         <rect key="frame" x="15" y="5" width="384" height="70"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="PDv-4u-Bna">
-                                <rect key="frame" x="50" y="5" width="60" height="60"/>
+                                <rect key="frame" x="30" y="10" width="50" height="50"/>
                                 <color key="backgroundColor" name="themeBG"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="PDv-4u-Bna" secondAttribute="height" id="K3N-kA-DGd"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldo-Lk-hR5">
-                                <rect key="frame" x="130" y="24.5" width="45" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="100" y="21" width="54" height="28"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AE6-df-aVb">
-                                <rect key="frame" x="292" y="14" width="42" height="42"/>
+                                <rect key="frame" x="319" y="17.5" width="35" height="35"/>
                                 <color key="backgroundColor" name="themeBG"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="AE6-df-aVb" secondAttribute="height" id="sox-7b-Fjm"/>
@@ -42,18 +40,21 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="plus" catalog="system"/>
+                                <connections>
+                                    <action selector="addButtonTap:" destination="tre-LP-oqd" eventType="touchUpInside" id="wfU-4I-eRV"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" name="themeBGSecond"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="PDv-4u-Bna" firstAttribute="top" secondItem="Z27-Cu-fdK" secondAttribute="top" constant="5" id="30q-nd-mWq"/>
+                            <constraint firstItem="PDv-4u-Bna" firstAttribute="top" secondItem="Z27-Cu-fdK" secondAttribute="top" constant="10" id="30q-nd-mWq"/>
                             <constraint firstItem="AE6-df-aVb" firstAttribute="centerY" secondItem="PDv-4u-Bna" secondAttribute="centerY" id="9Hz-tM-cqu"/>
-                            <constraint firstItem="PDv-4u-Bna" firstAttribute="leading" secondItem="Z27-Cu-fdK" secondAttribute="leading" constant="50" id="9S6-oC-9DN"/>
+                            <constraint firstItem="PDv-4u-Bna" firstAttribute="leading" secondItem="Z27-Cu-fdK" secondAttribute="leading" constant="30" id="9S6-oC-9DN"/>
                             <constraint firstItem="Ldo-Lk-hR5" firstAttribute="leading" secondItem="PDv-4u-Bna" secondAttribute="trailing" constant="20" id="C7m-A7-ep0"/>
                             <constraint firstItem="AE6-df-aVb" firstAttribute="height" secondItem="PDv-4u-Bna" secondAttribute="height" multiplier="0.7" id="Hg8-5Z-4uz"/>
-                            <constraint firstAttribute="trailing" secondItem="AE6-df-aVb" secondAttribute="trailing" constant="50" id="geN-YC-79s"/>
-                            <constraint firstAttribute="bottom" secondItem="PDv-4u-Bna" secondAttribute="bottom" constant="5" id="jTM-bH-hV6"/>
+                            <constraint firstAttribute="trailing" secondItem="AE6-df-aVb" secondAttribute="trailing" constant="30" id="geN-YC-79s"/>
+                            <constraint firstAttribute="bottom" secondItem="PDv-4u-Bna" secondAttribute="bottom" constant="10" id="jTM-bH-hV6"/>
                             <constraint firstItem="Ldo-Lk-hR5" firstAttribute="centerY" secondItem="PDv-4u-Bna" secondAttribute="centerY" id="kvG-4g-zhq"/>
                         </constraints>
                     </view>
@@ -68,9 +69,9 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellAddButon" destination="AE6-df-aVb" id="b7s-ej-pF0"/>
-                <outlet property="cellUserImageView" destination="PDv-4u-Bna" id="PP3-wH-QvR"/>
-                <outlet property="cellUserName" destination="Ldo-Lk-hR5" id="UTd-Uo-Zcq"/>
                 <outlet property="cellView" destination="Z27-Cu-fdK" id="vf1-43-w3m"/>
+                <outlet property="userImageView" destination="PDv-4u-Bna" id="PP3-wH-QvR"/>
+                <outlet property="userNameLabel" destination="Ldo-Lk-hR5" id="UTd-Uo-Zcq"/>
             </connections>
             <point key="canvasLocation" x="-65.217391304347828" y="112.5"/>
         </tableViewCell>

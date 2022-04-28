@@ -1,5 +1,5 @@
 //
-//  SearchFirendViewCell.swift
+//  InviteFriendViewCell.swift
 //  Tireless
 //
 //  Created by Hao on 2022/4/28.
@@ -7,19 +7,19 @@
 
 import UIKit
 
-class SearchFriendViewCell: UITableViewCell {
+class InviteFriendViewCell: UITableViewCell {
     
     @IBOutlet weak var cellView: UIView!
     
-    @IBOutlet weak var userNameLabel: UILabel!
-    
     @IBOutlet weak var userImageView: UIImageView!
     
-    @IBOutlet weak var cellAddButon: UIButton!
+    @IBOutlet weak var userNameLabel: UILabel!
+    
+    @IBOutlet weak var agreeButton: UIButton!
+    
+    @IBOutlet weak var rejectButton: UIButton!
     
     var viewModel: FriendsViewModel?
-    
-    var isAddButtonTap: (() -> Void)?
     
     override func awakeFromNib() {
         setupLayout()
@@ -29,15 +29,13 @@ class SearchFriendViewCell: UITableViewCell {
         self.viewModel = viewModel
         layoutCell()
     }
-    @IBAction func addButtonTap(_ sender: UIButton) {
-        isAddButtonTap?()
-    }
     
     func setupLayout() {
         cellView.layer.cornerRadius = 20
         userImageView.layer.cornerRadius = userImageView.frame.height / 2
         userImageView.contentMode = .scaleAspectFill
-        cellAddButon.layer.cornerRadius = 15
+        agreeButton.layer.cornerRadius = 15
+        rejectButton.layer.cornerRadius = 15
     }
     
     func layoutCell() {

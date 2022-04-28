@@ -18,13 +18,15 @@ class SearchFriendViewController: UIViewController {
     
     let viewModel = SearchFriendViewModel()
     
-    var checkList = [String]()
+    var checkList = [AuthManager.shared.currentUser]
     
     var friendList: [User]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.backgroundColor = .themeBG
+        self.view.backgroundColor = .themeBG
         self.tableView.backgroundColor = .themeBG
         
         if #available(iOS 15.0, *) {
@@ -68,6 +70,7 @@ extension SearchFriendViewController: UITableViewDelegate, UITableViewDataSource
             withIdentifier: "\(SearchFriendViewCell.self)", for: indexPath) as? SearchFriendViewCell else {
             return UITableViewCell()
         }
+        
         let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
         
@@ -75,6 +78,9 @@ extension SearchFriendViewController: UITableViewDelegate, UITableViewDataSource
             cell.cellAddButon.isHidden = true
         } else {
             cell.cellAddButon.isHidden = false
+        }
+        cell.isAddButtonTap = {
+            FriendManager.shared.inviteFriend(userId: cellViewModel.user.userId)
         }
         
         return cell

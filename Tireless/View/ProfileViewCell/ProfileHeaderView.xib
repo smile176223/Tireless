@@ -50,9 +50,22 @@
                     </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" backgroundImage="magnifyingglass" catalog="system"/>
+                    <state key="normal" backgroundImage="plus.magnifyingglass" catalog="system"/>
                     <connections>
                         <action selector="searchButtonTap:" destination="-1" eventType="touchUpInside" id="X2Z-ZJ-i9k"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fX6-F1-yxw">
+                    <rect key="frame" x="344" y="18.5" width="30" height="31.5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="BXl-Xe-DEQ"/>
+                        <constraint firstAttribute="width" secondItem="fX6-F1-yxw" secondAttribute="height" id="zLu-Gx-jFr"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" backgroundImage="tray.and.arrow.down.fill" catalog="system"/>
+                    <connections>
+                        <action selector="inviteTap:" destination="-1" eventType="touchUpInside" id="eAl-LB-vTz"/>
                     </connections>
                 </button>
             </subviews>
@@ -60,10 +73,12 @@
             <color key="backgroundColor" name="themeBG"/>
             <constraints>
                 <constraint firstItem="fJl-ia-Bkh" firstAttribute="top" secondItem="aYA-W5-ZfE" secondAttribute="top" constant="20" id="HIs-gD-ozb"/>
+                <constraint firstItem="fX6-F1-yxw" firstAttribute="top" secondItem="fJl-ia-Bkh" secondAttribute="top" id="LKW-yZ-Uui"/>
                 <constraint firstItem="Nid-QK-Wu6" firstAttribute="trailing" secondItem="LbI-Eq-RmF" secondAttribute="trailing" constant="40" id="Rnj-ih-nTn"/>
                 <constraint firstItem="MsP-Ln-TSz" firstAttribute="trailing" secondItem="LbI-Eq-RmF" secondAttribute="trailing" id="TM9-PK-aPi"/>
                 <constraint firstItem="LbI-Eq-RmF" firstAttribute="top" secondItem="MsP-Ln-TSz" secondAttribute="bottom" constant="10" id="TgY-Qt-y64"/>
                 <constraint firstItem="fJl-ia-Bkh" firstAttribute="centerX" secondItem="aYA-W5-ZfE" secondAttribute="centerX" id="Uyy-Ud-HgH"/>
+                <constraint firstItem="fX6-F1-yxw" firstAttribute="trailing" secondItem="MsP-Ln-TSz" secondAttribute="trailing" id="Y49-u6-72O"/>
                 <constraint firstItem="LbI-Eq-RmF" firstAttribute="leading" secondItem="Nid-QK-Wu6" secondAttribute="leading" constant="40" id="gEh-G2-eYD"/>
                 <constraint firstItem="NZ7-CQ-F9V" firstAttribute="centerX" secondItem="fJl-ia-Bkh" secondAttribute="centerX" id="pf9-VJ-7pS"/>
                 <constraint firstAttribute="bottom" secondItem="LbI-Eq-RmF" secondAttribute="bottom" constant="15" id="wpJ-oO-J9k"/>
@@ -73,8 +88,9 @@
         </collectionReusableView>
     </objects>
     <resources>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person" catalog="system" width="128" height="117"/>
+        <image name="plus.magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="tray.and.arrow.down.fill" catalog="system" width="128" height="114"/>
         <namedColor name="themeBG">
             <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

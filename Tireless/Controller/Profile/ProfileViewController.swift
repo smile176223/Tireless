@@ -117,7 +117,10 @@ class ProfileViewController: UIViewController {
                 return UICollectionViewCell()
             }
             cell.isSetButtonTap = {
-                self.setButtonAlert()
+                guard let friendsList = self.friendsList else {
+                    return
+                }
+                self.setButtonAlert(userId: friendsList[indexPath.row].userId)
             }
             
             let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
@@ -137,12 +140,16 @@ class ProfileViewController: UIViewController {
             headerView.userImageView.loadImage(self.userInfo?.first?.picture)
             headerView.userNameLabel.text = self.userInfo?.first?.name
             
-            headerView.isUserImageTap = {
-                self.setUserAlert()
+            headerView.isUserImageTap = { [weak self] in
+                self?.setUserAlert()
             }
             
-            headerView.isSearchButtonTap = {
-                self.searchFriendPresent()
+            headerView.isSearchButtonTap = { [weak self] in
+                self?.searchFriendPresent()
+            }
+            
+            headerView.isInviteTap = { [weak self] in
+                self?.invitePresent()
             }
             
             return headerView
@@ -166,15 +173,16 @@ class ProfileViewController: UIViewController {
         return snapshot
     }
     
-    private func setButtonAlert() {
+    private func setButtonAlert(userId: String) {
         let controller = UIAlertController(title: "好友設定", message: nil, preferredStyle: .actionSheet)
-        let names = ["刪除", "封鎖"]
-        for name in names {
-            let action = UIAlertAction(title: name, style: .destructive) { _ in
-                // need to delete and ban user here
-            }
-            controller.addAction(action)
+        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
+            self.viewModel.deleteFriend(userId: userId)
         }
+        controller.addAction(deleteAction)
+        let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
+            
+        }
+        controller.addAction(banAction)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
@@ -231,4 +239,15 @@ class ProfileViewController: UIViewController {
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(searchVC, animated: true)
     }
+    
+    private func invitePresent() {
+        guard let inviteVC = storyboard?.instantiateViewController(withIdentifier: "\(InviteFriendViewController.self)")
+                as? InviteFriendViewController
+        else {
+            return
+        }
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(inviteVC, animated: true)
+    }
+    
 }
