@@ -48,11 +48,12 @@ class FriendManager {
     func checkReceive(completion: @escaping (Result<[User], Error>) -> Void) {
         let ref = userDB.document(AuthManager.shared.currentUser).collection("ReceiveInvite")
         ref.addSnapshotListener { querySnapshot, error in
+            var users = [User]()
+            completion(.success(users))
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
-                print(error)
+                completion(.failure(error))
             } else {
-                var users = [User]()
                 for document in querySnapshot.documents {
                     if let user = try? document.data(as: UserId.self, decoder: Firestore.Decoder()) {
                         UserManager.shared.fetchUser(userId: user.userId) { result in
@@ -72,6 +73,36 @@ class FriendManager {
     
     func addFriend() {
         
+    }
+    
+    func rejectInvite(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+        let ref = userDB.document(AuthManager.shared.currentUser).collection("ReceiveInvite")
+        let otherRef = userDB.document(userId).collection("InviteFriends")
+//        ref.whereField("userId", isEqualTo: userId).getDocuments { querySnapshot, error in
+//            guard let querySnapshot = querySnapshot else { return }
+//            if let error = error {
+//                completion(.failure(error))
+//                return
+//            } else {
+//                for document in querySnapshot.documents {
+//                    document.reference.delete()
+//                }
+//            }
+//        }
+//        otherRef.whereField("userId", isEqualTo: AuthManager.shared.currentUser).getDocuments { querySnapshot, error in
+//            guard let querySnapshot = querySnapshot else { return }
+//            if let error = error {
+//                completion(.failure(error))
+//                return
+//            } else {
+//                for document in querySnapshot.documents {
+//                    document.reference.delete()
+//                }
+//            }
+//        }
+        ref.document(userId).delete()
+        otherRef.document(AuthManager.shared.currentUser).delete()
+        completion(.success("Success reject"))
     }
     
     func deleteFriend(userId: String, completion: @escaping (Result<String, Error>) -> Void) {

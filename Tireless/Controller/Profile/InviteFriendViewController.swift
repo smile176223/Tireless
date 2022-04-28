@@ -53,6 +53,21 @@ extension InviteFriendViewController: UITableViewDelegate, UITableViewDataSource
         let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
         
+        cell.isAgreeButtonTap = {
+            
+        }
+        
+        cell.isRejectButtonTap = {
+            FriendManager.shared.rejectInvite(userId: cellViewModel.user.userId) { result in
+                switch result {
+                case .success(let text):
+                    print(text)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

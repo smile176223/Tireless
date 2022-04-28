@@ -21,6 +21,10 @@ class InviteFriendViewCell: UITableViewCell {
     
     var viewModel: FriendsViewModel?
     
+    var isAgreeButtonTap: (() -> Void)?
+    
+    var isRejectButtonTap: (() -> Void)?
+    
     override func awakeFromNib() {
         setupLayout()
     }
@@ -46,4 +50,13 @@ class InviteFriendViewCell: UITableViewCell {
         }
         userNameLabel.text = viewModel?.user.name
     }
+    
+    @IBAction func agreeButtonTap(_ sender: UIButton) {
+        isAgreeButtonTap?()
+    }
+    
+    @IBAction func rejectButtonTap(_ sender: UIButton) {
+        isRejectButtonTap?()
+    }
+    
 }

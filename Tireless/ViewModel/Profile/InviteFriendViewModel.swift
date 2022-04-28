@@ -4,7 +4,6 @@
 //
 //  Created by Hao on 2022/4/28.
 //
-
 import Foundation
 
 class InviteFriendViewModel {
