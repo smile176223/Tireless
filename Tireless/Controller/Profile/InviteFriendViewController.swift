@@ -54,18 +54,11 @@ extension InviteFriendViewController: UITableViewDelegate, UITableViewDataSource
         cell.setup(viewModel: cellViewModel)
         
         cell.isAgreeButtonTap = {
-            
+            FriendManager.shared.addFriend(userId: cellViewModel.user.userId)
         }
         
         cell.isRejectButtonTap = {
-            FriendManager.shared.rejectInvite(userId: cellViewModel.user.userId) { result in
-                switch result {
-                case .success(let text):
-                    print(text)
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            FriendManager.shared.rejectInvite(userId: cellViewModel.user.userId)
         }
         
         return cell

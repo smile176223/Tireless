@@ -71,38 +71,23 @@ class FriendManager {
         }
     }
     
-    func addFriend() {
-        
+    func addFriend(userId: String) {
+        let ref = userDB.document(AuthManager.shared.currentUser).collection("Friends")
+        let otherRef = userDB.document(userId).collection("Friends")
+        ref.document().setData(["userId": userId])
+        otherRef.document().setData(["userId": AuthManager.shared.currentUser])
+        rejectInvite(userId: userId)
+        let rejectRef = userDB.document(userId).collection("ReceiveInvite")
+        let rejectOtherRef = userDB.document(AuthManager.shared.currentUser).collection("InviteFriends")
+        rejectRef.document(AuthManager.shared.currentUser).delete()
+        rejectOtherRef.document(userId).delete()
     }
     
-    func rejectInvite(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func rejectInvite(userId: String) {
         let ref = userDB.document(AuthManager.shared.currentUser).collection("ReceiveInvite")
         let otherRef = userDB.document(userId).collection("InviteFriends")
-//        ref.whereField("userId", isEqualTo: userId).getDocuments { querySnapshot, error in
-//            guard let querySnapshot = querySnapshot else { return }
-//            if let error = error {
-//                completion(.failure(error))
-//                return
-//            } else {
-//                for document in querySnapshot.documents {
-//                    document.reference.delete()
-//                }
-//            }
-//        }
-//        otherRef.whereField("userId", isEqualTo: AuthManager.shared.currentUser).getDocuments { querySnapshot, error in
-//            guard let querySnapshot = querySnapshot else { return }
-//            if let error = error {
-//                completion(.failure(error))
-//                return
-//            } else {
-//                for document in querySnapshot.documents {
-//                    document.reference.delete()
-//                }
-//            }
-//        }
         ref.document(userId).delete()
         otherRef.document(AuthManager.shared.currentUser).delete()
-        completion(.success("Success reject"))
     }
     
     func deleteFriend(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
