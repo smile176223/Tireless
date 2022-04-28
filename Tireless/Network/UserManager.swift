@@ -17,7 +17,7 @@ class UserManager {
     
     lazy var userDB = Firestore.firestore().collection("Users")
     
-    func checkUserExist(userId: String, exist: @escaping (() -> Void), noteExist: @escaping (() -> Void)) {
+    func checkUserExist(userId: String, exist: @escaping (() -> Void), notExist: @escaping (() -> Void)) {
         userDB.document(userId).getDocument { documentSnapshot, error in
             guard let documentSnapshot = documentSnapshot else { return }
             if let error = error {
@@ -26,7 +26,7 @@ class UserManager {
                 if documentSnapshot.exists == true {
                     exist()
                 } else {
-                    noteExist()
+                    notExist()
                 }
             }
         }
@@ -35,7 +35,7 @@ class UserManager {
     func createUser(user: User, completion: @escaping (Result<String, Error>) -> Void) {
         checkUserExist(userId: user.userId) {
             return
-        } noteExist: {
+        } notExist: {
             let document = self.userDB.document(user.userId)
             do {
                 try document.setData(from: user)
@@ -59,19 +59,35 @@ class UserManager {
         }
     }
     
-    func fetchFriends(userId: String, completion: @escaping (Result<[Friends], Error>) -> Void) {
-        userDB.document(userId).collection("Friends").getDocuments { querySnapshot, error in
+    func fetchFriends(userId: String, completion: @escaping (Result<[User], Error>) -> Void) {
+        userDB.document(userId).collection("Friends").addSnapshotListener { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))
             } else {
-                var friends = [Friends]()
+                var friends = [Friend]()
                 for document in querySnapshot.documents {
-                    if let firend = try? document.data(as: Friends.self, decoder: Firestore.Decoder()) {
+                    if let firend = try? document.data(as: Friend.self, decoder: Firestore.Decoder()) {
                         friends.append(firend)
                     }
                 }
-                completion(.success(friends))
+                let fetchGroup = DispatchGroup()
+                var users = [User]()
+                for friend in friends {
+                    fetchGroup.enter()
+                    self.fetchUser(userId: friend.userId) { result in
+                        switch result {
+                        case .success(let user):
+                            users.append(user)
+                        case .failure(let error):
+                            print(error)
+                        }
+                        fetchGroup.leave()
+                    }
+                }
+                fetchGroup.notify(queue: DispatchQueue.main) {
+                    completion(.success(users.sorted {$0.name < $1.name}))
+                }
             }
         }
     }

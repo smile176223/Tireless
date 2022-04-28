@@ -17,6 +17,10 @@ class ProfileHeaderView: UICollectionReusableView {
     
     var isUserImageTap: (() -> Void)?
     
+    var isSearchButtonTap: (() -> Void)?
+    
+    var isInviteTap: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -46,6 +50,14 @@ class ProfileHeaderView: UICollectionReusableView {
         isUserImageTap?()
     }
     
+    @IBAction func searchButtonTap(_ sender: UIButton) {
+        isSearchButtonTap?()
+    }
+    
+    @IBAction func inviteTap(_ sender: Any) {
+        isInviteTap?()
+    }
+
     private func loadViewFromNib() -> UIView? {
         let nib = UINib(nibName: "\(ProfileHeaderView.self)", bundle: nil)
         return nib.instantiate(withOwner: self, options: nil).first as? UIView

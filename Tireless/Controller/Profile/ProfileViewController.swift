@@ -24,7 +24,7 @@ class ProfileViewController: UIViewController {
             collectionView.reloadData()
         }
     }
-    var friendsList: [Friends]? {
+    var friendsList: [User]? {
         didSet {
             dataSource?.apply(snapshot(), animatingDifferences: false)
         }
@@ -35,8 +35,12 @@ class ProfileViewController: UIViewController {
     }
     
     enum SectionItem: Hashable {
-        case friends(Friends)
+        case friends(User)
     }
+    
+//    enum SectionItem: Hashable {
+//        case friends(FriendsViewModel)
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,12 +52,12 @@ class ProfileViewController: UIViewController {
         configureDataSourceProvider()
         configureDataSourceSnapshot()
         
-        viewModel.userInfo.bind { user in
-            self.userInfo = user
+        viewModel.userInfo.bind { [weak self] user in
+            self?.userInfo = user
         }
         
-        viewModel.friends.bind { friends in
-            self.friendsList = friends
+        viewModel.friends.bind { [weak self] friends in
+            self?.friendsList = friends
         }
     }
     
@@ -107,20 +111,20 @@ class ProfileViewController: UIViewController {
     
     private func configureDataSource() {
         dataSource = DataSource(collectionView: collectionView,
-                                cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
+                                cellProvider: { (collectionView, indexPath, _) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(FriendListViewCell.self)",
                                                                 for: indexPath) as? FriendListViewCell else {
                 return UICollectionViewCell()
             }
             cell.isSetButtonTap = {
-                self.setButtonAlert()
+                guard let friendsList = self.friendsList else {
+                    return
+                }
+                self.setButtonAlert(userId: friendsList[indexPath.row].userId)
             }
             
-            switch item {
-            case .friends(let friends):
-                cell.friendImageView.loadImage(friends.picture)
-                cell.friendNameLabel.text = friends.name
-            }
+            let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
+            cell.setup(viewModel: cellViewModel)
             
             return cell
         })
@@ -136,8 +140,16 @@ class ProfileViewController: UIViewController {
             headerView.userImageView.loadImage(self.userInfo?.first?.picture)
             headerView.userNameLabel.text = self.userInfo?.first?.name
             
-            headerView.isUserImageTap = {
-                self.setUserAlert()
+            headerView.isUserImageTap = { [weak self] in
+                self?.setUserAlert()
+            }
+            
+            headerView.isSearchButtonTap = { [weak self] in
+                self?.searchFriendPresent()
+            }
+            
+            headerView.isInviteTap = { [weak self] in
+                self?.invitePresent()
             }
             
             return headerView
@@ -151,21 +163,26 @@ class ProfileViewController: UIViewController {
     private func snapshot() -> Snapshot {
         var snapshot = Snapshot()
         snapshot.appendSections([.user])
+//        viewModel.friendViewModels.bind { friendsList in
+//            snapshot.appendItems(friendsList.map({SectionItem.friends($0)}), toSection: .user)
+//            self.dataSource?.apply(snapshot, animatingDifferences: false)
+//        }
         if let friendsList = friendsList {
             snapshot.appendItems(friendsList.map({SectionItem.friends($0)}), toSection: .user)
         }
         return snapshot
     }
     
-    private func setButtonAlert() {
+    private func setButtonAlert(userId: String) {
         let controller = UIAlertController(title: "好友設定", message: nil, preferredStyle: .actionSheet)
-        let names = ["刪除", "封鎖"]
-        for name in names {
-            let action = UIAlertAction(title: name, style: .destructive) { _ in
-                // need to delete and ban user here
-            }
-            controller.addAction(action)
+        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
+            self.viewModel.deleteFriend(userId: userId)
         }
+        controller.addAction(deleteAction)
+        let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
+            
+        }
+        controller.addAction(banAction)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
@@ -211,4 +228,26 @@ class ProfileViewController: UIViewController {
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
     }
+    
+    private func searchFriendPresent() {
+        guard let searchVC = storyboard?.instantiateViewController(withIdentifier: "\(SearchFriendViewController.self)")
+                as? SearchFriendViewController
+        else {
+            return
+        }
+        searchVC.friendList = self.friendsList
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(searchVC, animated: true)
+    }
+    
+    private func invitePresent() {
+        guard let inviteVC = storyboard?.instantiateViewController(withIdentifier: "\(InviteFriendViewController.self)")
+                as? InviteFriendViewController
+        else {
+            return
+        }
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(inviteVC, animated: true)
+    }
+    
 }

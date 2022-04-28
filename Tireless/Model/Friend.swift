@@ -7,20 +7,16 @@
 
 import Foundation
 
-struct Friends: Codable {
+struct Friend: Codable {
     let userId: String
-    let name: String
-    let picture: String
     
     enum CodingKeys: String, CodingKey {
         case userId
-        case name
-        case picture
     }
 }
 
-extension Friends: Hashable {
-    static func == (lhs: Friends, rhs: Friends) -> Bool {
+extension Friend: Hashable {
+    static func == (lhs: Friend, rhs: Friend) -> Bool {
         return lhs.userId == rhs.userId
     }
     
