@@ -32,12 +32,11 @@ class AuthViewController: UIViewController {
     
     }
     @IBAction func signInButtonTap(_ sender: UIButton) {
-        guard let emailText = emailTextField.text else {
+        guard let emailText = emailTextField.text,
+              let passwordText = passwordTextField.text else {
             return
         }
-        guard let passwordText = passwordTextField.text else {
-            return
-        }
+
         AuthManager.shared.signInWithFirebase(email: emailText, password: passwordText) { result in
             switch result {
             case .success(let result):
@@ -94,7 +93,6 @@ class AuthViewController: UIViewController {
                                                                   attributes: [.foregroundColor: UIColor.darkGray])
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password",
                                                                      attributes: [.foregroundColor: UIColor.darkGray])
-        
     }
 }
 
