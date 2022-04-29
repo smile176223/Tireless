@@ -13,7 +13,7 @@ class GroupPlanViewController: UIViewController {
     
     var joinGroup: JoinGroup?
     
-    var plan: Plans?
+    var plan: DefaultPlans?
     
     var joinUsers: [User]? {
         didSet {
@@ -77,7 +77,7 @@ class GroupPlanViewController: UIViewController {
                     print(error)
                 }
             } else {
-                var joinUsersId = [String]()
+                var joinUsersId = [AuthManager.shared.currentUser]
                 self?.joinUsers?.forEach({joinUsersId.append($0.userId)})
                 self?.viewModel.getGroupPlan(name: joinGroup.planName,
                                              times: joinGroup.planTimes,

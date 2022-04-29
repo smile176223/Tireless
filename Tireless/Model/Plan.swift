@@ -13,14 +13,14 @@ struct WeeklyDays: Hashable {
 }
 
 // for default plans
-struct Plans: Hashable {
+struct DefaultPlans: Hashable {
     let planName: String
     let planDetail: String
     let planImage: String
     let planLottie: String
 }
 
-struct PersonalPlan: Codable {
+struct Plan: Codable {
     var planName: String
     var planTimes: String
     var planDays: String
@@ -42,8 +42,8 @@ struct PersonalPlan: Codable {
     }
 }
 
-extension PersonalPlan: Hashable {
-    static func == (lhs: PersonalPlan, rhs: PersonalPlan) -> Bool {
+extension Plan: Hashable {
+    static func == (lhs: Plan, rhs: Plan) -> Bool {
         return lhs.uuid == rhs.uuid
     }
     

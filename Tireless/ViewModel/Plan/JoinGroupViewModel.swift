@@ -18,6 +18,15 @@ class JoinGroupViewModel {
                                          joinUserId: [""],
                                          uuid: "")
     
+    var personalPlan: Plan = Plan(planName: "",
+                                                  planTimes: "",
+                                                  planDays: "",
+                                                  createdTime: -1,
+                                                  planGroup: true,
+                                                  progress: 0.0,
+                                                  finishTime: [],
+                                                  uuid: "")
+    
     func getGroupPlan(name: String, times: String, days: String, joinUserId: [String], uuid: String) {
         self.groupPlan.planName = name
         self.groupPlan.planTimes = times
@@ -25,6 +34,14 @@ class JoinGroupViewModel {
         self.groupPlan.createdTime = Date().millisecondsSince1970
         self.groupPlan.joinUserId = joinUserId
         self.groupPlan.uuid = uuid
+    }
+    
+    func setGroupPlan(name: String, times: String, days: String, uuid: String) {
+        self.personalPlan.planName = name
+        self.personalPlan.planTimes = times
+        self.personalPlan.planDays = days
+        self.personalPlan.createdTime = Date().millisecondsSince1970
+        self.personalPlan.uuid = uuid
     }
     
     func joinGroup(uuid: String, success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {

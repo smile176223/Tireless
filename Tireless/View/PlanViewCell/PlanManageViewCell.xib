@@ -95,6 +95,7 @@
                 <outlet property="planDeleteButton" destination="gdJ-y9-adP" id="D2M-kf-pIn"/>
                 <outlet property="planImageView" destination="ztc-o5-EjR" id="Vie-w7-79m"/>
                 <outlet property="planProgressView" destination="eV4-0A-Itr" id="pVN-4v-4wL"/>
+                <outlet property="planSettingButton" destination="N7W-Gp-Czv" id="vK3-Mz-eXv"/>
                 <outlet property="planStartButton" destination="Mje-E9-i75" id="0nT-id-NAR"/>
                 <outlet property="planTimesLabel" destination="rjl-aV-WM5" id="PlH-Xs-Mjj"/>
                 <outlet property="planTitleLabel" destination="h6t-93-SL0" id="72c-Ka-yDR"/>

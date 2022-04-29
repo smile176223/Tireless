@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import MapKit
 
 class PlanManageViewController: UIViewController {
     
@@ -23,14 +22,14 @@ class PlanManageViewController: UIViewController {
     private var planEmptyView = UIImageView()
     
     enum SectionItem: Hashable {
-        case personalPlan(PersonalPlan)
+        case plan(Plan)
         case groupPlan(GroupPlan)
     }
     
-    var personalPlans: [PersonalPlan]? {
+    var plan: [Plan]? {
         didSet {
             dataSource?.apply(snapshot(), animatingDifferences: false)
-            if personalPlans == [], groupPlans == [] {
+            if plan == [], groupPlans == [] {
                 planEmptyView.isHidden = false
                 collectionView.isHidden = true
             } else {
@@ -43,7 +42,7 @@ class PlanManageViewController: UIViewController {
     private var groupPlans: [GroupPlan]? {
         didSet {
             dataSource?.apply(snapshot(), animatingDifferences: false)
-            if personalPlans == [], groupPlans == [] {
+            if plan == [], groupPlans == [] {
                 planEmptyView.isHidden = false
                 collectionView.isHidden = true
             } else {
@@ -67,8 +66,8 @@ class PlanManageViewController: UIViewController {
         configureDataSourceProvider()
         configureDataSourceSnapshot()
         
-        viewModel.personalPlan.bind { [weak self] personalPlans in
-            self?.personalPlans = personalPlans
+        viewModel.plan.bind { [weak self] plan in
+            self?.plan = plan
         }
         
         viewModel.groupPlan.bind { [weak self] groupPlans in
@@ -134,39 +133,66 @@ class PlanManageViewController: UIViewController {
                                                                 for: indexPath) as? PlanManageViewCell else {
                 return UICollectionViewCell()
             }
+            
             switch item {
-            case .personalPlan(let personalPlan):
+            case .plan(let plan):
+                cell.planDeleteButton.isHidden = false
+                cell.planSettingButton.isHidden = false
                 cell.isStartButtonTap = { [weak self] in
-                    self?.present(target: personalPlan.planTimes, personalPlan: personalPlan)
+                    self?.present(target: plan.planTimes, plan: plan)
                 }
                 
                 cell.isDeleteButtonTap = { [weak self] in
-                    self?.showDeleteAlert(personalPlan: personalPlan)
+                    self?.showDeleteAlert(plan: plan)
                 }
                 cell.isSettingButtonTap = { [weak self] in
-                    self?.showSettingAlert(personalPlan: personalPlan)
+                    self?.showSettingAlert(plan: plan)
                 }
-                switch personalPlan.planName {
+                switch plan.planName {
                 case "深蹲":
                     cell.planImageView.image = UIImage(named: "pexels_squat")
-                    cell.planTimesLabel.text = "\(personalPlan.planTimes)次/\(personalPlan.planDays)天"
+                    cell.planTimesLabel.text = "\(plan.planTimes)次/\(plan.planDays)天"
                 case "棒式":
                     cell.planImageView.image = UIImage(named: "pexels_plank")
-                    cell.planTimesLabel.text = "\(personalPlan.planTimes)秒/\(personalPlan.planDays)天"
+                    cell.planTimesLabel.text = "\(plan.planTimes)秒/\(plan.planDays)天"
                 case "伏地挺身":
                     cell.planImageView.image = UIImage(named: "pexels_pushup")
-                    cell.planTimesLabel.text = "\(personalPlan.planTimes)次/\(personalPlan.planDays)天"
-                    
+                    cell.planTimesLabel.text = "\(plan.planTimes)次/\(plan.planDays)天"
                 default:
                     cell.planImageView.image = UIImage(named: "Cover")
                 }
                 
-                cell.planTitleLabel.text = "\(personalPlan.planName)"
-                cell.planProgressView.progress = Float(personalPlan.progress)
+                cell.planTitleLabel.text = "\(plan.planName)"
+                cell.planProgressView.alpha = 1
+                cell.planProgressView.progress = Float(plan.progress)
                 
                 return cell
             case .groupPlan(let groupPlan):
+                cell.planSettingButton.isHidden = true
+                if groupPlan.createdUserId == AuthManager.shared.currentUser {
+                    cell.planDeleteButton.isHidden = false
+                } else {
+                    cell.planDeleteButton.isHidden = true
+                }
+                cell.isStartButtonTap = { [weak self] in
+                    self?.present(target: groupPlan.planTimes, groupPlan: groupPlan)
+                }
+                
                 cell.planTitleLabel.text = groupPlan.planName
+                switch groupPlan.planName {
+                case "深蹲":
+                    cell.planImageView.image = UIImage(named: "pexels_squat")
+                    cell.planTimesLabel.text = "\(groupPlan.planTimes)次/\(groupPlan.planDays)天"
+                case "棒式":
+                    cell.planImageView.image = UIImage(named: "pexels_plank")
+                    cell.planTimesLabel.text = "\(groupPlan.planTimes)秒/\(groupPlan.planDays)天"
+                case "伏地挺身":
+                    cell.planImageView.image = UIImage(named: "pexels_pushup")
+                    cell.planTimesLabel.text = "\(groupPlan.planTimes)次/\(groupPlan.planDays)天"
+                default:
+                    cell.planImageView.image = UIImage(named: "Cover")
+                }
+                cell.planProgressView.alpha = 0
             }
             return cell
         })
@@ -195,9 +221,9 @@ class PlanManageViewController: UIViewController {
     private func snapshot() -> Snapshot {
         var snapshot = Snapshot()
         snapshot.appendSections([0, 1])
-        if let personalPlans = personalPlans {
-            snapshot.appendItems(personalPlans.map({SectionItem.personalPlan($0)}), toSection: 0)
-            snapshot.reloadItems(personalPlans.map({SectionItem.personalPlan($0)}))
+        if let plan = plan {
+            snapshot.appendItems(plan.map({SectionItem.plan($0)}), toSection: 0)
+            snapshot.reloadItems(plan.map({SectionItem.plan($0)}))
         }
         if let groupPlans = groupPlans {
             snapshot.appendItems(groupPlans.map({SectionItem.groupPlan($0)}), toSection: 1)
@@ -206,7 +232,7 @@ class PlanManageViewController: UIViewController {
         return snapshot
     }
     
-    private func present(target: String, personalPlan: PersonalPlan) {
+    private func present(target: String, plan: Plan? = nil, groupPlan: GroupPlan? = nil) {
         guard let poseVC = UIStoryboard.home.instantiateViewController(
             withIdentifier: "\(PoseDetectViewController.self)")
                 as? PoseDetectViewController
@@ -214,19 +240,20 @@ class PlanManageViewController: UIViewController {
             return
         }
         poseVC.planTarget = Int(target) ?? 0
-        poseVC.personalPlan = personalPlan
+        poseVC.plan = plan
+        poseVC.groupPlan = groupPlan
         poseVC.modalPresentationStyle = .fullScreen
         self.present(poseVC, animated: true)
     }
     
-    private func showDeleteAlert(personalPlan: PersonalPlan) {
+    private func showDeleteAlert(plan: Plan) {
         let alertController = UIAlertController(title: "確認刪除!",
                                                 message: "刪除的計畫無法再度復原!",
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: "確定", style: .destructive) { [weak self] _ in
-            self?.viewModel.deletePlan(uuid: personalPlan.uuid)
+            self?.viewModel.deletePlan(uuid: plan.uuid)
             var snapshot = self?.dataSource?.snapshot()
-            snapshot?.deleteItems([SectionItem.personalPlan(personalPlan)])
+            snapshot?.deleteItems([SectionItem.plan(plan)])
             self?.dataSource?.apply(snapshot!, animatingDifferences: false)
             alertController.dismiss(animated: true)
         }
@@ -238,7 +265,7 @@ class PlanManageViewController: UIViewController {
         self.present(alertController, animated: true)
     }
     
-    private func showSettingAlert(personalPlan: PersonalPlan) {
+    private func showSettingAlert(plan: Plan) {
         let alertController = UIAlertController(title: "計畫修改",
                                                 message: "可以調整計畫的次數",
                                                 preferredStyle: .alert)
@@ -251,7 +278,7 @@ class PlanManageViewController: UIViewController {
             guard let times = times else {
                 return
             }
-            PlanManager.shared.modifyPlan(planUid: personalPlan.uuid,
+            PlanManager.shared.modifyPlan(planUid: plan.uuid,
                                           times: times) { result in
                 switch result {
                 case .success(let text):

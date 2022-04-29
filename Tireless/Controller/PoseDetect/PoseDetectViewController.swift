@@ -42,7 +42,9 @@ class PoseDetectViewController: UIViewController {
     
     var planTarget: Int = 0
     
-    var personalPlan: PersonalPlan?
+    var plan: Plan?
+    
+    var groupPlan: GroupPlan?
     
     private var counter = 0 {
         didSet {
@@ -310,7 +312,7 @@ class PoseDetectViewController: UIViewController {
             return
         }
         showAlert.videoURL = videoURL
-        showAlert.personalPlan = personalPlan
+        showAlert.plan = plan
         if isUserRejectRecording == true {
             showAlert.isUserRejectRecording = true
         }

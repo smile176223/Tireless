@@ -19,7 +19,7 @@ class JoinGroupManager {
     lazy var userDB = Firestore.firestore().collection("Users")
     
     func fetchFriendsPlan(userId: String, completion: @escaping (Result<[JoinGroup], Error>) -> Void) {
-        userDB.document(userId).collection("friends").getDocuments { [weak self] querySnapshot, error in
+        userDB.document(userId).collection("Friends").getDocuments { [weak self] querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 print(error)

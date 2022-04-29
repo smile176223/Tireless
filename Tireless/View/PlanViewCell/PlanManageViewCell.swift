@@ -26,6 +26,8 @@ class PlanManageViewCell: UICollectionViewCell {
 
     @IBOutlet weak var planDeleteButton: UIButton!
     
+    @IBOutlet weak var planSettingButton: UIButton!
+    
     @IBOutlet weak var planTimesLabel: UILabel!
     
     override func awakeFromNib() {

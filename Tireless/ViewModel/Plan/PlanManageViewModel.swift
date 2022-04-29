@@ -9,15 +9,15 @@ import Foundation
 
 class PlanManageViewModel {
     
-    var personalPlan = Box([PersonalPlan]())
+    var plan = Box([Plan]())
     
     var groupPlan = Box([GroupPlan]())
 
     func fetchPlan() {
         PlanManager.shared.fetchPlan(userId: AuthManager.shared.currentUser) { result in
             switch result {
-            case .success(let personalPlan):
-                self.personalPlan.value = personalPlan
+            case .success(let plan):
+                self.plan.value = plan
                 
             case .failure(let error):
                 print(error)
@@ -46,12 +46,12 @@ class PlanManageViewModel {
         }
     }
     
-    func updatePlan(personalPlan: PersonalPlan) {
-        PlanManager.shared.updatePlan(userId: AuthManager.shared.currentUser, personalPlan: personalPlan) { result in
+    func updatePlan(plan: Plan) {
+        PlanManager.shared.updatePlan(userId: AuthManager.shared.currentUser, plan: plan) { result in
             switch result {
             case .success(let success):
-                if personalPlan.progress == 1 {
-                    self.deletePlan(uuid: personalPlan.uuid)
+                if plan.progress == 1 {
+                    self.deletePlan(uuid: plan.uuid)
                 }
                 print(success)
                 
@@ -61,8 +61,8 @@ class PlanManageViewModel {
         }
     }
     
-    func finishPlan(personalPlan: PersonalPlan) {
-        PlanManager.shared.finishPlan(userId: AuthManager.shared.currentUser, personalPlan: personalPlan) { result in
+    func finishPlan(plan: Plan) {
+        PlanManager.shared.finishPlan(userId: AuthManager.shared.currentUser, plan: plan) { result in
             switch result {
             case .success(let success):
                 print(success)

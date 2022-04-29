@@ -145,7 +145,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
     func finishPresent() {
         self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
         if let tabBarController = self.presentingViewController as? UITabBarController {
-            tabBarController.selectedIndex = 4
+            tabBarController.selectedIndex = 3
         }
     }
     

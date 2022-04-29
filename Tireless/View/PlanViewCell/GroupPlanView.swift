@@ -153,7 +153,7 @@ class GroupPlanView: UIView {
         isLeaveButtonTap?()
     }
     
-    func setupLayout(joinGroup: JoinGroup, plan: Plans) {
+    func setupLayout(joinGroup: JoinGroup, plan: DefaultPlans) {
         imageView.image = UIImage(named: plan.planImage)
         titleLabel.text = joinGroup.planName
         infoLabel.text = plan.planDetail
