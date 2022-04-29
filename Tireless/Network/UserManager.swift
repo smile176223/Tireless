@@ -119,16 +119,16 @@ class UserManager {
                 }
             }
         }
-        groupPlanDB.whereField("joinUserId", arrayContains: userId).getDocuments { querySnapshot, error in
+        groupPlanDB.whereField("joinUsers", arrayContains: userId).getDocuments { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))
                 return
             } else {
                 for document in querySnapshot.documents {
-                    if var data = try? document.data(as: GroupPlan.self, decoder: Firestore.Decoder()) {
-                        data.joinUserId.removeAll { joinUserId in
-                            return joinUserId == userId
+                    if var data = try? document.data(as: GroupPlanUser.self, decoder: Firestore.Decoder()) {
+                        data.joinUsers.removeAll { joinUsers in
+                            return joinUsers == userId
                         }
                         try? document.reference.setData(from: data)
                     }

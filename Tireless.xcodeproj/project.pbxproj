@@ -63,6 +63,7 @@
 		FF3F77FA281AE1DE00D8360A /* InviteFriendViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3F77F9281AE1DE00D8360A /* InviteFriendViewCell.xib */; };
 		FF3F77FC281AE50100D8360A /* InviteFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77FB281AE50100D8360A /* InviteFriendViewModel.swift */; };
 		FF3F77FE281B006700D8360A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77FD281B006700D8360A /* SignUpViewController.swift */; };
+		FF3F7803281C1F0200D8360A /* LoadingLottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7802281C1F0200D8360A /* LoadingLottie.swift */; };
 		FF3FBE4C280FA83900E6B5DC /* HomeDailyViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */; };
 		FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */; };
 		FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */; };
@@ -103,7 +104,6 @@
 		FF3FBEB12815D38E00E6B5DC /* GroupPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB02815D38E00E6B5DC /* GroupPlanView.swift */; };
 		FF3FBEB32815E29E00E6B5DC /* JoinGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB22815E29E00E6B5DC /* JoinGroupViewModel.swift */; };
 		FF3FBEB52816F52C00E6B5DC /* JoinGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB42816F52C00E6B5DC /* JoinGroup.swift */; };
-		FF3FBEB728170A8600E6B5DC /* GroupPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB628170A8600E6B5DC /* GroupPlanViewModel.swift */; };
 		FF3FBEBC2817925300E6B5DC /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBEBB2817925300E6B5DC /* Auth.storyboard */; };
 		FF3FBEBF2817927000E6B5DC /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */; };
 		FF3FBEC22817DEDB00E6B5DC /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */; };
@@ -174,6 +174,7 @@
 		FF3F77F9281AE1DE00D8360A /* InviteFriendViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InviteFriendViewCell.xib; sourceTree = "<group>"; };
 		FF3F77FB281AE50100D8360A /* InviteFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendViewModel.swift; sourceTree = "<group>"; };
 		FF3F77FD281B006700D8360A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		FF3F7802281C1F0200D8360A /* LoadingLottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingLottie.swift; sourceTree = "<group>"; };
 		FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDailyViewCell.xib; sourceTree = "<group>"; };
 		FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDailyViewCell.swift; sourceTree = "<group>"; };
 		FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
@@ -214,7 +215,6 @@
 		FF3FBEB02815D38E00E6B5DC /* GroupPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanView.swift; sourceTree = "<group>"; };
 		FF3FBEB22815E29E00E6B5DC /* JoinGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupViewModel.swift; sourceTree = "<group>"; };
 		FF3FBEB42816F52C00E6B5DC /* JoinGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroup.swift; sourceTree = "<group>"; };
-		FF3FBEB628170A8600E6B5DC /* GroupPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanViewModel.swift; sourceTree = "<group>"; };
 		FF3FBEBA2817921400E6B5DC /* Tireless.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tireless.entitlements; sourceTree = "<group>"; };
 		FF3FBEBB2817925300E6B5DC /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +261,7 @@
 		FF14448E28009B480027F560 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FF3F7801281C1EE600D8360A /* Lottie */,
 				FF3FBE8C2814F8D400E6B5DC /* ProfileViewCell */,
 				FF3FBE542810646500E6B5DC /* PlanViewCell */,
 				FF2FE0EC280ED80500F8890D /* HomeViewCell */,
@@ -527,6 +528,14 @@
 			path = CryptoKit;
 			sourceTree = "<group>";
 		};
+		FF3F7801281C1EE600D8360A /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				FF3F7802281C1F0200D8360A /* LoadingLottie.swift */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		FF3FBE542810646500E6B5DC /* PlanViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -566,7 +575,6 @@
 				FF3FBE7728128C2700E6B5DC /* PlanDetailViewModel.swift */,
 				FF3FBE792812972100E6B5DC /* PlanManageViewModel.swift */,
 				FF3FBE7B281299DE00E6B5DC /* PlanViewModel.swift */,
-				FF3FBEB628170A8600E6B5DC /* GroupPlanViewModel.swift */,
 				FF3FBE6D28123A0800E6B5DC /* DefaultPlanViewModel.swift */,
 				FF3FBEAC2815C4A400E6B5DC /* SetGroupPlanViewModel.swift */,
 				FF3FBEB22815E29E00E6B5DC /* JoinGroupViewModel.swift */,
@@ -854,6 +862,7 @@
 				FF3FBE9D28151FF000E6B5DC /* Friend.swift in Sources */,
 				FF3FBEBF2817927000E6B5DC /* AuthViewController.swift in Sources */,
 				FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */,
+				FF3F7803281C1F0200D8360A /* LoadingLottie.swift in Sources */,
 				FF3FBE742812835300E6B5DC /* PlanManager.swift in Sources */,
 				FF3FBE9F2815320500E6B5DC /* GroupPlan.swift in Sources */,
 				FF3FBEB32815E29E00E6B5DC /* JoinGroupViewModel.swift in Sources */,
@@ -875,7 +884,6 @@
 				FF2FE0F0280EDB7900F8890D /* HomeHeaderView.swift in Sources */,
 				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
 				FF3FBE6E28123A0800E6B5DC /* DefaultPlanViewModel.swift in Sources */,
-				FF3FBEB728170A8600E6B5DC /* GroupPlanViewModel.swift in Sources */,
 				FF3FBEB12815D38E00E6B5DC /* GroupPlanView.swift in Sources */,
 				FF3FBE9828150DEC00E6B5DC /* UserManager.swift in Sources */,
 				FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */,

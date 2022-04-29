@@ -48,13 +48,31 @@ class PlanManager {
         }
     }
     
-    func deletePlan(userId: String, uuid: String, completion: @escaping (Result<String, Error>) -> Void ) {
+    func deletePlan(userId: String, plan: Plan, completion: @escaping (Result<String, Error>) -> Void ) {
         let ref = userDB.document(userId).collection("Plans")
-        ref.document(uuid).delete { error in
+        ref.document(plan.uuid).delete { error in
             if let error = error {
                 completion(.failure(error))
             } else {
-                completion(.success(uuid))
+                completion(.success(plan.uuid))
+            }
+        }
+        if plan.planGroup == true {
+            groupPlanDB.whereField("joinUsers", arrayContains: userId).getDocuments { querySnapshot, error in
+                guard let querySnapshot = querySnapshot else { return }
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                } else {
+                    for document in querySnapshot.documents {
+                        if var data = try? document.data(as: GroupPlanUser.self, decoder: Firestore.Decoder()) {
+                            data.joinUsers.removeAll { joinUsers in
+                                return joinUsers == userId
+                            }
+                            try? document.reference.setData(from: data)
+                        }
+                    }
+                }
             }
         }
     }
@@ -67,24 +85,6 @@ class PlanManager {
             completion(.success("Success"))
         } catch {
             completion(.failure(error))
-        }
-    }
-    
-    func fetchGroupPlan(completion: @escaping (Result<[GroupPlan], Error>) -> Void) {
-        let ref = groupPlanDB.whereField("joinUserId", arrayContains: AuthManager.shared.currentUser)
-        ref.order(by: "createdTime", descending: true).addSnapshotListener { querySnapshot, error in
-            guard let querySnapshot = querySnapshot else { return }
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                var groupPlans = [GroupPlan]()
-                for document in querySnapshot.documents {
-                    if let groupPlan = try? document.data(as: GroupPlan.self, decoder: Firestore.Decoder()) {
-                        groupPlans.append(groupPlan)
-                    }
-                }
-                completion(.success(groupPlans))
-            }
         }
     }
     
@@ -110,25 +110,6 @@ class PlanManager {
                     ref.document(document.documentID).setData(["planTimes": times], merge: true)
                 }
             }
-        }
-    }
-    
-    func updateGroupPlan(userId: String,
-                         groupPlan: GroupPlan,
-                         finishTime: FinishTime,
-                         completion: @escaping (Result<String, Error>) -> Void) {
-        
-    }
-    
-    func finishGroupPlan(userId: String,
-                         groupPlan: GroupPlan,
-                         completion: @escaping (Result<String, Error>) -> Void) {
-        let ref = Firestore.firestore().collection("FinishGroupPlans")
-        do {
-            try ref.document(groupPlan.uuid).setData(from: groupPlan)
-            completion(.success("Success"))
-        } catch {
-            completion(.failure(error))
         }
     }
 }

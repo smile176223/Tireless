@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class PlanManageViewController: UIViewController {
     
@@ -97,7 +98,7 @@ class PlanManageViewController: UIViewController {
         return UICollectionViewCompositionalLayout(section: section)
     }
     
-    private func present(target: String, plan: Plan? = nil, groupPlan: GroupPlan? = nil) {
+    private func present(target: String, plan: Plan) {
         guard let poseVC = UIStoryboard.home.instantiateViewController(
             withIdentifier: "\(PoseDetectViewController.self)")
                 as? PoseDetectViewController
@@ -106,57 +107,8 @@ class PlanManageViewController: UIViewController {
         }
         poseVC.planTarget = Int(target) ?? 0
         poseVC.plan = plan
-        poseVC.groupPlan = groupPlan
         poseVC.modalPresentationStyle = .fullScreen
         self.present(poseVC, animated: true)
-    }
-    
-    private func showDeleteAlert(plan: Plan) {
-        let alertController = UIAlertController(title: "確認刪除!",
-                                                message: "刪除的計畫無法再度復原!",
-                                                preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "確定", style: .destructive) { [weak self] _ in
-            self?.viewModel.deletePlan(uuid: plan.uuid)
-            alertController.dismiss(animated: true)
-        }
-        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-            alertController.dismiss(animated: true)
-        }
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        self.present(alertController, animated: true)
-    }
-    
-    private func showSettingAlert(plan: Plan) {
-        let alertController = UIAlertController(title: "計畫修改",
-                                                message: "可以調整計畫的次數",
-                                                preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = "次數"
-            textField.keyboardType = .phonePad
-        }
-        let okAction = UIAlertAction(title: "修改", style: .destructive) { _ in
-            let times = alertController.textFields?[0].text
-            guard let times = times else {
-                return
-            }
-            PlanManager.shared.modifyPlan(planUid: plan.uuid,
-                                          times: times) { result in
-                switch result {
-                case .success(let text):
-                    print(text)
-                case .failure(let error):
-                    print(error)
-                }
-            }
-            alertController.dismiss(animated: true)
-        }
-        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-            alertController.dismiss(animated: true)
-        }
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        self.present(alertController, animated: true)
     }
 }
 
@@ -188,15 +140,26 @@ extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDa
         if indexPath.section == 0 {
             let cellViewModel = self.viewModel.planViewModels.value[indexPath.row]
             cell.setup(viewModel: cellViewModel)
+            cell.planSettingButton.isHidden = false
             cell.isDeleteButtonTap = {
                 self.showDeleteAlert(plan: cellViewModel.plan)
             }
             cell.isSettingButtonTap = {
                 self.showSettingAlert(plan: cellViewModel.plan)
             }
+            cell.isStartButtonTap = {
+                self.present(target: cellViewModel.plan.planTimes, plan: cellViewModel.plan)
+            }
         } else {
             let cellViewModel = self.viewModel.groupPlanViewModels.value[indexPath.row]
             cell.setup(viewModel: cellViewModel)
+            cell.planSettingButton.isHidden = true
+            cell.isStartButtonTap = {
+                self.present(target: cellViewModel.plan.planTimes, plan: cellViewModel.plan)
+            }
+            cell.isDeleteButtonTap = {
+                self.showDeleteAlert(plan: cellViewModel.plan)
+            }
         }
         
         return cell
@@ -217,5 +180,62 @@ extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDa
             headerView.textLabel.text = "團體計畫"
         }
         return headerView
+    }
+}
+
+extension PlanManageViewController {
+    private func showDeleteAlert(plan: Plan) {
+        let alertController = UIAlertController(title: "確認刪除!",
+                                                message: "刪除的計畫無法再度復原!",
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
+            PlanManager.shared.deletePlan(userId: AuthManager.shared.currentUser, plan: plan) { result in
+                switch result {
+                case .success(let uuid):
+                    print(uuid)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            alertController.dismiss(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true)
+    }
+    
+    private func showSettingAlert(plan: Plan) {
+        let alertController = UIAlertController(title: "計畫修改",
+                                                message: "可以調整計畫的次數",
+                                                preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "次數"
+            textField.keyboardType = .numberPad
+        }
+        let okAction = UIAlertAction(title: "修改", style: .destructive) { _ in
+            let times = alertController.textFields?[0].text
+            guard let times = times else {
+                return
+            }
+            PlanManager.shared.modifyPlan(planUid: plan.uuid,
+                                          times: times) { result in
+                switch result {
+                case .success(let text):
+                    print(text)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            alertController.dismiss(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true)
     }
 }

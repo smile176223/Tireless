@@ -9,14 +9,14 @@ import Foundation
 
 class JoinGroupViewModel {
     
-    var groupPlan: GroupPlan = GroupPlan(planName: "",
-                                         planTimes: "",
-                                         planDays: "",
-                                         planGroup: true,
-                                         createdTime: -1,
-                                         createdUserId: AuthManager.shared.currentUser,
-                                         joinUserId: [""],
-                                         uuid: "")
+//    var groupPlan: GroupPlan = GroupPlan(planName: "",
+//                                         planTimes: "",
+//                                         planDays: "",
+//                                         planGroup: true,
+//                                         createdTime: -1,
+//                                         createdUserId: AuthManager.shared.currentUser,
+//                                         joinUserId: [""],
+//                                         uuid: "")
     
     var plan: Plan = Plan(planName: "",
                           planTimes: "",
@@ -27,14 +27,14 @@ class JoinGroupViewModel {
                           finishTime: [],
                           uuid: "")
     
-    func getGroupPlan(name: String, times: String, days: String, joinUserId: [String], uuid: String) {
-        self.groupPlan.planName = name
-        self.groupPlan.planTimes = times
-        self.groupPlan.planDays = days
-        self.groupPlan.createdTime = Date().millisecondsSince1970
-        self.groupPlan.joinUserId = joinUserId
-        self.groupPlan.uuid = uuid
-    }
+//    func getGroupPlan(name: String, times: String, days: String, joinUserId: [String], uuid: String) {
+//        self.groupPlan.planName = name
+//        self.groupPlan.planTimes = times
+//        self.groupPlan.planDays = days
+//        self.groupPlan.createdTime = Date().millisecondsSince1970
+//        self.groupPlan.joinUserId = joinUserId
+//        self.groupPlan.uuid = uuid
+//    }
     
     func setGroupPlan(name: String, times: String, days: String, uuid: String) {
         self.plan.planName = name

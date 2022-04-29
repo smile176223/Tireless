@@ -20,8 +20,6 @@ class DetectFinishViewController: UIViewController {
     
     var plan: Plan?
     
-    var groupPlan: GroupPlan?
-    
     var isUserCanShare = true
     
     var isUserRejectRecording = false
@@ -112,8 +110,8 @@ class DetectFinishViewController: UIViewController {
             let progress = done / days
             self.plan?.progress = progress
             self.plan?.finishTime.append(FinishTime(day: Int(done),
-                                                            time: Date().millisecondsSince1970,
-                                                            planTimes: plan.planTimes))
+                                                    time: Date().millisecondsSince1970,
+                                                    planTimes: plan.planTimes))
             updatePlan()
             if progress == 1 {
                 finishPlan()

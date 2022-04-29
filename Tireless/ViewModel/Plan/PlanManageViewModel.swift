@@ -25,8 +25,8 @@ class PlanManageViewModel {
         }
     }
     
-    func deletePlan(uuid: String) {
-        PlanManager.shared.deletePlan(userId: AuthManager.shared.currentUser, uuid: uuid) { result in
+    func deletePlan(plan: Plan) {
+        PlanManager.shared.deletePlan(userId: AuthManager.shared.currentUser, plan: plan) { result in
             switch result {
             case .success(let uuid):
                 print(uuid)
@@ -42,7 +42,7 @@ class PlanManageViewModel {
             switch result {
             case .success(let success):
                 if plan.progress == 1 {
-                    self.deletePlan(uuid: plan.uuid)
+                    self.deletePlan(plan: plan)
                 }
                 print(success)
                 

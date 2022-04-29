@@ -44,8 +44,6 @@ class PoseDetectViewController: UIViewController {
     
     var plan: Plan?
     
-    var groupPlan: GroupPlan?
-    
     private var counter = 0 {
         didSet {
             if counter == planTarget {
