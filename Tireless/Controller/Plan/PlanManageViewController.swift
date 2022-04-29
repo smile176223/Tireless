@@ -110,6 +110,18 @@ class PlanManageViewController: UIViewController {
         poseVC.modalPresentationStyle = .fullScreen
         self.present(poseVC, animated: true)
     }
+    
+    private func groupPlanPresnt(plan: Plan) {
+        guard let groupVC = storyboard?.instantiateViewController(
+            withIdentifier: "\(GroupPlanStatusViewController.self)")
+                as? GroupPlanStatusViewController
+        else {
+            return
+        }
+        groupVC.plan = plan
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(groupVC, animated: true)
+    }
 }
 
 extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -180,6 +192,11 @@ extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDa
             headerView.textLabel.text = "團體計畫"
         }
         return headerView
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cellViewModel = self.viewModel.groupPlanViewModels.value[indexPath.row]
+        groupPlanPresnt(plan: cellViewModel.plan)
     }
 }
 

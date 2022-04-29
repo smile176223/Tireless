@@ -112,4 +112,29 @@ class PlanManager {
             }
         }
     }
+    
+    func checkGroupUsersStatus(plan: Plan) {
+        groupPlanDB.document(plan.uuid).getDocument(as: GroupPlanUser.self) { result in
+            switch result {
+            case .success(let users):
+                for user in users.joinUsers {
+                    self.checkGroupUsers(userId: user, plan: plan)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func checkGroupUsers(userId: String, plan: Plan) {
+        userDB.document(userId).collection("Plans").document(plan.uuid).getDocument(as: Plan.self) { result in
+            switch result {
+            case .success(let plans):
+                print(userId)
+                print(plans)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

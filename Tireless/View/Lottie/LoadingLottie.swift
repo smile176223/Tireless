@@ -13,7 +13,7 @@ class LoadingLottie: UIView {
     let animationView: AnimationView
     
     init(animationName: String) {
-        self.animationView = AnimationView(name: "DetectDone")
+        self.animationView = AnimationView(name: animationName)
         super.init(frame: .zero)
         commonInit()
     }

@@ -76,7 +76,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         viewModel.joinGroup.bind { [weak self] joinGroup in
             self?.joinGroup = joinGroup
         }
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
