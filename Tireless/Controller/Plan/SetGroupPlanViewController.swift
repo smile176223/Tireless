@@ -21,9 +21,9 @@ class SetGroupPlanViewController: UIViewController {
     
     private var dataSource: DataSource?
     
-    var plans: [Plans]?
+    var plans: [DefaultPlans]?
     
-    var selectPlan: Plans? {
+    var selectPlan: DefaultPlans? {
         didSet {
             dataSource?.apply(snapshot(), animatingDifferences: false)
         }
@@ -46,7 +46,7 @@ class SetGroupPlanViewController: UIViewController {
     }
     
     enum SectionItem: Hashable {
-        case plan(Plans)
+        case plan(DefaultPlans)
         case detail(String)
     }
     

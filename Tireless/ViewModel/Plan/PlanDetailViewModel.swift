@@ -9,25 +9,25 @@ import Foundation
 
 class PlanDetailViewModel {
     
-    var personalPlan: PersonalPlan = PersonalPlan(planName: "",
-                                            planTimes: "",
-                                            planDays: "",
-                                            createdTime: -1,
-                                            planGroup: false,
-                                            progress: 0.0,
-                                            finishTime: [],
-                                            uuid: "")
+    var plan: Plan = Plan(planName: "",
+                          planTimes: "",
+                          planDays: "",
+                          createdTime: -1,
+                          planGroup: false,
+                          progress: 0.0,
+                          finishTime: [],
+                          uuid: "")
     
-    func getPlanData(name: String, times: String, days: String, createdTime: Int64, planGroup: Bool) {
-        self.personalPlan.planName = name
-        self.personalPlan.planTimes = times
-        self.personalPlan.planDays = days
-        self.personalPlan.createdTime = createdTime
-        self.personalPlan.planGroup = planGroup
+    func setPlanData(name: String, times: String, days: String, createdTime: Int64, planGroup: Bool) {
+        self.plan.planName = name
+        self.plan.planTimes = times
+        self.plan.planDays = days
+        self.plan.createdTime = createdTime
+        self.plan.planGroup = planGroup
     }
     
     func createPlan(success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
-        PlanManager.shared.createPlan(userId: AuthManager.shared.currentUser, personalPlan: &personalPlan) { result in
+        PlanManager.shared.createPlan(userId: AuthManager.shared.currentUser, plan: &plan) { result in
             switch result {
             case .success:
                 success()

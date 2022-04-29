@@ -18,7 +18,7 @@ class DetectFinishViewController: UIViewController {
     
     let planViewModel = PlanManageViewModel()
     
-    var personalPlan: PersonalPlan?
+    var plan: Plan?
     
     var isUserCanShare = true
     
@@ -101,29 +101,33 @@ class DetectFinishViewController: UIViewController {
     }
     
     private func updateValue() {
-        guard let personalPlan = personalPlan,
-              let days = Double(personalPlan.planDays) else {
-            return
-        }
-        let done = round(personalPlan.progress * days) + 1
-        let progress = done / days
-        self.personalPlan?.progress = progress
-        self.personalPlan?.finishTime.append(FinishTime(day: Int(done), time: Date().millisecondsSince1970))
-        updatePlan()
-        if progress == 1 {
-            finishPlan()
-        }
+        if plan != nil {
+            guard let plan = plan,
+                  let days = Double(plan.planDays) else {
+                return
+            }
+            let done = round(plan.progress * days) + 1
+            let progress = done / days
+            self.plan?.progress = progress
+            self.plan?.finishTime.append(FinishTime(day: Int(done),
+                                                    time: Date().millisecondsSince1970,
+                                                    planTimes: plan.planTimes))
+            updatePlan()
+            if progress == 1 {
+                finishPlan()
+            }
+        } 
     }
     private func updatePlan() {
-        guard let personalPlan = personalPlan else {
+        guard let plan = plan else {
             return
         }
-        planViewModel.updatePlan(personalPlan: personalPlan)
+        planViewModel.updatePlan(plan: plan)
     }
     private func finishPlan() {
-        guard let personalPlan = personalPlan else {
+        guard let plan = plan else {
             return
         }
-        planViewModel.finishPlan(personalPlan: personalPlan)
+        planViewModel.finishPlan(plan: plan)
     }
 }

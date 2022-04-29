@@ -11,7 +11,7 @@ class PlanDetailViewController: UIViewController {
     
     @IBOutlet var planDetailView: PlanDetailView!
     
-    var plan: Plans?
+    var plan: DefaultPlans?
     
     let viewModel = PlanDetailViewModel()
     
@@ -41,7 +41,7 @@ class PlanDetailViewController: UIViewController {
         }
         planDetailView.isCreateButtonTap = { [weak self] days, times in
             if AuthManager.shared.checkCurrentUser() == true {
-                self?.viewModel.getPlanData(name: plan.planName,
+                self?.viewModel.setPlanData(name: plan.planName,
                                       times: times,
                                       days: days,
                                       createdTime: Date().millisecondsSince1970,

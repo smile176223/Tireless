@@ -9,22 +9,39 @@ import Foundation
 
 class JoinGroupViewModel {
     
-    var groupPlan: GroupPlan = GroupPlan(planName: "",
-                                         planTimes: "",
-                                         planDays: "",
-                                         planGroup: true,
-                                         createdTime: -1,
-                                         createdUserId: AuthManager.shared.currentUser,
-                                         joinUserId: [""],
-                                         uuid: "")
+//    var groupPlan: GroupPlan = GroupPlan(planName: "",
+//                                         planTimes: "",
+//                                         planDays: "",
+//                                         planGroup: true,
+//                                         createdTime: -1,
+//                                         createdUserId: AuthManager.shared.currentUser,
+//                                         joinUserId: [""],
+//                                         uuid: "")
     
-    func getGroupPlan(name: String, times: String, days: String, joinUserId: [String], uuid: String) {
-        self.groupPlan.planName = name
-        self.groupPlan.planTimes = times
-        self.groupPlan.planDays = days
-        self.groupPlan.createdTime = Date().millisecondsSince1970
-        self.groupPlan.joinUserId = joinUserId
-        self.groupPlan.uuid = uuid
+    var plan: Plan = Plan(planName: "",
+                          planTimes: "",
+                          planDays: "",
+                          createdTime: -1,
+                          planGroup: true,
+                          progress: 0.0,
+                          finishTime: [],
+                          uuid: "")
+    
+//    func getGroupPlan(name: String, times: String, days: String, joinUserId: [String], uuid: String) {
+//        self.groupPlan.planName = name
+//        self.groupPlan.planTimes = times
+//        self.groupPlan.planDays = days
+//        self.groupPlan.createdTime = Date().millisecondsSince1970
+//        self.groupPlan.joinUserId = joinUserId
+//        self.groupPlan.uuid = uuid
+//    }
+    
+    func setGroupPlan(name: String, times: String, days: String, uuid: String) {
+        self.plan.planName = name
+        self.plan.planTimes = times
+        self.plan.planDays = days
+        self.plan.createdTime = Date().millisecondsSince1970
+        self.plan.uuid = uuid
     }
     
     func joinGroup(uuid: String, success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
@@ -71,8 +88,19 @@ class JoinGroupViewModel {
         })
     }
     
-    func startJoinGroup(uuid: String, completion: @escaping (Result<String, Error>) -> Void) {
-        JoinGroupManager.shared.startJoinGroup(uuid: uuid, groupPlan: groupPlan) { result in
+//    func startJoinGroup(uuid: String, completion: @escaping (Result<String, Error>) -> Void) {
+//        JoinGroupManager.shared.startJoinGroup(uuid: uuid, groupPlan: groupPlan) { result in
+//            switch result {
+//            case .success(let success):
+//                completion(.success(success))
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
+//        }
+//    }
+    
+    func createGroupPlan(uuid: String, joinUsers: [String], completion: @escaping (Result<String, Error>) -> Void) {
+        JoinGroupManager.shared.createGroupPlan(uuid: uuid, plan: plan, joinUsers: joinUsers) { result in
             switch result {
             case .success(let success):
                 completion(.success(success))

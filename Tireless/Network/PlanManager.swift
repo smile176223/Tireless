@@ -18,82 +18,123 @@ class PlanManager {
     
     lazy var groupPlanDB = Firestore.firestore().collection("GroupPlans")
     
-    func createPlan(userId: String, personalPlan: inout PersonalPlan,
+    func createPlan(userId: String, plan: inout Plan,
                     completion: @escaping (Result<String, Error>) -> Void) {
         do {
             let document = userDB.document(userId).collection("Plans").document()
-            personalPlan.uuid = document.documentID
-            try document.setData(from: personalPlan)
+            plan.uuid = document.documentID
+            try document.setData(from: plan)
             completion(.success("Success"))
         } catch {
             completion(.failure(error))
         }
     }
     
-    func fetchPlan(userId: String, completion: @escaping (Result<[PersonalPlan], Error>) -> Void) {
+    func fetchPlan(userId: String, completion: @escaping (Result<[Plan], Error>) -> Void) {
         let ref = userDB.document(userId).collection("Plans")
         ref.order(by: "createdTime", descending: true).addSnapshotListener { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))
             } else {
-                var personalPlans = [PersonalPlan]()
+                var plans = [Plan]()
                 for document in querySnapshot.documents {
-                    if let personalPlan = try? document.data(as: PersonalPlan.self, decoder: Firestore.Decoder()) {
-                        personalPlans.append(personalPlan)
+                    if let plan = try? document.data(as: Plan.self, decoder: Firestore.Decoder()) {
+                        plans.append(plan)
                     }
                 }
-                completion(.success(personalPlans))
+                completion(.success(plans))
             }
         }
     }
     
-    func deletePlan(userId: String, uuid: String, completion: @escaping (Result<String, Error>) -> Void ) {
+    func deletePlan(userId: String, plan: Plan, completion: @escaping (Result<String, Error>) -> Void ) {
         let ref = userDB.document(userId).collection("Plans")
-        ref.document(uuid).delete { error in
+        ref.document(plan.uuid).delete { error in
             if let error = error {
                 completion(.failure(error))
             } else {
-                completion(.success(uuid))
+                completion(.success(plan.uuid))
+            }
+        }
+        if plan.planGroup == true {
+            groupPlanDB.whereField("joinUsers", arrayContains: userId).getDocuments { querySnapshot, error in
+                guard let querySnapshot = querySnapshot else { return }
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                } else {
+                    for document in querySnapshot.documents {
+                        if var data = try? document.data(as: GroupPlanUser.self, decoder: Firestore.Decoder()) {
+                            data.joinUsers.removeAll { joinUsers in
+                                return joinUsers == userId
+                            }
+                            try? document.reference.setData(from: data)
+                        }
+                    }
+                }
             }
         }
     }
     
-    func updatePlan(userId: String, personalPlan: PersonalPlan,
-                    completion: @escaping (Result<String, Error>) -> Void ) {
+    func updatePlan(userId: String, plan: Plan,
+                    completion: @escaping (Result<String, Error>) -> Void) {
         do {
             let ref = userDB.document(userId).collection("Plans")
-            try ref.document(personalPlan.uuid).setData(from: personalPlan)
+            try ref.document(plan.uuid).setData(from: plan)
             completion(.success("Success"))
         } catch {
             completion(.failure(error))
         }
     }
     
-    func fetchGroupPlan(completion: @escaping (Result<[GroupPlan], Error>) -> Void) {
-        groupPlanDB.order(by: "createdTime", descending: true).addSnapshotListener { querySnapshot, error in
+    func finishPlan(userId: String, plan: Plan, completion: @escaping (Result<String, Error>) -> Void) {
+        let ref = userDB.document(userId).collection("FinishPlans").document(plan.uuid)
+        do {
+            try ref.setData(from: plan)
+            completion(.success("Success"))
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    func modifyPlan(planUid: String, times: String,
+                    completion: @escaping (Result<String, Error>) -> Void) {
+        let ref = userDB.document(AuthManager.shared.currentUser).collection("Plans")
+        ref.whereField("uuid", isEqualTo: planUid).getDocuments { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))
             } else {
-                var groupPlans = [GroupPlan]()
                 for document in querySnapshot.documents {
-                    if let groupPlan = try? document.data(as: GroupPlan.self, decoder: Firestore.Decoder()) {
-                        groupPlans.append(groupPlan)
-                    }
+                    ref.document(document.documentID).setData(["planTimes": times], merge: true)
                 }
-                completion(.success(groupPlans))
             }
         }
     }
     
-    func finishPlan(userId: String, personalPlan: PersonalPlan, completion: @escaping (Result<String, Error>) -> Void) {
-        let ref = userDB.document(userId).collection("FinishPersonalPlans").document(personalPlan.uuid)
-        do {
-            try ref.setData(from: personalPlan)
-            completion(.success("Success"))
-        } catch {
-            completion(.failure(error))
+    func checkGroupUsersStatus(plan: Plan) {
+        groupPlanDB.document(plan.uuid).getDocument(as: GroupPlanUser.self) { result in
+            switch result {
+            case .success(let users):
+                for user in users.joinUsers {
+                    self.checkGroupUsers(userId: user, plan: plan)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func checkGroupUsers(userId: String, plan: Plan) {
+        userDB.document(userId).collection("Plans").document(plan.uuid).getDocument(as: Plan.self) { result in
+            switch result {
+            case .success(let plans):
+                print(userId)
+                print(plans)
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }

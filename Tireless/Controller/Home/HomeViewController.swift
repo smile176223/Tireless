@@ -19,7 +19,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     let viewModel = HomeViewModel()
     
-    var plans: [Plans]?
+    var plans: [DefaultPlans]?
     
     enum Section: Int, CaseIterable {
         case daily
@@ -40,7 +40,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     enum SectionItem: Hashable {
         case daily(WeeklyDays)
-        case personalPlan(Plans)
+        case personalPlan(DefaultPlans)
         case joinGroup(JoinGroup)
     }
     
@@ -69,18 +69,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         viewModel.setDefault()
         
-        if AuthManager.shared.currentUser != "" {
-            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
-        }
-        
-        viewModel.personalPlan.bind { [weak self] plans in
+        viewModel.defaultPlans.bind { [weak self] plans in
             self?.plans = plans
         }
         
         viewModel.joinGroup.bind { [weak self] joinGroup in
             self?.joinGroup = joinGroup
         }
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

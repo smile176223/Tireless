@@ -58,14 +58,28 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7W-Gp-Czv">
+                    <rect key="frame" x="336" y="103" width="24" height="23.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="N7W-Gp-Czv" secondAttribute="height" id="N12-UJ-jjz"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" backgroundImage="gearshape.fill" catalog="system"/>
+                    <connections>
+                        <action selector="settingButtonTap:" destination="aQa-Qu-Rft" eventType="touchUpInside" id="k1P-BU-Xzj"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fDc-2v-KgS"/>
             <color key="backgroundColor" name="themeBGSecond"/>
             <constraints>
                 <constraint firstItem="fDc-2v-KgS" firstAttribute="trailing" secondItem="gdJ-y9-adP" secondAttribute="trailing" constant="20" id="3Gc-SS-fuw"/>
+                <constraint firstItem="N7W-Gp-Czv" firstAttribute="width" secondItem="gdJ-y9-adP" secondAttribute="width" id="7Qz-Vn-12a"/>
                 <constraint firstItem="eV4-0A-Itr" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" constant="20" id="IIg-hY-tKX"/>
                 <constraint firstItem="ztc-o5-EjR" firstAttribute="leading" secondItem="fDc-2v-KgS" secondAttribute="leading" constant="20" id="Pzf-5q-iMU"/>
                 <constraint firstItem="eV4-0A-Itr" firstAttribute="leading" secondItem="ztc-o5-EjR" secondAttribute="trailing" constant="30" id="Q36-I5-KNW"/>
+                <constraint firstItem="gdJ-y9-adP" firstAttribute="leading" secondItem="N7W-Gp-Czv" secondAttribute="trailing" constant="10" id="RDl-Rt-qjc"/>
                 <constraint firstItem="rjl-aV-WM5" firstAttribute="centerY" secondItem="h6t-93-SL0" secondAttribute="centerY" id="RpI-vD-EIC"/>
                 <constraint firstItem="Mje-E9-i75" firstAttribute="leading" secondItem="eV4-0A-Itr" secondAttribute="trailing" constant="30" id="TUk-Ff-uKm"/>
                 <constraint firstItem="h6t-93-SL0" firstAttribute="leading" secondItem="ztc-o5-EjR" secondAttribute="trailing" constant="30" id="WiU-LQ-huE"/>
@@ -74,12 +88,14 @@
                 <constraint firstItem="gdJ-y9-adP" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" constant="40" id="nKH-MD-NSB"/>
                 <constraint firstItem="h6t-93-SL0" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" constant="-20" id="qLI-TC-1Vj"/>
                 <constraint firstItem="Mje-E9-i75" firstAttribute="centerY" secondItem="aQa-Qu-Rft" secondAttribute="centerY" constant="-20" id="sVY-5U-Niu"/>
+                <constraint firstItem="N7W-Gp-Czv" firstAttribute="centerY" secondItem="gdJ-y9-adP" secondAttribute="centerY" id="yGe-Ld-Mph"/>
                 <constraint firstItem="rjl-aV-WM5" firstAttribute="trailing" secondItem="eV4-0A-Itr" secondAttribute="trailing" id="zB7-jx-L7Q"/>
             </constraints>
             <connections>
                 <outlet property="planDeleteButton" destination="gdJ-y9-adP" id="D2M-kf-pIn"/>
                 <outlet property="planImageView" destination="ztc-o5-EjR" id="Vie-w7-79m"/>
                 <outlet property="planProgressView" destination="eV4-0A-Itr" id="pVN-4v-4wL"/>
+                <outlet property="planSettingButton" destination="N7W-Gp-Czv" id="vK3-Mz-eXv"/>
                 <outlet property="planStartButton" destination="Mje-E9-i75" id="0nT-id-NAR"/>
                 <outlet property="planTimesLabel" destination="rjl-aV-WM5" id="PlH-Xs-Mjj"/>
                 <outlet property="planTitleLabel" destination="h6t-93-SL0" id="72c-Ka-yDR"/>
@@ -89,6 +105,7 @@
     </objects>
     <resources>
         <image name="Icons_CleanAll" width="24" height="24"/>
+        <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <namedColor name="themeBGSecond">
             <color red="0.12941176470588237" green="0.15686274509803921" blue="0.24705882352941178" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

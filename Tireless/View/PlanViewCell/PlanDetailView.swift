@@ -17,7 +17,7 @@ class PlanDetailView: UIView {
     private var imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-        image.image = UIImage(named: "pexels_squat")
+        image.image = UIImage(named: "深蹲")
         return image
     }()
     
@@ -116,7 +116,7 @@ class PlanDetailView: UIView {
         isCreateButtonTap?(daysCounter.getInputField(), timesCounter.getInputField())
     }
     
-    func setupLayout(plan: Plans) {
+    func setupLayout(plan: DefaultPlans) {
         titleLabel.text = plan.planName
         imageView.image = UIImage(named: plan.planImage)
         infoLabel.text = plan.planDetail

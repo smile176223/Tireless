@@ -9,24 +9,15 @@ import Foundation
 
 class PlanManageViewModel {
     
-    var personalPlan = Box([PersonalPlan]())
+    let planViewModels = Box([PlanViewModel]())
     
-    var groupPlan = Box([GroupPlan]())
-
+    let groupPlanViewModels = Box([PlanViewModel]())
+    
     func fetchPlan() {
         PlanManager.shared.fetchPlan(userId: AuthManager.shared.currentUser) { result in
             switch result {
-            case .success(let personalPlan):
-                self.personalPlan.value = personalPlan
-                
-            case .failure(let error):
-                print(error)
-            }
-        }
-        PlanManager.shared.fetchGroupPlan { result in
-            switch result {
-            case .success(let groupPlan):
-                self.groupPlan.value = groupPlan
+            case .success(let plan):
+                self.setPlans(plan)
                 
             case .failure(let error):
                 print(error)
@@ -34,8 +25,8 @@ class PlanManageViewModel {
         }
     }
     
-    func deletePlan(uuid: String) {
-        PlanManager.shared.deletePlan(userId: AuthManager.shared.currentUser, uuid: uuid) { result in
+    func deletePlan(plan: Plan) {
+        PlanManager.shared.deletePlan(userId: AuthManager.shared.currentUser, plan: plan) { result in
             switch result {
             case .success(let uuid):
                 print(uuid)
@@ -46,12 +37,12 @@ class PlanManageViewModel {
         }
     }
     
-    func updatePlan(personalPlan: PersonalPlan) {
-        PlanManager.shared.updatePlan(userId: AuthManager.shared.currentUser, personalPlan: personalPlan) { result in
+    func updatePlan(plan: Plan) {
+        PlanManager.shared.updatePlan(userId: AuthManager.shared.currentUser, plan: plan) { result in
             switch result {
             case .success(let success):
-                if personalPlan.progress == 1 {
-                    self.deletePlan(uuid: personalPlan.uuid)
+                if plan.progress == 1 {
+                    self.deletePlan(plan: plan)
                 }
                 print(success)
                 
@@ -61,8 +52,8 @@ class PlanManageViewModel {
         }
     }
     
-    func finishPlan(personalPlan: PersonalPlan) {
-        PlanManager.shared.finishPlan(userId: AuthManager.shared.currentUser, personalPlan: personalPlan) { result in
+    func finishPlan(plan: Plan) {
+        PlanManager.shared.finishPlan(userId: AuthManager.shared.currentUser, plan: plan) { result in
             switch result {
             case .success(let success):
                 print(success)
@@ -71,5 +62,19 @@ class PlanManageViewModel {
                 print(error)
             }
         }
+    }
+    
+    func convertPlansToViewModels(from plans: [Plan], isGroup: Bool) -> [PlanViewModel] {
+        var viewModels = [PlanViewModel]()
+        for plan in plans where plan.planGroup == isGroup {
+            let viewModel = PlanViewModel(model: plan)
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+    
+    func setPlans(_ plans: [Plan]) {
+        planViewModels.value = convertPlansToViewModels(from: plans, isGroup: false)
+        groupPlanViewModels.value = convertPlansToViewModels(from: plans, isGroup: true)
     }
 }

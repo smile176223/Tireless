@@ -94,7 +94,7 @@ private enum Tab {
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
-    private let tabs: [Tab] = [.home, .plan, .shareWall, .pictureWall, .profile]
+    private let tabs: [Tab] = [.home, .plan, .shareWall, .profile]
     
     override func viewDidLoad() {
         super.viewDidLoad()
