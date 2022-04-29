@@ -18,14 +18,14 @@ class JoinGroupViewModel {
                                          joinUserId: [""],
                                          uuid: "")
     
-    var personalPlan: Plan = Plan(planName: "",
-                                                  planTimes: "",
-                                                  planDays: "",
-                                                  createdTime: -1,
-                                                  planGroup: true,
-                                                  progress: 0.0,
-                                                  finishTime: [],
-                                                  uuid: "")
+    var plan: Plan = Plan(planName: "",
+                          planTimes: "",
+                          planDays: "",
+                          createdTime: -1,
+                          planGroup: true,
+                          progress: 0.0,
+                          finishTime: [],
+                          uuid: "")
     
     func getGroupPlan(name: String, times: String, days: String, joinUserId: [String], uuid: String) {
         self.groupPlan.planName = name
@@ -37,11 +37,11 @@ class JoinGroupViewModel {
     }
     
     func setGroupPlan(name: String, times: String, days: String, uuid: String) {
-        self.personalPlan.planName = name
-        self.personalPlan.planTimes = times
-        self.personalPlan.planDays = days
-        self.personalPlan.createdTime = Date().millisecondsSince1970
-        self.personalPlan.uuid = uuid
+        self.plan.planName = name
+        self.plan.planTimes = times
+        self.plan.planDays = days
+        self.plan.createdTime = Date().millisecondsSince1970
+        self.plan.uuid = uuid
     }
     
     func joinGroup(uuid: String, success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
@@ -88,8 +88,19 @@ class JoinGroupViewModel {
         })
     }
     
-    func startJoinGroup(uuid: String, completion: @escaping (Result<String, Error>) -> Void) {
-        JoinGroupManager.shared.startJoinGroup(uuid: uuid, groupPlan: groupPlan) { result in
+//    func startJoinGroup(uuid: String, completion: @escaping (Result<String, Error>) -> Void) {
+//        JoinGroupManager.shared.startJoinGroup(uuid: uuid, groupPlan: groupPlan) { result in
+//            switch result {
+//            case .success(let success):
+//                completion(.success(success))
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
+//        }
+//    }
+    
+    func createGroupPlan(uuid: String, joinUsers: [String], completion: @escaping (Result<String, Error>) -> Void) {
+        JoinGroupManager.shared.createGroupPlan(uuid: uuid, plan: plan, joinUsers: joinUsers) { result in
             switch result {
             case .success(let success):
                 completion(.success(success))

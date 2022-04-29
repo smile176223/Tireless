@@ -88,7 +88,7 @@ class JoinGroupManager {
     }
     
     func fetchPlanJoinUser(uuid: String, completion: @escaping (Result<[User], Error>) -> Void) {
-        joinGroupDB.document(uuid).collection("JoinUsers").getDocuments { querySnapshot, error in
+        joinGroupDB.document(uuid).collection("JoinUsers").addSnapshotListener { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 print(error)
@@ -131,29 +131,24 @@ class JoinGroupManager {
         }
     }
     
-    func startJoinGroup(uuid: String, groupPlan: GroupPlan, completion: @escaping (Result<String, Error>) -> Void ) {
+    private func setJoinUsersGroupPlan(uuid: String, joinUsers: [String], plan: Plan) {
+        for user in joinUsers {
+            try? userDB.document(user).collection("Plans").document(uuid).setData(from: plan)
+        }
+    }
+    
+    func createGroupPlan(uuid: String, plan: Plan, joinUsers: [String],
+                         completion: @escaping (Result<String, Error>) -> Void ) {
         let groupPlanDB = Firestore.firestore().collection("GroupPlans")
         deleteJoinGroup(uuid: uuid) { [weak self] result in
             switch result {
             case .success(let uuid):
-                do {
-                    try groupPlanDB.document(uuid).setData(from: groupPlan)
-                    self?.setJoinUsersGroupPlan(uuid: uuid, joinUsers: groupPlan.joinUserId)
-                    completion(.success("Success"))
-                } catch {
-                    completion(.failure(error))
-                }
+                groupPlanDB.document(uuid).setData(["joinUsers": joinUsers])
+                self?.setJoinUsersGroupPlan(uuid: uuid, joinUsers: joinUsers, plan: plan)
+                completion(.success("Success"))
             case .failure(let error):
                 print(error)
             }
-        }
-    }
-    
-    private func setJoinUsersGroupPlan(uuid: String, joinUsers: [String]) {
-        let document = userDB.document(AuthManager.shared.currentUser).collection("GroupPlans").document()
-        document.setData(["GroupPlanId": uuid])
-        for user in joinUsers {
-            userDB.document(user).collection("GroupPlans").document().setData(["GroupPlanId": uuid])
         }
     }
 }

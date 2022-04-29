@@ -9,24 +9,15 @@ import Foundation
 
 class PlanManageViewModel {
     
-    var plan = Box([Plan]())
+    let planViewModels = Box([PlanViewModel]())
     
-    var groupPlan = Box([GroupPlan]())
-
+    let groupPlanViewModels = Box([PlanViewModel]())
+    
     func fetchPlan() {
         PlanManager.shared.fetchPlan(userId: AuthManager.shared.currentUser) { result in
             switch result {
             case .success(let plan):
-                self.plan.value = plan
-                
-            case .failure(let error):
-                print(error)
-            }
-        }
-        PlanManager.shared.fetchGroupPlan { result in
-            switch result {
-            case .success(let groupPlan):
-                self.groupPlan.value = groupPlan
+                self.setPlans(plan)
                 
             case .failure(let error):
                 print(error)
@@ -71,5 +62,19 @@ class PlanManageViewModel {
                 print(error)
             }
         }
+    }
+    
+    func convertPlansToViewModels(from plans: [Plan], isGroup: Bool) -> [PlanViewModel] {
+        var viewModels = [PlanViewModel]()
+        for plan in plans where plan.planGroup == isGroup {
+            let viewModel = PlanViewModel(model: plan)
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+    
+    func setPlans(_ plans: [Plan]) {
+        planViewModels.value = convertPlansToViewModels(from: plans, isGroup: false)
+        groupPlanViewModels.value = convertPlansToViewModels(from: plans, isGroup: true)
     }
 }

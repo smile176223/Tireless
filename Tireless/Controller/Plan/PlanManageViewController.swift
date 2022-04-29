@@ -1,5 +1,5 @@
 //
-//  PersonalPlanViewController.swift
+//  PlanManageViewController.swift
 //  Tireless
 //
 //  Created by Hao on 2022/4/22.
@@ -9,69 +9,40 @@ import UIKit
 
 class PlanManageViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView! {
+        didSet {
+            collectionView.delegate = self
+            collectionView.dataSource = self
+        }
+    }
     
     let viewModel = PlanManageViewModel()
     
-    typealias DataSource = UICollectionViewDiffableDataSource<Int, SectionItem>
-    
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, SectionItem>
-    
-    private var dataSource: DataSource?
-    
     private var planEmptyView = UIImageView()
-    
-    enum SectionItem: Hashable {
-        case plan(Plan)
-        case groupPlan(GroupPlan)
-    }
-    
-    var plan: [Plan]? {
-        didSet {
-            dataSource?.apply(snapshot(), animatingDifferences: false)
-            if plan == [], groupPlans == [] {
-                planEmptyView.isHidden = false
-                collectionView.isHidden = true
-            } else {
-                planEmptyView.isHidden = true
-                collectionView.isHidden = false
-            }
-        }
-    }
-    
-    private var groupPlans: [GroupPlan]? {
-        didSet {
-            dataSource?.apply(snapshot(), animatingDifferences: false)
-            if plan == [], groupPlans == [] {
-                planEmptyView.isHidden = false
-                collectionView.isHidden = true
-            } else {
-                planEmptyView.isHidden = true
-                collectionView.isHidden = false
-            }
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setPlanEmptyView()
         self.view.backgroundColor = .themeBG
         
+        planEmptyView.isHidden = true
+        
         self.navigationController?.navigationBar.titleTextAttributes =
         [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.barTintColor = .themeBG
         
         configureCollectionView()
-        configureDataSource()
-        configureDataSourceProvider()
-        configureDataSourceSnapshot()
         
-        viewModel.plan.bind { [weak self] plan in
-            self?.plan = plan
+        viewModel.planViewModels.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
         }
         
-        viewModel.groupPlan.bind { [weak self] groupPlans in
-            self?.groupPlans = groupPlans
+        viewModel.groupPlanViewModels.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
         }
         
     }
@@ -126,112 +97,6 @@ class PlanManageViewController: UIViewController {
         return UICollectionViewCompositionalLayout(section: section)
     }
     
-    private func configureDataSource() {
-        dataSource = DataSource(collectionView: collectionView,
-                                cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(PlanManageViewCell.self)",
-                                                                for: indexPath) as? PlanManageViewCell else {
-                return UICollectionViewCell()
-            }
-            
-            switch item {
-            case .plan(let plan):
-                cell.planDeleteButton.isHidden = false
-                cell.planSettingButton.isHidden = false
-                cell.isStartButtonTap = { [weak self] in
-                    self?.present(target: plan.planTimes, plan: plan)
-                }
-                
-                cell.isDeleteButtonTap = { [weak self] in
-                    self?.showDeleteAlert(plan: plan)
-                }
-                cell.isSettingButtonTap = { [weak self] in
-                    self?.showSettingAlert(plan: plan)
-                }
-                switch plan.planName {
-                case "深蹲":
-                    cell.planImageView.image = UIImage(named: "pexels_squat")
-                    cell.planTimesLabel.text = "\(plan.planTimes)次/\(plan.planDays)天"
-                case "棒式":
-                    cell.planImageView.image = UIImage(named: "pexels_plank")
-                    cell.planTimesLabel.text = "\(plan.planTimes)秒/\(plan.planDays)天"
-                case "伏地挺身":
-                    cell.planImageView.image = UIImage(named: "pexels_pushup")
-                    cell.planTimesLabel.text = "\(plan.planTimes)次/\(plan.planDays)天"
-                default:
-                    cell.planImageView.image = UIImage(named: "Cover")
-                }
-                
-                cell.planTitleLabel.text = "\(plan.planName)"
-                cell.planProgressView.alpha = 1
-                cell.planProgressView.progress = Float(plan.progress)
-                
-                return cell
-            case .groupPlan(let groupPlan):
-                cell.planSettingButton.isHidden = true
-                if groupPlan.createdUserId == AuthManager.shared.currentUser {
-                    cell.planDeleteButton.isHidden = false
-                } else {
-                    cell.planDeleteButton.isHidden = true
-                }
-                cell.isStartButtonTap = { [weak self] in
-                    self?.present(target: groupPlan.planTimes, groupPlan: groupPlan)
-                }
-                
-                cell.planTitleLabel.text = groupPlan.planName
-                switch groupPlan.planName {
-                case "深蹲":
-                    cell.planImageView.image = UIImage(named: "pexels_squat")
-                    cell.planTimesLabel.text = "\(groupPlan.planTimes)次/\(groupPlan.planDays)天"
-                case "棒式":
-                    cell.planImageView.image = UIImage(named: "pexels_plank")
-                    cell.planTimesLabel.text = "\(groupPlan.planTimes)秒/\(groupPlan.planDays)天"
-                case "伏地挺身":
-                    cell.planImageView.image = UIImage(named: "pexels_pushup")
-                    cell.planTimesLabel.text = "\(groupPlan.planTimes)次/\(groupPlan.planDays)天"
-                default:
-                    cell.planImageView.image = UIImage(named: "Cover")
-                }
-                cell.planProgressView.alpha = 0
-            }
-            return cell
-        })
-    }
-    
-    private func configureDataSourceProvider() {
-        dataSource?.supplementaryViewProvider = { (collectionView, _, indexPath) in
-            guard let headerView = self.collectionView.dequeueReusableSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: "\(HomeHeaderView.self)",
-                for: indexPath) as? HomeHeaderView else { return UICollectionReusableView()}
-            
-            if indexPath.section == 0 {
-                headerView.textLabel.text = "個人計畫"
-            } else if indexPath.section == 1 {
-                headerView.textLabel.text = "團體計劃"
-            }
-            return headerView
-        }
-    }
-    
-    private func configureDataSourceSnapshot() {
-        dataSource?.apply(snapshot(), animatingDifferences: false)
-    }
-    
-    private func snapshot() -> Snapshot {
-        var snapshot = Snapshot()
-        snapshot.appendSections([0, 1])
-        if let plan = plan {
-            snapshot.appendItems(plan.map({SectionItem.plan($0)}), toSection: 0)
-            snapshot.reloadItems(plan.map({SectionItem.plan($0)}))
-        }
-        if let groupPlans = groupPlans {
-            snapshot.appendItems(groupPlans.map({SectionItem.groupPlan($0)}), toSection: 1)
-            snapshot.reloadItems(groupPlans.map({SectionItem.groupPlan($0)}))
-        }
-        return snapshot
-    }
-    
     private func present(target: String, plan: Plan? = nil, groupPlan: GroupPlan? = nil) {
         guard let poseVC = UIStoryboard.home.instantiateViewController(
             withIdentifier: "\(PoseDetectViewController.self)")
@@ -252,9 +117,6 @@ class PlanManageViewController: UIViewController {
                                                 preferredStyle: .alert)
         let okAction = UIAlertAction(title: "確定", style: .destructive) { [weak self] _ in
             self?.viewModel.deletePlan(uuid: plan.uuid)
-            var snapshot = self?.dataSource?.snapshot()
-            snapshot?.deleteItems([SectionItem.plan(plan)])
-            self?.dataSource?.apply(snapshot!, animatingDifferences: false)
             alertController.dismiss(animated: true)
         }
         let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
@@ -295,5 +157,65 @@ class PlanManageViewController: UIViewController {
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
         self.present(alertController, animated: true)
+    }
+}
+
+extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        2
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        if (viewModel.planViewModels.value.count + viewModel.groupPlanViewModels.value.count) == 0 {
+            collectionView.isHidden = true
+            planEmptyView.isHidden = false
+        } else {
+            collectionView.isHidden = false
+            planEmptyView.isHidden = true
+        }
+        if section == 0 {
+            return viewModel.planViewModels.value.count
+        } else {
+            return viewModel.groupPlanViewModels.value.count
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "\(PlanManageViewCell.self)", for: indexPath) as? PlanManageViewCell else {
+            return UICollectionViewCell()
+        }
+        if indexPath.section == 0 {
+            let cellViewModel = self.viewModel.planViewModels.value[indexPath.row]
+            cell.setup(viewModel: cellViewModel)
+            cell.isDeleteButtonTap = {
+                self.showDeleteAlert(plan: cellViewModel.plan)
+            }
+            cell.isSettingButtonTap = {
+                self.showSettingAlert(plan: cellViewModel.plan)
+            }
+        } else {
+            let cellViewModel = self.viewModel.groupPlanViewModels.value[indexPath.row]
+            cell.setup(viewModel: cellViewModel)
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: "\(HomeHeaderView.self)",
+            for: indexPath) as? HomeHeaderView else {
+            return UICollectionReusableView()
+        }
+        if indexPath.section == 0 {
+            headerView.textLabel.text = "個人計畫"
+        } else {
+            headerView.textLabel.text = "團體計畫"
+        }
+        return headerView
     }
 }

@@ -118,11 +118,7 @@ class DetectFinishViewController: UIViewController {
             if progress == 1 {
                 finishPlan()
             }
-        } else if groupPlan != nil {
-            guard let groupPlan = groupPlan else {
-                return
-            }
-        }
+        } 
     }
     private func updatePlan() {
         guard let plan = plan else {

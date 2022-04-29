@@ -30,9 +30,26 @@ class PlanManageViewCell: UICollectionViewCell {
     
     @IBOutlet weak var planTimesLabel: UILabel!
     
+    var viewModel: PlanViewModel?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLayout()
+    }
+    
+    func setup(viewModel: PlanViewModel) {
+        self.viewModel = viewModel
+        layoutCell()
+    }
+    
+    private func layoutCell() {
+        guard let viewModel = viewModel else {
+            return
+        }
+        planImageView.image = UIImage(named: viewModel.plan.planName)
+        planTitleLabel.text = viewModel.plan.planName
+        planProgressView.progress = Float(viewModel.plan.progress)
+        planTimesLabel.text = "\(viewModel.plan.planTimes)次/\(viewModel.plan.planDays)天"
     }
     
     @IBAction func startButtonTap(_ sender: UIButton) {

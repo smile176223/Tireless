@@ -69,7 +69,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         viewModel.setDefault()
         
-        viewModel.personalPlan.bind { [weak self] plans in
+        viewModel.defaultPlans.bind { [weak self] plans in
             self?.plans = plans
         }
         

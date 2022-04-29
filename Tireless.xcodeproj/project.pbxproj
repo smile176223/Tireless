@@ -447,12 +447,12 @@
 		FF308E6B28066DF200265863 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				FF308E6C28066E0D00265863 /* ShareManager.swift */,
-				FF3FBE732812835300E6B5DC /* PlanManager.swift */,
-				FF3FBE9728150DEC00E6B5DC /* UserManager.swift */,
-				FF3FBEA0281546F700E6B5DC /* JoinGroupManager.swift */,
 				FF3F77E328185E6C00D8360A /* AuthManager.swift */,
+				FF3FBE9728150DEC00E6B5DC /* UserManager.swift */,
 				FF3F77F1281A7AB900D8360A /* FriendManager.swift */,
+				FF3FBE732812835300E6B5DC /* PlanManager.swift */,
+				FF3FBEA0281546F700E6B5DC /* JoinGroupManager.swift */,
+				FF308E6C28066E0D00265863 /* ShareManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
