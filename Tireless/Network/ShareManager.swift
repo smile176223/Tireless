@@ -34,9 +34,11 @@ class ShareManager {
                 }
                 completion(.success(downloadURL))
                 do {
-                    var tempVideo = shareFile
-                    tempVideo.shareURL = downloadURL
-                    try _ = self.shareWallDB.addDocument(from: tempVideo)
+                    var tempFile = shareFile
+                    tempFile.shareURL = downloadURL
+                    let document = self.shareWallDB.document()
+                    tempFile.uuid = document.documentID
+                    try document.setData(from: tempFile)
                 } catch {
                     print(error)
                 }

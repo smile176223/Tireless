@@ -60,11 +60,11 @@ class DetectFinishViewController: UIViewController {
         }
         
         let testVideo = ShareFiles(userId: "liamTest",
-                              shareName: UUID().uuidString,
-                              shareURL: videoURL,
-                              createdTime: Date().millisecondsSince1970,
-                              content: "",
-                              comment: nil)
+                                   shareName: UUID().uuidString,
+                                   shareURL: videoURL,
+                                   createdTime: Date().millisecondsSince1970,
+                                   content: "",
+                                   uuid: "")
         
         detectFinishView.isShareButtonTap = { [weak self] in
             if self?.isUserCanShare == true {
