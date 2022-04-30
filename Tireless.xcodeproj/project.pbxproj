@@ -68,6 +68,9 @@
 		FF3F7807281C47F100D8360A /* ShareCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7806281C47F100D8360A /* ShareCommentViewController.swift */; };
 		FF3F780D281D088000D8360A /* ShareCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F780C281D088000D8360A /* ShareCommentViewCell.swift */; };
 		FF3F780F281D088600D8360A /* ShareCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3F780E281D088600D8360A /* ShareCommentViewCell.xib */; };
+		FF3F7811281D1E3B00D8360A /* CommentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7810281D1E3B00D8360A /* CommentManager.swift */; };
+		FF3F7813281D407000D8360A /* ShareCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7812281D407000D8360A /* ShareCommentViewModel.swift */; };
+		FF3F7815281D40A200D8360A /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7814281D40A200D8360A /* CommentsViewModel.swift */; };
 		FF3FBE4C280FA83900E6B5DC /* HomeDailyViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */; };
 		FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */; };
 		FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */; };
@@ -183,6 +186,9 @@
 		FF3F7806281C47F100D8360A /* ShareCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCommentViewController.swift; sourceTree = "<group>"; };
 		FF3F780C281D088000D8360A /* ShareCommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCommentViewCell.swift; sourceTree = "<group>"; };
 		FF3F780E281D088600D8360A /* ShareCommentViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareCommentViewCell.xib; sourceTree = "<group>"; };
+		FF3F7810281D1E3B00D8360A /* CommentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentManager.swift; sourceTree = "<group>"; };
+		FF3F7812281D407000D8360A /* ShareCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCommentViewModel.swift; sourceTree = "<group>"; };
+		FF3F7814281D40A200D8360A /* CommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewModel.swift; sourceTree = "<group>"; };
 		FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDailyViewCell.xib; sourceTree = "<group>"; };
 		FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDailyViewCell.swift; sourceTree = "<group>"; };
 		FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
@@ -463,6 +469,7 @@
 				FF3FBE732812835300E6B5DC /* PlanManager.swift */,
 				FF3FBEA0281546F700E6B5DC /* JoinGroupManager.swift */,
 				FF308E6C28066E0D00265863 /* ShareManager.swift */,
+				FF3F7810281D1E3B00D8360A /* CommentManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -509,7 +516,9 @@
 			isa = PBXGroup;
 			children = (
 				FF308E8C2809177F00265863 /* ShareWallViewModel.swift */,
+				FF3F7812281D407000D8360A /* ShareCommentViewModel.swift */,
 				FF308E8E28095B6200265863 /* ShareFilesViewModel.swift */,
+				FF3F7814281D40A200D8360A /* CommentsViewModel.swift */,
 			);
 			path = ShareWall;
 			sourceTree = "<group>";
@@ -895,6 +904,7 @@
 				FF3F77F8281AE1D400D8360A /* InviteFriendViewCell.swift in Sources */,
 				FF3F780D281D088000D8360A /* ShareCommentViewCell.swift in Sources */,
 				FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */,
+				FF3F7813281D407000D8360A /* ShareCommentViewModel.swift in Sources */,
 				FF2FE0F0280EDB7900F8890D /* HomeHeaderView.swift in Sources */,
 				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
 				FF3FBE6E28123A0800E6B5DC /* DefaultPlanViewModel.swift in Sources */,
@@ -914,6 +924,8 @@
 				FF308E852808110100265863 /* UIStoryboard+Extension.swift in Sources */,
 				FF3FBE9B28150FB000E6B5DC /* ProfileViewModel.swift in Sources */,
 				FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */,
+				FF3F7815281D40A200D8360A /* CommentsViewModel.swift in Sources */,
+				FF3F7811281D1E3B00D8360A /* CommentManager.swift in Sources */,
 				FF3FBE6C281238FE00E6B5DC /* Plan.swift in Sources */,
 				FF3FBE562810648000E6B5DC /* PlanDetailView.swift in Sources */,
 				FF3F77EC281A1A5600D8360A /* SearchFriendHeaderView.swift in Sources */,

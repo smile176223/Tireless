@@ -24,6 +24,10 @@ class ShareCommentViewController: UIViewController {
     
     let maskView = UIView(frame: UIScreen.main.bounds)
     
+    var shareFile: ShareFiles?
+    
+    let viewModel = ShareCommentViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setMaskView()
@@ -32,6 +36,18 @@ class ShareCommentViewController: UIViewController {
         tableView.register(UINib(nibName: "\(ShareCommentViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(ShareCommentViewCell.self)")
         
+        viewModel.commentsViewModel.bind { _ in
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        guard let shareFile = shareFile else {
+            return
+        }
+        viewModel.fetchData(uuid: shareFile.uuid)
     }
     
     private func setupLayout() {
@@ -54,7 +70,22 @@ class ShareCommentViewController: UIViewController {
         }
     }
     @IBAction func sendCommentTap(_ sender: UIButton) {
-        
+        guard let shareFile = shareFile,
+              let commentText = commentTextField.text else {
+            return
+        }
+        CommentManager.shared.postComment(uuid: shareFile.uuid,
+                                          comment: Comment(userId: AuthManager.shared.currentUser,
+                                                           content: commentText,
+                                                           createdTime: Date().millisecondsSince1970)) { result in
+            switch result {
+            case .success(let text):
+                print(text)
+            case .failure(let error):
+                print(error)
+            }
+        }
+        commentTextField.text = ""
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -67,7 +98,7 @@ class ShareCommentViewController: UIViewController {
 
 extension ShareCommentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        viewModel.commentsViewModel.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -75,6 +106,9 @@ extension ShareCommentViewController: UITableViewDelegate, UITableViewDataSource
             withIdentifier: "\(ShareCommentViewCell.self)", for: indexPath) as? ShareCommentViewCell else {
             return UITableViewCell()
         }
+        
+        let cellViewModel = self.viewModel.commentsViewModel.value[indexPath.row]
+        cell.setup(viewModel: cellViewModel)
         
         return cell
     }
