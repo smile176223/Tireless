@@ -56,7 +56,6 @@ class SearchFriendViewController: UIViewController {
         }
         for friend in friendsList {
             self.checkList.append(friend.userId)
-            print(friend)
         }
     }
 }
