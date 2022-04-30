@@ -21,6 +21,8 @@ class ShareWallViewCell: UITableViewCell {
     
     var viewModel: ShareFilesViewModel?
     
+    var isCommentButtonTap: (() -> Void)?
+    
     private var isPlaying = false
     
     func setup(viewModel: ShareFilesViewModel) {
@@ -75,4 +77,9 @@ class ShareWallViewCell: UITableViewCell {
         avPlayer?.pause()
         isPlaying = false
     }
+    
+    @IBAction func commentButtonTap(_ sender: UIButton) {
+        isCommentButtonTap?()
+    }
+    
 }
