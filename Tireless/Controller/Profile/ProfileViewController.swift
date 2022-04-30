@@ -29,14 +29,14 @@ class ProfileViewController: UIViewController {
         setupHeader()
         configureCollectionView()
         
-        viewModel.friendViewModels.bind { _ in
+        viewModel.friendViewModels.bind { [weak self] _ in
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                self?.collectionView.reloadData()
             }
         }
         
-        viewModel.friends.bind { friends in
-            self.friendsList = friends
+        viewModel.friends.bind { [weak self] friends in
+            self?.friendsList = friends
         }
         
     }
@@ -118,11 +118,29 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
         
+        cell.isSetButtonTap = { [weak self] in
+            self?.setButtonAlert(userId: cellViewModel.user.userId)
+        }
+        
         return cell
     }
 }
 
 extension ProfileViewController {
+    private func setButtonAlert(userId: String) {
+        let controller = UIAlertController(title: "好友設定", message: nil, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
+            self.viewModel.deleteFriend(userId: userId)
+        }
+        controller.addAction(deleteAction)
+        let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
+            print("ban")
+        }
+        controller.addAction(banAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+    }
     private func setUserAlert() {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
