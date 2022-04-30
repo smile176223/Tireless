@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ace-hW-9Zh">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="288" width="414" height="574"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VUb-B2-mxM">
                                     <size key="itemSize" width="128" height="128"/>
@@ -38,19 +38,30 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Air-J3-rcu" customClass="ProfileHeaderView" customModule="Tireless" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="lqr-Td-Ltj"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Air-J3-rcu" secondAttribute="trailing" id="17C-G6-oxp"/>
+                            <constraint firstItem="Air-J3-rcu" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="3Qh-88-AMQ"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Ace-hW-9Zh" secondAttribute="trailing" id="EH9-k6-FgQ"/>
+                            <constraint firstItem="Air-J3-rcu" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="GRX-zH-dJA"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Ace-hW-9Zh" secondAttribute="bottom" id="KAU-pL-cKr"/>
                             <constraint firstItem="Ace-hW-9Zh" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="KGi-y4-Crk"/>
-                            <constraint firstItem="Ace-hW-9Zh" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="P2U-J9-3b1"/>
+                            <constraint firstItem="Ace-hW-9Zh" firstAttribute="top" secondItem="Air-J3-rcu" secondAttribute="bottom" id="ODl-0U-DLX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="otg-fN-UeN"/>
                     <connections>
                         <outlet property="collectionView" destination="Ace-hW-9Zh" id="USa-W8-SWc"/>
+                        <outlet property="headerView" destination="Air-J3-rcu" id="tiY-Eh-oKV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -94,7 +105,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="eWP-3s-MTl">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="eWP-3s-MTl">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>

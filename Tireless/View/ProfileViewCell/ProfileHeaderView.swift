@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileHeaderView: UICollectionReusableView {
+class ProfileHeaderView: UIView {
     
     @IBOutlet weak var userImageView: UIImageView!
     
@@ -20,6 +20,12 @@ class ProfileHeaderView: UICollectionReusableView {
     var isSearchButtonTap: (() -> Void)?
     
     var isInviteTap: (() -> Void)?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupLayout()
+        imageViewTap()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,8 +41,11 @@ class ProfileHeaderView: UICollectionReusableView {
         guard let view = loadViewFromNib() else { return }
         view.frame = self.bounds
         self.addSubview(view)
-        setupLayout()
-        imageViewTap()
+    }
+    
+    private func loadViewFromNib() -> UIView? {
+        let nib = UINib(nibName: "\(ProfileHeaderView.self)", bundle: nil)
+        return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
     
     private func imageViewTap() {
@@ -56,11 +65,6 @@ class ProfileHeaderView: UICollectionReusableView {
     
     @IBAction func inviteTap(_ sender: Any) {
         isInviteTap?()
-    }
-
-    private func loadViewFromNib() -> UIView? {
-        let nib = UINib(nibName: "\(ProfileHeaderView.self)", bundle: nil)
-        return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
     
     private func setupLayout() {
