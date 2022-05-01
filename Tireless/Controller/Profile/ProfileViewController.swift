@@ -48,6 +48,12 @@ class ProfileViewController: UIViewController {
             self?.friendsList = friends
         }
         
+        viewModel.historyPlanViewModels.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,7 +125,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .friends:
             return viewModel.friendViewModels.value.count
         case .historyPlan:
-            return 5
+            return viewModel.historyPlanViewModels.value.count
         }
     }
     func collectionView(_ collectionView: UICollectionView,
@@ -143,6 +149,9 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             }
             return friendsCell
         case .historyPlan:
+            let cellViewModel = self.viewModel.historyPlanViewModels.value[indexPath.row]
+            historyCell.planTitleLabel.text = cellViewModel.plan.planName
+            
             return historyCell
         }
     }
@@ -181,6 +190,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         headerView.isHistoryTab = { [weak self] in
             self?.currentTab = .historyPlan
+            self?.viewModel.fetchHistoryPlan()
         }
         
         return headerView

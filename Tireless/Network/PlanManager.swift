@@ -137,4 +137,21 @@ class PlanManager {
             }
         }
     }
+    
+    func fetchHistoryPlan(userId: String, completion: @escaping (Result<[Plan], Error>) -> Void) {
+        userDB.document(userId).collection("FinishPlans").getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                var plans = [Plan]()
+                for document in querySnapshot.documents {
+                    if let plan = try? document.data(as: Plan.self, decoder: Firestore.Decoder()) {
+                        plans.append(plan)
+                    }
+                }
+                completion(.success(plans))
+            }
+        }
+    }
 }
