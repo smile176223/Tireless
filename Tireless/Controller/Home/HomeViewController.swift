@@ -117,7 +117,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
 
             let groupHeight = sectionIndex == 1 ?
-            NSCollectionLayoutDimension.absolute(400) : NSCollectionLayoutDimension.absolute(100)
+            NSCollectionLayoutDimension.absolute(400) : NSCollectionLayoutDimension.absolute(90)
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                    heightDimension: .fractionalHeight(1.0))
             let innergroup = sectionIndex == 1 ?
@@ -174,19 +174,13 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 dailyCell.dailyDayLabel.text = text.days
                 return dailyCell
             case .personalPlan(let plans):
-                cell.textLabel.font = .bold(size: 30)
+                cell.textLabel.font = .bold(size: 25)
                 cell.textLabel.text = plans.planName
                 cell.imageView.image = UIImage(named: plans.planImage)
-                cell.masksView.backgroundColor = .white
                 return cell
             case .joinGroup(let joinGroup):
                 cell.textLabel.font = .bold(size: 15)
                 cell.textLabel.text = "\(joinGroup.planName)\n\(joinGroup.createdName)"
-                if joinGroup.createdUserId == AuthManager.shared.currentUser {
-                    cell.masksView.backgroundColor = .themeYellow
-                } else {
-                    cell.masksView.backgroundColor = .white
-                }
                 cell.imageView.alpha = 0
                 return cell
             }

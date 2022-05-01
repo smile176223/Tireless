@@ -12,8 +12,8 @@ class HomeViewCell: UICollectionViewCell {
     
     lazy var textLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
-        label.textColor = .black
+        label.textAlignment = .left
+        label.textColor = .white
         label.numberOfLines = 0
         return label
     }()
@@ -24,13 +24,6 @@ class HomeViewCell: UICollectionViewCell {
         imageView.clipsToBounds = true
         imageView.alpha = 1
         return imageView
-    }()
-    
-    lazy var masksView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.alpha = 0.5
-        return view
     }()
     
     override init(frame: CGRect) {
@@ -46,7 +39,7 @@ class HomeViewCell: UICollectionViewCell {
     private func commonInit() {
         textLabelConstraints()
         self.backgroundColor = .themeBG
-        self.layer.cornerRadius = 12
+        self.layer.cornerRadius = 20
         self.contentView.backgroundColor = .white
     }
     
@@ -61,22 +54,13 @@ class HomeViewCell: UICollectionViewCell {
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
-        addSubview(masksView)
-        masksView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            masksView.topAnchor.constraint(equalTo: imageView.topAnchor),
-            masksView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
-            masksView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-            masksView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor)
-        ])
-        
         addSubview(textLabel)
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            textLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            textLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15)
+            
         ])
     }
 }
