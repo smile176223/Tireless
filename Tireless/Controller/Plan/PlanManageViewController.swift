@@ -54,8 +54,8 @@ class PlanManageViewController: UIViewController {
     }
     
     private func setPlanEmptyView() {
-        planEmptyView.image = UIImage(named: "TirelessLogo")
-        planEmptyView.contentMode = .scaleAspectFill
+        planEmptyView.image = UIImage(named: "tireless_noplan")
+        planEmptyView.contentMode = .scaleAspectFit
         self.view.addSubview(planEmptyView)
         planEmptyView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

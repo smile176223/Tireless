@@ -68,6 +68,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
+    override func viewWillLayoutSubviews() {
+        
+    }
+    
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
         collectionView.backgroundColor = .themeBG
@@ -92,16 +96,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             guard let sectionType = Section(rawValue: sectionIndex) else {
                 return nil
             }
-
-            let columns = sectionType.columnCount
-
+            var columns = sectionType.columnCount
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(1.0))
-
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-            
             var groupHeight = NSCollectionLayoutDimension.absolute(1)
             if sectionIndex == 0 {
                 groupHeight = NSCollectionLayoutDimension.absolute(90)
@@ -110,22 +109,23 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             } else {
                 groupHeight = NSCollectionLayoutDimension.absolute(150)
             }
-
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                    heightDimension: .fractionalHeight(1.0))
+            if sectionIndex == 2 {
+                if self.viewModel.joinGroupsViewModel.value.count != 0 {
+                    columns = 3
+                } else {
+                    columns = 1
+                }
+            }
             let innergroup = sectionIndex == 1 ?
-            NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item,
-                                               count: columns) :
-            NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item,
-                                               count: columns)
-
+            NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: columns) :
+            NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
             let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
                                                          heightDimension: groupHeight)
             let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innergroup])
-
             let section = NSCollectionLayoutSection(group: nestedGroup)
             section.orthogonalScrollingBehavior = .groupPagingCentered
-
             let headerSize = sectionIndex == 0 ?
             NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100)) :
             NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(60))
@@ -133,16 +133,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                                                                      elementKind:
                                                                         UICollectionView.elementKindSectionHeader,
                                                                      alignment: .top)
-
             section.boundarySupplementaryItems = [header]
-
             section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 15, trailing: 15)
-
             return section
         }
-
         return layout
-   
     }
     
 }
@@ -154,7 +149,11 @@ extension HomeViewController: UICollectionViewDataSource {
         } else if section == 1 {
             return Section.personalPlan.columnCount
         } else {
-            return viewModel.joinGroupsViewModel.value.count
+            if viewModel.joinGroupsViewModel.value.count == 0 {
+                return 1
+            } else {
+                return viewModel.joinGroupsViewModel.value.count
+            }
         }
     }
     
@@ -175,10 +174,11 @@ extension HomeViewController: UICollectionViewDataSource {
             for: indexPath) as? HomeGroupPlanViewCell else {
             return UICollectionViewCell()
         }
-        
         if indexPath.section == 0 {
             if indexPath.section == 0, indexPath.row == 2 {
                 dailyCell.contentView.backgroundColor = .themeYellow
+            } else {
+                dailyCell.contentView.backgroundColor = .white
             }
             dailyCell.dailyWeekDayLabel.text = viewModel.weeklyDay[indexPath.row].weekDays
             dailyCell.dailyDayLabel.text = viewModel.weeklyDay[indexPath.row].days
@@ -188,8 +188,18 @@ extension HomeViewController: UICollectionViewDataSource {
             cell.setup(viewModel: cellViewModel)
             return cell
         } else {
-            let cellViewModel = self.viewModel.joinGroupsViewModel.value[indexPath.row]
-            groupCell.setup(viewModel: cellViewModel)
+            if viewModel.joinGroupsViewModel.value.count != 0 {
+                let cellViewModel = self.viewModel.joinGroupsViewModel.value[indexPath.row]
+                groupCell.setup(viewModel: cellViewModel)
+            } else {
+                groupCell.groupImageView.image = UIImage(named: "tireless_nogroup")
+                groupCell.groupImageView.alpha = 1
+                groupCell.groupUserImageView.isHidden = true
+                groupCell.groupUserNameLabel.isHidden = true
+                groupCell.groupTitleLabel.isHidden = true
+                groupCell.isUserInteractionEnabled = false
+            }
+            
             return groupCell
         }
         

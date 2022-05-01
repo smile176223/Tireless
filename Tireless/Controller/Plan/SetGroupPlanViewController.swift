@@ -12,20 +12,17 @@ class SetGroupPlanViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
+            collectionView.dataSource = self
         }
     }
-    
-    typealias DataSource = UICollectionViewDiffableDataSource<Int, SectionItem>
-    
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, SectionItem>
-    
-    private var dataSource: DataSource?
     
     var plans: [DefaultPlans]?
     
     var selectPlan: DefaultPlans? {
         didSet {
-            dataSource?.apply(snapshot(), animatingDifferences: false)
+            DispatchQueue.main.async {
+                self.collectionView.reloadItems(at: [IndexPath(row: 0, section: 1)])
+            }
         }
     }
     
@@ -47,18 +44,20 @@ class SetGroupPlanViewController: UIViewController {
         }
     }
     
-    enum SectionItem: Hashable {
-        case plan(DefaultPlans)
-        case detail(String)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureCollectionView()
-        configureDataSource()
-        configureDataSourceProvider()
-        configureDataSourceSnapshot()
+        
+        homeViewModel.defaultPlansViewModel.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        homeViewModel.setDefault()
     }
     
     private func configureCollectionView() {
@@ -90,7 +89,7 @@ class SetGroupPlanViewController: UIViewController {
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
 
             let groupHeight = sectionIndex == 1 ?
-            NSCollectionLayoutDimension.fractionalHeight(0.6) : NSCollectionLayoutDimension.absolute(100)
+            NSCollectionLayoutDimension.fractionalHeight(0.6) : NSCollectionLayoutDimension.fractionalHeight(0.2)
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                    heightDimension: .fractionalHeight(1.0))
             let innergroup = sectionIndex == 1 ?
@@ -125,88 +124,83 @@ class SetGroupPlanViewController: UIViewController {
    
     }
     
-    private func configureDataSource() {
-        dataSource = DataSource(collectionView: collectionView,
-                                cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "\(HomeViewCell.self)",
-                for: indexPath) as? HomeViewCell else {
-                return UICollectionViewCell()
-            }
-
-            guard let detailCell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "\(SetGroupPlanDetailViewCell.self)",
-                for: indexPath) as? SetGroupPlanDetailViewCell else {
-                return UICollectionViewCell()
-            }
-            
-            switch item {
-            case .plan(let plans):
-                cell.textLabel.text = plans.planName
-                cell.textLabel.font = .bold(size: 20)
-                cell.imageView.image = UIImage(named: plans.planImage)
-                return cell
-            case .detail(let text):
-                detailCell.groupPlanDetailLabel.text = text
-                detailCell.groupCreatedUserLabel.text = "發起人：\(AuthManager.shared.currentUserData?.name ?? "User")"
-                detailCell.isCreateButtonTap = { [weak self] days, times in
-                    if AuthManager.shared.checkCurrentUser() == true {
-                        if let selectPlan = self?.selectPlan {
-                            self?.viewModel.getPlanData(name: selectPlan.planName,
-                                                       times: times,
-                                                       days: days,
-                                                       createdName: AuthManager.shared.currentUserData?.name ?? "User",
-                                                       createdUserId: AuthManager.shared.currentUser)
-                            self?.viewModel.createPlan(
-                                success: {
-                                    self?.dismiss(animated: true)
-                                }, failure: { error in
-                                    print(error)
-                                })
-                        }
-                    } else {
-                        self?.authPresent()
-                    }
-                }
-                return detailCell
-            }
-        })
-    }
-    
-    private func configureDataSourceProvider() {
-        dataSource?.supplementaryViewProvider = { (collectionView, _, indexPath) in
-            guard let headerView = self.collectionView.dequeueReusableSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: "\(HomeHeaderView.self)",
-                for: indexPath) as? HomeHeaderView else { return UICollectionReusableView()}
-        
-            if indexPath.section == 0 {
-                headerView.textLabel.text = "發起揪團"
-                headerView.textLabel.textAlignment = .center
-            }
-
-            return headerView
-        }
-    }
-    
-    private func configureDataSourceSnapshot() {
-        dataSource?.apply(snapshot(), animatingDifferences: false)
-    }
-    
-    private func snapshot() -> Snapshot {
-        var snapshot = Snapshot()
-        snapshot.appendSections([0, 1])
-        snapshot.appendItems([SectionItem.detail(selectPlan?.planDetail ?? "")], toSection: 1)
-        if let plans = plans {
-            snapshot.appendItems(plans.map({SectionItem.plan($0)}), toSection: 0)
-        }
-        return snapshot
-    }
-    
     func authPresent() {
         if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
             present(authVC, animated: true, completion: nil)
         }
+    }
+}
+
+extension SetGroupPlanViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        2
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return homeViewModel.defaultPlansViewModel.value.count
+        } else {
+            return 1
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "\(HomeViewCell.self)",
+            for: indexPath) as? HomeViewCell else {
+            return UICollectionViewCell()
+        }
+
+        guard let detailCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "\(SetGroupPlanDetailViewCell.self)",
+            for: indexPath) as? SetGroupPlanDetailViewCell else {
+            return UICollectionViewCell()
+        }
+        if indexPath.section == 0 {
+            let cellViewModel = homeViewModel.defaultPlansViewModel.value[indexPath.row]
+            cell.setup(viewModel: cellViewModel)
+            cell.textLabel.font = .bold(size: 20)
+            return cell
+        } else {
+            detailCell.groupPlanDetailLabel.text = selectPlan?.planDetail
+            detailCell.groupCreatedUserLabel.text = "發起人：\(AuthManager.shared.currentUserData?.name ?? "User")"
+            detailCell.isCreateButtonTap = { [weak self] days, times in
+                if AuthManager.shared.checkCurrentUser() == true {
+                    if let selectPlan = self?.selectPlan {
+                        self?.viewModel.getPlanData(name: selectPlan.planName,
+                                                   times: times,
+                                                   days: days,
+                                                   createdName: AuthManager.shared.currentUserData?.name ?? "User",
+                                                   createdUserId: AuthManager.shared.currentUser)
+                        self?.viewModel.createPlan(
+                            success: {
+                                self?.dismiss(animated: true)
+                            }, failure: { error in
+                                print(error)
+                            })
+                    }
+                } else {
+                    self?.authPresent()
+                }
+            }
+            return detailCell
+            
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerView = self.collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: "\(HomeHeaderView.self)",
+            for: indexPath) as? HomeHeaderView else { return UICollectionReusableView()}
+        if indexPath.section == 0 {
+            headerView.textLabel.isHidden = false
+            headerView.textLabel.text = "發起揪團"
+            headerView.textLabel.textAlignment = .center
+        } else {
+            headerView.textLabel.isHidden = true
+        }
+        return headerView
     }
 }
 
