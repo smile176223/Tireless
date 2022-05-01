@@ -122,7 +122,14 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                                                appleName: name) { [weak self] result in
                 switch result {
                 case .success(let authResult):
-                    AuthManager.shared.getCurrentUser()
+                    AuthManager.shared.getCurrentUser { result in
+                        switch result {
+                        case .success(let bool):
+                            print(bool)
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
                     if name == "" {
                         name = "Tireless User"
                     }

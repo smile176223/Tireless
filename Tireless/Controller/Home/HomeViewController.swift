@@ -18,8 +18,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     let viewModel = HomeViewModel()
     
-    var plans: [DefaultPlans]?
-    
     enum Section: Int, CaseIterable {
         case daily
         case personalPlan
@@ -36,13 +34,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         }
     }
- 
-    private var joinGroup: [JoinGroup]? {
-        didSet {
-//            dataSource?.apply(snapshot(), animatingDifferences: false)
-        }
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .themeBG
@@ -53,10 +45,21 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         viewModel.setDefault()
         
-        viewModel.joinGroup.bind { [weak self] joinGroup in
-            self?.joinGroup = joinGroup
+        viewModel.joinGroupsViewModel.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
         }
-
+        AuthManager.shared.getCurrentUser { result in
+            switch result {
+            case .success(let bool):
+                if bool == true {
+                    self.viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,6 +82,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         collectionView.register(UINib(nibName: "\(HomeDailyViewCell.self)", bundle: nil),
                                 forCellWithReuseIdentifier: "\(HomeDailyViewCell.self)")
+        
+        collectionView.register(UINib(nibName: "\(HomeGroupPlanViewCell.self)", bundle: nil),
+                                forCellWithReuseIdentifier: "\(HomeGroupPlanViewCell.self)")
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -95,9 +101,16 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+            
+            var groupHeight = NSCollectionLayoutDimension.absolute(1)
+            if sectionIndex == 0 {
+                groupHeight = NSCollectionLayoutDimension.absolute(90)
+            } else if sectionIndex == 1 {
+                groupHeight = NSCollectionLayoutDimension.absolute(400)
+            } else {
+                groupHeight = NSCollectionLayoutDimension.absolute(150)
+            }
 
-            let groupHeight = sectionIndex == 1 ?
-            NSCollectionLayoutDimension.absolute(400) : NSCollectionLayoutDimension.absolute(90)
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                    heightDimension: .fractionalHeight(1.0))
             let innergroup = sectionIndex == 1 ?
@@ -141,7 +154,7 @@ extension HomeViewController: UICollectionViewDataSource {
         } else if section == 1 {
             return Section.personalPlan.columnCount
         } else {
-            return 0
+            return viewModel.joinGroupsViewModel.value.count
         }
     }
     
@@ -157,6 +170,12 @@ extension HomeViewController: UICollectionViewDataSource {
             for: indexPath) as? HomeDailyViewCell else {
             return UICollectionViewCell()
         }
+        guard let groupCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "\(HomeGroupPlanViewCell.self)",
+            for: indexPath) as? HomeGroupPlanViewCell else {
+            return UICollectionViewCell()
+        }
+        
         if indexPath.section == 0 {
             if indexPath.section == 0, indexPath.row == 2 {
                 dailyCell.contentView.backgroundColor = .themeYellow
@@ -165,11 +184,13 @@ extension HomeViewController: UICollectionViewDataSource {
             dailyCell.dailyDayLabel.text = viewModel.weeklyDay[indexPath.row].days
             return dailyCell
         } else if indexPath.section == 1 {
-            let cellViewModel = self.viewModel.defaultPlanss.value[indexPath.row]
+            let cellViewModel = self.viewModel.defaultPlansViewModel.value[indexPath.row]
             cell.setup(viewModel: cellViewModel)
             return cell
         } else {
-            return cell
+            let cellViewModel = self.viewModel.joinGroupsViewModel.value[indexPath.row]
+            groupCell.setup(viewModel: cellViewModel)
+            return groupCell
         }
         
     }
@@ -192,7 +213,7 @@ extension HomeViewController: UICollectionViewDataSource {
             else {
                 return
             }
-            setGroupPlanVC.plans = self?.plans
+            setGroupPlanVC.plans = self?.viewModel.plans
             self?.present(setGroupPlanVC, animated: true)
         }
 
@@ -218,7 +239,7 @@ extension HomeViewController: UICollectionViewDelegate {
             else {
                 return
             }
-            detailVC.plan = viewModel.defaultPlanss.value[indexPath.row].defaultPlans
+            detailVC.plan = viewModel.defaultPlansViewModel.value[indexPath.row].defaultPlans
             detailVC.modalPresentationStyle = .fullScreen
             self.present(detailVC, animated: true)
         } else if indexPath.section == 2 {
@@ -228,20 +249,8 @@ extension HomeViewController: UICollectionViewDelegate {
             else {
                 return
             }
-            groupVC.joinGroup = self.joinGroup?[indexPath.row]
-            guard let plans = plans else { return }
-            switch joinGroup?[indexPath.row].planName {
-            case "深蹲":
-                groupVC.plan = plans[0]
-            case "棒式":
-                groupVC.plan = plans[1]
-            case "伏地挺身":
-                groupVC.plan = plans[2]
-            case .none:
-                print("none")
-            case .some(let string):
-                print(string)
-            }
+            groupVC.joinGroup = viewModel.joinGroupsViewModel.value[indexPath.row].joinGroup
+    
             groupVC.modalPresentationStyle = .fullScreen
             self.present(groupVC, animated: true)
         }

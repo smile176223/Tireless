@@ -35,10 +35,11 @@ class AuthManager {
         }
     }
     
-    func getCurrentUser() {
+    func getCurrentUser(completion: @escaping (Result<Bool, Error>) -> Void) {
         Auth.auth().addStateDidChangeListener { [weak self] auth, user in
             guard let user = auth.currentUser else {
                 self?.currentUser = ""
+                completion(.success(false))
                 return
             }
             self?.currentUser = user.uid
@@ -46,8 +47,9 @@ class AuthManager {
                 switch result {
                 case .success(let user):
                     self?.currentUserData = user
+                    completion(.success(true))
                 case .failure(let error):
-                    print(error)
+                    completion(.failure(error))
                 }
             }
         }

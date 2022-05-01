@@ -31,6 +31,8 @@ class SetGroupPlanViewController: UIViewController {
     
     let viewModel = SetGroupPlanViewModel()
     
+    let homeViewModel = HomeViewModel()
+    
     enum Section: Int, CaseIterable {
         case plan
         case detail
