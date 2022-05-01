@@ -20,7 +20,7 @@ class SearchFriendViewController: UIViewController {
     
     var checkList = [AuthManager.shared.currentUser]
     
-    var friendList: [User]?
+    var friendsList: [User]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,10 +51,10 @@ class SearchFriendViewController: UIViewController {
         makeCheckList()
     }
     private func makeCheckList() {
-        guard let friendList = friendList else {
+        guard let friendsList = friendsList else {
             return
         }
-        for friend in friendList {
+        for friend in friendsList {
             self.checkList.append(friend.userId)
         }
     }

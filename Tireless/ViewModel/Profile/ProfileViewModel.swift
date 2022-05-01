@@ -14,6 +14,8 @@ class ProfileViewModel {
     var friends = Box([User]())
     
     let friendViewModels = Box([FriendsViewModel]())
+    
+    let historyPlanViewModels = Box([HistoryPlanViewModels]())
 
     func fetchUser(userId: String) {
         UserManager.shared.fetchUser(userId: userId) { [weak self] result in
@@ -49,6 +51,17 @@ class ProfileViewModel {
         }
     }
     
+    func fetchHistoryPlan() {
+        PlanManager.shared.fetchHistoryPlan(userId: AuthManager.shared.currentUser) { [weak self] result in
+            switch result {
+            case .success(let plans):
+                self?.setHistoryPlan(plans)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     func convertFriendsToViewModels(from friends: [User]) -> [FriendsViewModel] {
         var viewModels = [FriendsViewModel]()
         for friend in friends {
@@ -60,5 +73,18 @@ class ProfileViewModel {
     
     func setFriends(_ friends: [User]) {
         friendViewModels.value = convertFriendsToViewModels(from: friends)
+    }
+    
+    func convertPlansToViewModels(from plans: [Plan]) -> [HistoryPlanViewModels] {
+        var viewModels = [HistoryPlanViewModels]()
+        for plan in plans {
+            let viewModel = HistoryPlanViewModels(model: plan)
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+    
+    func setHistoryPlan(_ plans: [Plan]) {
+        historyPlanViewModels.value = convertPlansToViewModels(from: plans)
     }
 }

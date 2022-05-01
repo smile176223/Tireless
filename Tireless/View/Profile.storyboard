@@ -45,7 +45,7 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Ace-hW-9Zh" secondAttribute="trailing" id="EH9-k6-FgQ"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Ace-hW-9Zh" secondAttribute="bottom" id="KAU-pL-cKr"/>
                             <constraint firstItem="Ace-hW-9Zh" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="KGi-y4-Crk"/>
-                            <constraint firstItem="Ace-hW-9Zh" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="P2U-J9-3b1"/>
+                            <constraint firstItem="Ace-hW-9Zh" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="TtA-xW-lgW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="otg-fN-UeN"/>
@@ -94,7 +94,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="eWP-3s-MTl">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="eWP-3s-MTl">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>

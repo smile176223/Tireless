@@ -14,6 +14,10 @@ class ProfileHeaderView: UICollectionReusableView {
     @IBOutlet weak var userNameLabel: UILabel!
     
     @IBOutlet weak var headerLineView: UIView!
+
+    @IBOutlet weak var indicatorView: UIView!
+    
+    @IBOutlet weak var indicatorCenterX: NSLayoutConstraint!
     
     var isUserImageTap: (() -> Void)?
     
@@ -21,20 +25,12 @@ class ProfileHeaderView: UICollectionReusableView {
     
     var isInviteTap: (() -> Void)?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
+    var isFriendsTab: (() -> Void)?
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-    }
+    var isHistoryTab: (() -> Void)?
     
-    private func commonInit() {
-        guard let view = loadViewFromNib() else { return }
-        view.frame = self.bounds
-        self.addSubview(view)
+    override func awakeFromNib() {
+        super.awakeFromNib()
         setupLayout()
         imageViewTap()
     }
@@ -54,13 +50,18 @@ class ProfileHeaderView: UICollectionReusableView {
         isSearchButtonTap?()
     }
     
-    @IBAction func inviteTap(_ sender: Any) {
+    @IBAction func inviteTap(_ sender: UIButton) {
         isInviteTap?()
     }
-
-    private func loadViewFromNib() -> UIView? {
-        let nib = UINib(nibName: "\(ProfileHeaderView.self)", bundle: nil)
-        return nib.instantiate(withOwner: self, options: nil).first as? UIView
+    
+    @IBAction func friendsTabButtonTap(_ sender: UIButton) {
+        indicatorAnimate(sender)
+        isFriendsTab?()
+    }
+    
+    @IBAction func historyabButtonTap(_ sender: UIButton) {
+        indicatorAnimate(sender)
+        isHistoryTab?()
     }
     
     private func setupLayout() {
@@ -69,5 +70,13 @@ class ProfileHeaderView: UICollectionReusableView {
         userImageView.layer.borderColor = UIColor.gray.cgColor
         headerLineView.layer.cornerRadius = 5
         userNameLabel.font = .bold(size: 20)
+    }
+    
+    private func indicatorAnimate(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
+            self.indicatorCenterX.isActive = false
+            self.indicatorCenterX = self.indicatorView.centerXAnchor.constraint(equalTo: sender.centerXAnchor)
+            self.indicatorCenterX.isActive = true
+        }, completion: nil)
     }
 }
