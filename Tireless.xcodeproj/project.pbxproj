@@ -72,6 +72,7 @@
 		FF3F7813281D407000D8360A /* ShareCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7812281D407000D8360A /* ShareCommentViewModel.swift */; };
 		FF3F7815281D40A200D8360A /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7814281D40A200D8360A /* CommentsViewModel.swift */; };
 		FF3F7817281E3BA900D8360A /* HistoryPlanViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7816281E3BA900D8360A /* HistoryPlanViewModels.swift */; };
+		FF3F7819281E769A00D8360A /* DefaultPlansViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7818281E769A00D8360A /* DefaultPlansViewModel.swift */; };
 		FF3FBE4C280FA83900E6B5DC /* HomeDailyViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */; };
 		FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */; };
 		FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */; };
@@ -191,6 +192,7 @@
 		FF3F7812281D407000D8360A /* ShareCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCommentViewModel.swift; sourceTree = "<group>"; };
 		FF3F7814281D40A200D8360A /* CommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewModel.swift; sourceTree = "<group>"; };
 		FF3F7816281E3BA900D8360A /* HistoryPlanViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPlanViewModels.swift; sourceTree = "<group>"; };
+		FF3F7818281E769A00D8360A /* DefaultPlansViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPlansViewModel.swift; sourceTree = "<group>"; };
 		FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDailyViewCell.xib; sourceTree = "<group>"; };
 		FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDailyViewCell.swift; sourceTree = "<group>"; };
 		FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
@@ -576,6 +578,7 @@
 			isa = PBXGroup;
 			children = (
 				FF3FBE642811BE7A00E6B5DC /* HomeViewModel.swift */,
+				FF3F7818281E769A00D8360A /* DefaultPlansViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -954,6 +957,7 @@
 				FF3F77E228185D4C00D8360A /* CryptoKitHelper.swift in Sources */,
 				FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */,
 				FF3FBEA1281546F700E6B5DC /* JoinGroupManager.swift in Sources */,
+				FF3F7819281E769A00D8360A /* DefaultPlansViewModel.swift in Sources */,
 				FF3FBEA92815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift in Sources */,
 				FF308E7A2807D4A000265863 /* PublishViewModel.swift in Sources */,
 				FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */,

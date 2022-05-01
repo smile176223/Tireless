@@ -12,10 +12,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
+            collectionView.dataSource = self
         }
     }
-    
-    let shareManager = ShareManager()
     
     let viewModel = HomeViewModel()
     
@@ -25,7 +24,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         case daily
         case personalPlan
         case joinGroup
-        
+
         var columnCount: Int {
             switch self {
             case .daily:
@@ -37,22 +36,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         }
     }
-    
-    enum SectionItem: Hashable {
-        case daily(WeeklyDays)
-        case personalPlan(DefaultPlans)
-        case joinGroup(JoinGroup)
-    }
-    
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, SectionItem>
-    
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SectionItem>
-    
-    private var dataSource: DataSource?
-    
+ 
     private var joinGroup: [JoinGroup]? {
         didSet {
-            dataSource?.apply(snapshot(), animatingDifferences: false)
+//            dataSource?.apply(snapshot(), animatingDifferences: false)
         }
     }
     
@@ -63,15 +50,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         navigationController?.navigationBar.isHidden = true
         
         configureCollectionView()
-        configureDataSource()
-        configureDataSourceProvider()
-        configureDataSourceSnapshot()
-        
+
         viewModel.setDefault()
-        
-        viewModel.defaultPlans.bind { [weak self] plans in
-            self?.plans = plans
-        }
         
         viewModel.joinGroup.bind { [weak self] joinGroup in
             self?.joinGroup = joinGroup
@@ -152,124 +132,81 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
    
     }
     
-    private func configureDataSource() {
-        dataSource = DataSource(collectionView: collectionView,
-                                cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(HomeViewCell.self)",
-                                                                for: indexPath) as? HomeViewCell else {
-                return UICollectionViewCell()
-            }
-            guard let dailyCell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(HomeDailyViewCell.self)",
-                                                                for: indexPath) as? HomeDailyViewCell else {
-                return UICollectionViewCell()
-            }
-            
-            switch item {
-            case .daily(let text):
-                if indexPath.section == 0, indexPath.row == 2 {
-                    dailyCell.contentView.backgroundColor = .themeYellow
-                }
-                cell.textLabel.text = "\(text)"
-                dailyCell.dailyWeekDayLabel.text = text.weekDays
-                dailyCell.dailyDayLabel.text = text.days
-                return dailyCell
-            case .personalPlan(let plans):
-                cell.textLabel.font = .bold(size: 25)
-                cell.textLabel.text = plans.planName
-                cell.imageView.image = UIImage(named: plans.planImage)
-                return cell
-            case .joinGroup(let joinGroup):
-                cell.textLabel.font = .bold(size: 15)
-                cell.textLabel.text = "\(joinGroup.planName)\n\(joinGroup.createdName)"
-                cell.imageView.alpha = 0
-                return cell
-            }
-        })
-    }
-    private func configureDataSourceProvider() {
-        dataSource?.supplementaryViewProvider = { (collectionView, _, indexPath) in
-            guard let headerView = self.collectionView.dequeueReusableSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: "\(HomeHeaderView.self)",
-                for: indexPath) as? HomeHeaderView else { return UICollectionReusableView()}
-            guard let headerDailyView = self.collectionView.dequeueReusableSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: "\(HomeDailyHeaderView.self)",
-                for: indexPath) as? HomeDailyHeaderView else { return UICollectionReusableView()}
-            
-            headerView.isCreateButtonTap = { [weak self] in
-                guard let setGroupPlanVC = UIStoryboard.groupPlan.instantiateViewController(
-                    withIdentifier: "\(SetGroupPlanViewController.self)")
-                        as? SetGroupPlanViewController
-                else {
-                    return
-                }
-                setGroupPlanVC.plans = self?.plans
-                self?.present(setGroupPlanVC, animated: true)
-            }
-            
-            if indexPath.section == 0 {
-                let formatter = DateFormatter()
-                formatter.dateStyle = .long
-                formatter.timeStyle = .none
-                formatter.string(from: Date())
-                headerDailyView.dateLabel.text = formatter.string(from: Date())
-                headerDailyView.titleLabel.text = "每日運動計畫"
-                return headerDailyView
-            } else if indexPath.section == 1 {
-                headerView.textLabel.text = "個人計畫"
-                headerView.createGroupButton.isHidden = true
-            } else if indexPath.section == 2 {
-                headerView.textLabel.text = "團體計劃"
-                headerView.createGroupButton.isHidden = false
-            }
-            return headerView
+}
+extension HomeViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int { 3 }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return Section.daily.columnCount
+        } else if section == 1 {
+            return Section.personalPlan.columnCount
+        } else {
+            return 0
         }
     }
     
-    private func configureDataSourceSnapshot() {
-        dataSource?.apply(snapshot(), animatingDifferences: false)
-    }
-    
-    private func snapshot() -> Snapshot {
-        var snapshot = Snapshot()
-        snapshot.appendSections([.daily, .personalPlan, .joinGroup])
-        snapshot.appendItems(viewModel.weeklyDay.map({SectionItem.daily($0)}), toSection: .daily)
-        snapshot.appendItems(viewModel.plans.map({SectionItem.personalPlan($0)}), toSection: .personalPlan)
-        if let joinGroup = joinGroup {
-            snapshot.appendItems(joinGroup.map({SectionItem.joinGroup($0)}), toSection: .joinGroup)
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "\(HomeViewCell.self)",
+            for: indexPath) as? HomeViewCell else {
+            return UICollectionViewCell()
         }
-        return snapshot
+        guard let dailyCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "\(HomeDailyViewCell.self)",
+            for: indexPath) as? HomeDailyViewCell else {
+            return UICollectionViewCell()
+        }
+        if indexPath.section == 0 {
+            if indexPath.section == 0, indexPath.row == 2 {
+                dailyCell.contentView.backgroundColor = .themeYellow
+            }
+            dailyCell.dailyWeekDayLabel.text = viewModel.weeklyDay[indexPath.row].weekDays
+            dailyCell.dailyDayLabel.text = viewModel.weeklyDay[indexPath.row].days
+            return dailyCell
+        } else if indexPath.section == 1 {
+            let cellViewModel = self.viewModel.defaultPlanss.value[indexPath.row]
+            cell.setup(viewModel: cellViewModel)
+            return cell
+        } else {
+            return cell
+        }
+        
     }
-    
-//    @IBAction func photoButtonTap(_ sender: UIButton) {
-//        let imagePicker = UIImagePickerController()
-//        imagePicker.allowsEditing = false
-//        imagePicker.sourceType = .camera
-//        imagePicker.delegate = self
-//        present(imagePicker, animated: true, completion: nil)
-//    }
-//    
-//    func imagePickerController(_ picker: UIImagePickerController,
-//                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-//        
-//        let fileManager = FileManager.default
-//        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-//        let imagePath = documentsPath?.appendingPathComponent("image.jpg")
-//        
-//        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            
-//            let imageData = pickedImage.jpegData(compressionQuality: 0.75)
-//            try? imageData?.write(to: imagePath!)
-//            shareManager.uploadPicture(shareFile: ShareFiles(userId: "liamTest",
-//                                                             shareName: UUID().uuidString,
-//                                                             shareURL: imagePath!,
-//                                                             createdTime: Date().millisecondsSince1970,
-//                                                             content: "")) { _ in
-//                self.dismiss(animated: true)
-//            }
-//        }
-//    }
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerView = self.collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: "\(HomeHeaderView.self)",
+            for: indexPath) as? HomeHeaderView else { return UICollectionReusableView()}
+        guard let headerDailyView = self.collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: "\(HomeDailyHeaderView.self)",
+            for: indexPath) as? HomeDailyHeaderView else { return UICollectionReusableView()}
+
+        headerView.isCreateButtonTap = { [weak self] in
+            guard let setGroupPlanVC = UIStoryboard.groupPlan.instantiateViewController(
+                withIdentifier: "\(SetGroupPlanViewController.self)")
+                    as? SetGroupPlanViewController
+            else {
+                return
+            }
+            setGroupPlanVC.plans = self?.plans
+            self?.present(setGroupPlanVC, animated: true)
+        }
+
+        if indexPath.section == 0 {
+            return headerDailyView
+        } else if indexPath.section == 1 {
+            headerView.textLabel.text = "個人計畫"
+            headerView.createGroupButton.isHidden = true
+        } else if indexPath.section == 2 {
+            headerView.textLabel.text = "團體計劃"
+            headerView.createGroupButton.isHidden = false
+        }
+        return headerView
+    }
 }
 
 extension HomeViewController: UICollectionViewDelegate {
@@ -281,7 +218,7 @@ extension HomeViewController: UICollectionViewDelegate {
             else {
                 return
             }
-            detailVC.plan = plans?[indexPath.row]
+            detailVC.plan = viewModel.defaultPlanss.value[indexPath.row].defaultPlans
             detailVC.modalPresentationStyle = .fullScreen
             self.present(detailVC, animated: true)
         } else if indexPath.section == 2 {

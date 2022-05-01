@@ -15,6 +15,7 @@ class HomeViewCell: UICollectionViewCell {
         label.textAlignment = .left
         label.textColor = .white
         label.numberOfLines = 0
+        label.font = .bold(size: 25)
         return label
     }()
     
@@ -26,6 +27,8 @@ class HomeViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    var viewModel: DefaultPlansViewModel?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -34,6 +37,16 @@ class HomeViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
+    }
+    
+    func setup(viewModel: DefaultPlansViewModel) {
+        self.viewModel = viewModel
+        layoutCell()
+    }
+    
+    func layoutCell() {
+        textLabel.text = viewModel?.defaultPlans.planName
+        imageView.image = UIImage(named: viewModel?.defaultPlans.planName ?? "")
     }
     
     private func commonInit() {

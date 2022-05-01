@@ -11,6 +11,8 @@ class HomeViewModel {
     
     let defaultPlans = Box([DefaultPlans]())
     
+    let defaultPlanss = Box([DefaultPlansViewModel]())
+    
     var joinGroup = Box([JoinGroup]())
     
     var plans = [DefaultPlans(planName: "深蹲",
@@ -36,7 +38,7 @@ class HomeViewModel {
                           WeeklyDays(days: "\(countDaily(2))", weekDays: countWeekDay(2))]
     
     func setDefault() {
-        self.defaultPlans.value = plans
+        setDefaultPlans(plans)
     }
     
     private func countDaily(_ day: Int) -> Int {
@@ -60,4 +62,18 @@ class HomeViewModel {
             }
         }
     }
+    
+    func convertDefaultPlanToViewModels(from defaultPlans: [DefaultPlans]) -> [DefaultPlansViewModel] {
+        var viewModels = [DefaultPlansViewModel]()
+        for defaultPlan in defaultPlans {
+            let viewModel = DefaultPlansViewModel(model: defaultPlan)
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+    
+    func setDefaultPlans(_ defaultPlans: [DefaultPlans]) {
+        defaultPlanss.value = convertDefaultPlanToViewModels(from: defaultPlans)
+    }
+    
 }
