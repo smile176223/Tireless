@@ -16,12 +16,6 @@ class ProfileViewController: UIViewController {
         }
     }
     
-//    @IBOutlet weak var headerView: ProfileHeaderView! {
-//        didSet {
-//            headerView.layoutIfNeeded()
-//        }
-//    }
-    
     let viewModel = ProfileViewModel()
     
     var friendsList: [User]?
@@ -31,13 +25,17 @@ class ProfileViewController: UIViewController {
         case historyPlan
     }
     
-    var currentTab: ProfileTab = .friends
+    var currentTab: ProfileTab = .friends {
+        didSet {
+            collectionView.collectionViewLayout = createLayout()
+            collectionView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .themeBG
-//        setupHeader()
         configureCollectionView()
         
         viewModel.friendViewModels.bind { [weak self] _ in
@@ -71,84 +69,82 @@ class ProfileViewController: UIViewController {
         collectionView.register(UINib(nibName: "\(FriendListViewCell.self)", bundle: nil),
                                 forCellWithReuseIdentifier: "\(FriendListViewCell.self)")
         
+        collectionView.register(UINib(nibName: "\(PlanManageViewCell.self)", bundle: nil),
+                                forCellWithReuseIdentifier: "\(PlanManageViewCell.self)")
+        
         collectionView.register(UINib(nibName: "\(ProfileHeaderView.self)", bundle: nil),
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: "\(ProfileHeaderView.self)")
     }
     
     private func createLayout() -> UICollectionViewLayout {
+        var itemHeight: CGFloat = 0
         switch currentTab {
         case .friends:
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .estimated(80))
-            
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
-                                                           subitems: [item])
-            
-            let section = NSCollectionLayoutSection(group: group)
-            
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                    heightDimension: .absolute(200))
-            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                     elementKind:
-                                                                        UICollectionView.elementKindSectionHeader,
-                                                                     alignment: .top)
-            
-            section.boundarySupplementaryItems = [header]
-            
-            section.interGroupSpacing = 5
-            section.contentInsets = .init(top: 5, leading: 15, bottom: 5, trailing: 15)
-            
-            return UICollectionViewCompositionalLayout(section: section)
+            itemHeight = 80
         case .historyPlan:
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
-                                                  heightDimension: .estimated(80))
-            
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
-                                                           subitems: [item])
-            
-            let section = NSCollectionLayoutSection(group: group)
-            
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                    heightDimension: .absolute(200))
-            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-                                                                     elementKind:
-                                                                        UICollectionView.elementKindSectionHeader,
-                                                                     alignment: .top)
-            
-            section.boundarySupplementaryItems = [header]
-            
-            section.interGroupSpacing = 5
-            section.contentInsets = .init(top: 5, leading: 15, bottom: 5, trailing: 15)
-            
-            return UICollectionViewCompositionalLayout(section: section)
+            itemHeight = 130
         }
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                              heightDimension: .estimated(itemHeight))
+        
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
+                                                       subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                heightDimension: .absolute(220))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
+                                                                 elementKind:
+                                                                    UICollectionView.elementKindSectionHeader,
+                                                                 alignment: .top)
+        
+        section.boundarySupplementaryItems = [header]
+        
+        section.interGroupSpacing = 5
+        section.contentInsets = .init(top: 5, leading: 15, bottom: 5, trailing: 15)
+        
+        return UICollectionViewCompositionalLayout(section: section)
     }
+    
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        viewModel.friendViewModels.value.count
+        switch currentTab {
+        case .friends:
+            return viewModel.friendViewModels.value.count
+        case .historyPlan:
+            return 5
+        }
     }
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
+        guard let friendsCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "\(FriendListViewCell.self)", for: indexPath) as? FriendListViewCell else {
             return UICollectionViewCell()
         }
-        let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
-        cell.setup(viewModel: cellViewModel)
-        
-        cell.isSetButtonTap = { [weak self] in
-            self?.setButtonAlert(userId: cellViewModel.user.userId)
+        guard let historyCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "\(PlanManageViewCell.self)", for: indexPath) as? PlanManageViewCell else {
+            return UICollectionViewCell()
         }
         
-        return cell
+        switch currentTab {
+        case .friends:
+            let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
+            friendsCell.setup(viewModel: cellViewModel)
+            
+            friendsCell.isSetButtonTap = { [weak self] in
+                self?.setButtonAlert(userId: cellViewModel.user.userId)
+            }
+            return friendsCell
+        case .historyPlan:
+            return historyCell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -172,16 +168,21 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
 
         headerView.isSearchButtonTap = { [weak self] in
-            if self?.friendsList == nil {
-                self?.searchFriendPresent()
-            } else {
-                self?.searchFriendPresent(friendsList: self?.friendsList)
-            }
+            self?.searchFriendPresent()
         }
 
         headerView.isInviteTap = { [weak self] in
             self?.invitePresent()
         }
+        
+        headerView.isFriendsTab = { [weak self] in
+            self?.currentTab = .friends
+        }
+        
+        headerView.isHistoryTab = { [weak self] in
+            self?.currentTab = .historyPlan
+        }
+        
         return headerView
     }
 }
@@ -242,13 +243,13 @@ extension ProfileViewController {
         present(controller, animated: true, completion: nil)
     }
     
-    private func searchFriendPresent(friendsList: [User]? = nil) {
+    private func searchFriendPresent() {
         guard let searchVC = storyboard?.instantiateViewController(withIdentifier: "\(SearchFriendViewController.self)")
                 as? SearchFriendViewController
         else {
             return
         }
-        searchVC.friendsList = friendsList
+        searchVC.friendsList = self.friendsList
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(searchVC, animated: true)
     }

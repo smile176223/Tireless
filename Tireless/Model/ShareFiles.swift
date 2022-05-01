@@ -29,7 +29,7 @@ struct Comment: Codable {
     let userId: String
     let content: String
     let createdTime: Int64
-    var user: User? = nil
+    var user: User?
     
     enum CodingKeys: String, CodingKey {
         case userId

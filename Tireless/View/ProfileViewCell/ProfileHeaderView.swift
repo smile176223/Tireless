@@ -14,12 +14,20 @@ class ProfileHeaderView: UICollectionReusableView {
     @IBOutlet weak var userNameLabel: UILabel!
     
     @IBOutlet weak var headerLineView: UIView!
+
+    @IBOutlet weak var indicatorView: UIView!
+    
+    @IBOutlet weak var indicatorCenterX: NSLayoutConstraint!
     
     var isUserImageTap: (() -> Void)?
     
     var isSearchButtonTap: (() -> Void)?
     
     var isInviteTap: (() -> Void)?
+    
+    var isFriendsTab: (() -> Void)?
+    
+    var isHistoryTab: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,8 +50,18 @@ class ProfileHeaderView: UICollectionReusableView {
         isSearchButtonTap?()
     }
     
-    @IBAction func inviteTap(_ sender: Any) {
+    @IBAction func inviteTap(_ sender: UIButton) {
         isInviteTap?()
+    }
+    
+    @IBAction func friendsTabButtonTap(_ sender: UIButton) {
+        indicatorAnimate(sender)
+        isFriendsTab?()
+    }
+    
+    @IBAction func historyabButtonTap(_ sender: UIButton) {
+        indicatorAnimate(sender)
+        isHistoryTab?()
     }
     
     private func setupLayout() {
@@ -52,5 +70,13 @@ class ProfileHeaderView: UICollectionReusableView {
         userImageView.layer.borderColor = UIColor.gray.cgColor
         headerLineView.layer.cornerRadius = 5
         userNameLabel.font = .bold(size: 20)
+    }
+    
+    private func indicatorAnimate(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
+            self.indicatorCenterX.isActive = false
+            self.indicatorCenterX = self.indicatorView.centerXAnchor.constraint(equalTo: sender.centerXAnchor)
+            self.indicatorCenterX.isActive = true
+        }, completion: nil)
     }
 }

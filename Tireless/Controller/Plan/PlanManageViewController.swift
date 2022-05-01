@@ -195,6 +195,9 @@ extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            return
+        }
         let cellViewModel = self.viewModel.groupPlanViewModels.value[indexPath.row]
         groupPlanPresnt(plan: cellViewModel.plan)
     }
