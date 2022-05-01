@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="207" height="140"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="棒式" translatesAutoresizingMaskIntoConstraints="NO" id="mkz-m0-uph">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mkz-m0-uph">
                         <rect key="frame" x="0.0" y="0.0" width="207" height="140"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="運動" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8d-IV-3kz">
@@ -69,7 +69,6 @@
     </objects>
     <resources>
         <image name="TirelessLogo" width="500" height="500"/>
-        <image name="棒式" width="4930" height="2094"/>
         <namedColor name="themeBG">
             <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

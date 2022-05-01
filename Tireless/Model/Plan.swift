@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct WeeklyDays: Hashable {
     let days: String

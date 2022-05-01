@@ -125,6 +125,7 @@
 		FFC7B9E4281E8A8C0080A31E /* HomeGroupPlanViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9E3281E8A8C0080A31E /* HomeGroupPlanViewCell.swift */; };
 		FFC7B9E6281E8A970080A31E /* HomeGroupPlanViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFC7B9E5281E8A970080A31E /* HomeGroupPlanViewCell.xib */; };
 		FFC7B9E8281E90F20080A31E /* JoinGroupsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9E7281E90F20080A31E /* JoinGroupsViewModel.swift */; };
+		FFC7B9EA281EB54D0080A31E /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9E9281EB54D0080A31E /* UIImage+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -251,6 +252,7 @@
 		FFC7B9E3281E8A8C0080A31E /* HomeGroupPlanViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGroupPlanViewCell.swift; sourceTree = "<group>"; };
 		FFC7B9E5281E8A970080A31E /* HomeGroupPlanViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGroupPlanViewCell.xib; sourceTree = "<group>"; };
 		FFC7B9E7281E90F20080A31E /* JoinGroupsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupsViewModel.swift; sourceTree = "<group>"; };
+		FFC7B9E9281EB54D0080A31E /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -493,6 +495,7 @@
 				FF308E742807A47F00265863 /* Date+Extension.swift */,
 				FF2FE0EA280EA8A200F8890D /* UIColor+Extension.swift */,
 				FF3FBE592811538500E6B5DC /* UIFont+Extension.swift */,
+				FFC7B9E9281EB54D0080A31E /* UIImage+Extension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -945,6 +948,7 @@
 				FF3F7811281D1E3B00D8360A /* CommentManager.swift in Sources */,
 				FF3FBE6C281238FE00E6B5DC /* Plan.swift in Sources */,
 				FF3FBE562810648000E6B5DC /* PlanDetailView.swift in Sources */,
+				FFC7B9EA281EB54D0080A31E /* UIImage+Extension.swift in Sources */,
 				FF3F77EC281A1A5600D8360A /* SearchFriendHeaderView.swift in Sources */,
 				FF3FBEAD2815C4A400E6B5DC /* SetGroupPlanViewModel.swift in Sources */,
 				FF1444A6280156700027F560 /* UIUtilities.swift in Sources */,

@@ -37,7 +37,17 @@ class HomeGroupPlanViewCell: UICollectionViewCell {
     
     func layoutCell() {
         groupTitleLabel.text = viewModel?.joinGroup.planName
-        groupImageView.image = UIImage(named: viewModel?.joinGroup.planName ?? "")
         groupUserNameLabel.text = viewModel?.joinGroup.createdName
+        switch viewModel?.joinGroup.planName {
+        case PlanImage.squat.rawValue:
+            groupImageView.image = UIImage.groupSquat
+        case PlanImage.plank.rawValue:
+            groupImageView.image = UIImage.groupPlank
+        case PlanImage.pushup.rawValue:
+            groupImageView.image = UIImage.groupPushup
+        default:
+            groupImageView.image = UIImage(named: "TirelessLogo")
+            
+        }
     }
 }
