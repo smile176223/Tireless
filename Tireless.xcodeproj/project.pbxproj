@@ -129,6 +129,8 @@
 		FFC7B9F1281FB61B0080A31E /* GroupPlanStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9F0281FB61B0080A31E /* GroupPlanStatusViewModel.swift */; };
 		FFC7B9F5281FCBB70080A31E /* ProgressBar.json in Resources */ = {isa = PBXBuildFile; fileRef = FFC7B9F4281FCBB70080A31E /* ProgressBar.json */; };
 		FFC7B9F7281FD0140080A31E /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9F6281FD0140080A31E /* JGProgressHUDWrapper.swift */; };
+		FFC7B9FE28201D7D0080A31E /* HistoryPlanViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9FD28201D7D0080A31E /* HistoryPlanViewCell.swift */; };
+		FFC7BA0028201D840080A31E /* HistoryPlanViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFC7B9FF28201D840080A31E /* HistoryPlanViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -259,6 +261,8 @@
 		FFC7B9F0281FB61B0080A31E /* GroupPlanStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanStatusViewModel.swift; sourceTree = "<group>"; };
 		FFC7B9F4281FCBB70080A31E /* ProgressBar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProgressBar.json; sourceTree = "<group>"; };
 		FFC7B9F6281FD0140080A31E /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
+		FFC7B9FD28201D7D0080A31E /* HistoryPlanViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPlanViewCell.swift; sourceTree = "<group>"; };
+		FFC7B9FF28201D840080A31E /* HistoryPlanViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryPlanViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				FF3FBE8C2814F8D400E6B5DC /* ProfileViewCell */,
+				FFC7B9FC28201A400080A31E /* HistoryPlanViewCell */,
 				FF3FBE542810646500E6B5DC /* PlanViewCell */,
 				FFC7B9F9281FFC170080A31E /* GroupPlanViewCell */,
 				FF2FE0EC280ED80500F8890D /* HomeViewCell */,
@@ -742,6 +747,15 @@
 			path = GroupPlan;
 			sourceTree = "<group>";
 		};
+		FFC7B9FC28201A400080A31E /* HistoryPlanViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FFC7B9FD28201D7D0080A31E /* HistoryPlanViewCell.swift */,
+				FFC7B9FF28201D840080A31E /* HistoryPlanViewCell.xib */,
+			);
+			path = HistoryPlanViewCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -827,6 +841,7 @@
 				FF2FE0E9280E8FD100F8890D /* Loading.json in Resources */,
 				FF3F780F281D088600D8360A /* ShareCommentViewCell.xib in Resources */,
 				FF3FBEAB2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib in Resources */,
+				FFC7BA0028201D840080A31E /* HistoryPlanViewCell.xib in Resources */,
 				FF308E8128080FB800265863 /* Main.storyboard in Resources */,
 				FF308E8A2808296400265863 /* ShareWallViewCell.xib in Resources */,
 				FF3FBEA528156FF100E6B5DC /* GroupPlan.storyboard in Resources */,
@@ -999,6 +1014,7 @@
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
 				FF3F7807281C47F100D8360A /* ShareCommentViewController.swift in Sources */,
 				FF3F77E228185D4C00D8360A /* CryptoKitHelper.swift in Sources */,
+				FFC7B9FE28201D7D0080A31E /* HistoryPlanViewCell.swift in Sources */,
 				FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */,
 				FF3FBEA1281546F700E6B5DC /* JoinGroupManager.swift in Sources */,
 				FF3F7819281E769A00D8360A /* DefaultPlansViewModel.swift in Sources */,

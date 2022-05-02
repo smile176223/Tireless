@@ -23,8 +23,8 @@ class ProgressHUD {
     let hud = JGProgressHUD(style: .dark)
 
     var view: UIView {
-            
-            let viewController = UIApplication.shared.windows.last!.rootViewController
+
+            let viewController = UIApplication.shared.windows.first!.rootViewController
 
             return (viewController?.view)!
         }
@@ -60,7 +60,7 @@ class ProgressHUD {
 
         shared.hud.show(in: shared.view)
 
-        shared.hud.dismiss(afterDelay: 0.8)
+        shared.hud.dismiss(afterDelay: 1.0)
     }
 
     static func showFailure(text: String = "Failure") {
@@ -80,7 +80,7 @@ class ProgressHUD {
 
         shared.hud.show(in: shared.view)
 
-        shared.hud.dismiss(afterDelay: 0.8)
+        shared.hud.dismiss(afterDelay: 1.0)
     }
 
     static func show() {
