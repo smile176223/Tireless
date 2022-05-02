@@ -49,6 +49,25 @@ class HomeViewCell: UICollectionViewCell {
         imageView.image = UIImage(named: viewModel?.defaultPlans.planName ?? "")
     }
     
+    func setupGroup(viewModel: DefaultPlansViewModel) {
+        self.viewModel = viewModel
+        layoutGroupCell()
+    }
+    
+    func layoutGroupCell() {
+        textLabel.text = viewModel?.defaultPlans.planName
+        switch viewModel?.defaultPlans.planName {
+        case PlanImage.squat.rawValue:
+            imageView.image = UIImage.groupSquat
+        case PlanImage.plank.rawValue:
+            imageView.image = UIImage.groupPlank
+        case PlanImage.pushup.rawValue:
+            imageView.image = UIImage.groupPushup
+        default:
+            imageView.image = UIImage(named: "TirelessLogo")
+        }
+    }
+    
     private func commonInit() {
         textLabelConstraints()
         self.backgroundColor = .themeBG

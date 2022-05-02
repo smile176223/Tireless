@@ -157,7 +157,7 @@ extension SetGroupPlanViewController: UICollectionViewDataSource {
         }
         if indexPath.section == 0 {
             let cellViewModel = homeViewModel.defaultPlansViewModel.value[indexPath.row]
-            cell.setup(viewModel: cellViewModel)
+            cell.setupGroup(viewModel: cellViewModel)
             cell.textLabel.font = .bold(size: 20)
             return cell
         } else {
@@ -215,12 +215,15 @@ extension SetGroupPlanViewController: UICollectionViewDelegate {
                 self.selectPlan = self.plans?[indexPath.row]
             }
         }
+        print(indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-        UIView.animate(withDuration: 0.3) {
-            cell?.layer.borderWidth = 0
+        if indexPath.section == 0 {
+            UIView.animate(withDuration: 0.3) {
+                cell?.layer.borderWidth = 0
+            }
         }
     }
 }

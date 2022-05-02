@@ -153,19 +153,24 @@ class GroupPlanView: UIView {
         isLeaveButtonTap?()
     }
     
-    func setupLayout(joinGroup: JoinGroup, plan: DefaultPlans) {
-        imageView.image = UIImage(named: plan.planImage)
+    func setupLayout(joinGroup: JoinGroup) {
+        switch joinGroup.planName {
+        case PlanImage.squat.rawValue:
+            imageView.image = UIImage.groupSquat
+        case PlanImage.plank.rawValue:
+            imageView.image = UIImage.groupPlank
+        case PlanImage.pushup.rawValue:
+            imageView.image = UIImage.groupPushup
+        default:
+            imageView.image = UIImage.placeHolder
+        }
         titleLabel.text = joinGroup.planName
-        infoLabel.text = plan.planDetail
-        createdUserImage.text = joinGroup.createdName
+        createdUserImage.text = joinGroup.createdUser?.name
         if joinGroup.planName == "棒式" {
             timesDaysLabel.text = "\(joinGroup.planTimes)秒/\(joinGroup.planDays)天"
         } else {
             timesDaysLabel.text = "\(joinGroup.planTimes)次/\(joinGroup.planDays)天"
         }
-//        for index in userId {
-//            joinUserImage.text = index.userId
-//        }
     }
     
     private func viewConstraints() {
@@ -180,7 +185,7 @@ class GroupPlanView: UIView {
         addSubview(bottomView)
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            bottomView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 3/4),
+            bottomView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 3.2/4),
             bottomView.leadingAnchor.constraint(equalTo: leadingAnchor),
             bottomView.trailingAnchor.constraint(equalTo: trailingAnchor),
             bottomView.bottomAnchor.constraint(equalTo: bottomAnchor)

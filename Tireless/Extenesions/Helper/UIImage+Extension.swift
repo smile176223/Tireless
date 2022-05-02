@@ -25,4 +25,6 @@ extension UIImage {
     static var groupPlank = UIImage(named: "group_plank")
     
     static var groupPushup = UIImage(named: "group_pushup")
+    
+    static var placeHolder = UIImage(named: "TirelessLogo")
 }

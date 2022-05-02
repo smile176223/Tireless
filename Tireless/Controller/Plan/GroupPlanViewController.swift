@@ -13,16 +13,14 @@ class GroupPlanViewController: UIViewController {
     
     var joinGroup: JoinGroup?
     
-    var plan: DefaultPlans?
-    
     var joinUsers: [User]? {
         didSet {
             for index in 0..<(joinUsers?.count ?? 0) {
+                groupPlanView.joinUserImage.text = joinUsers?[index].name
                 if joinUsers?[index].userId == AuthManager.shared.currentUser {
                     groupPlanView.joinButton.isEnabled = false
                     groupPlanView.joinButton.setTitle("已加入", for: .normal)
                     groupPlanView.leaveButton.isHidden = false
-                    groupPlanView.joinUserImage.text = joinUsers?[index].name
                 }
             }
         }
@@ -56,9 +54,8 @@ class GroupPlanViewController: UIViewController {
     }
     
     func setupLayout() {
-        guard let joinGroup = joinGroup,
-              let plan = plan else { return }
-        groupPlanView.setupLayout(joinGroup: joinGroup, plan: plan)
+        guard let joinGroup = joinGroup else { return }
+        groupPlanView.setupLayout(joinGroup: joinGroup)
     }
     
     func isBackButtonTap() {

@@ -15,7 +15,6 @@ class SetGroupPlanViewModel {
                                          planGroup: true,
                                          createdTime: -1,
                                          createdUserId: "",
-                                         createdName: "",
                                          uuid: "")
     
     func getPlanData(name: String,
@@ -27,7 +26,6 @@ class SetGroupPlanViewModel {
         self.joinGroup.planTimes = times
         self.joinGroup.planDays = days
         self.joinGroup.createdTime = Date().millisecondsSince1970
-        self.joinGroup.createdName = createdName
         self.joinGroup.createdUserId = createdUserId
     }
     

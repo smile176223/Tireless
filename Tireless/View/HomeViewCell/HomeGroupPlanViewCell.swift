@@ -37,7 +37,12 @@ class HomeGroupPlanViewCell: UICollectionViewCell {
     
     func layoutCell() {
         groupTitleLabel.text = viewModel?.joinGroup.planName
-        groupUserNameLabel.text = viewModel?.joinGroup.createdName
+        groupUserNameLabel.text = viewModel?.joinGroup.createdUser?.name
+        if viewModel?.joinGroup.createdUser?.picture != "" {
+            groupUserImageView.loadImage(viewModel?.joinGroup.createdUser?.picture)
+        } else {
+            groupUserImageView.image = UIImage.placeHolder
+        }
         switch viewModel?.joinGroup.planName {
         case PlanImage.squat.rawValue:
             groupImageView.image = UIImage.groupSquat
@@ -46,8 +51,7 @@ class HomeGroupPlanViewCell: UICollectionViewCell {
         case PlanImage.pushup.rawValue:
             groupImageView.image = UIImage.groupPushup
         default:
-            groupImageView.image = UIImage(named: "TirelessLogo")
-            
+            groupImageView.image = UIImage.placeHolder
         }
     }
 }

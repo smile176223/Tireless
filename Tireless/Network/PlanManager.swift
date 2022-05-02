@@ -130,7 +130,6 @@ class PlanManager {
         userDB.document(userId).collection("Plans").document(plan.uuid).getDocument(as: Plan.self) { result in
             switch result {
             case .success(let plans):
-                print(userId)
                 print(plans)
             case .failure(let error):
                 print(error)

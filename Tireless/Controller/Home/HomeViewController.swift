@@ -47,7 +47,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         viewModel.joinGroupsViewModel.bind { [weak self] _ in
             DispatchQueue.main.async {
-                self?.collectionView.reloadData()
+                guard let self = self else {
+                    return
+                }
+                self.collectionView.reloadData()
             }
         }
         AuthManager.shared.getCurrentUser { result in
@@ -60,17 +63,17 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 print(error)
             }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+        
         if AuthManager.shared.currentUser != "" {
             viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
         }
     }
     
-    override func viewWillLayoutSubviews() {
-        
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        if AuthManager.shared.currentUser != "" {
+//            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
+//        }
+//    }
     
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
@@ -128,7 +131,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             section.orthogonalScrollingBehavior = .groupPagingCentered
             let headerSize = sectionIndex == 0 ?
             NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100)) :
-            NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(60))
+            NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(60))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                      elementKind:
                                                                         UICollectionView.elementKindSectionHeader,
@@ -191,6 +194,10 @@ extension HomeViewController: UICollectionViewDataSource {
             if viewModel.joinGroupsViewModel.value.count != 0 {
                 let cellViewModel = self.viewModel.joinGroupsViewModel.value[indexPath.row]
                 groupCell.setup(viewModel: cellViewModel)
+                groupCell.groupUserImageView.isHidden = false
+                groupCell.groupUserNameLabel.isHidden = false
+                groupCell.groupTitleLabel.isHidden = false
+                groupCell.isUserInteractionEnabled = true
             } else {
                 groupCell.groupImageView.image = UIImage(named: "tireless_nogroup")
                 groupCell.groupImageView.alpha = 1
@@ -210,11 +217,11 @@ extension HomeViewController: UICollectionViewDataSource {
         guard let headerView = self.collectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: "\(HomeHeaderView.self)",
-            for: indexPath) as? HomeHeaderView else { return UICollectionReusableView()}
+            for: indexPath) as? HomeHeaderView else { return UICollectionReusableView() }
         guard let headerDailyView = self.collectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: "\(HomeDailyHeaderView.self)",
-            for: indexPath) as? HomeDailyHeaderView else { return UICollectionReusableView()}
+            for: indexPath) as? HomeDailyHeaderView else { return UICollectionReusableView() }
 
         headerView.isCreateButtonTap = { [weak self] in
             guard let setGroupPlanVC = UIStoryboard.groupPlan.instantiateViewController(
@@ -232,11 +239,13 @@ extension HomeViewController: UICollectionViewDataSource {
         } else if indexPath.section == 1 {
             headerView.textLabel.text = "個人計畫"
             headerView.createGroupButton.isHidden = true
+            return headerView
         } else if indexPath.section == 2 {
             headerView.textLabel.text = "團體計劃"
             headerView.createGroupButton.isHidden = false
+            return headerView
         }
-        return headerView
+        return UICollectionReusableView()
     }
 }
 
