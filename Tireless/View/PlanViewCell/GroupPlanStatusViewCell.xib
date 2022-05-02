@@ -31,7 +31,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dWY-lI-Ow1">
-                        <rect key="frame" x="145" y="107" width="169" height="4"/>
+                        <rect key="frame" x="145" y="107" width="199" height="4"/>
                         <color key="tintColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </progressView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="完成度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uwb-wW-kT2">
@@ -47,7 +47,7 @@
                     <constraint firstItem="vXq-Ka-zz0" firstAttribute="centerY" secondItem="BjT-te-Ht3" secondAttribute="centerY" id="3JP-w2-S3Q"/>
                     <constraint firstItem="vXq-Ka-zz0" firstAttribute="leading" secondItem="BjT-te-Ht3" secondAttribute="leading" constant="50" id="400-Qz-81o"/>
                     <constraint firstItem="6xY-lO-I2J" firstAttribute="leading" secondItem="vXq-Ka-zz0" secondAttribute="trailing" constant="15" id="5vp-AP-IMq"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="dWY-lI-Ow1" secondAttribute="trailing" constant="80" id="DGc-RJ-aEe"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="dWY-lI-Ow1" secondAttribute="trailing" constant="50" id="DGc-RJ-aEe"/>
                     <constraint firstItem="Uwb-wW-kT2" firstAttribute="centerY" secondItem="vXq-Ka-zz0" secondAttribute="centerY" id="RWG-Ka-IED"/>
                     <constraint firstItem="6xY-lO-I2J" firstAttribute="top" secondItem="vXq-Ka-zz0" secondAttribute="top" id="e7r-7y-8Ym"/>
                     <constraint firstItem="dWY-lI-Ow1" firstAttribute="bottom" secondItem="vXq-Ka-zz0" secondAttribute="bottom" constant="-10" id="kFX-gZ-ACj"/>

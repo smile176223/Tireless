@@ -39,14 +39,14 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sse-8T-hYs">
-                    <rect key="frame" x="344" y="18.5" width="30" height="31.5"/>
+                    <rect key="frame" x="344" y="20.5" width="30" height="29.5"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="sse-8T-hYs" secondAttribute="height" id="Cxr-Lx-ybh"/>
                         <constraint firstAttribute="height" constant="30" id="eDZ-Qh-8z7"/>
                     </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" backgroundImage="tray.and.arrow.down.fill" catalog="system"/>
+                    <state key="normal" backgroundImage="bell.fill" catalog="system"/>
                     <connections>
                         <action selector="inviteTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="Rqg-n2-B0T"/>
                     </connections>
@@ -138,14 +138,14 @@
         </collectionReusableView>
     </objects>
     <resources>
+        <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="plus.magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="tray.and.arrow.down.fill" catalog="system" width="128" height="114"/>
         <namedColor name="themeBG">
             <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themeYellow">
-            <color red="1" green="0.61176470588235299" blue="0.25490196078431371" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.80000000000000004" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
