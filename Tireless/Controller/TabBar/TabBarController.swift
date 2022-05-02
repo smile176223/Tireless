@@ -57,22 +57,22 @@ private enum Tab {
         case .home:
             return UITabBarItem(
                 title: nil,
-                image: UIImage(systemName: "house"),
-                selectedImage: UIImage(systemName: "house.fill")
+                image: UIImage.tabHome,
+                selectedImage: UIImage.tabHome
             )
             
         case .plan:
             return UITabBarItem(
                 title: nil,
-                image: UIImage(systemName: "scroll"),
-                selectedImage: UIImage(systemName: "scroll.fill")
+                image: UIImage.tabPlan,
+                selectedImage: UIImage.tabPlan
             )
 
         case .shareWall:
             return UITabBarItem(
                 title: nil,
-                image: UIImage(systemName: "video"),
-                selectedImage: UIImage(systemName: "video.fill")
+                image: UIImage.tabVideo,
+                selectedImage: UIImage.tabVideo
             )
             
         case .pictureWall:
@@ -85,8 +85,8 @@ private enum Tab {
         case .profile:
             return UITabBarItem(
                 title: nil,
-                image: UIImage(systemName: "person"),
-                selectedImage: UIImage(systemName: "person.fill")
+                image: UIImage.tabUser,
+                selectedImage: UIImage.tabUser
             )
         }
     }

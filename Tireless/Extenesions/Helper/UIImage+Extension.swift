@@ -27,4 +27,12 @@ extension UIImage {
     static var groupPushup = UIImage(named: "group_pushup")
     
     static var placeHolder = UIImage(named: "TirelessLogo")
+    
+    static var tabHome = UIImage(named: "icons_home")
+    
+    static var tabPlan = UIImage(named: "icons_plan")
+    
+    static var tabVideo = UIImage(named: "icons_video")
+    
+    static var tabUser = UIImage(named: "icons_user")
 }
