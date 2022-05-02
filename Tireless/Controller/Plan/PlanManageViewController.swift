@@ -152,12 +152,8 @@ extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDa
         if indexPath.section == 0 {
             let cellViewModel = self.viewModel.planViewModels.value[indexPath.row]
             cell.setup(viewModel: cellViewModel)
-            cell.planSettingButton.isHidden = false
             cell.isDeleteButtonTap = {
-                self.showDeleteAlert(plan: cellViewModel.plan)
-            }
-            cell.isSettingButtonTap = {
-                self.showSettingAlert(plan: cellViewModel.plan)
+                self.setUserAlert(plan: cellViewModel.plan)
             }
             cell.isStartButtonTap = {
                 self.present(target: cellViewModel.plan.planTimes, plan: cellViewModel.plan)
@@ -165,12 +161,11 @@ extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDa
         } else {
             let cellViewModel = self.viewModel.groupPlanViewModels.value[indexPath.row]
             cell.setup(viewModel: cellViewModel)
-            cell.planSettingButton.isHidden = true
             cell.isStartButtonTap = {
                 self.present(target: cellViewModel.plan.planTimes, plan: cellViewModel.plan)
             }
             cell.isDeleteButtonTap = {
-                self.showDeleteAlert(plan: cellViewModel.plan)
+                self.setUserAlert(plan: cellViewModel.plan)
             }
         }
         
@@ -257,5 +252,22 @@ extension PlanManageViewController {
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
         self.present(alertController, animated: true)
+    }
+    
+    private func setUserAlert(plan: Plan) {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let adjust = UIAlertAction(title: "修改計畫次數", style: .destructive) { _ in
+            self.showSettingAlert(plan: plan)
+        }
+        let delete = UIAlertAction(title: "刪除計畫", style: .destructive) { _ in
+            self.showDeleteAlert(plan: plan)
+        }
+        if plan.planGroup == false {
+            controller.addAction(adjust)
+        }
+        controller.addAction(delete)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
     }
 }

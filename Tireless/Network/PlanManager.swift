@@ -113,26 +113,50 @@ class PlanManager {
         }
     }
     
-    func checkGroupUsersStatus(plan: Plan) {
+    func checkGroupUsersStatus(plan: Plan, completion: @escaping (Result<[Plan], Error>) -> Void) {
         groupPlanDB.document(plan.uuid).getDocument(as: GroupPlanUser.self) { result in
             switch result {
             case .success(let users):
-                for user in users.joinUsers {
-                    self.checkGroupUsers(userId: user, plan: plan)
+                var plans = [Plan]()
+                DispatchQueue.global().async {
+                    let semaphore = DispatchSemaphore(value: 0)
+                    for user in users.joinUsers {
+                        self.checkGroupUsers(userId: user, plan: plan) { result in
+                            switch result {
+                            case .success(var plan):
+                                UserManager.shared.fetchUser(userId: user) { result in
+                                    switch result {
+                                    case .success(let user):
+                                        plan.user = user
+                                        plans.append(plan)
+                                    case .failure(let error):
+                                        completion(.failure(error))
+                                    }
+                                    semaphore.signal()
+                                }
+                            case .failure(let error):
+                                completion(.failure(error))
+                            }
+                        }
+                        semaphore.wait()
+                    }
+                    completion(.success(plans))
                 }
             case .failure(let error):
-                print(error)
+                completion(.failure(error))
             }
         }
     }
     
-    private func checkGroupUsers(userId: String, plan: Plan) {
+    private func checkGroupUsers(userId: String,
+                                 plan: Plan,
+                                 completion: @escaping (Result<Plan, Error>) -> Void) {
         userDB.document(userId).collection("Plans").document(plan.uuid).getDocument(as: Plan.self) { result in
             switch result {
-            case .success(let plans):
-                print(plans)
+            case .success(let plan):
+                completion(.success(plan))
             case .failure(let error):
-                print(error)
+                completion(.failure(error))
             }
         }
     }

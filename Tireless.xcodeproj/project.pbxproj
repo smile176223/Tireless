@@ -126,6 +126,9 @@
 		FFC7B9E6281E8A970080A31E /* HomeGroupPlanViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFC7B9E5281E8A970080A31E /* HomeGroupPlanViewCell.xib */; };
 		FFC7B9E8281E90F20080A31E /* JoinGroupsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9E7281E90F20080A31E /* JoinGroupsViewModel.swift */; };
 		FFC7B9EA281EB54D0080A31E /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9E9281EB54D0080A31E /* UIImage+Extension.swift */; };
+		FFC7B9EC281FB1BA0080A31E /* GroupPlanStatusViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9EB281FB1BA0080A31E /* GroupPlanStatusViewCell.swift */; };
+		FFC7B9EF281FB1CB0080A31E /* GroupPlanStatusViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFC7B9EE281FB1CB0080A31E /* GroupPlanStatusViewCell.xib */; };
+		FFC7B9F1281FB61B0080A31E /* GroupPlanStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9F0281FB61B0080A31E /* GroupPlanStatusViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -253,6 +256,9 @@
 		FFC7B9E5281E8A970080A31E /* HomeGroupPlanViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGroupPlanViewCell.xib; sourceTree = "<group>"; };
 		FFC7B9E7281E90F20080A31E /* JoinGroupsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupsViewModel.swift; sourceTree = "<group>"; };
 		FFC7B9E9281EB54D0080A31E /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		FFC7B9EB281FB1BA0080A31E /* GroupPlanStatusViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanStatusViewCell.swift; sourceTree = "<group>"; };
+		FFC7B9EE281FB1CB0080A31E /* GroupPlanStatusViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupPlanStatusViewCell.xib; sourceTree = "<group>"; };
+		FFC7B9F0281FB61B0080A31E /* GroupPlanStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanStatusViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -581,6 +587,8 @@
 				FF3FBEA82815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift */,
 				FF3FBEAA2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib */,
 				FF3FBEB02815D38E00E6B5DC /* GroupPlanView.swift */,
+				FFC7B9EB281FB1BA0080A31E /* GroupPlanStatusViewCell.swift */,
+				FFC7B9EE281FB1CB0080A31E /* GroupPlanStatusViewCell.xib */,
 			);
 			path = PlanViewCell;
 			sourceTree = "<group>";
@@ -616,6 +624,7 @@
 				FF3FBE6D28123A0800E6B5DC /* DefaultPlanViewModel.swift */,
 				FF3FBEAC2815C4A400E6B5DC /* SetGroupPlanViewModel.swift */,
 				FF3FBEB22815E29E00E6B5DC /* JoinGroupViewModel.swift */,
+				FFC7B9F0281FB61B0080A31E /* GroupPlanStatusViewModel.swift */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -782,6 +791,7 @@
 				FF308E9A280C6B0A00265863 /* PictureWall.storyboard in Resources */,
 				FF308E712806BB8C00265863 /* ProgressBar.json in Resources */,
 				FF3F77EA281A1A5000D8360A /* SearchFriendHeaderView.xib in Resources */,
+				FFC7B9EF281FB1CB0080A31E /* GroupPlanStatusViewCell.xib in Resources */,
 				FF3F77FA281AE1DE00D8360A /* InviteFriendViewCell.xib in Resources */,
 				FF1444C9280411A50027F560 /* CountDownGo.json in Resources */,
 				FF3FBE962814FE7C00E6B5DC /* ProfileHeaderView.xib in Resources */,
@@ -897,6 +907,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFC7B9F1281FB61B0080A31E /* GroupPlanStatusViewModel.swift in Sources */,
 				FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */,
 				FF308E96280C680F00265863 /* SharePictureViewCell.swift in Sources */,
 				FF3FBE7C281299DE00E6B5DC /* PlanViewModel.swift in Sources */,
@@ -920,6 +931,7 @@
 				FF3FBE6A2811C33B00E6B5DC /* PlanManageViewController.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */,
 				FF3F77F6281AC96B00D8360A /* InviteFriendViewController.swift in Sources */,
+				FFC7B9EC281FB1BA0080A31E /* GroupPlanStatusViewCell.swift in Sources */,
 				FF3F77FE281B006700D8360A /* SignUpViewController.swift in Sources */,
 				FF3F77F8281AE1D400D8360A /* InviteFriendViewCell.swift in Sources */,
 				FF3F780D281D088000D8360A /* ShareCommentViewCell.swift in Sources */,
