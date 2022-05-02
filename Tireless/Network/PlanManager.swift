@@ -54,7 +54,7 @@ class PlanManager {
             if let error = error {
                 completion(.failure(error))
             } else {
-                completion(.success(plan.uuid))
+                completion(.success("Success"))
             }
         }
         if plan.planGroup == true {

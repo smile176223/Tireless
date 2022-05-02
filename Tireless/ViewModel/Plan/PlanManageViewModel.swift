@@ -18,7 +18,6 @@ class PlanManageViewModel {
             switch result {
             case .success(let plan):
                 self.setPlans(plan)
-                
             case .failure(let error):
                 print(error)
             }
@@ -30,7 +29,6 @@ class PlanManageViewModel {
             switch result {
             case .success(let uuid):
                 print(uuid)
-                
             case .failure(let error):
                 print(error)
             }
@@ -57,7 +55,6 @@ class PlanManageViewModel {
             switch result {
             case .success(let success):
                 print(success)
-                
             case .failure(let error):
                 print(error)
             }

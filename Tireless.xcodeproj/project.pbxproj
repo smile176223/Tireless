@@ -62,7 +62,6 @@
 		FF3F77FA281AE1DE00D8360A /* InviteFriendViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3F77F9281AE1DE00D8360A /* InviteFriendViewCell.xib */; };
 		FF3F77FC281AE50100D8360A /* InviteFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77FB281AE50100D8360A /* InviteFriendViewModel.swift */; };
 		FF3F77FE281B006700D8360A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77FD281B006700D8360A /* SignUpViewController.swift */; };
-		FF3F7803281C1F0200D8360A /* LoadingLottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7802281C1F0200D8360A /* LoadingLottie.swift */; };
 		FF3F7805281C383500D8360A /* GroupPlanStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7804281C383500D8360A /* GroupPlanStatusViewController.swift */; };
 		FF3F7807281C47F100D8360A /* ShareCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7806281C47F100D8360A /* ShareCommentViewController.swift */; };
 		FF3F780D281D088000D8360A /* ShareCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F780C281D088000D8360A /* ShareCommentViewCell.swift */; };
@@ -129,6 +128,7 @@
 		FFC7B9EF281FB1CB0080A31E /* GroupPlanStatusViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFC7B9EE281FB1CB0080A31E /* GroupPlanStatusViewCell.xib */; };
 		FFC7B9F1281FB61B0080A31E /* GroupPlanStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9F0281FB61B0080A31E /* GroupPlanStatusViewModel.swift */; };
 		FFC7B9F5281FCBB70080A31E /* ProgressBar.json in Resources */ = {isa = PBXBuildFile; fileRef = FFC7B9F4281FCBB70080A31E /* ProgressBar.json */; };
+		FFC7B9F7281FD0140080A31E /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9F6281FD0140080A31E /* JGProgressHUDWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -189,7 +189,6 @@
 		FF3F77F9281AE1DE00D8360A /* InviteFriendViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InviteFriendViewCell.xib; sourceTree = "<group>"; };
 		FF3F77FB281AE50100D8360A /* InviteFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendViewModel.swift; sourceTree = "<group>"; };
 		FF3F77FD281B006700D8360A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		FF3F7802281C1F0200D8360A /* LoadingLottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingLottie.swift; sourceTree = "<group>"; };
 		FF3F7804281C383500D8360A /* GroupPlanStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanStatusViewController.swift; sourceTree = "<group>"; };
 		FF3F7806281C47F100D8360A /* ShareCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCommentViewController.swift; sourceTree = "<group>"; };
 		FF3F780C281D088000D8360A /* ShareCommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCommentViewCell.swift; sourceTree = "<group>"; };
@@ -259,6 +258,7 @@
 		FFC7B9EE281FB1CB0080A31E /* GroupPlanStatusViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupPlanStatusViewCell.xib; sourceTree = "<group>"; };
 		FFC7B9F0281FB61B0080A31E /* GroupPlanStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanStatusViewModel.swift; sourceTree = "<group>"; };
 		FFC7B9F4281FCBB70080A31E /* ProgressBar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProgressBar.json; sourceTree = "<group>"; };
+		FFC7B9F6281FD0140080A31E /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,9 +293,9 @@
 		FF14448E28009B480027F560 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FF3F7801281C1EE600D8360A /* Lottie */,
 				FF3FBE8C2814F8D400E6B5DC /* ProfileViewCell */,
 				FF3FBE542810646500E6B5DC /* PlanViewCell */,
+				FFC7B9F9281FFC170080A31E /* GroupPlanViewCell */,
 				FF2FE0EC280ED80500F8890D /* HomeViewCell */,
 				FF308E92280C67DA00265863 /* SharePictureViewCell */,
 				FF308E862808292F00265863 /* ShareWallViewCell */,
@@ -318,6 +318,7 @@
 				FF3FBEBD2817925E00E6B5DC /* Auth */,
 				FF3FBE8928148C9800E6B5DC /* Profile */,
 				FF3FBE682811C2FE00E6B5DC /* Plan */,
+				FFC7B9FB281FFC7F0080A31E /* GroupPlan */,
 				FF308E6528057D5D00265863 /* Home */,
 				FF308E612805787300265863 /* PoseDetect */,
 				FF308E622805787F00265863 /* ShareWall */,
@@ -332,6 +333,7 @@
 				FF3FBEC02817DED000E6B5DC /* Auth */,
 				FF3FBE9928150FA200E6B5DC /* Profile */,
 				FF3FBE7628128C1400E6B5DC /* Plan */,
+				FFC7B9FA281FFC600080A31E /* GroupPlan */,
 				FF3FBE632811BE6E00E6B5DC /* Home */,
 				FF308E8B2809176D00265863 /* ShareWall */,
 				FF308E782807D41500265863 /* Publish */,
@@ -557,6 +559,7 @@
 			isa = PBXGroup;
 			children = (
 				FF308E9C280C717A00265863 /* KingFisherWrapper.swift */,
+				FFC7B9F6281FD0140080A31E /* JGProgressHUDWrapper.swift */,
 			);
 			path = "Third Party Wrapper";
 			sourceTree = "<group>";
@@ -569,26 +572,13 @@
 			path = CryptoKit;
 			sourceTree = "<group>";
 		};
-		FF3F7801281C1EE600D8360A /* Lottie */ = {
-			isa = PBXGroup;
-			children = (
-				FF3F7802281C1F0200D8360A /* LoadingLottie.swift */,
-			);
-			path = Lottie;
-			sourceTree = "<group>";
-		};
 		FF3FBE542810646500E6B5DC /* PlanViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				FF3FBE552810648000E6B5DC /* PlanDetailView.swift */,
 				FF3FBE5F2811A1B600E6B5DC /* CounterView.swift */,
+				FF3FBE552810648000E6B5DC /* PlanDetailView.swift */,
 				FF3FBE6F28125E4E00E6B5DC /* PlanManageViewCell.swift */,
 				FF3FBE7128125E5800E6B5DC /* PlanManageViewCell.xib */,
-				FF3FBEA82815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift */,
-				FF3FBEAA2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib */,
-				FF3FBEB02815D38E00E6B5DC /* GroupPlanView.swift */,
-				FFC7B9EB281FB1BA0080A31E /* GroupPlanStatusViewCell.swift */,
-				FFC7B9EE281FB1CB0080A31E /* GroupPlanStatusViewCell.xib */,
 			);
 			path = PlanViewCell;
 			sourceTree = "<group>";
@@ -607,10 +597,7 @@
 			isa = PBXGroup;
 			children = (
 				FF3FBE692811C33B00E6B5DC /* PlanManageViewController.swift */,
-				FF3F7804281C383500D8360A /* GroupPlanStatusViewController.swift */,
 				FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */,
-				FF3FBEA6281570B000E6B5DC /* SetGroupPlanViewController.swift */,
-				FF3FBEAE2815C81A00E6B5DC /* GroupPlanViewController.swift */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -620,11 +607,8 @@
 			children = (
 				FF3FBE7728128C2700E6B5DC /* PlanDetailViewModel.swift */,
 				FF3FBE792812972100E6B5DC /* PlanManageViewModel.swift */,
-				FFC7B9F0281FB61B0080A31E /* GroupPlanStatusViewModel.swift */,
 				FF3FBE7B281299DE00E6B5DC /* PlanViewModel.swift */,
 				FF3FBE6D28123A0800E6B5DC /* DefaultPlanViewModel.swift */,
-				FF3FBEAC2815C4A400E6B5DC /* SetGroupPlanViewModel.swift */,
-				FF3FBEB22815E29E00E6B5DC /* JoinGroupViewModel.swift */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -724,6 +708,38 @@
 				FFC0C16228008F650041A937 /* Info.plist */,
 			);
 			path = Tireless;
+			sourceTree = "<group>";
+		};
+		FFC7B9F9281FFC170080A31E /* GroupPlanViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FF3FBEA82815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift */,
+				FF3FBEAA2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib */,
+				FF3FBEB02815D38E00E6B5DC /* GroupPlanView.swift */,
+				FFC7B9EB281FB1BA0080A31E /* GroupPlanStatusViewCell.swift */,
+				FFC7B9EE281FB1CB0080A31E /* GroupPlanStatusViewCell.xib */,
+			);
+			path = GroupPlanViewCell;
+			sourceTree = "<group>";
+		};
+		FFC7B9FA281FFC600080A31E /* GroupPlan */ = {
+			isa = PBXGroup;
+			children = (
+				FFC7B9F0281FB61B0080A31E /* GroupPlanStatusViewModel.swift */,
+				FF3FBEAC2815C4A400E6B5DC /* SetGroupPlanViewModel.swift */,
+				FF3FBEB22815E29E00E6B5DC /* JoinGroupViewModel.swift */,
+			);
+			path = GroupPlan;
+			sourceTree = "<group>";
+		};
+		FFC7B9FB281FFC7F0080A31E /* GroupPlan */ = {
+			isa = PBXGroup;
+			children = (
+				FF3F7804281C383500D8360A /* GroupPlanStatusViewController.swift */,
+				FF3FBEA6281570B000E6B5DC /* SetGroupPlanViewController.swift */,
+				FF3FBEAE2815C81A00E6B5DC /* GroupPlanViewController.swift */,
+			);
+			path = GroupPlan;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -914,7 +930,6 @@
 				FF3FBE9D28151FF000E6B5DC /* Friend.swift in Sources */,
 				FF3FBEBF2817927000E6B5DC /* AuthViewController.swift in Sources */,
 				FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */,
-				FF3F7803281C1F0200D8360A /* LoadingLottie.swift in Sources */,
 				FF3FBE742812835300E6B5DC /* PlanManager.swift in Sources */,
 				FF3FBE9F2815320500E6B5DC /* GroupPlan.swift in Sources */,
 				FF3FBEB32815E29E00E6B5DC /* JoinGroupViewModel.swift in Sources */,
@@ -924,6 +939,7 @@
 				FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */,
 				FF3FBE8B28148CAC00E6B5DC /* ProfileViewController.swift in Sources */,
 				FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */,
+				FFC7B9F7281FD0140080A31E /* JGProgressHUDWrapper.swift in Sources */,
 				FF3FBE5A2811538500E6B5DC /* UIFont+Extension.swift in Sources */,
 				FF3F77FC281AE50100D8360A /* InviteFriendViewModel.swift in Sources */,
 				FFC7B9E8281E90F20080A31E /* JoinGroupsViewModel.swift in Sources */,

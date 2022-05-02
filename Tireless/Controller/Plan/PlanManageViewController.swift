@@ -206,9 +206,11 @@ extension PlanManageViewController {
         let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
             PlanManager.shared.deletePlan(userId: AuthManager.shared.currentUser, plan: plan) { result in
                 switch result {
-                case .success(let uuid):
-                    print(uuid)
+                case .success(let text):
+                    ProgressHUD.showSuccess(text: "刪除計畫成功!")
+                    print(text)
                 case .failure(let error):
+                    ProgressHUD.showFailure()
                     print(error)
                 }
             }
@@ -239,8 +241,10 @@ extension PlanManageViewController {
                                           times: times) { result in
                 switch result {
                 case .success(let text):
+                    ProgressHUD.showSuccess(text: "修改計畫成功!")
                     print(text)
                 case .failure(let error):
+                    ProgressHUD.showFailure()
                     print(error)
                 }
             }
