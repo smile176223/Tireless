@@ -75,8 +75,8 @@ class ProfileViewController: UIViewController {
         collectionView.register(UINib(nibName: "\(FriendListViewCell.self)", bundle: nil),
                                 forCellWithReuseIdentifier: "\(FriendListViewCell.self)")
         
-        collectionView.register(UINib(nibName: "\(PlanManageViewCell.self)", bundle: nil),
-                                forCellWithReuseIdentifier: "\(PlanManageViewCell.self)")
+        collectionView.register(UINib(nibName: "\(HistoryPlanViewCell.self)", bundle: nil),
+                                forCellWithReuseIdentifier: "\(HistoryPlanViewCell.self)")
         
         collectionView.register(UINib(nibName: "\(ProfileHeaderView.self)", bundle: nil),
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -135,7 +135,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return UICollectionViewCell()
         }
         guard let historyCell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "\(PlanManageViewCell.self)", for: indexPath) as? PlanManageViewCell else {
+            withReuseIdentifier: "\(HistoryPlanViewCell.self)", for: indexPath) as? HistoryPlanViewCell else {
             return UICollectionViewCell()
         }
         
@@ -150,8 +150,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return friendsCell
         case .historyPlan:
             let cellViewModel = self.viewModel.historyPlanViewModels.value[indexPath.row]
-            historyCell.planTitleLabel.text = cellViewModel.plan.planName
-            
+            historyCell.setup(viewModel: cellViewModel)
             return historyCell
         }
     }
