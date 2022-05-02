@@ -23,7 +23,6 @@ class GroupPlanStatusViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkStatus()
         
         self.navigationItem.title = "團體進度"
         
@@ -37,6 +36,10 @@ class GroupPlanStatusViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        checkStatus()
     }
     
     private func checkStatus() {
