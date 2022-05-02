@@ -16,7 +16,6 @@ class ShareCommentViewModel {
             switch result {
             case .success(let comments):
                 self?.setComments(comments)
-                print(comments)
             case .failure(let error):
                 print("fetchData.failure: \(error)")
             }

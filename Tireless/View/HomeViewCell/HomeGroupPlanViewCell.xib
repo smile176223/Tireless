@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeGroupPlanViewCell" id="qrK-YX-4Is" customClass="HomeGroupPlanViewCell" customModule="Tireless" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="207" height="140"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pbc-g7-nG6">
+                <rect key="frame" x="0.0" y="0.0" width="207" height="140"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mkz-m0-uph">
+                        <rect key="frame" x="0.0" y="0.0" width="207" height="140"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="運動" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8d-IV-3kz">
+                        <rect key="frame" x="15" y="15" width="177" height="24"/>
+                        <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ZrW-26-JOb">
+                        <rect key="frame" x="162" y="74" width="30" height="30"/>
+                        <color key="backgroundColor" name="themeBG"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="2y7-cT-n9b"/>
+                            <constraint firstAttribute="width" constant="30" id="fPw-Ns-keH"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Py8-R4-pjr">
+                        <rect key="frame" x="15" y="109" width="177" height="21"/>
+                        <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Py8-R4-pjr" firstAttribute="top" secondItem="ZrW-26-JOb" secondAttribute="bottom" constant="5" id="4gu-oi-QtM"/>
+                    <constraint firstAttribute="bottom" secondItem="mkz-m0-uph" secondAttribute="bottom" id="6dm-ED-NXj"/>
+                    <constraint firstAttribute="trailing" secondItem="mkz-m0-uph" secondAttribute="trailing" id="A9H-Q5-x3a"/>
+                    <constraint firstItem="mkz-m0-uph" firstAttribute="top" secondItem="pbc-g7-nG6" secondAttribute="top" id="Cm3-zv-BcD"/>
+                    <constraint firstItem="r8d-IV-3kz" firstAttribute="top" secondItem="pbc-g7-nG6" secondAttribute="top" constant="15" id="DEZ-wa-NkJ"/>
+                    <constraint firstItem="Py8-R4-pjr" firstAttribute="leading" secondItem="pbc-g7-nG6" secondAttribute="leading" constant="15" id="GWW-qi-Vx9"/>
+                    <constraint firstAttribute="trailing" secondItem="r8d-IV-3kz" secondAttribute="trailing" constant="15" id="acj-SC-0tR"/>
+                    <constraint firstItem="mkz-m0-uph" firstAttribute="leading" secondItem="pbc-g7-nG6" secondAttribute="leading" id="aga-BZ-hx5"/>
+                    <constraint firstItem="r8d-IV-3kz" firstAttribute="leading" secondItem="pbc-g7-nG6" secondAttribute="leading" constant="15" id="pok-l9-4tg"/>
+                    <constraint firstAttribute="bottom" secondItem="Py8-R4-pjr" secondAttribute="bottom" constant="10" id="tpT-cy-a9w"/>
+                    <constraint firstAttribute="trailing" secondItem="Py8-R4-pjr" secondAttribute="trailing" constant="15" id="wAX-Vi-3fn"/>
+                    <constraint firstAttribute="trailing" secondItem="ZrW-26-JOb" secondAttribute="trailing" constant="15" id="z1g-IN-tkM"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="207" height="140"/>
+            <connections>
+                <outlet property="groupImageView" destination="mkz-m0-uph" id="L0G-VW-N1U"/>
+                <outlet property="groupTitleLabel" destination="r8d-IV-3kz" id="DYc-VV-T3o"/>
+                <outlet property="groupUserImageView" destination="ZrW-26-JOb" id="4tI-96-PKM"/>
+                <outlet property="groupUserNameLabel" destination="Py8-R4-pjr" id="Kt6-I7-n5Z"/>
+            </connections>
+            <point key="canvasLocation" x="-163.04347826086959" y="36.160714285714285"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="TirelessLogo" width="500" height="500"/>
+        <namedColor name="themeBG">
+            <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

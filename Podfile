@@ -16,6 +16,7 @@ target 'Tireless' do
   pod 'FirebaseFirestoreSwift', '8.14.0-beta'
   pod 'Kingfisher'
   pod 'IQKeyboardManagerSwift', '6.3.0'
+  pod 'JGProgressHUD'
 
 end
 

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct WeeklyDays: Hashable {
     let days: String
@@ -29,6 +30,7 @@ struct Plan: Codable {
     var progress: Double
     var finishTime: [FinishTime?]
     var uuid: String
+    var user: User?
     
     enum CodingKeys: String, CodingKey {
         case planName
@@ -39,6 +41,7 @@ struct Plan: Codable {
         case progress
         case finishTime
         case uuid
+        case user
     }
 }
 

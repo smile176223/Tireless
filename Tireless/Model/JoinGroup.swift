@@ -14,7 +14,7 @@ struct JoinGroup: Codable {
     var planGroup: Bool
     var createdTime: Int64
     var createdUserId: String
-    var createdName: String
+    var createdUser: User?
     var uuid: String
     
     enum CodingKeys: String, CodingKey {
@@ -24,7 +24,7 @@ struct JoinGroup: Codable {
         case planGroup
         case createdTime
         case createdUserId
-        case createdName
+        case createdUser
         case uuid
     }
 }

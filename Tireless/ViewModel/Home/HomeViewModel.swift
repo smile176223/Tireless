@@ -9,9 +9,9 @@ import Foundation
 
 class HomeViewModel {
     
-    let defaultPlans = Box([DefaultPlans]())
+    let defaultPlansViewModel = Box([DefaultPlansViewModel]())
     
-    var joinGroup = Box([JoinGroup]())
+    let joinGroupsViewModel = Box([JoinGroupsViewModel]())
     
     var plans = [DefaultPlans(planName: "深蹲",
                        planDetail:
@@ -36,7 +36,7 @@ class HomeViewModel {
                           WeeklyDays(days: "\(countDaily(2))", weekDays: countWeekDay(2))]
     
     func setDefault() {
-        self.defaultPlans.value = plans
+        setDefaultPlans(plans)
     }
     
     private func countDaily(_ day: Int) -> Int {
@@ -54,10 +54,37 @@ class HomeViewModel {
         JoinGroupManager.shared.fetchFriendsPlan(userId: userId) { result in
             switch result {
             case .success(let joinGroup):
-                self.joinGroup.value = joinGroup
+                self.setJoinGroups(joinGroup)
             case .failure(let error):
                 print(error)
             }
         }
     }
+    
+    private func convertDefaultPlanToViewModels(from defaultPlans: [DefaultPlans]) -> [DefaultPlansViewModel] {
+        var viewModels = [DefaultPlansViewModel]()
+        for defaultPlan in defaultPlans {
+            let viewModel = DefaultPlansViewModel(model: defaultPlan)
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+    
+    private func setDefaultPlans(_ defaultPlans: [DefaultPlans]) {
+        defaultPlansViewModel.value = convertDefaultPlanToViewModels(from: defaultPlans)
+    }
+    
+    private func convertJoinGroupToViewModels(from joinGroups: [JoinGroup]) -> [JoinGroupsViewModel] {
+        var viewModels = [JoinGroupsViewModel]()
+        for joinGroup in joinGroups {
+            let viewModel = JoinGroupsViewModel(model: joinGroup)
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+    
+    private func setJoinGroups(_ joinGroups: [JoinGroup]) {
+        joinGroupsViewModel.value = convertJoinGroupToViewModels(from: joinGroups)
+    }
+    
 }

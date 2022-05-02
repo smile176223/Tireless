@@ -36,13 +36,15 @@ class AuthViewController: UIViewController {
               let passwordText = passwordTextField.text else {
             return
         }
-
+        ProgressHUD.show()
         AuthManager.shared.signInWithFirebase(email: emailText, password: passwordText) { result in
             switch result {
             case .success(let result):
                 print(result)
+                ProgressHUD.showSuccess(text: "登入成功!")
                 self.finishPresent()
             case .failure(let error):
+                ProgressHUD.showSuccess(text: "登入失敗!")
                 print(error)
             }
         }
@@ -117,12 +119,22 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
             let formatter = PersonNameComponentsFormatter()
             formatter.style = .default
             var name = formatter.string(from: appleName)
+            ProgressHUD.show()
             AuthManager.shared.signInWithApple(idToken: idTokenString,
                                                nonce: nonce,
                                                appleName: name) { [weak self] result in
                 switch result {
                 case .success(let authResult):
-                    AuthManager.shared.getCurrentUser()
+                    AuthManager.shared.getCurrentUser { result in
+                        switch result {
+                        case .success(let bool):
+                            print(bool)
+                            ProgressHUD.showSuccess(text: "登入成功!")
+                        case .failure(let error):
+                            ProgressHUD.showSuccess(text: "登入失敗!")
+                            print(error)
+                        }
+                    }
                     if name == "" {
                         name = "Tireless User"
                     }

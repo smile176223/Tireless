@@ -54,12 +54,25 @@ class JoinGroupManager {
                     completion(.failure(error))
                 } else {
                     var joinGroups = [JoinGroup]()
-                    for document in querySnapshot.documents {
-                        if let joinGroup = try? document.data(as: JoinGroup.self, decoder: Firestore.Decoder()) {
-                            joinGroups.append(joinGroup)
+                    DispatchQueue.global().async {
+                        let semaphore = DispatchSemaphore(value: 0)
+                        for document in querySnapshot.documents {
+                            if var joinGroup = try? document.data(as: JoinGroup.self, decoder: Firestore.Decoder()) {
+                                UserManager.shared.fetchUser(userId: joinGroup.createdUserId) { result in
+                                    switch result {
+                                    case .success(let user):
+                                        joinGroup.createdUser = user
+                                        joinGroups.append(joinGroup)
+                                    case .failure(let error):
+                                        completion(.failure(error))
+                                    }
+                                    semaphore.signal()
+                                }
+                            }
+                            semaphore.wait()
                         }
+                        completion(.success(joinGroups))
                     }
-                    completion(.success(joinGroups))
                 }
             }
     }

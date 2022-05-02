@@ -81,6 +81,8 @@ extension SearchFriendViewController: UITableViewDelegate, UITableViewDataSource
         }
         cell.isAddButtonTap = {
             FriendManager.shared.inviteFriend(userId: cellViewModel.user.userId)
+            ProgressHUD.showSuccess(text: "發出邀請!")
+            cell.cellAddButon.isHidden = true
         }
         
         return cell

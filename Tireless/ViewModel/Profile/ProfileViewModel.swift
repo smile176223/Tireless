@@ -45,8 +45,10 @@ class ProfileViewModel {
             switch result {
             case .success(let text):
                 print(text)
+                ProgressHUD.showSuccess(text: "已刪除!")
             case .failure(let error):
                 print(error)
+                ProgressHUD.showFailure()
             }
         }
     }
