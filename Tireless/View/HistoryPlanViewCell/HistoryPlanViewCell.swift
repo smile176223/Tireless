@@ -48,10 +48,14 @@ class HistoryPlanViewCell: UICollectionViewCell {
             }
         }
         historyPlanTimesLabel.text = "每次\(viewModel.plan.planTimes)次/秒，持續\(viewModel.plan.planDays)天"
-        historyPlanNameLabel.text = viewModel.plan.planName
+        if viewModel.plan.planGroup == true {
+            historyPlanNameLabel.text = "\(viewModel.plan.planName) (團體)"
+        } else {
+            historyPlanNameLabel.text = "\(viewModel.plan.planName) (個人)"
+        }
         let finish = viewModel.plan.finishTime.endIndex - 1
         let finishDate = Date(milliseconds: viewModel.plan.finishTime[finish]?.time ?? 0)
-        historyFinishTimeLabel.text = Date.dateFormatter.string(from: finishDate)
+        historyFinishTimeLabel.text = "完成時間: \(Date.dateFormatter.string(from: finishDate))"
     }
     
     private func setupLayout() {
