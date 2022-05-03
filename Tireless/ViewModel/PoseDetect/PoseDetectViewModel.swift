@@ -70,11 +70,12 @@ class PoseDetectViewModel {
                                                        inFrameLikelihood: $0.inFrameLikelihood,
                                                        type: $0.type.rawValue))
                 }
-                if startManager.checkStart(posePoint) == true {
-                    self?.countRefresh?(self?.squatManager.squatWork(posePoint) ?? 0)
-                } else {
-                    self?.squatManager.resetIfOut()
-                }
+                self?.countRefresh?(PushupManager.shared.pushupWork(posePoint))
+//                if startManager.checkStart(posePoint) == true {
+//                    self?.countRefresh?(self?.squatManager.squatWork(posePoint) ?? 0)
+//                } else {
+//                    self?.squatManager.resetIfOut()
+//                }
             }
         }
     }

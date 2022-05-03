@@ -47,7 +47,7 @@ class CounterView: UIView {
         buttonConstraints()
         textFieldConstraints()
         self.backgroundColor = .themeBGSecond
-        self.layer.cornerRadius = 23
+        self.layer.cornerRadius = 15
         minusButton.addTarget(self, action: #selector(minusButtonTap), for: .touchUpInside)
         plusButton.addTarget(self, action: #selector(plusButtonTap), for: .touchUpInside)
         inputTextField.delegate = self

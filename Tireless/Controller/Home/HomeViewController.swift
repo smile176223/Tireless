@@ -237,11 +237,11 @@ extension HomeViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             return headerDailyView
         } else if indexPath.section == 1 {
-            headerView.textLabel.text = "個人計畫"
+            headerView.textLabel.text = "建立個人計畫"
             headerView.createGroupButton.isHidden = true
             return headerView
         } else if indexPath.section == 2 {
-            headerView.textLabel.text = "團體計劃"
+            headerView.textLabel.text = "揪團計畫"
             headerView.createGroupButton.isHidden = false
             return headerView
         }
