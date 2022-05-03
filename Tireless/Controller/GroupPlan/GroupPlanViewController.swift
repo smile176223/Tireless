@@ -135,12 +135,26 @@ class GroupPlanViewController: UIViewController {
     }
     
     private func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(50),
-                                              heightDimension: .absolute(50))
+        
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                              heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
-                                                       subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
+        
+//        let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
+//                                                       subitems: [item])
+//        let section = NSCollectionLayoutSection(group: group)
+        
+        item.contentInsets =  NSDirectionalEdgeInsets(top: 5, leading: 25, bottom: 5, trailing: 25)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                               heightDimension: .fractionalHeight(1.0))
+        
+        let innergroup =
+        NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 1)
+        let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.22),
+                                                     heightDimension: .fractionalHeight(0.09))
+        let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innergroup])
+        let section = NSCollectionLayoutSection(group: nestedGroup)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(250))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
@@ -149,7 +163,7 @@ class GroupPlanViewController: UIViewController {
                                                                  alignment: .top)
         section.boundarySupplementaryItems = [header]
         section.interGroupSpacing = 5
-        section.contentInsets = .init(top: 5, leading: 15, bottom: 5, trailing: 15)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
         return UICollectionViewCompositionalLayout(section: section)
     }
     

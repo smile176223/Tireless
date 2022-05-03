@@ -14,11 +14,13 @@ class GroupPlanViewCell: UICollectionViewCell {
     var viewModel: JoinUsersViewModel?
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         setupLayout()
     }
     
     private func setupLayout() {
-        groupPlanImageView.layer.cornerRadius = groupPlanImageView.frame.height / 2
+//        groupPlanImageView.layer.cornerRadius = groupPlanImageView.frame.height / 2
+        self.layer.cornerRadius = 20
     }
     
     func setup(viewModel: JoinUsersViewModel) {

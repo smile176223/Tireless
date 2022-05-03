@@ -45,7 +45,7 @@ private enum Tab {
         
         controller.tabBarItem = tabBarItem()
         
-        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 6.0, left: 0.0, bottom: -6.0, right: 0.0)
+        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 2.0, right: 0.0)
         
         return controller
     }
@@ -56,21 +56,21 @@ private enum Tab {
 
         case .home:
             return UITabBarItem(
-                title: nil,
+                title: "主頁",
                 image: UIImage.tabHome,
                 selectedImage: UIImage.tabHome
             )
             
         case .plan:
             return UITabBarItem(
-                title: nil,
+                title: "計畫",
                 image: UIImage.tabPlan,
                 selectedImage: UIImage.tabPlan
             )
 
         case .shareWall:
             return UITabBarItem(
-                title: nil,
+                title: "探索",
                 image: UIImage.tabVideo,
                 selectedImage: UIImage.tabVideo
             )
@@ -84,7 +84,7 @@ private enum Tab {
             
         case .profile:
             return UITabBarItem(
-                title: nil,
+                title: "個人",
                 image: UIImage.tabUser,
                 selectedImage: UIImage.tabUser
             )
@@ -100,7 +100,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         
         delegate = self
-        
+    
         viewControllers = tabs.map({ $0.controller() })
         
         tabBar.tintColor = .themeYellow
