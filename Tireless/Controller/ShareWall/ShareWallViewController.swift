@@ -84,6 +84,19 @@ class ShareWallViewController: UIViewController {
         tableView.addSubview(lottieView ?? UIView())
         lottieView?.play()
     }
+    
+    func commentPresent(shareFile: ShareFiles) {
+        guard let commentVC = UIStoryboard.shareWall.instantiateViewController(
+            withIdentifier: "\(ShareCommentViewController.self)")
+                as? ShareCommentViewController
+        else {
+            return
+        }
+        commentVC.shareFile = shareFile
+        commentVC.modalTransitionStyle = .coverVertical
+        commentVC.modalPresentationStyle = .overCurrentContext
+        self.tabBarController?.present(commentVC, animated: true)
+    }
 }
 
 extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
@@ -101,6 +114,9 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cellViewModel = self.viewModel.shareFilesViewModel.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
+        cell.isCommentButtonTap = {
+            self.commentPresent(shareFile: cellViewModel.shareFile)
+        }
         
         return cell
     }

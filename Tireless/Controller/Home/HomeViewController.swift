@@ -6,82 +6,74 @@
 //
 
 import UIKit
-import SwiftUI
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
+            collectionView.dataSource = self
         }
     }
     
-    let shareManager = ShareManager()
-    
     let viewModel = HomeViewModel()
-    
-    var plans: [Plans]?
     
     enum Section: Int, CaseIterable {
         case daily
         case personalPlan
-        case groupPlan
-        
+        case joinGroup
+
         var columnCount: Int {
             switch self {
             case .daily:
                 return 5
             case .personalPlan:
                 return 3
-            case .groupPlan:
+            case .joinGroup:
                 return 3
             }
         }
     }
-    
-    enum SectionItem: Hashable {
-        case daily(WeeklyDays)
-        case personalPlan(Plans)
-        case groupPlan(GroupPlans)
-    }
-    
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, SectionItem>
-    
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SectionItem>
-    
-    private var dataSource: DataSource?
-    
-    private var groupPlans: [GroupPlans]? {
-        didSet {
-            dataSource?.apply(snapshot(), animatingDifferences: false)
-        }
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .themeBG
-        
-        navigationController?.navigationBar.isHidden = true
 
-        configureCollectionView()
-        configureDataSource()
-        configureDataSourceProvider()
-        configureDataSourceSnapshot()
+        navigationController?.navigationBar.isHidden = true
         
+        configureCollectionView()
+
         viewModel.setDefault()
         
-        viewModel.fetchGroupPlans(userId: DemoUser.demoUser)
-        
-        viewModel.personalPlan.bind { plans in
-            self.plans = plans
+        viewModel.joinGroupsViewModel.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                guard let self = self else {
+                    return
+                }
+                self.collectionView.reloadData()
+            }
+        }
+        AuthManager.shared.getCurrentUser { result in
+            switch result {
+            case .success(let bool):
+                if bool == true {
+                    self.viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
+                }
+            case .failure(let error):
+                print(error)
+            }
         }
         
-        viewModel.groupPlans.bind { groupPlans in
-            self.groupPlans = groupPlans
+        if AuthManager.shared.currentUser != "" {
+            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
         }
-
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        if AuthManager.shared.currentUser != "" {
+//            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
+//        }
+//    }
     
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
@@ -97,6 +89,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         collectionView.register(UINib(nibName: "\(HomeDailyViewCell.self)", bundle: nil),
                                 forCellWithReuseIdentifier: "\(HomeDailyViewCell.self)")
+        
+        collectionView.register(UINib(nibName: "\(HomeGroupPlanViewCell.self)", bundle: nil),
+                                forCellWithReuseIdentifier: "\(HomeGroupPlanViewCell.self)")
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -104,175 +99,154 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             guard let sectionType = Section(rawValue: sectionIndex) else {
                 return nil
             }
-
-            let columns = sectionType.columnCount
-
+            var columns = sectionType.columnCount
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(1.0))
-
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-
-            let groupHeight = sectionIndex == 1 ?
-            NSCollectionLayoutDimension.absolute(400) : NSCollectionLayoutDimension.absolute(100)
+            var groupHeight = NSCollectionLayoutDimension.absolute(1)
+            if sectionIndex == 0 {
+                groupHeight = NSCollectionLayoutDimension.absolute(90)
+            } else if sectionIndex == 1 {
+                groupHeight = NSCollectionLayoutDimension.absolute(400)
+            } else {
+                groupHeight = NSCollectionLayoutDimension.absolute(150)
+            }
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                    heightDimension: .fractionalHeight(1.0))
+            if sectionIndex == 2 {
+                if self.viewModel.joinGroupsViewModel.value.count != 0 {
+                    columns = 3
+                } else {
+                    columns = 1
+                }
+            }
             let innergroup = sectionIndex == 1 ?
-            NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item,
-                                               count: columns) :
-            NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item,
-                                               count: columns)
-
+            NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: columns) :
+            NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
             let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
                                                          heightDimension: groupHeight)
             let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innergroup])
-
             let section = NSCollectionLayoutSection(group: nestedGroup)
             section.orthogonalScrollingBehavior = .groupPagingCentered
-
             let headerSize = sectionIndex == 0 ?
             NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100)) :
-            NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(60))
+            NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(60))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                      elementKind:
                                                                         UICollectionView.elementKindSectionHeader,
                                                                      alignment: .top)
-
             section.boundarySupplementaryItems = [header]
-
             section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 15, trailing: 15)
-
             return section
         }
-
         return layout
-   
     }
     
-    private func configureDataSource() {
-        dataSource = DataSource(collectionView: collectionView,
-                                cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(HomeViewCell.self)",
-                                                                for: indexPath) as? HomeViewCell else {
-                return UICollectionViewCell()
+}
+extension HomeViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int { 3 }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return Section.daily.columnCount
+        } else if section == 1 {
+            return Section.personalPlan.columnCount
+        } else {
+            if viewModel.joinGroupsViewModel.value.count == 0 {
+                return 1
+            } else {
+                return viewModel.joinGroupsViewModel.value.count
             }
-            guard let dailyCell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(HomeDailyViewCell.self)",
-                                                                for: indexPath) as? HomeDailyViewCell else {
-                return UICollectionViewCell()
-            }
-            
-            switch item {
-            case .daily(let text):
-                if indexPath.section == 0, indexPath.row == 2 {
-                    dailyCell.contentView.backgroundColor = .themeYellow
-                }
-                cell.textLabel.text = "\(text)"
-                dailyCell.dailyWeekDayLabel.text = text.weekDays
-                dailyCell.dailyDayLabel.text = text.days
-                return dailyCell
-            case .personalPlan(let plans):
-                cell.textLabel.font = .bold(size: 30)
-                cell.textLabel.text = plans.planName
-                cell.imageView.image = UIImage(named: plans.planImage)
-                return cell
-            case .groupPlan(let groupPlans):
-                cell.textLabel.font = .bold(size: 15)
-                cell.textLabel.text = "\(groupPlans.planName)\n\(groupPlans.createdName)"
-                if groupPlans.createdUserId == DemoUser.demoUser {
-                    cell.masksView.backgroundColor = .themeYellow
-                } else {
-                    cell.masksView.backgroundColor = .white
-                }
-//                cell.imageView.image = UIImage(named: plans.planImage)
-                return cell
-            }
-        })
+        }
     }
-    private func configureDataSourceProvider() {
-        dataSource?.supplementaryViewProvider = { (collectionView, _, indexPath) in
-            guard let headerView = self.collectionView.dequeueReusableSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: "\(HomeHeaderView.self)",
-                for: indexPath) as? HomeHeaderView else { return UICollectionReusableView()}
-            guard let headerDailyView = self.collectionView.dequeueReusableSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: "\(HomeDailyHeaderView.self)",
-                for: indexPath) as? HomeDailyHeaderView else { return UICollectionReusableView()}
-            
-            headerView.isCreateButtonTap = {
-                guard let setGroupPlanVC = UIStoryboard.groupPlan.instantiateViewController(
-                    withIdentifier: "\(SetGroupPlanViewController.self)")
-                        as? SetGroupPlanViewController
-                else {
-                    return
-                }
-                setGroupPlanVC.plans = self.plans
-                self.present(setGroupPlanVC, animated: true)
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "\(HomeViewCell.self)",
+            for: indexPath) as? HomeViewCell else {
+            return UICollectionViewCell()
+        }
+        guard let dailyCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "\(HomeDailyViewCell.self)",
+            for: indexPath) as? HomeDailyViewCell else {
+            return UICollectionViewCell()
+        }
+        guard let groupCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "\(HomeGroupPlanViewCell.self)",
+            for: indexPath) as? HomeGroupPlanViewCell else {
+            return UICollectionViewCell()
+        }
+        if indexPath.section == 0 {
+            if indexPath.section == 0, indexPath.row == 2 {
+                dailyCell.contentView.backgroundColor = .themeYellow
+            } else {
+                dailyCell.contentView.backgroundColor = .white
+            }
+            dailyCell.dailyWeekDayLabel.text = viewModel.weeklyDay[indexPath.row].weekDays
+            dailyCell.dailyDayLabel.text = viewModel.weeklyDay[indexPath.row].days
+            return dailyCell
+        } else if indexPath.section == 1 {
+            let cellViewModel = self.viewModel.defaultPlansViewModel.value[indexPath.row]
+            cell.setup(viewModel: cellViewModel)
+            return cell
+        } else {
+            if viewModel.joinGroupsViewModel.value.count != 0 {
+                let cellViewModel = self.viewModel.joinGroupsViewModel.value[indexPath.row]
+                groupCell.setup(viewModel: cellViewModel)
+                groupCell.groupUserImageView.isHidden = false
+                groupCell.groupUserNameLabel.isHidden = false
+                groupCell.groupTitleLabel.isHidden = false
+                groupCell.isUserInteractionEnabled = true
+            } else {
+                groupCell.groupImageView.image = UIImage(named: "tireless_nogroup")
+                groupCell.groupImageView.alpha = 1
+                groupCell.groupUserImageView.isHidden = true
+                groupCell.groupUserNameLabel.isHidden = true
+                groupCell.groupTitleLabel.isHidden = true
+                groupCell.isUserInteractionEnabled = false
             }
             
-            if indexPath.section == 0 {
-                let formatter = DateFormatter()
-                formatter.dateStyle = .long
-                formatter.timeStyle = .none
-                formatter.string(from: Date())
-                headerDailyView.dateLabel.text = formatter.string(from: Date())
-                headerDailyView.titleLabel.text = "Daily Activity"
-                return headerDailyView
-            } else if indexPath.section == 1 {
-                headerView.textLabel.text = "個人計畫"
-                headerView.createGroupButton.isHidden = true
-            } else if indexPath.section == 2 {
-                headerView.textLabel.text = "團體計劃"
-                headerView.createGroupButton.isHidden = false
+            return groupCell
+        }
+        
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerView = self.collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: "\(HomeHeaderView.self)",
+            for: indexPath) as? HomeHeaderView else { return UICollectionReusableView() }
+        guard let headerDailyView = self.collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: "\(HomeDailyHeaderView.self)",
+            for: indexPath) as? HomeDailyHeaderView else { return UICollectionReusableView() }
+
+        headerView.isCreateButtonTap = { [weak self] in
+            guard let setGroupPlanVC = UIStoryboard.groupPlan.instantiateViewController(
+                withIdentifier: "\(SetGroupPlanViewController.self)")
+                    as? SetGroupPlanViewController
+            else {
+                return
             }
+            setGroupPlanVC.plans = self?.viewModel.plans
+            self?.present(setGroupPlanVC, animated: true)
+        }
+
+        if indexPath.section == 0 {
+            return headerDailyView
+        } else if indexPath.section == 1 {
+            headerView.textLabel.text = "個人計畫"
+            headerView.createGroupButton.isHidden = true
+            return headerView
+        } else if indexPath.section == 2 {
+            headerView.textLabel.text = "團體計劃"
+            headerView.createGroupButton.isHidden = false
             return headerView
         }
+        return UICollectionReusableView()
     }
-    
-    private func configureDataSourceSnapshot() {
-        dataSource?.apply(snapshot(), animatingDifferences: false)
-    }
-    
-    private func snapshot() -> Snapshot {
-        var snapshot = Snapshot()
-        snapshot.appendSections([.daily, .personalPlan, .groupPlan])
-        snapshot.appendItems(viewModel.weeklyDay.map({SectionItem.daily($0)}), toSection: .daily)
-        snapshot.appendItems(viewModel.plans.map({SectionItem.personalPlan($0)}), toSection: .personalPlan)
-        if let groupPlans = groupPlans {
-            snapshot.appendItems(groupPlans.map({SectionItem.groupPlan($0)}), toSection: .groupPlan)
-        }
-        return snapshot
-    }
-    
-//    @IBAction func photoButtonTap(_ sender: UIButton) {
-//        let imagePicker = UIImagePickerController()
-//        imagePicker.allowsEditing = false
-//        imagePicker.sourceType = .camera
-//        imagePicker.delegate = self
-//        present(imagePicker, animated: true, completion: nil)
-//    }
-//    
-//    func imagePickerController(_ picker: UIImagePickerController,
-//                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-//        
-//        let fileManager = FileManager.default
-//        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-//        let imagePath = documentsPath?.appendingPathComponent("image.jpg")
-//        
-//        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            
-//            let imageData = pickedImage.jpegData(compressionQuality: 0.75)
-//            try? imageData?.write(to: imagePath!)
-//            shareManager.uploadPicture(shareFile: ShareFiles(userId: "liamTest",
-//                                                             shareName: UUID().uuidString,
-//                                                             shareURL: imagePath!,
-//                                                             createdTime: Date().millisecondsSince1970,
-//                                                             content: "")) { _ in
-//                self.dismiss(animated: true)
-//            }
-//        }
-//    }
 }
 
 extension HomeViewController: UICollectionViewDelegate {
@@ -284,7 +258,7 @@ extension HomeViewController: UICollectionViewDelegate {
             else {
                 return
             }
-            detailVC.plan = plans?[indexPath.row]
+            detailVC.plan = viewModel.defaultPlansViewModel.value[indexPath.row].defaultPlans
             detailVC.modalPresentationStyle = .fullScreen
             self.present(detailVC, animated: true)
         } else if indexPath.section == 2 {
@@ -294,20 +268,7 @@ extension HomeViewController: UICollectionViewDelegate {
             else {
                 return
             }
-            groupVC.groupPlan = self.groupPlans?[indexPath.row]
-            guard let plans = plans else { return }
-            switch groupPlans?[indexPath.row].planName {
-            case "深蹲":
-                groupVC.plan = plans[0]
-            case "棒式":
-                groupVC.plan = plans[1]
-            case "伏地挺身":
-                groupVC.plan = plans[2]
-            case .none:
-                print("none")
-            case .some(let string):
-                print(string)
-            }
+            groupVC.joinGroup = viewModel.joinGroupsViewModel.value[indexPath.row].joinGroup
             groupVC.modalPresentationStyle = .fullScreen
             self.present(groupVC, animated: true)
         }

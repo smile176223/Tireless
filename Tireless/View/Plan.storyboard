@@ -13,7 +13,7 @@
         <!--運動計畫-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="PersonalPlanViewController" id="Y6W-OH-hqX" customClass="PlanManageViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlanManageViewController" id="Y6W-OH-hqX" customClass="PlanManageViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -56,6 +56,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="926" y="125"/>
+        </scene>
+        <!--Group Plan Status View Controller-->
+        <scene sceneID="Hch-40-Mnm">
+            <objects>
+                <viewController storyboardIdentifier="GroupPlanStatusViewController" id="76O-mo-osq" customClass="GroupPlanStatusViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bsk-8K-SJI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bSL-HG-9OJ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Nb3-cd-B0c"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Nb3-cd-B0c" firstAttribute="trailing" secondItem="bSL-HG-9OJ" secondAttribute="trailing" id="BOh-zq-R3W"/>
+                            <constraint firstItem="bSL-HG-9OJ" firstAttribute="top" secondItem="Nb3-cd-B0c" secondAttribute="top" id="FuD-c9-SaR"/>
+                            <constraint firstItem="bSL-HG-9OJ" firstAttribute="leading" secondItem="Nb3-cd-B0c" secondAttribute="leading" id="ISy-TU-iJH"/>
+                            <constraint firstItem="Nb3-cd-B0c" firstAttribute="bottom" secondItem="bSL-HG-9OJ" secondAttribute="bottom" id="wqD-SW-1nQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="bSL-HG-9OJ" id="eWa-ht-7lh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U7j-AE-oou" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1710" y="125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FJG-Zw-13V">

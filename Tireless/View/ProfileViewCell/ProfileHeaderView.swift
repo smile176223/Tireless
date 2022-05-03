@@ -14,27 +14,54 @@ class ProfileHeaderView: UICollectionReusableView {
     @IBOutlet weak var userNameLabel: UILabel!
     
     @IBOutlet weak var headerLineView: UIView!
+
+    @IBOutlet weak var indicatorView: UIView!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
+    @IBOutlet weak var indicatorCenterX: NSLayoutConstraint!
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-    }
+    var isUserImageTap: (() -> Void)?
     
-    private func commonInit() {
-        guard let view = loadViewFromNib() else { return }
-        view.frame = self.bounds
-        self.addSubview(view)
+    var isSearchButtonTap: (() -> Void)?
+    
+    var isInviteTap: (() -> Void)?
+    
+    var isFriendsTab: (() -> Void)?
+    
+    var isHistoryTab: (() -> Void)?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
         setupLayout()
+        imageViewTap()
     }
     
-    private func loadViewFromNib() -> UIView? {
-        let nib = UINib(nibName: "\(ProfileHeaderView.self)", bundle: nil)
-        return nib.instantiate(withOwner: self, options: nil).first as? UIView
+    private func imageViewTap() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                          action: #selector(imageTapped(tapGestureRecognizer:)))
+        userImageView.isUserInteractionEnabled = true
+        userImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        isUserImageTap?()
+    }
+    
+    @IBAction func searchButtonTap(_ sender: UIButton) {
+        isSearchButtonTap?()
+    }
+    
+    @IBAction func inviteTap(_ sender: UIButton) {
+        isInviteTap?()
+    }
+    
+    @IBAction func friendsTabButtonTap(_ sender: UIButton) {
+        indicatorAnimate(sender)
+        isFriendsTab?()
+    }
+    
+    @IBAction func historyabButtonTap(_ sender: UIButton) {
+        indicatorAnimate(sender)
+        isHistoryTab?()
     }
     
     private func setupLayout() {
@@ -43,5 +70,13 @@ class ProfileHeaderView: UICollectionReusableView {
         userImageView.layer.borderColor = UIColor.gray.cgColor
         headerLineView.layer.cornerRadius = 5
         userNameLabel.font = .bold(size: 20)
+    }
+    
+    private func indicatorAnimate(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
+            self.indicatorCenterX.isActive = false
+            self.indicatorCenterX = self.indicatorView.centerXAnchor.constraint(equalTo: sender.centerXAnchor)
+            self.indicatorCenterX.isActive = true
+        }, completion: nil)
     }
 }

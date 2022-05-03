@@ -45,7 +45,7 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Ace-hW-9Zh" secondAttribute="trailing" id="EH9-k6-FgQ"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Ace-hW-9Zh" secondAttribute="bottom" id="KAU-pL-cKr"/>
                             <constraint firstItem="Ace-hW-9Zh" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="KGi-y4-Crk"/>
-                            <constraint firstItem="Ace-hW-9Zh" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="P2U-J9-3b1"/>
+                            <constraint firstItem="Ace-hW-9Zh" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="TtA-xW-lgW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="otg-fN-UeN"/>
@@ -56,6 +56,65 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="83.705357142857139"/>
+        </scene>
+        <!--Search Friend View Controller-->
+        <scene sceneID="CK6-pz-9gP">
+            <objects>
+                <viewController storyboardIdentifier="SearchFriendViewController" id="mmf-AN-0Fu" customClass="SearchFriendViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cAd-by-j8o">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3iq-W7-F0I">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="LoN-eU-yqU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="3iq-W7-F0I" firstAttribute="leading" secondItem="LoN-eU-yqU" secondAttribute="leading" id="GYx-0x-FHk"/>
+                            <constraint firstItem="LoN-eU-yqU" firstAttribute="trailing" secondItem="3iq-W7-F0I" secondAttribute="trailing" id="H6G-lZ-mcn"/>
+                            <constraint firstItem="3iq-W7-F0I" firstAttribute="top" secondItem="LoN-eU-yqU" secondAttribute="top" id="Yor-P5-QLL"/>
+                            <constraint firstItem="LoN-eU-yqU" firstAttribute="bottom" secondItem="3iq-W7-F0I" secondAttribute="bottom" id="pT9-1q-HIM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="3iq-W7-F0I" id="9MC-C9-qGL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lPY-Xq-x2y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1946" y="84"/>
+        </scene>
+        <!--Invite Friend View Controller-->
+        <scene sceneID="17C-vz-gCy">
+            <objects>
+                <viewController storyboardIdentifier="InviteFriendViewController" id="siO-0t-78d" customClass="InviteFriendViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sPe-Qy-qAy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="eWP-3s-MTl">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dFY-bc-ucg"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dFY-bc-ucg" firstAttribute="trailing" secondItem="eWP-3s-MTl" secondAttribute="trailing" id="0uB-fh-psL"/>
+                            <constraint firstItem="dFY-bc-ucg" firstAttribute="bottom" secondItem="eWP-3s-MTl" secondAttribute="bottom" id="1gE-CK-jVj"/>
+                            <constraint firstItem="eWP-3s-MTl" firstAttribute="leading" secondItem="dFY-bc-ucg" secondAttribute="leading" id="BGK-SG-uAf"/>
+                            <constraint firstItem="eWP-3s-MTl" firstAttribute="top" secondItem="dFY-bc-ucg" secondAttribute="top" id="R0N-DR-65D"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="eWP-3s-MTl" id="hDO-Pn-fAN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YHb-Vs-Scx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2799" y="84"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Lb0-fb-qbK">

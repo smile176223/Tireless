@@ -9,30 +9,32 @@ import Foundation
 
 class PlanDetailViewModel {
     
-    var planManage: PlanManage = PlanManage(planName: "",
-                                            planTimes: "",
-                                            planDays: "",
-                                            createdTime: -1,
-                                            planGroup: false,
-                                            progress: 0.0,
-                                            finishTime: [],
-                                            uuid: "")
+    var plan: Plan = Plan(planName: "",
+                          planTimes: "",
+                          planDays: "",
+                          createdTime: -1,
+                          planGroup: false,
+                          progress: 0.0,
+                          finishTime: [],
+                          uuid: "")
     
-    func getPlanData(name: String, times: String, days: String, createdTime: Int64, planGroup: Bool) {
-        self.planManage.planName = name
-        self.planManage.planTimes = times
-        self.planManage.planDays = days
-        self.planManage.createdTime = createdTime
-        self.planManage.planGroup = planGroup
+    func setPlanData(name: String, times: String, days: String, createdTime: Int64, planGroup: Bool) {
+        self.plan.planName = name
+        self.plan.planTimes = times
+        self.plan.planDays = days
+        self.plan.createdTime = createdTime
+        self.plan.planGroup = planGroup
     }
     
     func createPlan(success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
-        PlanManager.shared.createPlan(planManage: &planManage) { result in
+        PlanManager.shared.createPlan(userId: AuthManager.shared.currentUser, plan: &plan) { result in
             switch result {
             case .success:
                 success()
+                ProgressHUD.showSuccess(text: "建立成功!")
             case .failure(let error):
                 failure(error)
+                ProgressHUD.showFailure()
             }
         }
     }

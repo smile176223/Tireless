@@ -12,9 +12,10 @@ class HomeViewCell: UICollectionViewCell {
     
     lazy var textLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
-        label.textColor = .black
+        label.textAlignment = .left
+        label.textColor = .white
         label.numberOfLines = 0
+        label.font = .bold(size: 25)
         return label
     }()
     
@@ -26,12 +27,7 @@ class HomeViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    lazy var masksView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.alpha = 0.5
-        return view
-    }()
+    var viewModel: DefaultPlansViewModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,10 +39,39 @@ class HomeViewCell: UICollectionViewCell {
         commonInit()
     }
     
+    func setup(viewModel: DefaultPlansViewModel) {
+        self.viewModel = viewModel
+        layoutCell()
+    }
+    
+    func layoutCell() {
+        textLabel.text = viewModel?.defaultPlans.planName
+        imageView.image = UIImage(named: viewModel?.defaultPlans.planName ?? "")
+    }
+    
+    func setupGroup(viewModel: DefaultPlansViewModel) {
+        self.viewModel = viewModel
+        layoutGroupCell()
+    }
+    
+    func layoutGroupCell() {
+        textLabel.text = viewModel?.defaultPlans.planName
+        switch viewModel?.defaultPlans.planName {
+        case PlanImage.squat.rawValue:
+            imageView.image = UIImage.groupSquat
+        case PlanImage.plank.rawValue:
+            imageView.image = UIImage.groupPlank
+        case PlanImage.pushup.rawValue:
+            imageView.image = UIImage.groupPushup
+        default:
+            imageView.image = UIImage(named: "TirelessLogo")
+        }
+    }
+    
     private func commonInit() {
         textLabelConstraints()
         self.backgroundColor = .themeBG
-        self.layer.cornerRadius = 12
+        self.layer.cornerRadius = 20
         self.contentView.backgroundColor = .white
     }
     
@@ -61,22 +86,13 @@ class HomeViewCell: UICollectionViewCell {
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
-        addSubview(masksView)
-        masksView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            masksView.topAnchor.constraint(equalTo: imageView.topAnchor),
-            masksView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
-            masksView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
-            masksView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor)
-        ])
-        
         addSubview(textLabel)
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            textLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            textLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15)
+            
         ])
     }
 }

@@ -1,53 +1,70 @@
 //
-//  PersonalPlanViewController.swift
+//  PlanManageViewController.swift
 //  Tireless
 //
 //  Created by Hao on 2022/4/22.
 //
 
 import UIKit
-import MapKit
+import SwiftUI
 
 class PlanManageViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView!
-    
-    let viewModel = FetchPlanViewModel()
-    
-    typealias DataSource = UICollectionViewDiffableDataSource<Int, PlanManage>
-    
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, PlanManage>
-    
-    private var dataSource: DataSource?
-    
-    private var planManages: [PlanManage]? {
+    @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
-            dataSource?.apply(snapshot(), animatingDifferences: false)
+            collectionView.delegate = self
+            collectionView.dataSource = self
         }
     }
     
+    let viewModel = PlanManageViewModel()
+    
+    private var planEmptyView = UIImageView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setPlanEmptyView()
         self.view.backgroundColor = .themeBG
+        
+        planEmptyView.isHidden = true
         
         self.navigationController?.navigationBar.titleTextAttributes =
         [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.barTintColor = .themeBG
         
         configureCollectionView()
-        configureDataSource()
-        configureDataSourceProvider()
-        configureDataSourceSnapshot()
         
-        viewModel.planManage.bind { planManages in
-            self.planManages = planManages
+        viewModel.planViewModels.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+        
+        viewModel.groupPlanViewModels.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
         }
         
     }
-    
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.fatchPlan()
+        if AuthManager.shared.currentUser != "" {
+            self.viewModel.fetchPlan()
+        }
+    }
+    
+    private func setPlanEmptyView() {
+        planEmptyView.image = UIImage(named: "tireless_noplan")
+        planEmptyView.contentMode = .scaleAspectFit
+        self.view.addSubview(planEmptyView)
+        planEmptyView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            planEmptyView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            planEmptyView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            planEmptyView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
+            planEmptyView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
+        ])
+        
     }
     
     private func configureCollectionView() {
@@ -64,113 +81,24 @@ class PlanManageViewController: UIViewController {
     
     private func createLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                             heightDimension: .absolute(130))
-        
+                                              heightDimension: .absolute(130))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-      
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
-                                                         subitems: [item])
-
+                                                       subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(60)) 
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(60))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                  elementKind:
                                                                     UICollectionView.elementKindSectionHeader,
                                                                  alignment: .top)
-
         section.boundarySupplementaryItems = [header]
-        
         section.interGroupSpacing = 5
         section.contentInsets = .init(top: 5, leading: 15, bottom: 5, trailing: 15)
-        
         return UICollectionViewCompositionalLayout(section: section)
     }
     
-    private func configureDataSource() {
-        dataSource = DataSource(collectionView: collectionView,
-                                cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(PlanManageViewCell.self)",
-                                                                for: indexPath) as? PlanManageViewCell else {
-                return UICollectionViewCell()
-            }
-            
-            cell.isStartButtonTap = {
-                self.present(target: item.planTimes, planManage: item)
-            }
-            
-            cell.isDeleteButtonTap = {
-                let alertController = UIAlertController(title: "確認刪除!", message: "刪除的計畫無法再度復原!", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
-                    self.viewModel.deletePlan(uuid: item.uuid)
-                    var snapshot = self.dataSource?.snapshot()
-                    snapshot?.deleteItems([item])
-                    self.dataSource?.apply(snapshot!, animatingDifferences: true)
-                    alertController.dismiss(animated: true)
-                }
-                let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-                    alertController.dismiss(animated: true)
-                }
-                alertController.addAction(okAction)
-                alertController.addAction(cancelAction)
-                self.present(alertController, animated: true)
-            }
-            switch item.planName {
-            case "深蹲":
-                cell.planImageView.image = UIImage(named: "pexels_squat")
-                cell.planTimesLabel.text = "\(item.planTimes)次/\(item.planDays)天"
-            case "棒式":
-                cell.planImageView.image = UIImage(named: "pexels_plank")
-                cell.planTimesLabel.text = "\(item.planTimes)秒/\(item.planDays)天"
-            case "伏地挺身":
-                cell.planImageView.image = UIImage(named: "pexels_pushup")
-                cell.planTimesLabel.text = "\(item.planTimes)次/\(item.planDays)天"
-                
-            default:
-                cell.planImageView.image = UIImage(named: "Cover")
-            }
-   
-            cell.planTitleLabel.text = "\(item.planName)"
-            cell.planProgressView.progress = Float(item.progress)
-            
-            return cell
-        })
-    }
-    
-    private func configureDataSourceProvider() {
-        dataSource?.supplementaryViewProvider = { (collectionView, _, indexPath) in
-            guard let headerView = self.collectionView.dequeueReusableSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: "\(HomeHeaderView.self)",
-                for: indexPath) as? HomeHeaderView else { return UICollectionReusableView()}
-        
-            if indexPath.section == 0 {
-                headerView.textLabel.text = "個人計畫"
-            } else if indexPath.section == 1 {
-                headerView.textLabel.text = "團體計劃"
-            }
-            return headerView
-        }
-    }
-    
-    private func configureDataSourceSnapshot() {
-        dataSource?.apply(snapshot(), animatingDifferences: false)
-    }
-    
-    private func snapshot() -> Snapshot {
-        var snapshot = Snapshot()
-        snapshot.appendSections([0, 1])
-        
-        if let planManages = planManages {
-            snapshot.appendItems(planManages, toSection: 0)
-            snapshot.reloadItems(planManages)
-        } else {
-            return snapshot
-        }
-        return snapshot
-    }
-    
-    private func present(target: String, planManage: PlanManage) {
+    private func present(target: String, plan: Plan) {
         guard let poseVC = UIStoryboard.home.instantiateViewController(
             withIdentifier: "\(PoseDetectViewController.self)")
                 as? PoseDetectViewController
@@ -178,8 +106,172 @@ class PlanManageViewController: UIViewController {
             return
         }
         poseVC.planTarget = Int(target) ?? 0
-        poseVC.planManage = planManage
+        poseVC.plan = plan
         poseVC.modalPresentationStyle = .fullScreen
         self.present(poseVC, animated: true)
+    }
+    
+    private func groupPlanPresnt(plan: Plan) {
+        guard let groupVC = storyboard?.instantiateViewController(
+            withIdentifier: "\(GroupPlanStatusViewController.self)")
+                as? GroupPlanStatusViewController
+        else {
+            return
+        }
+        groupVC.plan = plan
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(groupVC, animated: true)
+    }
+}
+
+extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        2
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        if (viewModel.planViewModels.value.count + viewModel.groupPlanViewModels.value.count) == 0 {
+            collectionView.isHidden = true
+            planEmptyView.isHidden = false
+        } else {
+            collectionView.isHidden = false
+            planEmptyView.isHidden = true
+        }
+        if section == 0 {
+            return viewModel.planViewModels.value.count
+        } else {
+            return viewModel.groupPlanViewModels.value.count
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "\(PlanManageViewCell.self)", for: indexPath) as? PlanManageViewCell else {
+            return UICollectionViewCell()
+        }
+        if indexPath.section == 0 {
+            let cellViewModel = self.viewModel.planViewModels.value[indexPath.row]
+            cell.setup(viewModel: cellViewModel)
+            cell.isDeleteButtonTap = {
+                self.setUserAlert(plan: cellViewModel.plan)
+            }
+            cell.isStartButtonTap = {
+                self.present(target: cellViewModel.plan.planTimes, plan: cellViewModel.plan)
+            }
+        } else {
+            let cellViewModel = self.viewModel.groupPlanViewModels.value[indexPath.row]
+            cell.setup(viewModel: cellViewModel)
+            cell.isStartButtonTap = {
+                self.present(target: cellViewModel.plan.planTimes, plan: cellViewModel.plan)
+            }
+            cell.isDeleteButtonTap = {
+                self.setUserAlert(plan: cellViewModel.plan)
+            }
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: "\(HomeHeaderView.self)",
+            for: indexPath) as? HomeHeaderView else {
+            return UICollectionReusableView()
+        }
+        if indexPath.section == 0 {
+            headerView.textLabel.text = "個人計畫"
+        } else {
+            headerView.textLabel.text = "團體計畫"
+        }
+        return headerView
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            return
+        }
+        let cellViewModel = self.viewModel.groupPlanViewModels.value[indexPath.row]
+        groupPlanPresnt(plan: cellViewModel.plan)
+    }
+}
+
+extension PlanManageViewController {
+    private func showDeleteAlert(plan: Plan) {
+        let alertController = UIAlertController(title: "確認刪除!",
+                                                message: "刪除的計畫無法再度復原!",
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
+            PlanManager.shared.deletePlan(userId: AuthManager.shared.currentUser, plan: plan) { result in
+                switch result {
+                case .success(let text):
+                    ProgressHUD.showSuccess(text: "刪除計畫成功!")
+                    print(text)
+                case .failure(let error):
+                    ProgressHUD.showFailure()
+                    print(error)
+                }
+            }
+            alertController.dismiss(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true)
+    }
+    
+    private func showSettingAlert(plan: Plan) {
+        let alertController = UIAlertController(title: "計畫修改",
+                                                message: "可以調整計畫的次數",
+                                                preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "次數"
+            textField.keyboardType = .numberPad
+        }
+        let okAction = UIAlertAction(title: "修改", style: .destructive) { _ in
+            let times = alertController.textFields?[0].text
+            guard let times = times else {
+                return
+            }
+            PlanManager.shared.modifyPlan(planUid: plan.uuid,
+                                          times: times) { result in
+                switch result {
+                case .success(let text):
+                    ProgressHUD.showSuccess(text: "修改計畫成功!")
+                    print(text)
+                case .failure(let error):
+                    ProgressHUD.showFailure()
+                    print(error)
+                }
+            }
+            alertController.dismiss(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true)
+    }
+    
+    private func setUserAlert(plan: Plan) {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let adjust = UIAlertAction(title: "修改計畫次數", style: .destructive) { _ in
+            self.showSettingAlert(plan: plan)
+        }
+        let delete = UIAlertAction(title: "刪除計畫", style: .destructive) { _ in
+            self.showDeleteAlert(plan: plan)
+        }
+        if plan.planGroup == false {
+            controller.addAction(adjust)
+        }
+        controller.addAction(delete)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
     }
 }

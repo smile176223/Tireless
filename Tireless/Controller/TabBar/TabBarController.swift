@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 private enum Tab {
 
@@ -44,7 +45,7 @@ private enum Tab {
         
         controller.tabBarItem = tabBarItem()
         
-        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 6.0, left: 0.0, bottom: -6.0, right: 0.0)
+        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 2.0, right: 0.0)
         
         return controller
     }
@@ -55,23 +56,23 @@ private enum Tab {
 
         case .home:
             return UITabBarItem(
-                title: nil,
-                image: UIImage(systemName: "house"),
-                selectedImage: UIImage(systemName: "house.fill")
+                title: "主頁",
+                image: UIImage.tabHome,
+                selectedImage: UIImage.tabHome
             )
             
         case .plan:
             return UITabBarItem(
-                title: nil,
-                image: UIImage(systemName: "scroll"),
-                selectedImage: UIImage(systemName: "scroll.fill")
+                title: "計畫",
+                image: UIImage.tabPlan,
+                selectedImage: UIImage.tabPlan
             )
 
         case .shareWall:
             return UITabBarItem(
-                title: nil,
-                image: UIImage(systemName: "video"),
-                selectedImage: UIImage(systemName: "video.fill")
+                title: "探索",
+                image: UIImage.tabVideo,
+                selectedImage: UIImage.tabVideo
             )
             
         case .pictureWall:
@@ -83,9 +84,9 @@ private enum Tab {
             
         case .profile:
             return UITabBarItem(
-                title: nil,
-                image: UIImage(systemName: "person"),
-                selectedImage: UIImage(systemName: "person.fill")
+                title: "個人",
+                image: UIImage.tabUser,
+                selectedImage: UIImage.tabUser
             )
         }
     }
@@ -93,13 +94,13 @@ private enum Tab {
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
-    private let tabs: [Tab] = [.home, .plan, .shareWall, .pictureWall, .profile]
+    private let tabs: [Tab] = [.home, .plan, .shareWall, .profile]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         delegate = self
-        
+    
         viewControllers = tabs.map({ $0.controller() })
         
         tabBar.tintColor = .themeYellow
@@ -112,5 +113,25 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         tabBar.unselectedItemTintColor = .white
         
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController,
+                          shouldSelect viewController: UIViewController) -> Bool {
+        guard let navVC = viewController as? UINavigationController,
+              navVC.viewControllers.first is ProfileViewController else {
+            return true
+        }
+
+        guard Auth.auth().currentUser != nil else {
+
+            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+
+                present(authVC, animated: true, completion: nil)
+            }
+            
+            return false
+        }
+        
+        return true
     }
 }

@@ -9,24 +9,24 @@ import Foundation
 
 class HomeViewModel {
     
-    let personalPlan = Box([Plans]())
+    let defaultPlansViewModel = Box([DefaultPlansViewModel]())
     
-    var groupPlans = Box([GroupPlans]())
+    let joinGroupsViewModel = Box([JoinGroupsViewModel]())
     
-    var plans = [Plans(planName: "深蹲",
+    var plans = [DefaultPlans(planName: "深蹲",
                        planDetail:
                         "深蹲，又稱蹲舉，在力量練習中，是個複合的、全身性的練習動作，它可以訓練到大腿、臀部、大腿後肌，同時可以增強骨頭、韌帶和橫貫下半身的肌腱。",
-                       planImage: "pexels_squat",
+                       planImage: "深蹲",
                        planLottie: "Squat"),
-                 Plans(planName: "棒式",
+                 DefaultPlans(planName: "棒式",
                        planDetail:
                         "平板支撐又稱撐高、撐舉、棒式或撐平板，是一種等長核心強度運動，會讓身體維持在一個費力的姿勢，且要維持相當一段時間。",
-                       planImage: "pexels_plank",
+                       planImage: "棒式",
                        planLottie: "Plank"),
-                 Plans(planName: "伏地挺身",
+                 DefaultPlans(planName: "伏地挺身",
                        planDetail:
                         "伏地挺身主要鍛鍊的肌肉群有胸大肌和肱三頭肌，同時還鍛鍊三角肌前束、前鋸肌和喙肱肌及身體的其他部位。",
-                       planImage: "pexels_pushup",
+                       planImage: "伏地挺身",
                        planLottie: "Pushup")]
     
     lazy var weeklyDay = [WeeklyDays(days: "\(countDaily(-2))", weekDays: countWeekDay(-2)),
@@ -36,7 +36,7 @@ class HomeViewModel {
                           WeeklyDays(days: "\(countDaily(2))", weekDays: countWeekDay(2))]
     
     func setDefault() {
-        self.personalPlan.value = plans
+        setDefaultPlans(plans)
     }
     
     private func countDaily(_ day: Int) -> Int {
@@ -50,14 +50,41 @@ class HomeViewModel {
         return weekDayString[calendar.get(.weekday) - 1]
     }
     
-    func fetchGroupPlans(userId: String) {
-        GroupPlanManager.shared.fetchFriendsPlan(userId: userId) { result in
+    func fetchJoinGroup(userId: String) {
+        JoinGroupManager.shared.fetchFriendsPlan(userId: userId) { result in
             switch result {
-            case .success(let groupPlans):
-                self.groupPlans.value = groupPlans
+            case .success(let joinGroup):
+                self.setJoinGroups(joinGroup)
             case .failure(let error):
                 print(error)
             }
         }
     }
+    
+    private func convertDefaultPlanToViewModels(from defaultPlans: [DefaultPlans]) -> [DefaultPlansViewModel] {
+        var viewModels = [DefaultPlansViewModel]()
+        for defaultPlan in defaultPlans {
+            let viewModel = DefaultPlansViewModel(model: defaultPlan)
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+    
+    private func setDefaultPlans(_ defaultPlans: [DefaultPlans]) {
+        defaultPlansViewModel.value = convertDefaultPlanToViewModels(from: defaultPlans)
+    }
+    
+    private func convertJoinGroupToViewModels(from joinGroups: [JoinGroup]) -> [JoinGroupsViewModel] {
+        var viewModels = [JoinGroupsViewModel]()
+        for joinGroup in joinGroups {
+            let viewModel = JoinGroupsViewModel(model: joinGroup)
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+    
+    private func setJoinGroups(_ joinGroups: [JoinGroup]) {
+        joinGroupsViewModel.value = convertJoinGroupToViewModels(from: joinGroups)
+    }
+    
 }

@@ -16,6 +16,10 @@ class DetectFinishViewController: UIViewController {
     
     let videoManager = ShareManager()
     
+    let planViewModel = PlanManageViewModel()
+    
+    var plan: Plan?
+    
     var isUserCanShare = true
     
     var isUserRejectRecording = false
@@ -28,6 +32,8 @@ class DetectFinishViewController: UIViewController {
         finishButtonTap()
         
         uploadProgressShow()
+        
+        updateValue()
         
         if isUserRejectRecording == true {
             detectFinishView.shareButton.isHidden = true
@@ -43,9 +49,9 @@ class DetectFinishViewController: UIViewController {
     
     private func finishPresent() {
         self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
-        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
-            tabBarController.selectedIndex = 0
-        }
+//        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
+//            tabBarController.selectedIndex = 0
+//        }
     }
 
     private func shareButtonTap() {
@@ -53,16 +59,16 @@ class DetectFinishViewController: UIViewController {
             return
         }
         
-        let testVideo = ShareFiles(userId: "liamTest",
-                              shareName: UUID().uuidString,
-                              shareURL: videoURL,
-                              createdTime: Date().millisecondsSince1970,
-                              content: "",
-                              comment: nil)
+        let uploadVideo = ShareFiles(userId: AuthManager.shared.currentUser,
+                                   shareName: AuthManager.shared.currentUserData?.name ?? "Tireless",
+                                   shareURL: videoURL,
+                                   createdTime: Date().millisecondsSince1970,
+                                     content: "\(plan?.planName ?? "")每日\(plan?.planTimes ?? "")次/秒 挑戰!",
+                                   uuid: "")
         
         detectFinishView.isShareButtonTap = { [weak self] in
             if self?.isUserCanShare == true {
-                self?.videoManager.uploadVideo(shareFile: testVideo) { result in
+                self?.videoManager.uploadVideo(shareFile: uploadVideo) { result in
                     switch result {
                     case .success(let url):
                         self?.videoURL = url
@@ -89,8 +95,39 @@ class DetectFinishViewController: UIViewController {
     }
     
     private func uploadProgressShow() {
-        videoManager.uploadProgress = { progress in
-            self.detectFinishView.lottieProgress(progress.fractionCompleted)
+        videoManager.uploadProgress = { [weak self] progress in
+            self?.detectFinishView.lottieProgress(progress.fractionCompleted)
         }
+    }
+    
+    private func updateValue() {
+        if plan != nil {
+            guard let plan = plan,
+                  let days = Double(plan.planDays) else {
+                return
+            }
+            let done = round(plan.progress * days) + 1
+            let progress = done / days
+            self.plan?.progress = progress
+            self.plan?.finishTime.append(FinishTime(day: Int(done),
+                                                    time: Date().millisecondsSince1970,
+                                                    planTimes: plan.planTimes))
+            updatePlan()
+            if progress == 1 {
+                finishPlan()
+            }
+        } 
+    }
+    private func updatePlan() {
+        guard let plan = plan else {
+            return
+        }
+        planViewModel.updatePlan(plan: plan)
+    }
+    private func finishPlan() {
+        guard let plan = plan else {
+            return
+        }
+        planViewModel.finishPlan(plan: plan)
     }
 }

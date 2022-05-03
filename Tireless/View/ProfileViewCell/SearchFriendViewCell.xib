@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchFriendViewCell" id="tre-LP-oqd" customClass="SearchFriendViewCell" customModule="Tireless" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tre-LP-oqd" id="SC2-gU-3JT">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z27-Cu-fdK">
+                        <rect key="frame" x="15" y="5" width="384" height="70"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="PDv-4u-Bna">
+                                <rect key="frame" x="30" y="10" width="50" height="50"/>
+                                <color key="backgroundColor" name="themeBG"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="PDv-4u-Bna" secondAttribute="height" id="K3N-kA-DGd"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldo-Lk-hR5">
+                                <rect key="frame" x="100" y="21" width="54" height="28"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AE6-df-aVb">
+                                <rect key="frame" x="319" y="17.5" width="35" height="35"/>
+                                <color key="backgroundColor" name="themeBG"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="AE6-df-aVb" secondAttribute="height" id="sox-7b-Fjm"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="plus" catalog="system"/>
+                                <connections>
+                                    <action selector="addButtonTap:" destination="tre-LP-oqd" eventType="touchUpInside" id="wfU-4I-eRV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="themeBGSecond"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="PDv-4u-Bna" firstAttribute="top" secondItem="Z27-Cu-fdK" secondAttribute="top" constant="10" id="30q-nd-mWq"/>
+                            <constraint firstItem="AE6-df-aVb" firstAttribute="centerY" secondItem="PDv-4u-Bna" secondAttribute="centerY" id="9Hz-tM-cqu"/>
+                            <constraint firstItem="PDv-4u-Bna" firstAttribute="leading" secondItem="Z27-Cu-fdK" secondAttribute="leading" constant="30" id="9S6-oC-9DN"/>
+                            <constraint firstItem="Ldo-Lk-hR5" firstAttribute="leading" secondItem="PDv-4u-Bna" secondAttribute="trailing" constant="20" id="C7m-A7-ep0"/>
+                            <constraint firstItem="AE6-df-aVb" firstAttribute="height" secondItem="PDv-4u-Bna" secondAttribute="height" multiplier="0.7" id="Hg8-5Z-4uz"/>
+                            <constraint firstAttribute="trailing" secondItem="AE6-df-aVb" secondAttribute="trailing" constant="30" id="geN-YC-79s"/>
+                            <constraint firstAttribute="bottom" secondItem="PDv-4u-Bna" secondAttribute="bottom" constant="10" id="jTM-bH-hV6"/>
+                            <constraint firstItem="Ldo-Lk-hR5" firstAttribute="centerY" secondItem="PDv-4u-Bna" secondAttribute="centerY" id="kvG-4g-zhq"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" name="themeBG"/>
+                <constraints>
+                    <constraint firstItem="Z27-Cu-fdK" firstAttribute="leading" secondItem="SC2-gU-3JT" secondAttribute="leading" constant="15" id="1CE-gq-06K"/>
+                    <constraint firstAttribute="bottom" secondItem="Z27-Cu-fdK" secondAttribute="bottom" constant="5" id="LMd-wb-moT"/>
+                    <constraint firstAttribute="trailing" secondItem="Z27-Cu-fdK" secondAttribute="trailing" constant="15" id="mpN-mZ-DJ0"/>
+                    <constraint firstItem="Z27-Cu-fdK" firstAttribute="top" secondItem="SC2-gU-3JT" secondAttribute="top" constant="5" id="riX-bw-CC5"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="cellAddButon" destination="AE6-df-aVb" id="b7s-ej-pF0"/>
+                <outlet property="cellView" destination="Z27-Cu-fdK" id="vf1-43-w3m"/>
+                <outlet property="userImageView" destination="PDv-4u-Bna" id="PP3-wH-QvR"/>
+                <outlet property="userNameLabel" destination="Ldo-Lk-hR5" id="UTd-Uo-Zcq"/>
+            </connections>
+            <point key="canvasLocation" x="-65.217391304347828" y="112.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="TirelessLogo" width="500" height="500"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <namedColor name="themeBG">
+            <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themeBGSecond">
+            <color red="0.12941176470588237" green="0.15686274509803921" blue="0.24705882352941178" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

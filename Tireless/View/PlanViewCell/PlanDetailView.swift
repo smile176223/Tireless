@@ -17,7 +17,7 @@ class PlanDetailView: UIView {
     private var imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-        image.image = UIImage(named: "pexels_squat")
+//        image.image = UIImage(named: "深蹲")
         return image
     }()
     
@@ -34,7 +34,6 @@ class PlanDetailView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.font = .bold(size: 30)
-        label.text = "運動項目"
         label.textAlignment = .left
         return label
     }()
@@ -43,7 +42,6 @@ class PlanDetailView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.font = .regular(size: 15)
-        label.text = "描述"
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -116,7 +114,7 @@ class PlanDetailView: UIView {
         isCreateButtonTap?(daysCounter.getInputField(), timesCounter.getInputField())
     }
     
-    func setupLayout(plan: Plans) {
+    func setupLayout(plan: DefaultPlans) {
         titleLabel.text = plan.planName
         imageView.image = UIImage(named: plan.planImage)
         infoLabel.text = plan.planDetail
