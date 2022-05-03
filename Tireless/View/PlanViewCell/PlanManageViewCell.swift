@@ -60,7 +60,11 @@ class PlanManageViewCell: UICollectionViewCell {
         }
         planTitleLabel.text = viewModel.plan.planName
         planProgressView.progress = Float(viewModel.plan.progress)
-        planTimesLabel.text = "\(viewModel.plan.planTimes)次/\(viewModel.plan.planDays)天"
+        if viewModel.plan.planName == PlanImage.plank.rawValue {
+            planTimesLabel.text = "每天\(viewModel.plan.planTimes)秒，持續\(viewModel.plan.planDays)天"
+        } else {
+            planTimesLabel.text = "每天\(viewModel.plan.planTimes)次，持續\(viewModel.plan.planDays)天"
+        }
         
         let isTodayFinish = viewModel.plan.finishTime.contains(where: { finishTime in
             finishTime?.time ?? 0 > getStartOfDay().millisecondsSince1970

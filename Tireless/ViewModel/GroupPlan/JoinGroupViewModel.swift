@@ -8,16 +8,7 @@
 import Foundation
 
 class JoinGroupViewModel {
-    
-//    var groupPlan: GroupPlan = GroupPlan(planName: "",
-//                                         planTimes: "",
-//                                         planDays: "",
-//                                         planGroup: true,
-//                                         createdTime: -1,
-//                                         createdUserId: AuthManager.shared.currentUser,
-//                                         joinUserId: [""],
-//                                         uuid: "")
-    
+
     var plan: Plan = Plan(planName: "",
                           planTimes: "",
                           planDays: "",
@@ -27,15 +18,8 @@ class JoinGroupViewModel {
                           finishTime: [],
                           uuid: "")
     
-//    func getGroupPlan(name: String, times: String, days: String, joinUserId: [String], uuid: String) {
-//        self.groupPlan.planName = name
-//        self.groupPlan.planTimes = times
-//        self.groupPlan.planDays = days
-//        self.groupPlan.createdTime = Date().millisecondsSince1970
-//        self.groupPlan.joinUserId = joinUserId
-//        self.groupPlan.uuid = uuid
-//    }
-    
+    let joinUsersViewModel = Box([JoinUsersViewModel]())
+
     func setGroupPlan(name: String, times: String, days: String, uuid: String) {
         self.plan.planName = name
         self.plan.planTimes = times
@@ -60,8 +44,9 @@ class JoinGroupViewModel {
     func fetchJoinUsers(uuid: String, completion: @escaping (Result<[User], Error>) -> Void) {
         JoinGroupManager.shared.fetchPlanJoinUser(uuid: uuid) { result in
             switch result {
-            case .success(let user):
-                completion(.success(user))
+            case .success(let users):
+                completion(.success(users))
+                self.setJoinUsers(users)
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -114,5 +99,18 @@ class JoinGroupViewModel {
                 completion(.failure(error))
             }
         }
+    }
+    
+    func convertUsersToViewModels(from users: [User]) -> [JoinUsersViewModel] {
+        var viewModels = [JoinUsersViewModel]()
+        for user in users {
+            let viewModel = JoinUsersViewModel(model: user)
+            viewModels.append(viewModel)
+        }
+        return viewModels
+    }
+    
+    func setJoinUsers(_ users: [User]) {
+        joinUsersViewModel.value = convertUsersToViewModels(from: users)
     }
 }

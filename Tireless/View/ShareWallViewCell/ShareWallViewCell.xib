@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,24 +23,24 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWo-sj-QxH">
                         <rect key="frame" x="25" y="509" width="41.5" height="28"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
-                        <color key="textColor" name="themeBG"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcg-bH-6H4">
                         <rect key="frame" x="25" y="552" width="76" height="28"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
-                        <color key="textColor" name="themeBG"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KH5-ZF-vpa">
-                        <rect key="frame" x="344" y="510" width="50" height="50"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KH5-ZF-vpa">
+                        <rect key="frame" x="334" y="540" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="3fH-oa-koT"/>
                             <constraint firstAttribute="height" constant="50" id="p7x-IM-n8B"/>
                         </constraints>
-                        <color key="tintColor" name="themeBG"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" backgroundImage="icons_Comment"/>
+                        <state key="normal" image="icons_Comment"/>
                         <connections>
                             <action selector="commentButtonTap:" destination="Wou-ON-kcr" eventType="touchUpInside" id="HMO-Sv-CMH"/>
                         </connections>
@@ -51,7 +50,7 @@
                 <constraints>
                     <constraint firstItem="xuz-lT-0fg" firstAttribute="leading" secondItem="fj1-mW-nQ6" secondAttribute="leading" id="16M-8t-6uJ"/>
                     <constraint firstItem="xuz-lT-0fg" firstAttribute="top" secondItem="fj1-mW-nQ6" secondAttribute="top" id="3qA-1b-KMs"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="KH5-ZF-vpa" secondAttribute="bottom" constant="50" id="Ah7-6y-OqR"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="KH5-ZF-vpa" secondAttribute="bottom" constant="20" id="Ah7-6y-OqR"/>
                     <constraint firstAttribute="trailing" secondItem="xuz-lT-0fg" secondAttribute="trailing" id="D82-PO-ChN"/>
                     <constraint firstItem="wcg-bH-6H4" firstAttribute="leading" secondItem="fj1-mW-nQ6" secondAttribute="leadingMargin" constant="5" id="Ebv-ob-kau"/>
                     <constraint firstItem="NWo-sj-QxH" firstAttribute="leading" secondItem="fj1-mW-nQ6" secondAttribute="leadingMargin" constant="5" id="FPy-Qp-vcM"/>
@@ -60,7 +59,7 @@
                     <constraint firstAttribute="bottom" secondItem="xuz-lT-0fg" secondAttribute="bottom" id="O5F-Po-wZj"/>
                     <constraint firstAttribute="bottomMargin" secondItem="wcg-bH-6H4" secondAttribute="bottom" constant="30" id="miJ-it-00a"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="NWo-sj-QxH" secondAttribute="trailing" constant="100" id="rLH-jD-lLC"/>
-                    <constraint firstAttribute="trailing" secondItem="KH5-ZF-vpa" secondAttribute="trailing" constant="20" id="yFk-VC-giz"/>
+                    <constraint firstAttribute="trailing" secondItem="KH5-ZF-vpa" secondAttribute="trailing" constant="30" id="yFk-VC-giz"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -74,8 +73,5 @@
     </objects>
     <resources>
         <image name="icons_Comment" width="48" height="48"/>
-        <namedColor name="themeBG">
-            <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
     </resources>
 </document>

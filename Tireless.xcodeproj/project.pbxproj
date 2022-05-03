@@ -17,6 +17,11 @@
 		FF1444B12801A6760027F560 /* StartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444B02801A6760027F560 /* StartManager.swift */; };
 		FF1444C9280411A50027F560 /* CountDownGo.json in Resources */ = {isa = PBXBuildFile; fileRef = FF1444C8280411A50027F560 /* CountDownGo.json */; };
 		FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */; };
+		FF2EF6ED28203A58008418A0 /* GroupPlanViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6EC28203A58008418A0 /* GroupPlanViewCell.swift */; };
+		FF2EF6EF28203A63008418A0 /* GroupPlanViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2EF6EE28203A63008418A0 /* GroupPlanViewCell.xib */; };
+		FF2EF6F128203A9C008418A0 /* GroupPlanHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6F028203A9C008418A0 /* GroupPlanHeaderView.swift */; };
+		FF2EF6F328203AA3008418A0 /* GroupPlanHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2EF6F228203AA3008418A0 /* GroupPlanHeaderView.xib */; };
+		FF2EF6F528204CA9008418A0 /* JoinUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6F428204CA9008418A0 /* JoinUsersViewModel.swift */; };
 		FF2FE0E9280E8FD100F8890D /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = FF2FE0E8280E8FD000F8890D /* Loading.json */; };
 		FF2FE0EB280EA8A200F8890D /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2FE0EA280EA8A200F8890D /* UIColor+Extension.swift */; };
 		FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2FE0ED280ED81700F8890D /* HomeViewCell.swift */; };
@@ -108,7 +113,6 @@
 		FF3FBEAB2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBEAA2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib */; };
 		FF3FBEAD2815C4A400E6B5DC /* SetGroupPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEAC2815C4A400E6B5DC /* SetGroupPlanViewModel.swift */; };
 		FF3FBEAF2815C81A00E6B5DC /* GroupPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEAE2815C81A00E6B5DC /* GroupPlanViewController.swift */; };
-		FF3FBEB12815D38E00E6B5DC /* GroupPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB02815D38E00E6B5DC /* GroupPlanView.swift */; };
 		FF3FBEB32815E29E00E6B5DC /* JoinGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB22815E29E00E6B5DC /* JoinGroupViewModel.swift */; };
 		FF3FBEB52816F52C00E6B5DC /* JoinGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB42816F52C00E6B5DC /* JoinGroup.swift */; };
 		FF3FBEBC2817925300E6B5DC /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBEBB2817925300E6B5DC /* Auth.storyboard */; };
@@ -146,6 +150,11 @@
 		FF1444B02801A6760027F560 /* StartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartManager.swift; sourceTree = "<group>"; };
 		FF1444C8280411A50027F560 /* CountDownGo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountDownGo.json; sourceTree = "<group>"; };
 		FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishViewController.swift; sourceTree = "<group>"; };
+		FF2EF6EC28203A58008418A0 /* GroupPlanViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanViewCell.swift; sourceTree = "<group>"; };
+		FF2EF6EE28203A63008418A0 /* GroupPlanViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupPlanViewCell.xib; sourceTree = "<group>"; };
+		FF2EF6F028203A9C008418A0 /* GroupPlanHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanHeaderView.swift; sourceTree = "<group>"; };
+		FF2EF6F228203AA3008418A0 /* GroupPlanHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupPlanHeaderView.xib; sourceTree = "<group>"; };
+		FF2EF6F428204CA9008418A0 /* JoinUsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinUsersViewModel.swift; sourceTree = "<group>"; };
 		FF2FE0E8280E8FD000F8890D /* Loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		FF2FE0EA280EA8A200F8890D /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		FF2FE0ED280ED81700F8890D /* HomeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCell.swift; sourceTree = "<group>"; };
@@ -237,7 +246,6 @@
 		FF3FBEAA2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SetGroupPlanDetailViewCell.xib; sourceTree = "<group>"; };
 		FF3FBEAC2815C4A400E6B5DC /* SetGroupPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGroupPlanViewModel.swift; sourceTree = "<group>"; };
 		FF3FBEAE2815C81A00E6B5DC /* GroupPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanViewController.swift; sourceTree = "<group>"; };
-		FF3FBEB02815D38E00E6B5DC /* GroupPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanView.swift; sourceTree = "<group>"; };
 		FF3FBEB22815E29E00E6B5DC /* JoinGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupViewModel.swift; sourceTree = "<group>"; };
 		FF3FBEB42816F52C00E6B5DC /* JoinGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroup.swift; sourceTree = "<group>"; };
 		FF3FBEBA2817921400E6B5DC /* Tireless.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tireless.entitlements; sourceTree = "<group>"; };
@@ -720,9 +728,12 @@
 			children = (
 				FF3FBEA82815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift */,
 				FF3FBEAA2815A71C00E6B5DC /* SetGroupPlanDetailViewCell.xib */,
-				FF3FBEB02815D38E00E6B5DC /* GroupPlanView.swift */,
 				FFC7B9EB281FB1BA0080A31E /* GroupPlanStatusViewCell.swift */,
 				FFC7B9EE281FB1CB0080A31E /* GroupPlanStatusViewCell.xib */,
+				FF2EF6EC28203A58008418A0 /* GroupPlanViewCell.swift */,
+				FF2EF6EE28203A63008418A0 /* GroupPlanViewCell.xib */,
+				FF2EF6F028203A9C008418A0 /* GroupPlanHeaderView.swift */,
+				FF2EF6F228203AA3008418A0 /* GroupPlanHeaderView.xib */,
 			);
 			path = GroupPlanViewCell;
 			sourceTree = "<group>";
@@ -733,6 +744,7 @@
 				FFC7B9F0281FB61B0080A31E /* GroupPlanStatusViewModel.swift */,
 				FF3FBEAC2815C4A400E6B5DC /* SetGroupPlanViewModel.swift */,
 				FF3FBEB22815E29E00E6B5DC /* JoinGroupViewModel.swift */,
+				FF2EF6F428204CA9008418A0 /* JoinUsersViewModel.swift */,
 			);
 			path = GroupPlan;
 			sourceTree = "<group>";
@@ -825,6 +837,7 @@
 				FF3F77FA281AE1DE00D8360A /* InviteFriendViewCell.xib in Resources */,
 				FF1444C9280411A50027F560 /* CountDownGo.json in Resources */,
 				FF3FBE962814FE7C00E6B5DC /* ProfileHeaderView.xib in Resources */,
+				FF2EF6EF28203A63008418A0 /* GroupPlanViewCell.xib in Resources */,
 				FFC0C16128008F650041A937 /* LaunchScreen.storyboard in Resources */,
 				FF3FBE622811B5EC00E6B5DC /* Squat.json in Resources */,
 				FF308E94280C67FD00265863 /* SharePictureViewCell.xib in Resources */,
@@ -847,6 +860,7 @@
 				FF3FBEA528156FF100E6B5DC /* GroupPlan.storyboard in Resources */,
 				FF3FBE4C280FA83900E6B5DC /* HomeDailyViewCell.xib in Resources */,
 				FF3FBEBC2817925300E6B5DC /* Auth.storyboard in Resources */,
+				FF2EF6F328203AA3008418A0 /* GroupPlanHeaderView.xib in Resources */,
 				FFC0C15C28008F640041A937 /* Home.storyboard in Resources */,
 				FF3FBE8628143B3200E6B5DC /* Pushup.json in Resources */,
 				FFC7B9E6281E8A970080A31E /* HomeGroupPlanViewCell.xib in Resources */,
@@ -959,6 +973,7 @@
 				FF3F77FC281AE50100D8360A /* InviteFriendViewModel.swift in Sources */,
 				FFC7B9E8281E90F20080A31E /* JoinGroupsViewModel.swift in Sources */,
 				FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */,
+				FF2EF6F528204CA9008418A0 /* JoinUsersViewModel.swift in Sources */,
 				FF3FBE6A2811C33B00E6B5DC /* PlanManageViewController.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */,
 				FF3F77F6281AC96B00D8360A /* InviteFriendViewController.swift in Sources */,
@@ -971,7 +986,6 @@
 				FF2FE0F0280EDB7900F8890D /* HomeHeaderView.swift in Sources */,
 				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
 				FF3FBE6E28123A0800E6B5DC /* DefaultPlanViewModel.swift in Sources */,
-				FF3FBEB12815D38E00E6B5DC /* GroupPlanView.swift in Sources */,
 				FF3FBE9828150DEC00E6B5DC /* UserManager.swift in Sources */,
 				FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */,
 				FF308E6828057D7800265863 /* HomeViewController.swift in Sources */,
@@ -982,6 +996,7 @@
 				FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */,
 				FF3FBE7A2812972100E6B5DC /* PlanManageViewModel.swift in Sources */,
 				FF3FBE652811BE7A00E6B5DC /* HomeViewModel.swift in Sources */,
+				FF2EF6ED28203A58008418A0 /* GroupPlanViewCell.swift in Sources */,
 				FF3FBEA7281570B000E6B5DC /* SetGroupPlanViewController.swift in Sources */,
 				FF308E6F2806822B00265863 /* ShareFiles.swift in Sources */,
 				FF308E852808110100265863 /* UIStoryboard+Extension.swift in Sources */,
@@ -1005,6 +1020,7 @@
 				FF3FBEAF2815C81A00E6B5DC /* GroupPlanViewController.swift in Sources */,
 				FF3FBEC22817DEDB00E6B5DC /* AuthViewModel.swift in Sources */,
 				FFC7B9E4281E8A8C0080A31E /* HomeGroupPlanViewCell.swift in Sources */,
+				FF2EF6F128203A9C008418A0 /* GroupPlanHeaderView.swift in Sources */,
 				FF3FBE602811A1B600E6B5DC /* CounterView.swift in Sources */,
 				FF2FE0EB280EA8A200F8890D /* UIColor+Extension.swift in Sources */,
 				FF3F77E82819C3F900D8360A /* SearchFriendViewController.swift in Sources */,

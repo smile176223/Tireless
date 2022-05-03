@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GroupPlanHeaderView" id="UgI-JL-mLK" customClass="GroupPlanHeaderView" customModule="Tireless" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="運動" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2xE-1e-Gry">
+                    <rect key="frame" x="25" y="35" width="50" height="35"/>
+                    <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="25"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="次數/天數" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0L-F1-9sW">
+                    <rect key="frame" x="25" y="85" width="81" height="25.5"/>
+                    <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="發起人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yse-va-e1C">
+                    <rect key="frame" x="25" y="130.5" width="60" height="28"/>
+                    <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
+                    <color key="textColor" name="themeYellow"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DkY-SM-XFK">
+                    <rect key="frame" x="25" y="163.5" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="DNL-Su-a38"/>
+                        <constraint firstAttribute="height" constant="40" id="ZCm-fj-BGl"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0e-el-lfp">
+                    <rect key="frame" x="75" y="171" width="50" height="25.5"/>
+                    <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="參與團員" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u9B-3z-66Q">
+                    <rect key="frame" x="25" y="213.5" width="80" height="28"/>
+                    <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
+                    <color key="textColor" name="themeYellow"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="zsn-l3-wsH"/>
+            <color key="backgroundColor" name="themeBG"/>
+            <constraints>
+                <constraint firstItem="b0e-el-lfp" firstAttribute="centerY" secondItem="DkY-SM-XFK" secondAttribute="centerY" id="2Ox-Uo-qxp"/>
+                <constraint firstItem="yse-va-e1C" firstAttribute="top" secondItem="C0L-F1-9sW" secondAttribute="bottom" constant="20" id="6a5-VZ-8M9"/>
+                <constraint firstItem="2xE-1e-Gry" firstAttribute="leading" secondItem="zsn-l3-wsH" secondAttribute="leading" constant="25" id="MQR-yL-tnd"/>
+                <constraint firstItem="b0e-el-lfp" firstAttribute="leading" secondItem="DkY-SM-XFK" secondAttribute="trailing" constant="10" id="OS2-T4-STy"/>
+                <constraint firstItem="2xE-1e-Gry" firstAttribute="top" secondItem="UgI-JL-mLK" secondAttribute="top" constant="35" id="Rhd-rJ-h3L"/>
+                <constraint firstItem="u9B-3z-66Q" firstAttribute="top" secondItem="DkY-SM-XFK" secondAttribute="bottom" constant="10" id="auD-i2-jLc"/>
+                <constraint firstItem="DkY-SM-XFK" firstAttribute="top" secondItem="yse-va-e1C" secondAttribute="bottom" constant="5" id="dWY-fR-40Q"/>
+                <constraint firstItem="C0L-F1-9sW" firstAttribute="top" secondItem="2xE-1e-Gry" secondAttribute="bottom" constant="15" id="gwl-IV-XSD"/>
+                <constraint firstItem="C0L-F1-9sW" firstAttribute="leading" secondItem="2xE-1e-Gry" secondAttribute="leading" id="hqL-kd-DLb"/>
+                <constraint firstItem="DkY-SM-XFK" firstAttribute="leading" secondItem="yse-va-e1C" secondAttribute="leading" id="k1J-wt-o2i"/>
+                <constraint firstItem="u9B-3z-66Q" firstAttribute="leading" secondItem="yse-va-e1C" secondAttribute="leading" id="wzz-G2-SmU"/>
+                <constraint firstItem="yse-va-e1C" firstAttribute="leading" secondItem="C0L-F1-9sW" secondAttribute="leading" id="xmR-uW-fZc"/>
+            </constraints>
+            <connections>
+                <outlet property="planCreatedNameLabel" destination="b0e-el-lfp" id="PAp-2T-F3H"/>
+                <outlet property="planCreatedUserIamgeView" destination="DkY-SM-XFK" id="w8h-pa-Xn8"/>
+                <outlet property="planCreatedUserLabel" destination="yse-va-e1C" id="VYh-xu-Kmp"/>
+                <outlet property="planJoinUserLabel" destination="u9B-3z-66Q" id="u4u-Re-uJS"/>
+                <outlet property="planTimesLabel" destination="C0L-F1-9sW" id="E50-65-ZRj"/>
+                <outlet property="planTitleLabel" destination="2xE-1e-Gry" id="b2W-qK-NW2"/>
+            </connections>
+            <point key="canvasLocation" x="279.71014492753625" y="61.607142857142854"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <namedColor name="themeBG">
+            <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themeYellow">
+            <color red="1" green="0.80000000000000004" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

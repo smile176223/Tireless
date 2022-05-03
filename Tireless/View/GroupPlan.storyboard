@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -61,14 +62,91 @@
         <scene sceneID="NVd-P7-r4d">
             <objects>
                 <viewController storyboardIdentifier="GroupPlanViewController" id="4x0-4U-K9y" customClass="GroupPlanViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="P44-M8-NRK" customClass="GroupPlanView" customModule="Tireless" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="P44-M8-NRK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cQL-Y6-Myo">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="269"/>
+                            </imageView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7nT-Oo-Pfk">
+                                <rect key="frame" x="0.0" y="204.5" width="414" height="537.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HgW-ub-cZD">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWJ-CT-S2E">
+                                <rect key="frame" x="147" y="802" width="120" height="40"/>
+                                <color key="backgroundColor" name="themeBGSecond"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="Nei-yX-AgT"/>
+                                    <constraint firstAttribute="height" constant="40" id="bL4-Vp-DDb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="15"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="加入揪團"/>
+                                <connections>
+                                    <action selector="joinButtonTap:" destination="4x0-4U-K9y" eventType="touchUpInside" id="wH8-aj-XmB"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ng8-Gr-OG6">
+                                <rect key="frame" x="147" y="752" width="120" height="40"/>
+                                <color key="backgroundColor" name="themeBGSecond"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="BOA-0Y-68D"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="15"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="退出揪團"/>
+                                <connections>
+                                    <action selector="leaveButtonTap:" destination="4x0-4U-K9y" eventType="touchUpInside" id="lam-sI-868"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZZ-5R-XsB">
+                                <rect key="frame" x="25" y="69" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="pdv-rO-MwG"/>
+                                    <constraint firstAttribute="height" constant="50" id="qU0-95-Ee4"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" backgroundImage="Icons_Back"/>
+                                <connections>
+                                    <action selector="backButtonTap:" destination="4x0-4U-K9y" eventType="touchUpInside" id="lQ9-l5-5Be"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="zZs-FM-JtZ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="themeBG"/>
+                        <constraints>
+                            <constraint firstItem="zZs-FM-JtZ" firstAttribute="bottom" secondItem="7nT-Oo-Pfk" secondAttribute="bottom" constant="120" id="117-5K-08m"/>
+                            <constraint firstItem="WWJ-CT-S2E" firstAttribute="centerX" secondItem="P44-M8-NRK" secondAttribute="centerX" id="2QB-lx-bdx"/>
+                            <constraint firstItem="zZs-FM-JtZ" firstAttribute="bottom" secondItem="WWJ-CT-S2E" secondAttribute="bottom" constant="20" id="3Vo-Rb-Eay"/>
+                            <constraint firstItem="cQL-Y6-Myo" firstAttribute="leading" secondItem="zZs-FM-JtZ" secondAttribute="leading" id="8Eu-7U-jDE"/>
+                            <constraint firstItem="7nT-Oo-Pfk" firstAttribute="height" secondItem="P44-M8-NRK" secondAttribute="height" multiplier="0.6" id="HDj-nd-X30"/>
+                            <constraint firstItem="zZs-FM-JtZ" firstAttribute="trailing" secondItem="cQL-Y6-Myo" secondAttribute="trailing" id="MFp-zV-klb"/>
+                            <constraint firstItem="mZZ-5R-XsB" firstAttribute="top" secondItem="zZs-FM-JtZ" secondAttribute="top" constant="25" id="Nbn-nX-SaA"/>
+                            <constraint firstItem="Ng8-Gr-OG6" firstAttribute="width" secondItem="WWJ-CT-S2E" secondAttribute="width" id="W97-dk-goy"/>
+                            <constraint firstItem="cQL-Y6-Myo" firstAttribute="height" secondItem="P44-M8-NRK" secondAttribute="height" multiplier="0.3" id="etM-Bf-FGv"/>
+                            <constraint firstItem="Ng8-Gr-OG6" firstAttribute="centerX" secondItem="P44-M8-NRK" secondAttribute="centerX" id="mll-dV-44g"/>
+                            <constraint firstItem="mZZ-5R-XsB" firstAttribute="leading" secondItem="zZs-FM-JtZ" secondAttribute="leading" constant="25" id="p1M-oM-sD7"/>
+                            <constraint firstItem="WWJ-CT-S2E" firstAttribute="top" secondItem="Ng8-Gr-OG6" secondAttribute="bottom" constant="10" id="qVB-Hs-0Dv"/>
+                            <constraint firstItem="zZs-FM-JtZ" firstAttribute="trailing" secondItem="7nT-Oo-Pfk" secondAttribute="trailing" id="rh8-IW-hcM"/>
+                            <constraint firstItem="cQL-Y6-Myo" firstAttribute="top" secondItem="P44-M8-NRK" secondAttribute="top" id="vRT-Aj-XpB"/>
+                            <constraint firstItem="7nT-Oo-Pfk" firstAttribute="leading" secondItem="zZs-FM-JtZ" secondAttribute="leading" id="w7z-25-Ykn"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="groupPlanView" destination="P44-M8-NRK" id="jnr-OP-ZPw"/>
+                        <outlet property="collectionView" destination="7nT-Oo-Pfk" id="uif-Lu-sSn"/>
+                        <outlet property="groupPlanImageView" destination="cQL-Y6-Myo" id="AdW-Lv-wNP"/>
+                        <outlet property="planJoinButton" destination="WWJ-CT-S2E" id="FvC-vE-z0a"/>
+                        <outlet property="planLeaveButton" destination="Ng8-Gr-OG6" id="y5g-BX-oR2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QLZ-1A-Imf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -77,6 +155,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Icons_Back" width="44" height="44"/>
+        <namedColor name="themeBG">
+            <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themeBGSecond">
+            <color red="0.12941176470588237" green="0.15686274509803921" blue="0.24705882352941178" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
