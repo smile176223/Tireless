@@ -111,14 +111,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="KWo-Ub-40G" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0kZ-iw-83j"/>
+                            <constraint firstItem="KWo-Ub-40G" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0kZ-iw-83j"/>
                             <constraint firstItem="0am-LU-uPW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5ly-dH-V15"/>
                             <constraint firstItem="YmP-KB-PVm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="5uO-nf-SZG"/>
                             <constraint firstItem="0am-LU-uPW" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="6t9-AM-5q7"/>
                             <constraint firstItem="QXz-2S-P4b" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="85w-yA-PBC"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="x3I-UH-LHj" secondAttribute="bottom" constant="50" id="Do6-b0-FLr"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0am-LU-uPW" secondAttribute="trailing" constant="10" id="PRa-gZ-g03"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KWo-Ub-40G" secondAttribute="trailing" id="Uph-iV-67C"/>
+                            <constraint firstAttribute="trailing" secondItem="KWo-Ub-40G" secondAttribute="trailing" id="Uph-iV-67C"/>
                             <constraint firstAttribute="bottom" secondItem="KWo-Ub-40G" secondAttribute="bottom" id="Wne-fG-WQ4"/>
                             <constraint firstItem="KWo-Ub-40G" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="r52-sP-T1o"/>
                             <constraint firstItem="QXz-2S-P4b" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="sfb-yQ-qGy"/>

@@ -119,9 +119,9 @@ class PoseDetectViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if plan?.planName == PlanExercise.plank.rawValue {
-            AppUtility.lockOrientation(.landscapeRight, andRotateTo: .landscapeRight)
-        }
+//        if plan?.planName == PlanExercise.plank.rawValue {
+//            AppUtility.lockOrientation(.landscapeRight, andRotateTo: .landscapeRight)
+//        }
         videoRecordManager.startRecording { [weak self] in
             self?.startSession()
             self?.drawStart = true
@@ -132,9 +132,10 @@ class PoseDetectViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if plan?.planName == PlanExercise.plank.rawValue {
-            AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
-        }
+//        if plan?.planName == PlanExercise.plank.rawValue {
+//            AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
+//        }
+        viewModel.stopTimer()
         stopSession()
     }
     

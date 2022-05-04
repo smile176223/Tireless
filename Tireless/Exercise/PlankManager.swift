@@ -13,7 +13,7 @@ class PlankManager {
     
     private var isPlank = false
     
-    func plankWork(_ posePoints: [PosePoint]) {
+    func plankWork(_ posePoints: [PosePoint]) -> Bool {
         let ankelToHipRight = angle(posePoints[22], posePoints[3], posePoints[2])
         let shoulderToKneeRight = angle(posePoints[32], posePoints[22], posePoints[3])
         let shoulderToWristRight = angle(posePoints[32], posePoints[9], posePoints[5])
@@ -39,6 +39,7 @@ class PlankManager {
         } else {
             isPlank = false
         }
+        return isPlank
     }
     
     private func checkAngle(_ angle: CGFloat, min: CGFloat, max: CGFloat) -> Bool {
