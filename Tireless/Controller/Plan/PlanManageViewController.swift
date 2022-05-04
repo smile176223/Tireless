@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class PlanManageViewController: UIViewController {
     
@@ -50,6 +49,8 @@ class PlanManageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if AuthManager.shared.currentUser != "" {
             self.viewModel.fetchPlan()
+        } else {
+            self.viewModel.logoutReset()
         }
     }
     
