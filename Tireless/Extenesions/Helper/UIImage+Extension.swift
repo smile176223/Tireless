@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum PlanImage: String {
+enum PlanExercise: String {
     case squat = "深蹲"
     
     case plank = "棒式"
@@ -16,7 +16,7 @@ enum PlanImage: String {
 }
 
 extension UIImage {
-    static func asset(_ asset: PlanImage) -> UIImage? {
+    static func asset(_ asset: PlanExercise) -> UIImage? {
         return UIImage(named: asset.rawValue)
     }
     

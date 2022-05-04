@@ -48,11 +48,11 @@ class PlanManageViewCell: UICollectionViewCell {
             planImageView.image = UIImage(named: viewModel.plan.planName)
         } else {
             switch viewModel.plan.planName {
-            case PlanImage.squat.rawValue:
+            case PlanExercise.squat.rawValue:
                 planImageView.image = UIImage.groupSquat
-            case PlanImage.plank.rawValue:
+            case PlanExercise.plank.rawValue:
                 planImageView.image = UIImage.groupPlank
-            case PlanImage.pushup.rawValue:
+            case PlanExercise.pushup.rawValue:
                 planImageView.image = UIImage.groupPushup
             default:
                 planImageView.image = UIImage.placeHolder
@@ -60,7 +60,7 @@ class PlanManageViewCell: UICollectionViewCell {
         }
         planTitleLabel.text = viewModel.plan.planName
         planProgressView.progress = Float(viewModel.plan.progress)
-        if viewModel.plan.planName == PlanImage.plank.rawValue {
+        if viewModel.plan.planName == PlanExercise.plank.rawValue {
             planTimesLabel.text = "每天\(viewModel.plan.planTimes)秒，持續\(viewModel.plan.planDays)天"
         } else {
             planTimesLabel.text = "每天\(viewModel.plan.planTimes)次，持續\(viewModel.plan.planDays)天"

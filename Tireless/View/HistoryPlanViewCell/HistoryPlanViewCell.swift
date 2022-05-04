@@ -37,11 +37,11 @@ class HistoryPlanViewCell: UICollectionViewCell {
             historyImageView.image = UIImage(named: viewModel.plan.planName)
         } else {
             switch viewModel.plan.planName {
-            case PlanImage.squat.rawValue:
+            case PlanExercise.squat.rawValue:
                 historyImageView.image = UIImage.groupSquat
-            case PlanImage.plank.rawValue:
+            case PlanExercise.plank.rawValue:
                 historyImageView.image = UIImage.groupPlank
-            case PlanImage.pushup.rawValue:
+            case PlanExercise.pushup.rawValue:
                 historyImageView.image = UIImage.groupPushup
             default:
                 historyImageView.image = UIImage.placeHolder

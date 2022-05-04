@@ -173,11 +173,11 @@ class GroupPlanViewController: UIViewController {
         planLeaveButton.layer.cornerRadius = 15
         guard let joinGroup = joinGroup else { return }
         switch joinGroup.planName {
-        case PlanImage.squat.rawValue:
+        case PlanExercise.squat.rawValue:
             groupPlanImageView.image = UIImage.groupSquat
-        case PlanImage.plank.rawValue:
+        case PlanExercise.plank.rawValue:
             groupPlanImageView.image = UIImage.groupPlank
-        case PlanImage.pushup.rawValue:
+        case PlanExercise.pushup.rawValue:
             groupPlanImageView.image = UIImage.groupPushup
         default:
             groupPlanImageView.image = UIImage.placeHolder
