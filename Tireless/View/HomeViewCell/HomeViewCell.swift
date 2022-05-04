@@ -57,11 +57,11 @@ class HomeViewCell: UICollectionViewCell {
     func layoutGroupCell() {
         textLabel.text = viewModel?.defaultPlans.planName
         switch viewModel?.defaultPlans.planName {
-        case PlanImage.squat.rawValue:
+        case PlanExercise.squat.rawValue:
             imageView.image = UIImage.groupSquat
-        case PlanImage.plank.rawValue:
+        case PlanExercise.plank.rawValue:
             imageView.image = UIImage.groupPlank
-        case PlanImage.pushup.rawValue:
+        case PlanExercise.pushup.rawValue:
             imageView.image = UIImage.groupPushup
         default:
             imageView.image = UIImage(named: "TirelessLogo")

@@ -44,11 +44,11 @@ class HomeGroupPlanViewCell: UICollectionViewCell {
             groupUserImageView.image = UIImage.placeHolder
         }
         switch viewModel?.joinGroup.planName {
-        case PlanImage.squat.rawValue:
+        case PlanExercise.squat.rawValue:
             groupImageView.image = UIImage.groupSquat
-        case PlanImage.plank.rawValue:
+        case PlanExercise.plank.rawValue:
             groupImageView.image = UIImage.groupPlank
-        case PlanImage.pushup.rawValue:
+        case PlanExercise.pushup.rawValue:
             groupImageView.image = UIImage.groupPushup
         default:
             groupImageView.image = UIImage.placeHolder

@@ -17,6 +17,8 @@ class PoseDetectViewController: UIViewController {
     
     @IBOutlet weak var recordButton: UIButton!
     
+    @IBOutlet weak var inFrameLikeLiHoodLabel: UILabel!
+    
     private enum Constant {
         static let videoDataOutputQueueLabel = "com.LiamHao.Tireless.VideoDataOutputQueue"
         static let sessionQueueLabel = "com.LiamHao.Tireless.SessionQueue"
@@ -92,6 +94,8 @@ class PoseDetectViewController: UIViewController {
         setUpCaptureSessionOutput()
         setUpCaptureSessionInput()
         setupBackButton()
+        
+        setupCurrentExercise()
     
         recordButton.layer.cornerRadius = 25
         
@@ -102,16 +106,26 @@ class PoseDetectViewController: UIViewController {
         videoRecordManager.userRejectRecord = { [weak self] in
             self?.isUserRejectRecording = true
         }
+        
+        viewModel.noPoint = { [weak self] in
+            DispatchQueue.main.async {
+                self?.inFrameLikeLiHoodLabel.text = "0%"
+            }
+        }
+        
+        viewModel.inFrameLikeLiHoodRefresh = { [weak self] inFrameLikeLiHood in
+            self?.inFrameLikeLiHoodLabel.text = "\(inFrameLikeLiHood)%"
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         videoRecordManager.startRecording { [weak self] in
-//            self?.startSession()
-//            self?.drawStart = true
+            self?.startSession()
+            self?.drawStart = true
         }
-        startSession()
-        drawStart = true
+//        startSession()
+//        drawStart = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -126,6 +140,13 @@ class PoseDetectViewController: UIViewController {
     
     @IBAction func recordTap(_ sender: Any) {
         counter += 1
+    }
+    
+    private func setupCurrentExercise() {
+        guard let plan = plan else {
+            return
+        }
+        viewModel.setupExercise(with: plan)
     }
     
     func blurEffect() {

@@ -20,8 +20,8 @@ class HomeHeaderView: UICollectionReusableView {
         let button = UIButton()
         button.setTitle("發起揪團", for: .normal)
         button.titleLabel?.font = .regular(size: 15)
-        button.titleLabel?.textColor = .darkGray
-        button.backgroundColor = .clear
+        button.setTitleColor(UIColor.themeBG, for: .normal)
+        button.backgroundColor = .themeYellow
         return button
     }()
     
@@ -42,6 +42,7 @@ class HomeHeaderView: UICollectionReusableView {
         self.backgroundColor = .themeBG
         createGroupButton.isHidden = true
         createGroupButton.addTarget(self, action: #selector(createButtonTap), for: .touchUpInside)
+        createGroupButton.layer.cornerRadius = 12
     }
     
     @objc func createButtonTap() {
@@ -62,7 +63,8 @@ class HomeHeaderView: UICollectionReusableView {
         createGroupButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             createGroupButton.centerYAnchor.constraint(equalTo: textLabel.centerYAnchor),
-            createGroupButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25)
+            createGroupButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+            createGroupButton.widthAnchor.constraint(equalToConstant: 80)
         ])
     }
 }

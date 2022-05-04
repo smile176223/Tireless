@@ -22,6 +22,7 @@
 		FF2EF6F128203A9C008418A0 /* GroupPlanHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6F028203A9C008418A0 /* GroupPlanHeaderView.swift */; };
 		FF2EF6F328203AA3008418A0 /* GroupPlanHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2EF6F228203AA3008418A0 /* GroupPlanHeaderView.xib */; };
 		FF2EF6F528204CA9008418A0 /* JoinUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6F428204CA9008418A0 /* JoinUsersViewModel.swift */; };
+		FF2EF6F7282111B2008418A0 /* PushupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6F6282111B2008418A0 /* PushupManager.swift */; };
 		FF2FE0E9280E8FD100F8890D /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = FF2FE0E8280E8FD000F8890D /* Loading.json */; };
 		FF2FE0EB280EA8A200F8890D /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2FE0EA280EA8A200F8890D /* UIColor+Extension.swift */; };
 		FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2FE0ED280ED81700F8890D /* HomeViewCell.swift */; };
@@ -155,6 +156,7 @@
 		FF2EF6F028203A9C008418A0 /* GroupPlanHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanHeaderView.swift; sourceTree = "<group>"; };
 		FF2EF6F228203AA3008418A0 /* GroupPlanHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupPlanHeaderView.xib; sourceTree = "<group>"; };
 		FF2EF6F428204CA9008418A0 /* JoinUsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinUsersViewModel.swift; sourceTree = "<group>"; };
+		FF2EF6F6282111B2008418A0 /* PushupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushupManager.swift; sourceTree = "<group>"; };
 		FF2FE0E8280E8FD000F8890D /* Loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		FF2FE0EA280EA8A200F8890D /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		FF2FE0ED280ED81700F8890D /* HomeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCell.swift; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 			children = (
 				FF1444AE280183920027F560 /* SquatManager.swift */,
 				FF1444B02801A6760027F560 /* StartManager.swift */,
+				FF2EF6F6282111B2008418A0 /* PushupManager.swift */,
 			);
 			path = Exercise;
 			sourceTree = "<group>";
@@ -985,6 +988,7 @@
 				FF3F7813281D407000D8360A /* ShareCommentViewModel.swift in Sources */,
 				FF2FE0F0280EDB7900F8890D /* HomeHeaderView.swift in Sources */,
 				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
+				FF2EF6F7282111B2008418A0 /* PushupManager.swift in Sources */,
 				FF3FBE6E28123A0800E6B5DC /* DefaultPlanViewModel.swift in Sources */,
 				FF3FBE9828150DEC00E6B5DC /* UserManager.swift in Sources */,
 				FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */,
