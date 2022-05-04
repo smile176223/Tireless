@@ -75,7 +75,7 @@
 		FF3F7811281D1E3B00D8360A /* CommentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7810281D1E3B00D8360A /* CommentManager.swift */; };
 		FF3F7813281D407000D8360A /* ShareCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7812281D407000D8360A /* ShareCommentViewModel.swift */; };
 		FF3F7815281D40A200D8360A /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7814281D40A200D8360A /* CommentsViewModel.swift */; };
-		FF3F7817281E3BA900D8360A /* HistoryPlanViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7816281E3BA900D8360A /* HistoryPlanViewModels.swift */; };
+		FF3F7817281E3BA900D8360A /* HistoryPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7816281E3BA900D8360A /* HistoryPlanViewModel.swift */; };
 		FF3F7819281E769A00D8360A /* DefaultPlansViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7818281E769A00D8360A /* DefaultPlansViewModel.swift */; };
 		FF3FBE4C280FA83900E6B5DC /* HomeDailyViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */; };
 		FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */; };
@@ -121,6 +121,9 @@
 		FF3FBEC22817DEDB00E6B5DC /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */; };
 		FF5E89BE2822140D00214A5D /* PlankManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89BD2822140D00214A5D /* PlankManager.swift */; };
 		FF5E89C02822290C00214A5D /* Orientation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89BF2822290C00214A5D /* Orientation+Extension.swift */; };
+		FF5E89C228227D5A00214A5D /* BlockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89C128227D5A00214A5D /* BlockListViewController.swift */; };
+		FF5E89C428227FF200214A5D /* BlockListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89C328227FF200214A5D /* BlockListViewModel.swift */; };
+		FF5E89C62822804100214A5D /* BlocksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89C52822804100214A5D /* BlocksViewModel.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -211,7 +214,7 @@
 		FF3F7810281D1E3B00D8360A /* CommentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentManager.swift; sourceTree = "<group>"; };
 		FF3F7812281D407000D8360A /* ShareCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCommentViewModel.swift; sourceTree = "<group>"; };
 		FF3F7814281D40A200D8360A /* CommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewModel.swift; sourceTree = "<group>"; };
-		FF3F7816281E3BA900D8360A /* HistoryPlanViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPlanViewModels.swift; sourceTree = "<group>"; };
+		FF3F7816281E3BA900D8360A /* HistoryPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPlanViewModel.swift; sourceTree = "<group>"; };
 		FF3F7818281E769A00D8360A /* DefaultPlansViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPlansViewModel.swift; sourceTree = "<group>"; };
 		FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDailyViewCell.xib; sourceTree = "<group>"; };
 		FF3FBE4D280FA85100E6B5DC /* HomeDailyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDailyViewCell.swift; sourceTree = "<group>"; };
@@ -258,6 +261,9 @@
 		FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		FF5E89BD2822140D00214A5D /* PlankManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlankManager.swift; sourceTree = "<group>"; };
 		FF5E89BF2822290C00214A5D /* Orientation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Orientation+Extension.swift"; sourceTree = "<group>"; };
+		FF5E89C128227D5A00214A5D /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListViewController.swift; sourceTree = "<group>"; };
+		FF5E89C328227FF200214A5D /* BlockListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListViewModel.swift; sourceTree = "<group>"; };
+		FF5E89C52822804100214A5D /* BlocksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViewModel.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -641,6 +647,7 @@
 				FF3FBE8A28148CAC00E6B5DC /* ProfileViewController.swift */,
 				FF3F77E72819C3F900D8360A /* SearchFriendViewController.swift */,
 				FF3F77F5281AC96B00D8360A /* InviteFriendViewController.swift */,
+				FF5E89C128227D5A00214A5D /* BlockListViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -669,7 +676,9 @@
 				FF3F77F3281A7D7800D8360A /* SearchFriendViewModel.swift */,
 				FF3F77FB281AE50100D8360A /* InviteFriendViewModel.swift */,
 				FF3F77E52819AEEE00D8360A /* FriendsViewModel.swift */,
-				FF3F7816281E3BA900D8360A /* HistoryPlanViewModels.swift */,
+				FF3F7816281E3BA900D8360A /* HistoryPlanViewModel.swift */,
+				FF5E89C328227FF200214A5D /* BlockListViewModel.swift */,
+				FF5E89C52822804100214A5D /* BlocksViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -967,6 +976,7 @@
 				FF3FBE7C281299DE00E6B5DC /* PlanViewModel.swift in Sources */,
 				FF3FBE9D28151FF000E6B5DC /* Friend.swift in Sources */,
 				FF3FBEBF2817927000E6B5DC /* AuthViewController.swift in Sources */,
+				FF5E89C428227FF200214A5D /* BlockListViewModel.swift in Sources */,
 				FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */,
 				FF3FBE742812835300E6B5DC /* PlanManager.swift in Sources */,
 				FF3FBE9F2815320500E6B5DC /* GroupPlan.swift in Sources */,
@@ -1002,6 +1012,7 @@
 				FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */,
 				FF1444AF280183920027F560 /* SquatManager.swift in Sources */,
 				FF5E89C02822290C00214A5D /* Orientation+Extension.swift in Sources */,
+				FF5E89C228227D5A00214A5D /* BlockListViewController.swift in Sources */, 
 				FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */,
 				FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */,
 				FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */,
@@ -1037,7 +1048,7 @@
 				FF3F77E82819C3F900D8360A /* SearchFriendViewController.swift in Sources */,
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
 				FF3F77F0281A1EBA00D8360A /* SearchFriendViewCell.swift in Sources */,
-				FF3F7817281E3BA900D8360A /* HistoryPlanViewModels.swift in Sources */,
+				FF3F7817281E3BA900D8360A /* HistoryPlanViewModel.swift in Sources */,
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
 				FF3F7807281C47F100D8360A /* ShareCommentViewController.swift in Sources */,
 				FF3F77E228185D4C00D8360A /* CryptoKitHelper.swift in Sources */,
@@ -1050,6 +1061,7 @@
 				FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */,
 				FF308E7F28080E5B00265863 /* TabBarController.swift in Sources */,
 				FF308E6D28066E0D00265863 /* ShareManager.swift in Sources */,
+				FF5E89C62822804100214A5D /* BlocksViewModel.swift in Sources */,
 				FF3F77F4281A7D7800D8360A /* SearchFriendViewModel.swift in Sources */,
 				FF3F77E62819AEEE00D8360A /* FriendsViewModel.swift in Sources */,
 				FF3FBE922814FE6100E6B5DC /* ProfileHeaderView.swift in Sources */,

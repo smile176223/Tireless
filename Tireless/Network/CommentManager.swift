@@ -42,7 +42,9 @@ class CommentManager {
                             switch result {
                             case .success(let user):
                                 comment.user = user
-                                comments.append(comment)
+                                if !(ShareManager.shared.blockUsers.contains(comment.userId)) {
+                                    comments.append(comment)
+                                }
                             case .failure(let error):
                                 completion(.failure(error))
                             }

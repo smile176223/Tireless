@@ -192,6 +192,10 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             self?.viewModel.fetchHistoryPlan()
         }
         
+        headerView.isBlockListButtonTab = { [weak self] in
+            self?.blockPresent()
+        }
+        
         return headerView
     }
 }
@@ -204,7 +208,7 @@ extension ProfileViewController {
         }
         controller.addAction(deleteAction)
         let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
-            print("ban")
+            self.viewModel.blockUser(blockId: userId)
         }
         controller.addAction(banAction)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
@@ -271,5 +275,15 @@ extension ProfileViewController {
         }
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(inviteVC, animated: true)
+    }
+    
+    private func blockPresent() {
+        guard let blockVC = storyboard?.instantiateViewController(withIdentifier: "\(BlockListViewController.self)")
+                as? BlockListViewController
+        else {
+            return
+        }
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(blockVC, animated: true)
     }
 }

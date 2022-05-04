@@ -21,6 +21,8 @@ class InviteFriendViewCell: UITableViewCell {
     
     var viewModel: FriendsViewModel?
     
+    var blocksViewModel: BlocksViewModel?
+    
     var isAgreeButtonTap: (() -> Void)?
     
     var isRejectButtonTap: (() -> Void)?
@@ -34,7 +36,7 @@ class InviteFriendViewCell: UITableViewCell {
         layoutCell()
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         cellView.layer.cornerRadius = 20
         userImageView.layer.cornerRadius = userImageView.frame.height / 2
         userImageView.contentMode = .scaleAspectFill
@@ -42,13 +44,29 @@ class InviteFriendViewCell: UITableViewCell {
         rejectButton.layer.cornerRadius = 15
     }
     
-    func layoutCell() {
+    func setupBlock(viewModel: BlocksViewModel) {
+        self.blocksViewModel = viewModel
+        layoutBlockCell()
+    }
+    
+    private func layoutCell() {
         if viewModel?.user.picture != "" {
             userImageView.loadImage(viewModel?.user.picture)
         } else {
             userImageView.image = UIImage(named: "TirelessLogo")
         }
         userNameLabel.text = viewModel?.user.name
+    }
+    
+    private func layoutBlockCell() {
+        agreeButton.isHidden = true
+        rejectButton.isHidden = true
+        if blocksViewModel?.user.picture != "" {
+            userImageView.loadImage(blocksViewModel?.user.picture)
+        } else {
+            userImageView.image = UIImage(named: "TirelessLogo")
+        }
+        userNameLabel.text = blocksViewModel?.user.name
     }
     
     @IBAction func agreeButtonTap(_ sender: UIButton) {

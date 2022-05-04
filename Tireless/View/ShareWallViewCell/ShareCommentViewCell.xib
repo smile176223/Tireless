@@ -37,9 +37,23 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pdq-rS-UOL">
+                        <rect key="frame" x="364" y="25" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="KaZ-iv-n3N"/>
+                            <constraint firstAttribute="height" constant="30" id="S7E-OY-1fv"/>
+                        </constraints>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="ellipsis" catalog="system"/>
+                        <connections>
+                            <action selector="setButtonTap:" destination="sip-lT-n4b" eventType="touchUpInside" id="18T-lo-9wU"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" name="themeBG"/>
                 <constraints>
+                    <constraint firstItem="Pdq-rS-UOL" firstAttribute="centerY" secondItem="Frn-FO-0Ta" secondAttribute="centerY" id="2XS-Zk-oJF"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="foc-6g-Q9j" secondAttribute="trailing" constant="70" id="2k5-az-bj6"/>
                     <constraint firstItem="nUX-PI-ck9" firstAttribute="leading" secondItem="Frn-FO-0Ta" secondAttribute="leading" constant="20" id="HyL-37-H53"/>
                     <constraint firstItem="nUX-PI-ck9" firstAttribute="top" secondItem="Frn-FO-0Ta" secondAttribute="top" constant="15" id="J4I-n6-FPN"/>
@@ -48,18 +62,21 @@
                     <constraint firstItem="Yw1-Qx-uY8" firstAttribute="top" secondItem="Frn-FO-0Ta" secondAttribute="top" constant="15" id="MGo-sA-do0"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="foc-6g-Q9j" secondAttribute="bottom" constant="5" id="ZOP-6a-pFb"/>
                     <constraint firstItem="foc-6g-Q9j" firstAttribute="top" secondItem="Yw1-Qx-uY8" secondAttribute="bottom" constant="5" id="dNJ-tm-9QM"/>
+                    <constraint firstAttribute="trailing" secondItem="Pdq-rS-UOL" secondAttribute="trailing" constant="20" id="wcz-Fr-RbJ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="commentImageView" destination="nUX-PI-ck9" id="8UP-9q-02b"/>
                 <outlet property="commentNameLabel" destination="Yw1-Qx-uY8" id="v9K-Xd-6hm"/>
                 <outlet property="commentTextLabel" destination="foc-6g-Q9j" id="OPj-CE-in9"/>
+                <outlet property="setButton" destination="Pdq-rS-UOL" id="QA3-ee-A9s"/>
             </connections>
             <point key="canvasLocation" x="165" y="139"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="TirelessLogo" width="500" height="500"/>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
         <namedColor name="themeBG">
             <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
