@@ -86,7 +86,7 @@ class PoseDetectViewModel {
                     case .pushup:
                         self?.countRefresh?(PushupManager.shared.pushupWork(posePoint))
                     case .plank:
-                        print("plank")
+                        PlankManager.shared.plankWork(posePoint)
                     }
                 } else {
                     SquatManager.shared.resetIfOut()

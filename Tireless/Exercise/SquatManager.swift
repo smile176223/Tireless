@@ -19,22 +19,22 @@ class SquatManager {
     
     private var checkPointB = false
     
-    func squatWork(_ posePoint: [PosePoint]) -> Int {
-        let squatBelly = belly(posePoint[0].position, posePoint[22].position, posePoint[26].position)
-        let rightBelly = triangleBelly(squatBelly, posePoint[3].position, posePoint[32].position)
-        let leftBelly = triangleBelly(squatBelly, posePoint[4].position, posePoint[30].position)
+    func squatWork(_ posePoints: [PosePoint]) -> Int {
+        let squatBelly = belly(posePoints[0].position, posePoints[22].position, posePoints[26].position)
+        let rightBelly = triangleBelly(squatBelly, posePoints[3].position, posePoints[32].position)
+        let leftBelly = triangleBelly(squatBelly, posePoints[4].position, posePoints[30].position)
         let checkArray = [0, 9, 22, 26, 32]
-        if posePoint[3].position.y < 0.6 ||
-            ((posePoint[22].position.y + posePoint[26].position.y) >
-             ((posePoint[3].position.y + posePoint[4].position.y)) * 1.1) {
+        if posePoints[3].position.y < 0.6 ||
+            ((posePoints[22].position.y + posePoints[26].position.y) >
+             ((posePoints[3].position.y + posePoints[4].position.y)) * 1.1) {
             resetIfOut()
         }
-        if checkInFrameLikelihood(posePoint, checkArray) == true,
-           posePoint[0].position.y > 0,
-           posePoint[2].position.y < 1.0,
-           posePoint[10].position.y < 1.0 {
-            if rightBelly > 0.8 && rightBelly < 1.2 && posePoint[0].position.y < 0.35 ||
-                leftBelly > 0.8 && leftBelly < 1.2 && posePoint[0].position.y < 0.35 {
+        if checkInFrameLikelihood(posePoints, checkArray) == true,
+           posePoints[0].position.y > 0,
+           posePoints[2].position.y < 1.0,
+           posePoints[10].position.y < 1.0 {
+            if rightBelly > 0.8 && rightBelly < 1.2 && posePoints[0].position.y < 0.35 ||
+                leftBelly > 0.8 && leftBelly < 1.2 && posePoints[0].position.y < 0.35 {
                 if checkCount == 0, checkPointA == false, checkPointB == false {
                     checkCount += 1
                     checkPointA = true
@@ -45,13 +45,13 @@ class SquatManager {
                     checkPointA = true
                     checkPointB = false
                 }
-            } else if (posePoint[22].position.y + posePoint[26].position.y) >=
-                        ((posePoint[3].position.y + posePoint[4].position.y) * 0.9),
+            } else if (posePoints[22].position.y + posePoints[26].position.y) >=
+                        ((posePoints[3].position.y + posePoints[4].position.y) * 0.9),
                       checkPointA == true,
                       checkPointB == false,
-                      posePoint[0].position.y > 0.35,
-                      posePoint[22].position.y > 0.65,
-                      posePoint[26].position.y > 0.65 {
+                      posePoints[0].position.y > 0.35,
+                      posePoints[22].position.y > 0.65,
+                      posePoints[26].position.y > 0.65 {
                 if checkCount == 1 {
                     checkCount += 1
                     checkPointB = true
