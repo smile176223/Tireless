@@ -55,29 +55,20 @@ class ShareManager {
     }
     
     func fetchVideo(completion: @escaping (Result<[ShareFiles], Error>) -> Void) {
-        UserManager.shared.fetchBlockUser { [weak self]result in
-            switch result {
-            case .success(let users):
-                self?.blockUsers = users
-                self?.shareWallDB.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
-                    guard let querySnapshot = querySnapshot else { return }
-                    if let error = error {
-                        completion(.failure(error))
-                    } else {
-                        var videosPosts = [ShareFiles]()
-                        for document in querySnapshot.documents {
-                            if let videoPost = try? document.data(as: ShareFiles.self, decoder: Firestore.Decoder()) {
-                                if users.contains(videoPost.userId) {
-                                } else {
-                                    videosPosts.append(videoPost)
-                                }
-                            }
+        shareWallDB.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                var videosPosts = [ShareFiles]()
+                for document in querySnapshot.documents {
+                    if let videoPost = try? document.data(as: ShareFiles.self, decoder: Firestore.Decoder()) {
+                        if !(AuthManager.shared.blockUsers.contains(videoPost.userId)) {
+                            videosPosts.append(videoPost)
                         }
-                        completion(.success(videosPosts))
                     }
                 }
-            case .failure(let error):
-                completion(.failure(error))
+                completion(.success(videosPosts))
             }
         }
     }
