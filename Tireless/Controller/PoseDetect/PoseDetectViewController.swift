@@ -69,7 +69,7 @@ class PoseDetectViewController: UIViewController {
     private let videoRecordManager = VideoRecordManager()
     
     private var videoUrl: URL?
-    
+
     private lazy var previewOverlayView: UIImageView = {
         precondition(isViewLoaded)
         let previewOverlayView = UIImageView(frame: .zero)
@@ -117,9 +117,11 @@ class PoseDetectViewController: UIViewController {
             self?.inFrameLikeLiHoodLabel.text = "\(inFrameLikeLiHood)%"
         }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        if plan?.planName == PlanExercise.plank.rawValue {
+//            AppUtility.lockOrientation(.landscapeRight, andRotateTo: .landscapeRight)
+//        }
         videoRecordManager.startRecording { [weak self] in
             self?.startSession()
             self?.drawStart = true
@@ -128,8 +130,12 @@ class PoseDetectViewController: UIViewController {
 //        drawStart = true
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+//        if plan?.planName == PlanExercise.plank.rawValue {
+//            AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
+//        }
+        viewModel.stopTimer()
         stopSession()
     }
     

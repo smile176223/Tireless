@@ -31,13 +31,13 @@ class PushupManager {
         checkPointC = true
     }
     
-    func pushupWork(_ posePoint: [PosePoint]) -> Int {
-        if checkInFrameLikeHood(posePoint) == false {
+    func pushupWork(_ posePoints: [PosePoint]) -> Int {
+        if checkInFrameLikeHood(posePoints) == false {
             resetIfOut()
         }
-        let hipToShoulder = posePoint[22].position.y - posePoint[32].position.y
-        let wristToShoulder = posePoint[5].position.y - posePoint[32].position.y
-        startPointUp = getPolygonAreaCenter(posePoint)
+        let hipToShoulder = posePoints[22].position.y - posePoints[32].position.y
+        let wristToShoulder = posePoints[5].position.y - posePoints[32].position.y
+        startPointUp = getPolygonAreaCenter(posePoints)
         if hipToShoulder > 0.10, hipToShoulder < 0.30, wristToShoulder > 0.10,
            startPointUp.y < 0.5, startPointUp.x > 0.1, startPointUp.x < 0.75 { 
             if checkPointA == false, checkPointB == false, checkPointC == true {
@@ -61,7 +61,7 @@ class PushupManager {
             checkPointB = true
             if startPointUp.y > 0.5, startPointUp.x > 0.1, startPointUp.x < 0.75,
                checkPointA == true, checkPointB == true, checkPointC == false {
-                startPointDown = getPolygonAreaCenter(posePoint)
+                startPointDown = getPolygonAreaCenter(posePoints)
                 checkPointC = true
             }
         }

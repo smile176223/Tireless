@@ -25,6 +25,12 @@ class PoseDetectViewModel {
     
     private var isUsingFrontCamera = false
     
+    private var isPlank = false
+    
+    private var timer = Timer()
+    
+    private var plankCountTime = 0
+    
     private var poseDetector: PoseDetector?
     
     private let detectors: Detector = .pose
@@ -46,9 +52,7 @@ class PoseDetectViewModel {
                     height: CGFloat,
                     previewLayer: AVCaptureVideoPreviewLayer) {
         let visionImage = VisionImage(buffer: sampleBuffer)
-        let orientation = UIUtilities.imageOrientation(
-            fromDevicePosition: isUsingFrontCamera ? .front : .back
-        )
+        let orientation = UIUtilities.imageOrientation(fromDevicePosition: isUsingFrontCamera ? .front : .back)
         visionImage.orientation = orientation
         let activeDetector = self.currentDetector
         resetManagedLifecycleDetectors(activeDetector: activeDetector)
@@ -86,7 +90,8 @@ class PoseDetectViewModel {
                     case .pushup:
                         self?.countRefresh?(PushupManager.shared.pushupWork(posePoint))
                     case .plank:
-                        print("plank")
+                        self?.isPlank = PlankManager.shared.plankWork(posePoint)
+                        self?.countRefresh?(plankCountTime)
                     }
                 } else {
                     SquatManager.shared.resetIfOut()
@@ -122,6 +127,7 @@ class PoseDetectViewModel {
             currentExercise = .pushup
         case PlanExercise.plank.rawValue:
             currentExercise = .plank
+            setupTimer()
         default:
             currentExercise = .squat
         }
@@ -135,5 +141,23 @@ class PoseDetectViewModel {
         let averagePercent = average / Float(posePoints.count) * 100
         let averageFormat = String(format: "%.2f", averagePercent)
         return averageFormat
+    }
+    
+    private func setupTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1,
+                                     target: self,
+                                     selector: #selector(updatePlankTime),
+                                     userInfo: nil,
+                                     repeats: true)
+    }
+    
+    @objc private func updatePlankTime() {
+        if isPlank == true {
+            plankCountTime += 1
+        }
+    }
+    
+    func stopTimer() {
+        timer.invalidate()
     }
 }

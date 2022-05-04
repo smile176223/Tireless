@@ -119,6 +119,8 @@
 		FF3FBEBC2817925300E6B5DC /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBEBB2817925300E6B5DC /* Auth.storyboard */; };
 		FF3FBEBF2817927000E6B5DC /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */; };
 		FF3FBEC22817DEDB00E6B5DC /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */; };
+		FF5E89BE2822140D00214A5D /* PlankManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89BD2822140D00214A5D /* PlankManager.swift */; };
+		FF5E89C02822290C00214A5D /* Orientation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89BF2822290C00214A5D /* Orientation+Extension.swift */; };
 		FF5E89C228227D5A00214A5D /* BlockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89C128227D5A00214A5D /* BlockListViewController.swift */; };
 		FF5E89C428227FF200214A5D /* BlockListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89C328227FF200214A5D /* BlockListViewModel.swift */; };
 		FF5E89C62822804100214A5D /* BlocksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89C52822804100214A5D /* BlocksViewModel.swift */; };
@@ -257,6 +259,8 @@
 		FF3FBEBB2817925300E6B5DC /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		FF5E89BD2822140D00214A5D /* PlankManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlankManager.swift; sourceTree = "<group>"; };
+		FF5E89BF2822290C00214A5D /* Orientation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Orientation+Extension.swift"; sourceTree = "<group>"; };
 		FF5E89C128227D5A00214A5D /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListViewController.swift; sourceTree = "<group>"; };
 		FF5E89C328227FF200214A5D /* BlockListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListViewModel.swift; sourceTree = "<group>"; };
 		FF5E89C52822804100214A5D /* BlocksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViewModel.swift; sourceTree = "<group>"; };
@@ -424,9 +428,10 @@
 		FF1444C12803AEA50027F560 /* Exercise */ = {
 			isa = PBXGroup;
 			children = (
-				FF1444AE280183920027F560 /* SquatManager.swift */,
 				FF1444B02801A6760027F560 /* StartManager.swift */,
+				FF1444AE280183920027F560 /* SquatManager.swift */,
 				FF2EF6F6282111B2008418A0 /* PushupManager.swift */,
+				FF5E89BD2822140D00214A5D /* PlankManager.swift */,
 			);
 			path = Exercise;
 			sourceTree = "<group>";
@@ -526,6 +531,7 @@
 				FF2FE0EA280EA8A200F8890D /* UIColor+Extension.swift */,
 				FF3FBE592811538500E6B5DC /* UIFont+Extension.swift */,
 				FFC7B9E9281EB54D0080A31E /* UIImage+Extension.swift */,
+				FF5E89BF2822290C00214A5D /* Orientation+Extension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1005,7 +1011,8 @@
 				FF308E6828057D7800265863 /* HomeViewController.swift in Sources */,
 				FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */,
 				FF1444AF280183920027F560 /* SquatManager.swift in Sources */,
-				FF5E89C228227D5A00214A5D /* BlockListViewController.swift in Sources */,
+				FF5E89C02822290C00214A5D /* Orientation+Extension.swift in Sources */,
+				FF5E89C228227D5A00214A5D /* BlockListViewController.swift in Sources */, 
 				FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */,
 				FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */,
 				FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */,
@@ -1059,6 +1066,7 @@
 				FF3F77E62819AEEE00D8360A /* FriendsViewModel.swift in Sources */,
 				FF3FBE922814FE6100E6B5DC /* ProfileHeaderView.swift in Sources */,
 				FF308E772807A4F400265863 /* User.swift in Sources */,
+				FF5E89BE2822140D00214A5D /* PlankManager.swift in Sources */,
 				FF308E882808294900265863 /* ShareWallViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1220,7 +1228,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1254,7 +1262,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
