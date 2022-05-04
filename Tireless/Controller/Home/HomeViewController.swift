@@ -96,9 +96,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     private func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout {(sectionIndex, _) -> NSCollectionLayoutSection? in
-            guard let sectionType = Section(rawValue: sectionIndex) else {
-                return nil
-            }
+            guard let sectionType = Section(rawValue: sectionIndex) else { return nil }
             var columns = sectionType.columnCount
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(1.0))

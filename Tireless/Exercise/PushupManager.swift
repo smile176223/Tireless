@@ -39,7 +39,7 @@ class PushupManager {
         let wristToShoulder = posePoint[5].position.y - posePoint[32].position.y
         startPointUp = getPolygonAreaCenter(posePoint)
         if hipToShoulder > 0.10, hipToShoulder < 0.30, wristToShoulder > 0.10,
-           startPointUp.y < 0.5, startPointUp.x > 0.1, startPointUp.x < 0.75 {
+           startPointUp.y < 0.5, startPointUp.x > 0.1, startPointUp.x < 0.75 { 
             if checkPointA == false, checkPointB == false, checkPointC == true {
                 checkPointA = true
                 if startPointUp.y < 0.5, startPointUp.y > 0.1, startPointUp.y < 0.75,
