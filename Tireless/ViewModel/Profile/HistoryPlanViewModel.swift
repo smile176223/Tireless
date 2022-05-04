@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HistoryPlanViewModels {
+class HistoryPlanViewModel {
     var plan: Plan
     
     init(model plan: Plan) {

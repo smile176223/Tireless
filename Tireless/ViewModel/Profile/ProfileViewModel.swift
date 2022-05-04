@@ -15,7 +15,7 @@ class ProfileViewModel {
     
     let friendViewModels = Box([FriendsViewModel]())
     
-    let historyPlanViewModels = Box([HistoryPlanViewModels]())
+    let historyPlanViewModels = Box([HistoryPlanViewModel]())
 
     func fetchUser(userId: String) {
         UserManager.shared.fetchUser(userId: userId) { [weak self] result in
@@ -90,10 +90,10 @@ class ProfileViewModel {
         friendViewModels.value = convertFriendsToViewModels(from: friends)
     }
     
-    func convertPlansToViewModels(from plans: [Plan]) -> [HistoryPlanViewModels] {
-        var viewModels = [HistoryPlanViewModels]()
+    func convertPlansToViewModels(from plans: [Plan]) -> [HistoryPlanViewModel] {
+        var viewModels = [HistoryPlanViewModel]()
         for plan in plans {
-            let viewModel = HistoryPlanViewModels(model: plan)
+            let viewModel = HistoryPlanViewModel(model: plan)
             viewModels.append(viewModel)
         }
         return viewModels

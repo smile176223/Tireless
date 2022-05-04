@@ -101,6 +101,19 @@
                         <constraint firstAttribute="height" constant="2" id="JvA-NV-E8T"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sMC-ke-iNc">
+                    <rect key="frame" x="344" y="54" width="30" height="30.5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="NWa-dL-GyO"/>
+                        <constraint firstAttribute="width" constant="30" id="qln-jM-e5V"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" backgroundImage="trash" catalog="system"/>
+                    <connections>
+                        <action selector="blockListButtonTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="T7y-Uf-r0h"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="gRZ-DJ-kJz"/>
             <color key="backgroundColor" name="themeBG"/>
@@ -111,6 +124,7 @@
                 <constraint firstItem="sse-8T-hYs" firstAttribute="width" secondItem="sse-8T-hYs" secondAttribute="height" id="BFt-O6-GeW"/>
                 <constraint firstItem="smj-qE-Jdy" firstAttribute="width" secondItem="BLq-2R-1ca" secondAttribute="width" multiplier="0.8" id="EyP-au-FfN"/>
                 <constraint firstItem="aLv-fP-krm" firstAttribute="leading" secondItem="gRZ-DJ-kJz" secondAttribute="leading" constant="40" id="FMW-rO-WRH"/>
+                <constraint firstItem="sMC-ke-iNc" firstAttribute="centerY" secondItem="1jH-yT-AM0" secondAttribute="centerY" id="MVa-ne-6bg"/>
                 <constraint firstItem="aLv-fP-krm" firstAttribute="top" secondItem="i9n-fb-ABp" secondAttribute="bottom" constant="10" id="Mmu-lI-fsZ"/>
                 <constraint firstItem="gRZ-DJ-kJz" firstAttribute="trailing" secondItem="aLv-fP-krm" secondAttribute="trailing" constant="40" id="OHM-dA-G9o"/>
                 <constraint firstItem="i9n-fb-ABp" firstAttribute="top" secondItem="1jH-yT-AM0" secondAttribute="bottom" constant="10" id="Sfy-iH-MJN"/>
@@ -123,6 +137,7 @@
                 <constraint firstItem="szw-Hz-U3K" firstAttribute="centerX" secondItem="i3S-Gm-XM7" secondAttribute="centerX" constant="80" id="gxh-TY-d4N"/>
                 <constraint firstItem="smj-qE-Jdy" firstAttribute="centerX" secondItem="BLq-2R-1ca" secondAttribute="centerX" id="ioC-QN-a8e"/>
                 <constraint firstItem="sse-8T-hYs" firstAttribute="width" secondItem="sse-8T-hYs" secondAttribute="height" id="nbI-Xe-fGR"/>
+                <constraint firstItem="sMC-ke-iNc" firstAttribute="centerX" secondItem="sse-8T-hYs" secondAttribute="centerX" id="qWm-Ta-yAl"/>
                 <constraint firstItem="smj-qE-Jdy" firstAttribute="top" secondItem="BLq-2R-1ca" secondAttribute="bottom" constant="2" id="rT0-co-GWN"/>
                 <constraint firstItem="i9n-fb-ABp" firstAttribute="centerX" secondItem="1jH-yT-AM0" secondAttribute="centerX" id="xtw-yj-4cx"/>
                 <constraint firstItem="1jH-yT-AM0" firstAttribute="top" secondItem="i3S-Gm-XM7" secondAttribute="top" constant="20" id="zgd-rv-Ajy"/>
@@ -141,6 +156,7 @@
         <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="plus.magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
         <namedColor name="themeBG">
             <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

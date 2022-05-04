@@ -58,7 +58,6 @@ class AuthManager {
                 switch result {
                 case .success(let users):
                     self?.blockUsers = users
-                    print(users)
                     completion(.success(true))
                 case .failure(let error):
                     completion(.failure(error))
