@@ -27,20 +27,18 @@ class PlankManager {
         if checkAngle(ankelToHipRight, min: 160, max: 185),
            checkAngle(shoulderToKneeRight, min: 160, max: 185),
            checkAngle(shoulderToWristRight, min: 73, max: 110),
-           checkAngle(elbowToHipRight, min: 73, max: 110),
+           checkAngle(elbowToHipRight, min: 60, max: 110),
            comparePosePoint(pointA: posePoints[30], pointB: posePoints[32], min: 0.9, max: 1.1) {
-            
             isPlank = true
         } else if checkAngle(ankelToHipLeft, min: 160, max: 185),
                   checkAngle(shoulderToKneeLeft, min: 160, max: 185),
                   checkAngle(shoulderToWristLeft, min: 73, max: 110),
-                  checkAngle(elbowToHipLeft, min: 73, max: 110),
+                  checkAngle(elbowToHipLeft, min: 60, max: 110),
                   comparePosePoint(pointA: posePoints[32], pointB: posePoints[30], min: 0.9, max: 1.1) {
             isPlank = true
         } else {
             isPlank = false
         }
-        print(isPlank)
     }
     
     private func checkAngle(_ angle: CGFloat, min: CGFloat, max: CGFloat) -> Bool {
