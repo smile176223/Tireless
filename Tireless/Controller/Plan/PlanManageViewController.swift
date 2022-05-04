@@ -261,7 +261,7 @@ extension PlanManageViewController {
     
     private func setUserAlert(plan: Plan) {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let adjust = UIAlertAction(title: "修改計畫次數", style: .destructive) { _ in
+        let adjust = UIAlertAction(title: "修改計畫次數", style: .default) { _ in
             self.showSettingAlert(plan: plan)
         }
         let delete = UIAlertAction(title: "刪除計畫", style: .destructive) { _ in
