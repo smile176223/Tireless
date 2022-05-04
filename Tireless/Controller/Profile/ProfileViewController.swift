@@ -204,7 +204,7 @@ extension ProfileViewController {
         }
         controller.addAction(deleteAction)
         let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
-            print("ban")
+            self.viewModel.blockUser(blockId: userId)
         }
         controller.addAction(banAction)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)

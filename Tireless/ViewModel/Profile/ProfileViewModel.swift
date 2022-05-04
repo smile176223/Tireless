@@ -53,6 +53,19 @@ class ProfileViewModel {
         }
     }
     
+    func blockUser(blockId: String) {
+        UserManager.shared.blockUser(blockId: blockId) { result in
+            switch result {
+            case .success(let text):
+                ProgressHUD.showSuccess(text: "已封鎖!")
+                print(text)
+            case .failure(let error):
+                print(error)
+                ProgressHUD.showFailure()
+            }
+        }
+    }
+    
     func fetchHistoryPlan() {
         PlanManager.shared.fetchHistoryPlan(userId: AuthManager.shared.currentUser) { [weak self] result in
             switch result {
