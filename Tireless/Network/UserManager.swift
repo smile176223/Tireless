@@ -152,7 +152,8 @@ class UserManager {
     }
     
     func fetchBlockUser(completion: @escaping (Result<[String], Error>) -> Void) {
-        userDB.document(AuthManager.shared.currentUser).collection("BlockLists").getDocuments { querySnapshot, error in
+        let ref = userDB.document(AuthManager.shared.currentUser).collection("BlockLists")
+        ref.addSnapshotListener { querySnapshot, error in
                 guard let querySnapshot = querySnapshot else { return }
                 if let error = error {
                     completion(.failure(error))
