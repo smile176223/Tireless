@@ -29,6 +29,8 @@ class ProfileHeaderView: UICollectionReusableView {
     
     var isHistoryTab: (() -> Void)?
     
+    var isBlockListButtonTab: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLayout()
@@ -62,6 +64,10 @@ class ProfileHeaderView: UICollectionReusableView {
     @IBAction func historyabButtonTap(_ sender: UIButton) {
         indicatorAnimate(sender)
         isHistoryTab?()
+    }
+    
+    @IBAction func blockListButtonTap(_ sender: UIButton) {
+        isBlockListButtonTab?()
     }
     
     private func setupLayout() {

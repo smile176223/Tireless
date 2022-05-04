@@ -17,6 +17,8 @@ class AuthManager {
     
     var currentUserData: User?
     
+    var blockUsers = [String]()
+    
     func signInWithApple(idToken: String, nonce: String, appleName: String,
                          completion: @escaping (Result<AuthDataResult, Error>) -> Void) {
         let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com",
@@ -47,6 +49,15 @@ class AuthManager {
                 switch result {
                 case .success(let user):
                     self?.currentUserData = user
+                    completion(.success(true))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+            UserManager.shared.fetchBlockUser { [weak self]result in
+                switch result {
+                case .success(let users):
+                    self?.blockUsers = users
                     completion(.success(true))
                 case .failure(let error):
                     completion(.failure(error))

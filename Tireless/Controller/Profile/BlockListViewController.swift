@@ -1,13 +1,13 @@
 //
-//  InviteFriendViewController.swift
+//  BlockListViewController.swift
 //  Tireless
 //
-//  Created by Hao on 2022/4/28.
+//  Created by Hao on 2022/5/4.
 //
 
 import UIKit
 
-class InviteFriendViewController: UIViewController {
+class BlockListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -16,7 +16,7 @@ class InviteFriendViewController: UIViewController {
         }
     }
     
-    let viewModel = InviteFriendViewModel()
+    let viewModel = BlockListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,20 +28,21 @@ class InviteFriendViewController: UIViewController {
         tableView.register(UINib(nibName: "\(InviteFriendViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(InviteFriendViewCell.self)")
         
-        viewModel.getReceiveInvite()
-        
-        viewModel.friendViewModels.bind { [weak self] _ in
+        viewModel.blocksViewModels.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }
-        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchBlocks()
     }
 }
 
-extension InviteFriendViewController: UITableViewDelegate, UITableViewDataSource {
+extension BlockListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.viewModel.friendViewModels.value.count
+        viewModel.blocksViewModels.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,19 +51,8 @@ extension InviteFriendViewController: UITableViewDelegate, UITableViewDataSource
             return UITableViewCell()
         }
         
-        let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
-        cell.setup(viewModel: cellViewModel)
-        
-        cell.isAgreeButtonTap = {
-            FriendManager.shared.addFriend(userId: cellViewModel.user.userId)
-            ProgressHUD.showSuccess(text: "已加入!")
-        }
-        
-        cell.isRejectButtonTap = {
-            FriendManager.shared.rejectInvite(userId: cellViewModel.user.userId)
-            ProgressHUD.showSuccess(text: "已拒絕!")
-        }
-        
+        let cellViewModel = self.viewModel.blocksViewModels.value[indexPath.row]
+        cell.setupBlock(viewModel: cellViewModel)
         return cell
     }
     

@@ -17,14 +17,14 @@ class HistoryPlanViewCell: UICollectionViewCell {
     
     @IBOutlet weak var historyFinishTimeLabel: UILabel!
     
-    var viewModel: HistoryPlanViewModels?
+    var viewModel: HistoryPlanViewModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLayout()
     }
     
-    func setup(viewModel: HistoryPlanViewModels) {
+    func setup(viewModel: HistoryPlanViewModel) {
         self.viewModel = viewModel
         layoutCell()
     }

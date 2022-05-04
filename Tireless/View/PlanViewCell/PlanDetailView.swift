@@ -17,7 +17,6 @@ class PlanDetailView: UIView {
     private var imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-//        image.image = UIImage(named: "深蹲")
         return image
     }()
     

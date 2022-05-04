@@ -15,7 +15,11 @@ class ShareCommentViewCell: UITableViewCell {
     
     @IBOutlet weak var commentTextLabel: UILabel!
     
+    @IBOutlet weak var setButton: UIButton!
+    
     var viewModel: CommentsViewModel?
+    
+    var isSetButtonTap: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,9 +39,17 @@ class ShareCommentViewCell: UITableViewCell {
         }
         commentNameLabel.text = viewModel?.comment.user?.name
         commentTextLabel.text = viewModel?.comment.content
+        if viewModel?.comment.userId == AuthManager.shared.currentUser {
+            setButton.isHidden = true
+        } else {
+            setButton.isHidden = false
+        }
     }
     
     private func setupLayout() {
         commentImageView.layer.cornerRadius = commentImageView.frame.height / 2
+    }
+    @IBAction func setButtonTap(_ sender: UIButton) {
+        isSetButtonTap?()
     }
 }
