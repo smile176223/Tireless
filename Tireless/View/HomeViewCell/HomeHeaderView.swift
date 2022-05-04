@@ -19,7 +19,7 @@ class HomeHeaderView: UICollectionReusableView {
     var createGroupButton: UIButton = {
         let button = UIButton()
         button.setTitle("發起揪團", for: .normal)
-        button.titleLabel?.font = .regular(size: 15)
+        button.titleLabel?.font = .bold(size: 15)
         button.setTitleColor(UIColor.themeBG, for: .normal)
         button.backgroundColor = .themeYellow
         return button

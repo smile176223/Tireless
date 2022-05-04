@@ -59,4 +59,5 @@ struct FinishTime: Codable {
     let day: Int
     let time: Int64
     let planTimes: String
+    var videoId: String?
 }

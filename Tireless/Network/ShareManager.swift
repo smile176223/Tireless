@@ -20,7 +20,7 @@ class ShareManager {
     
     var blockUsers = [String]()
     
-    func uploadVideo(shareFile: ShareFiles, completion: @escaping (Result<URL, Error>) -> Void) {
+    func uploadVideo(shareFile: ShareFiles, completion: @escaping (Result<String, Error>) -> Void) {
         let videoRef = Storage.storage().reference().child("Videos/\(shareFile.shareName)")
         let uploadTask = videoRef.putFile(from: shareFile.shareURL, metadata: nil) { _, error in
             if let error = error {
@@ -34,13 +34,14 @@ class ShareManager {
                 guard let downloadURL = url else {
                     return
                 }
-                completion(.success(downloadURL))
+//                completion(.success(downloadURL))
                 do {
                     var tempFile = shareFile
                     tempFile.shareURL = downloadURL
                     let document = self.shareWallDB.document()
                     tempFile.uuid = document.documentID
                     try document.setData(from: tempFile)
+                    completion(.success(tempFile.uuid))
                 } catch {
                     print(error)
                 }
