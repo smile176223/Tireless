@@ -13,7 +13,7 @@ class PlankManager {
     
     private var isPlank = false
     
-    func plankWork(_ posePoints: [PosePoint]) -> Bool {
+    func plankWorkLandscape(_ posePoints: [PosePoint]) -> Bool {
         let ankelToHipRight = angle(posePoints[22], posePoints[3], posePoints[2])
         let shoulderToKneeRight = angle(posePoints[32], posePoints[22], posePoints[3])
         let shoulderToWristRight = angle(posePoints[32], posePoints[9], posePoints[5])
@@ -35,6 +35,32 @@ class PlankManager {
                   checkAngle(shoulderToWristLeft, min: 73, max: 110),
                   checkAngle(elbowToHipLeft, min: 60, max: 110),
                   comparePosePoint(pointA: posePoints[32], pointB: posePoints[30], min: 0.9, max: 1.1) {
+            isPlank = true
+        } else {
+            isPlank = false
+        }
+        return isPlank
+    }
+    
+    func plankWork(_ posePoints: [PosePoint]) -> Bool {
+        let rightElbowShoulder = angle(posePoints[9], posePoints[32], posePoints[30])
+        let leftElbowShoulder = angle(posePoints[7], posePoints[30], posePoints[32])
+        
+        let rightElbowHip = angle(posePoints[9], posePoints[32], posePoints[22])
+        let leftElbowHip = angle(posePoints[7], posePoints[30], posePoints[26])
+        
+        let centerA = (posePoints[22].position.y + posePoints[32].position.y) / 2
+        let centerB = (posePoints[26].position.y + posePoints[30].position.y) / 2
+        
+        if checkAngle(rightElbowShoulder, min: 85, max: 130),
+           checkAngle(rightElbowHip, min: 30, max: 85),
+           posePoints[28].position.y > centerA * 0.9 ,
+           posePoints[28].position.y > centerB * 0.9 {
+            isPlank = true
+        } else if checkAngle(leftElbowShoulder, min: 85, max: 130),
+                  checkAngle(leftElbowHip, min: 30, max: 85),
+                  posePoints[28].position.y > centerA * 0.9 ,
+                  posePoints[28].position.y > centerB * 0.9 {
             isPlank = true
         } else {
             isPlank = false

@@ -26,7 +26,7 @@ class PoseDetectViewController: UIViewController {
         static let lineWidth: CGFloat = 3.0
     }
     
-    private var isUsingFrontCamera = false
+    private var isUsingFrontCamera = true
     
     private var isUserRejectRecording = false
     
@@ -144,7 +144,7 @@ class PoseDetectViewController: UIViewController {
         previewLayer?.frame = cameraPreView.bounds
     }
     
-    @IBAction func recordTap(_ sender: Any) {
+    @IBAction func recordTap(_ sender: UIButton) {
         counter += 1
     }
     
