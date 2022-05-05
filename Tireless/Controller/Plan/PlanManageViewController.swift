@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class PlanManageViewController: UIViewController {
     
@@ -50,6 +49,8 @@ class PlanManageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if AuthManager.shared.currentUser != "" {
             self.viewModel.fetchPlan()
+        } else {
+            self.viewModel.logoutReset()
         }
     }
     
@@ -111,7 +112,7 @@ class PlanManageViewController: UIViewController {
         self.present(poseVC, animated: true)
     }
     
-    private func groupPlanPresnt(plan: Plan) {
+    private func groupPlanPresent(plan: Plan) {
         guard let groupVC = storyboard?.instantiateViewController(
             withIdentifier: "\(GroupPlanStatusViewController.self)")
                 as? GroupPlanStatusViewController
@@ -121,6 +122,18 @@ class PlanManageViewController: UIViewController {
         groupVC.plan = plan
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(groupVC, animated: true)
+    }
+    
+    private func planReviewPresent(plan: Plan) {
+        guard let reviewVC = storyboard?.instantiateViewController(
+            withIdentifier: "\(PlanReviewViewController.self)")
+                as? PlanReviewViewController
+        else {
+            return
+        }
+        reviewVC.plan = plan
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(reviewVC, animated: true)
     }
 }
 
@@ -191,10 +204,12 @@ extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            return
+            let cellViewModel = self.viewModel.planViewModels.value[indexPath.row]
+            planReviewPresent(plan: cellViewModel.plan)
+        } else {
+            let cellViewModel = self.viewModel.groupPlanViewModels.value[indexPath.row]
+            groupPlanPresent(plan: cellViewModel.plan)
         }
-        let cellViewModel = self.viewModel.groupPlanViewModels.value[indexPath.row]
-        groupPlanPresnt(plan: cellViewModel.plan)
     }
 }
 
@@ -260,7 +275,7 @@ extension PlanManageViewController {
     
     private func setUserAlert(plan: Plan) {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let adjust = UIAlertAction(title: "修改計畫次數", style: .destructive) { _ in
+        let adjust = UIAlertAction(title: "修改計畫次數", style: .default) { _ in
             self.showSettingAlert(plan: plan)
         }
         let delete = UIAlertAction(title: "刪除計畫", style: .destructive) { _ in

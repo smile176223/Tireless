@@ -67,7 +67,7 @@ class PlanManageViewCell: UICollectionViewCell {
         }
         
         let isTodayFinish = viewModel.plan.finishTime.contains(where: { finishTime in
-            finishTime?.time ?? 0 > getStartOfDay().millisecondsSince1970
+            finishTime.time > getStartOfDay().millisecondsSince1970
         })
         
         if isTodayFinish == true {

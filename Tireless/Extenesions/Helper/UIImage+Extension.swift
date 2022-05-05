@@ -35,4 +35,6 @@ extension UIImage {
     static var tabVideo = UIImage(named: "icons_video")
     
     static var tabUser = UIImage(named: "icons_user")
+    
+    static var noVideo = UIImage(named: "icons_novideo")
 }
