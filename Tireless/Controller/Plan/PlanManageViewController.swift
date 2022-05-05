@@ -112,7 +112,7 @@ class PlanManageViewController: UIViewController {
         self.present(poseVC, animated: true)
     }
     
-    private func groupPlanPresnt(plan: Plan) {
+    private func groupPlanPresent(plan: Plan) {
         guard let groupVC = storyboard?.instantiateViewController(
             withIdentifier: "\(GroupPlanStatusViewController.self)")
                 as? GroupPlanStatusViewController
@@ -122,6 +122,18 @@ class PlanManageViewController: UIViewController {
         groupVC.plan = plan
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(groupVC, animated: true)
+    }
+    
+    private func planReviewPresent(plan: Plan) {
+        guard let reviewVC = storyboard?.instantiateViewController(
+            withIdentifier: "\(PlanReviewViewController.self)")
+                as? PlanReviewViewController
+        else {
+            return
+        }
+        reviewVC.plan = plan
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(reviewVC, animated: true)
     }
 }
 
@@ -192,10 +204,12 @@ extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            return
+            let cellViewModel = self.viewModel.planViewModels.value[indexPath.row]
+            planReviewPresent(plan: cellViewModel.plan)
+        } else {
+            let cellViewModel = self.viewModel.groupPlanViewModels.value[indexPath.row]
+            groupPlanPresent(plan: cellViewModel.plan)
         }
-        let cellViewModel = self.viewModel.groupPlanViewModels.value[indexPath.row]
-        groupPlanPresnt(plan: cellViewModel.plan)
     }
 }
 

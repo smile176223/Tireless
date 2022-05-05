@@ -126,6 +126,9 @@
 		FF5E89C62822804100214A5D /* BlocksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89C52822804100214A5D /* BlocksViewModel.swift */; };
 		FF5E89C928234EA000214A5D /* PlanReviewViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89C828234EA000214A5D /* PlanReviewViewCell.swift */; };
 		FF5E89CB28234EAB00214A5D /* PlanReviewViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF5E89CA28234EAB00214A5D /* PlanReviewViewCell.xib */; };
+		FF5E89D12823527000214A5D /* PlanReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89D02823527000214A5D /* PlanReviewViewController.swift */; };
+		FF5E89D42823A3DF00214A5D /* PlanReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89D32823A3DF00214A5D /* PlanReviewViewModel.swift */; };
+		FF5E89D62823AB9600214A5D /* FinishTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89D52823AB9600214A5D /* FinishTimeViewModel.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -268,6 +271,9 @@
 		FF5E89C52822804100214A5D /* BlocksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViewModel.swift; sourceTree = "<group>"; };
 		FF5E89C828234EA000214A5D /* PlanReviewViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanReviewViewCell.swift; sourceTree = "<group>"; };
 		FF5E89CA28234EAB00214A5D /* PlanReviewViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanReviewViewCell.xib; sourceTree = "<group>"; };
+		FF5E89D02823527000214A5D /* PlanReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanReviewViewController.swift; sourceTree = "<group>"; };
+		FF5E89D32823A3DF00214A5D /* PlanReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanReviewViewModel.swift; sourceTree = "<group>"; };
+		FF5E89D52823AB9600214A5D /* FinishTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTimeViewModel.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -350,6 +356,7 @@
 				FF3FBE8928148C9800E6B5DC /* Profile */,
 				FF5E89CE28234FCC00214A5D /* FriendList */,
 				FF3FBE682811C2FE00E6B5DC /* Plan */,
+				FF5E89CF2823525900214A5D /* PlanReview */,
 				FFC7B9FB281FFC7F0080A31E /* GroupPlan */,
 				FF308E6528057D5D00265863 /* Home */,
 				FF308E612805787300265863 /* PoseDetect */,
@@ -366,6 +373,7 @@
 				FF3FBE9928150FA200E6B5DC /* Profile */,
 				FF5E89CD28234F9A00214A5D /* FriendList */,
 				FF3FBE7628128C1400E6B5DC /* Plan */,
+				FF5E89D22823A3C600214A5D /* PlanReview */,
 				FFC7B9FA281FFC600080A31E /* GroupPlan */,
 				FF3FBE632811BE6E00E6B5DC /* Home */,
 				FF308E8B2809176D00265863 /* ShareWall */,
@@ -738,6 +746,23 @@
 			path = FriendList;
 			sourceTree = "<group>";
 		};
+		FF5E89CF2823525900214A5D /* PlanReview */ = {
+			isa = PBXGroup;
+			children = (
+				FF5E89D02823527000214A5D /* PlanReviewViewController.swift */,
+			);
+			path = PlanReview;
+			sourceTree = "<group>";
+		};
+		FF5E89D22823A3C600214A5D /* PlanReview */ = {
+			isa = PBXGroup;
+			children = (
+				FF5E89D32823A3DF00214A5D /* PlanReviewViewModel.swift */,
+				FF5E89D52823AB9600214A5D /* FinishTimeViewModel.swift */,
+			);
+			path = PlanReview;
+			sourceTree = "<group>";
+		};
 		FFC0C14828008F640041A937 = {
 			isa = PBXGroup;
 			children = (
@@ -1024,6 +1049,7 @@
 				FF3F77E428185E6C00D8360A /* AuthManager.swift in Sources */,
 				FF1444B12801A6760027F560 /* StartManager.swift in Sources */,
 				FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */,
+				FF5E89D42823A3DF00214A5D /* PlanReviewViewModel.swift in Sources */,
 				FF3FBE8B28148CAC00E6B5DC /* ProfileViewController.swift in Sources */,
 				FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */,
 				FFC7B9F7281FD0140080A31E /* JGProgressHUDWrapper.swift in Sources */,
@@ -1034,6 +1060,7 @@
 				FF2EF6F528204CA9008418A0 /* JoinUsersViewModel.swift in Sources */,
 				FF3FBE6A2811C33B00E6B5DC /* PlanManageViewController.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */,
+				FF5E89D12823527000214A5D /* PlanReviewViewController.swift in Sources */,
 				FF3F77F6281AC96B00D8360A /* InviteFriendViewController.swift in Sources */,
 				FFC7B9EC281FB1BA0080A31E /* GroupPlanStatusViewCell.swift in Sources */,
 				FF3F77FE281B006700D8360A /* SignUpViewController.swift in Sources */,
@@ -1049,6 +1076,7 @@
 				FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */,
 				FF308E6828057D7800265863 /* HomeViewController.swift in Sources */,
 				FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */,
+				FF5E89D62823AB9600214A5D /* FinishTimeViewModel.swift in Sources */,
 				FF1444AF280183920027F560 /* SquatManager.swift in Sources */,
 				FF5E89C02822290C00214A5D /* Orientation+Extension.swift in Sources */,
 				FF5E89C228227D5A00214A5D /* BlockListViewController.swift in Sources */,

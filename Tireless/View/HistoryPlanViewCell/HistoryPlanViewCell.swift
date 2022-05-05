@@ -54,7 +54,7 @@ class HistoryPlanViewCell: UICollectionViewCell {
             historyPlanNameLabel.text = "\(viewModel.plan.planName) (個人)"
         }
         let finish = viewModel.plan.finishTime.endIndex - 1
-        let finishDate = Date(milliseconds: viewModel.plan.finishTime[finish]?.time ?? 0)
+        let finishDate = Date(milliseconds: viewModel.plan.finishTime[finish].time)
         historyFinishTimeLabel.text = "完成時間: \(Date.dateFormatter.string(from: finishDate))"
     }
     

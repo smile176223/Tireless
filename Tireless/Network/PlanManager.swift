@@ -113,6 +113,34 @@ class PlanManager {
         }
     }
     
+    func fetchPlanReviewVideo(finishTime: [FinishTime], completion: @escaping (Result<[FinishTime], Error>) -> Void) {
+        let ref = Firestore.firestore().collection("shareWall")
+        var tempFinish = finishTime
+        DispatchQueue.global().async {
+            let semaphore = DispatchSemaphore(value: 0)
+            for index in 0..<finishTime.count {
+                if let videoId = finishTime[index].videoId {
+                    if videoId == "" {
+                        semaphore.signal()
+                        continue
+                    }
+                    ref.document(videoId).getDocument { querySnapshot, error in
+                        if let error = error {
+                            completion(.failure(error))
+                        } else {
+                            if let data = try? querySnapshot?.data(as: ShareFiles.self, decoder: Firestore.Decoder()) {
+                                tempFinish[index].videoURL = "\(data.shareURL)"
+                            }
+                        }
+                        semaphore.signal()
+                    }
+                }
+                semaphore.wait()
+            }
+            completion(.success(tempFinish))
+        }
+    }
+    
     func checkGroupUsersStatus(plan: Plan, completion: @escaping (Result<[Plan], Error>) -> Void) {
         groupPlanDB.document(plan.uuid).getDocument(as: GroupPlanUser.self) { result in
             switch result {
