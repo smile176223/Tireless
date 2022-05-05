@@ -129,6 +129,8 @@
 		FF5E89D12823527000214A5D /* PlanReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89D02823527000214A5D /* PlanReviewViewController.swift */; };
 		FF5E89D42823A3DF00214A5D /* PlanReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89D32823A3DF00214A5D /* PlanReviewViewModel.swift */; };
 		FF5E89D62823AB9600214A5D /* FinishTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89D52823AB9600214A5D /* FinishTimeViewModel.swift */; };
+		FF5E89D82823BCB000214A5D /* PlanReviewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89D72823BCB000214A5D /* PlanReviewHeaderView.swift */; };
+		FF5E89DA2823BCCC00214A5D /* PlanReviewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF5E89D92823BCCC00214A5D /* PlanReviewHeaderView.xib */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -274,6 +276,8 @@
 		FF5E89D02823527000214A5D /* PlanReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanReviewViewController.swift; sourceTree = "<group>"; };
 		FF5E89D32823A3DF00214A5D /* PlanReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanReviewViewModel.swift; sourceTree = "<group>"; };
 		FF5E89D52823AB9600214A5D /* FinishTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTimeViewModel.swift; sourceTree = "<group>"; };
+		FF5E89D72823BCB000214A5D /* PlanReviewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanReviewHeaderView.swift; sourceTree = "<group>"; };
+		FF5E89D92823BCCC00214A5D /* PlanReviewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanReviewHeaderView.xib; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -705,6 +709,8 @@
 			children = (
 				FF5E89C828234EA000214A5D /* PlanReviewViewCell.swift */,
 				FF5E89CA28234EAB00214A5D /* PlanReviewViewCell.xib */,
+				FF5E89D72823BCB000214A5D /* PlanReviewHeaderView.swift */,
+				FF5E89D92823BCCC00214A5D /* PlanReviewHeaderView.xib */,
 			);
 			path = PlanReviewViewCell;
 			sourceTree = "<group>";
@@ -925,6 +931,7 @@
 				FF3FBE7228125E5800E6B5DC /* PlanManageViewCell.xib in Resources */,
 				FF308E5D28055F9700265863 /* DetectFinishView.xib in Resources */,
 				FF3F77EE281A1EB500D8360A /* SearchFriendViewCell.xib in Resources */,
+				FF5E89DA2823BCCC00214A5D /* PlanReviewHeaderView.xib in Resources */,
 				FF308E832808106500265863 /* ShareWall.storyboard in Resources */,
 				FF3FBE672811C2E100E6B5DC /* Plan.storyboard in Resources */,
 				FFC0C15E28008F650041A937 /* Assets.xcassets in Resources */,
@@ -1131,6 +1138,7 @@
 				FF5E89C62822804100214A5D /* BlocksViewModel.swift in Sources */,
 				FF3F77F4281A7D7800D8360A /* SearchFriendViewModel.swift in Sources */,
 				FF5E89C928234EA000214A5D /* PlanReviewViewCell.swift in Sources */,
+				FF5E89D82823BCB000214A5D /* PlanReviewHeaderView.swift in Sources */,
 				FF3F77E62819AEEE00D8360A /* FriendsViewModel.swift in Sources */,
 				FF3FBE922814FE6100E6B5DC /* ProfileHeaderView.swift in Sources */,
 				FF308E772807A4F400265863 /* User.swift in Sources */,

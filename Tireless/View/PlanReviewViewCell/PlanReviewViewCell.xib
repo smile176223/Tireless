@@ -25,7 +25,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAu-Uf-A3x">
-                        <rect key="frame" x="15" y="36" width="45" height="28"/>
+                        <rect key="frame" x="25" y="36" width="45" height="28"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -56,7 +56,7 @@
                         </connections>
                     </button>
                     <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oeI-6f-7aT">
-                        <rect key="frame" x="90" y="90.5" width="294" height="1"/>
+                        <rect key="frame" x="90" y="95.5" width="294" height="1"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Gd6-ym-R0k"/>
@@ -68,13 +68,13 @@
                     <constraint firstItem="Ixy-eQ-Rm5" firstAttribute="leading" secondItem="drp-pC-dhs" secondAttribute="leading" constant="90" id="3Mc-ey-0Tf"/>
                     <constraint firstItem="TjM-PT-LfX" firstAttribute="centerY" secondItem="8UV-Vk-Z2U" secondAttribute="centerY" id="FtK-Wf-C6P"/>
                     <constraint firstItem="EeI-Ox-Iy8" firstAttribute="leading" secondItem="Ixy-eQ-Rm5" secondAttribute="leading" id="LPZ-cj-eaU"/>
-                    <constraint firstItem="oeI-6f-7aT" firstAttribute="top" secondItem="EeI-Ox-Iy8" secondAttribute="bottom" constant="10" id="No1-Jk-p86"/>
+                    <constraint firstItem="oeI-6f-7aT" firstAttribute="top" secondItem="EeI-Ox-Iy8" secondAttribute="bottom" constant="15" id="No1-Jk-p86"/>
                     <constraint firstItem="bAu-Uf-A3x" firstAttribute="centerY" secondItem="drp-pC-dhs" secondAttribute="centerY" id="QAq-6Y-FeJ"/>
                     <constraint firstItem="oeI-6f-7aT" firstAttribute="trailing" secondItem="8UV-Vk-Z2U" secondAttribute="trailing" id="Qcm-uk-xzj"/>
                     <constraint firstItem="EeI-Ox-Iy8" firstAttribute="centerY" secondItem="drp-pC-dhs" secondAttribute="centerY" constant="20" id="Vem-IL-pde"/>
                     <constraint firstAttribute="trailing" secondItem="8UV-Vk-Z2U" secondAttribute="trailing" constant="30" id="YlZ-3J-0oc"/>
                     <constraint firstItem="oeI-6f-7aT" firstAttribute="leading" secondItem="EeI-Ox-Iy8" secondAttribute="leading" id="mrg-t9-WTF"/>
-                    <constraint firstItem="bAu-Uf-A3x" firstAttribute="leading" secondItem="drp-pC-dhs" secondAttribute="leading" constant="15" id="pI9-Nd-AT0"/>
+                    <constraint firstItem="bAu-Uf-A3x" firstAttribute="leading" secondItem="drp-pC-dhs" secondAttribute="leading" constant="25" id="pI9-Nd-AT0"/>
                     <constraint firstItem="Ixy-eQ-Rm5" firstAttribute="top" secondItem="8UV-Vk-Z2U" secondAttribute="top" id="vbh-ZX-rNT"/>
                     <constraint firstItem="TjM-PT-LfX" firstAttribute="centerX" secondItem="8UV-Vk-Z2U" secondAttribute="centerX" id="wmR-ag-BHK"/>
                     <constraint firstItem="8UV-Vk-Z2U" firstAttribute="centerY" secondItem="drp-pC-dhs" secondAttribute="centerY" id="xLM-al-gGZ"/>
@@ -84,6 +84,7 @@
                 <outlet property="dayLabel" destination="bAu-Uf-A3x" id="3H2-j2-tzM"/>
                 <outlet property="finishTimeLabel" destination="EeI-Ox-Iy8" id="i1s-U1-nbd"/>
                 <outlet property="planTimeLabel" destination="Ixy-eQ-Rm5" id="vWh-2e-Red"/>
+                <outlet property="playButton" destination="TjM-PT-LfX" id="Z9L-6l-Tqm"/>
                 <outlet property="thumbnailImageView" destination="8UV-Vk-Z2U" id="vsJ-6W-y5o"/>
             </connections>
             <point key="canvasLocation" x="53.623188405797109" y="95.758928571428569"/>

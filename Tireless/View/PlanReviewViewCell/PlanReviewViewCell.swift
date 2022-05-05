@@ -18,6 +18,8 @@ class PlanReviewViewCell: UITableViewCell {
     
     @IBOutlet weak var finishTimeLabel: UILabel!
     
+    @IBOutlet weak var playButton: UIButton!
+    
     var isPlayButtonTap: (() -> Void)?
     
     var viewModel: FinishTimeViewModel?
@@ -42,6 +44,9 @@ class PlanReviewViewCell: UITableViewCell {
         finishTimeLabel.text = "\(Date.dateFormatter.string(from: finishDate))"
         if viewModel.finishTime.videoId == "" {
             thumbnailImageView.image = UIImage.placeHolder
+            playButton.isHidden = true
+        } else {
+            playButton.isHidden = false
         }
         if let url = URL(string: viewModel.finishTime.videoURL ?? "") {
             DispatchQueue.main.async {

@@ -28,9 +28,13 @@ class PlanReviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = "計畫進度"
         self.navigationController?.navigationBar.backgroundColor = .themeBG
         self.view.backgroundColor = .themeBG
         self.tableView.backgroundColor = .themeBG
+        
+        tableView.register(UINib(nibName: "\(PlanReviewHeaderView.self)", bundle: nil),
+                                 forHeaderFooterViewReuseIdentifier: "\(PlanReviewHeaderView.self)")
         
         tableView.register(UINib(nibName: "\(PlanReviewViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(PlanReviewViewCell.self)")
@@ -85,6 +89,25 @@ extension PlanReviewViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: "\(PlanReviewHeaderView.self)")
+                as? PlanReviewHeaderView else {
+            return UIView()
+        }
+        if let plan = plan {
+            header.planImageView.image = UIImage(named: plan.planName)
+            header.planNameLabel.text = plan.planName
+            header.planTImesLabel.text = "每天\(plan.planTimes)秒/次，持續\(plan.planDays)天"
+            header.planProgressBar.progress = Float(plan.progress)
+        }
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        130
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
