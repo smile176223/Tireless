@@ -36,10 +36,10 @@ class PlanReviewViewCell: UITableViewCell {
         guard let viewModel = viewModel else {
             return
         }
-        dayLabel.text = "\(viewModel.finishTime.day)"
-        planTimeLabel.text = "\(viewModel.finishTime.planTimes)次/秒"
+        dayLabel.text = "Day\(viewModel.finishTime.day)"
+        planTimeLabel.text = "\(viewModel.finishTime.planTimes) 次/秒"
         let finishDate = Date(milliseconds: viewModel.finishTime.time)
-        finishTimeLabel.text = "完成時間: \(Date.dateFormatter.string(from: finishDate))"
+        finishTimeLabel.text = "\(Date.dateFormatter.string(from: finishDate))"
         if viewModel.finishTime.videoId == "" {
             thumbnailImageView.image = UIImage.placeHolder
         }
