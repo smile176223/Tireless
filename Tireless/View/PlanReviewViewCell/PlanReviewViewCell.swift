@@ -43,10 +43,14 @@ class PlanReviewViewCell: UITableViewCell {
         let finishDate = Date(milliseconds: viewModel.finishTime.time)
         finishTimeLabel.text = "\(Date.dateFormatter.string(from: finishDate))"
         if viewModel.finishTime.videoId == "" {
-            thumbnailImageView.image = UIImage.placeHolder
+            thumbnailImageView.image = UIImage.noVideo
+            thumbnailImageView.contentMode = .center
+            thumbnailImageView.alpha = 1
             playButton.isHidden = true
         } else {
             playButton.isHidden = false
+            thumbnailImageView.alpha = 0.7
+            thumbnailImageView.contentMode = .scaleAspectFill
         }
         if let url = URL(string: viewModel.finishTime.videoURL ?? "") {
             DispatchQueue.main.async {
