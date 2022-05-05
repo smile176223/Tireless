@@ -144,7 +144,7 @@ class PoseDetectViewController: UIViewController {
         previewLayer?.frame = cameraPreView.bounds
     }
     
-    @IBAction func recordTap(_ sender: Any) {
+    @IBAction func recordTap(_ sender: UIButton) {
         counter += 1
     }
     
