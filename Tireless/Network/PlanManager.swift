@@ -121,7 +121,6 @@ class PlanManager {
             for index in 0..<finishTime.count {
                 if let videoId = finishTime[index].videoId {
                     if videoId == "" {
-                        semaphore.signal()
                         continue
                     }
                     ref.document(videoId).getDocument { querySnapshot, error in
