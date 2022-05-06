@@ -64,7 +64,10 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usB-V8-NUl">
-                        <rect key="frame" x="324" y="65" width="30" height="20"/>
+                        <rect key="frame" x="325.5" y="66" width="27" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="usB-V8-NUl" secondAttribute="height" multiplier="3:2" id="J6L-S5-516"/>
+                        </constraints>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" backgroundImage="video.slash.fill" catalog="system"/>
@@ -87,7 +90,7 @@
                     <constraint firstItem="oeI-6f-7aT" firstAttribute="leading" secondItem="EeI-Ox-Iy8" secondAttribute="leading" id="mrg-t9-WTF"/>
                     <constraint firstItem="usB-V8-NUl" firstAttribute="centerX" secondItem="TjM-PT-LfX" secondAttribute="centerX" id="p30-1O-7wK"/>
                     <constraint firstItem="bAu-Uf-A3x" firstAttribute="leading" secondItem="drp-pC-dhs" secondAttribute="leading" constant="22" id="pI9-Nd-AT0"/>
-                    <constraint firstItem="usB-V8-NUl" firstAttribute="width" secondItem="TjM-PT-LfX" secondAttribute="width" id="r9E-RR-07J"/>
+                    <constraint firstItem="usB-V8-NUl" firstAttribute="width" secondItem="TjM-PT-LfX" secondAttribute="width" multiplier="0.9" id="r9E-RR-07J"/>
                     <constraint firstItem="Ixy-eQ-Rm5" firstAttribute="top" secondItem="8UV-Vk-Z2U" secondAttribute="top" id="vbh-ZX-rNT"/>
                     <constraint firstItem="TjM-PT-LfX" firstAttribute="centerX" secondItem="8UV-Vk-Z2U" secondAttribute="centerX" id="wmR-ag-BHK"/>
                     <constraint firstItem="8UV-Vk-Z2U" firstAttribute="centerY" secondItem="drp-pC-dhs" secondAttribute="centerY" id="xLM-al-gGZ"/>

@@ -41,10 +41,10 @@ class AuthViewController: UIViewController {
             switch result {
             case .success(let result):
                 print(result)
-                ProgressHUD.showSuccess(text: "登入成功!")
+                ProgressHUD.showSuccess(text: "登入成功")
                 self.finishPresent()
             case .failure(let error):
-                ProgressHUD.showSuccess(text: "登入失敗!")
+                ProgressHUD.showSuccess(text: "登入失敗")
                 print(error)
             }
         }
@@ -61,7 +61,7 @@ class AuthViewController: UIViewController {
         
         appleIDButton.frame = self.appleView.bounds
         self.appleView.addSubview(appleIDButton)
-        appleIDButton.cornerRadius = 15
+        appleIDButton.cornerRadius = 12
         appleIDButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             appleIDButton.topAnchor.constraint(equalTo: appleView.topAnchor),
@@ -87,9 +87,9 @@ class AuthViewController: UIViewController {
     }
     
     private func setupLayout() {
-        signInButton.layer.cornerRadius = 20
+        signInButton.layer.cornerRadius = 12
         authView.clipsToBounds = true
-        authView.layer.cornerRadius = 25
+        authView.layer.cornerRadius = 15
         authView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",
                                                                   attributes: [.foregroundColor: UIColor.darkGray])
@@ -129,14 +129,14 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                         switch result {
                         case .success(let bool):
                             print(bool)
-                            ProgressHUD.showSuccess(text: "登入成功!")
+                            ProgressHUD.showSuccess(text: "登入成功")
                         case .failure(let error):
-                            ProgressHUD.showSuccess(text: "登入失敗!")
+                            ProgressHUD.showSuccess(text: "登入失敗")
                             print(error)
                         }
                     }
                     if name == "" {
-                        name = "Tireless User"
+                        name = "Tireless"
                     }
                     self?.viewModel.getUser(email: authResult.user.email ?? "",
                                             userId: authResult.user.uid,
@@ -145,6 +145,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                     self?.viewModel.createUser()
                     self?.finishPresent()
                 case .failure(let error):
+                    ProgressHUD.showSuccess(text: "登入失敗")
                     print(error)
                 }
             }

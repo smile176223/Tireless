@@ -222,7 +222,7 @@ extension PlanManageViewController {
             PlanManager.shared.deletePlan(userId: AuthManager.shared.currentUser, plan: plan) { result in
                 switch result {
                 case .success(let text):
-                    ProgressHUD.showSuccess(text: "刪除計畫成功!")
+                    ProgressHUD.showSuccess(text: "刪除計畫成功")
                     print(text)
                 case .failure(let error):
                     ProgressHUD.showFailure()
@@ -256,7 +256,7 @@ extension PlanManageViewController {
                                           times: times) { result in
                 switch result {
                 case .success(let text):
-                    ProgressHUD.showSuccess(text: "修改計畫成功!")
+                    ProgressHUD.showSuccess(text: "修改計畫成功")
                     print(text)
                 case .failure(let error):
                     ProgressHUD.showFailure()

@@ -45,7 +45,7 @@ class AuthManager {
                 return
             }
             self?.currentUser = user.uid
-            UserManager.shared.fetchUser(userId: user.uid) { [weak self]result in
+            UserManager.shared.fetchUser(userId: user.uid) { [weak self] result in
                 switch result {
                 case .success(let user):
                     self?.currentUserData = user
@@ -54,7 +54,7 @@ class AuthManager {
                     completion(.failure(error))
                 }
             }
-            UserManager.shared.fetchBlockUser { [weak self]result in
+            UserManager.shared.fetchBlockUser { [weak self] result in
                 switch result {
                 case .success(let users):
                     self?.blockUsers = users
@@ -113,13 +113,23 @@ class AuthManager {
     }
     
     func signUpWithFirebase(email: String, password: String,
-                            completion: @escaping (Result<AuthDataResult, Error>) -> Void) {
+                            success: @escaping ((AuthDataResult) -> Void),
+                            failure: @escaping ((String) -> Void)) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
-                completion(.failure(error))
+                if let errorCode = AuthErrorCode(rawValue: error._code) {
+                    switch errorCode {
+                    case .emailAlreadyInUse:
+                        failure("信箱已被使用")
+                    case .invalidEmail:
+                        failure("無效的信箱")
+                    default:
+                        failure("註冊失敗")
+                    }
+                }
             } else {
                 guard let result = result else { return }
-                completion(.success(result))
+                success(result)
             }
         }
     }

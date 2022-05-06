@@ -54,6 +54,11 @@ class CounterView: UIView {
         minusButton.addTarget(self, action: #selector(minusButtonTap), for: .touchUpInside)
         plusButton.addTarget(self, action: #selector(plusButtonTap), for: .touchUpInside)
         inputTextField.delegate = self
+        self.clipsToBounds = false
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOpacity = 0.8
+        self.layer.shadowOffset = .zero
+        self.layer.shadowRadius = 1
     }
     
     @objc func minusButtonTap() {

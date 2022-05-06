@@ -70,22 +70,28 @@ class ShareCommentViewController: UIViewController {
         }
     }
     @IBAction func sendCommentTap(_ sender: UIButton) {
-        guard let shareFile = shareFile,
-              let commentText = commentTextField.text else {
-            return
-        }
-        CommentManager.shared.postComment(uuid: shareFile.uuid,
-                                          comment: Comment(userId: AuthManager.shared.currentUser,
-                                                           content: commentText,
-                                                           createdTime: Date().millisecondsSince1970)) { result in
-            switch result {
-            case .success(let text):
-                print(text)
-            case .failure(let error):
-                print(error)
+        if AuthManager.shared.checkCurrentUser() == true {
+            guard let shareFile = shareFile,
+                  let commentText = commentTextField.text else {
+                return
+            }
+            CommentManager.shared.postComment(uuid: shareFile.uuid,
+                                              comment: Comment(userId: AuthManager.shared.currentUser,
+                                                               content: commentText,
+                                                               createdTime: Date().millisecondsSince1970)) { result in
+                switch result {
+                case .success(let text):
+                    print(text)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            commentTextField.text = ""
+        } else {
+            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                present(authVC, animated: true, completion: nil)
             }
         }
-        commentTextField.text = ""
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -102,10 +108,10 @@ class ShareCommentViewController: UIViewController {
                 switch result {
                 case .success(let text):
                     print(text)
-                    ProgressHUD.showSuccess(text: "封鎖成功!")
+                    ProgressHUD.showSuccess(text: "封鎖成功")
                 case .failure(let error):
                     print(error)
-                    ProgressHUD.showFailure(text: "封鎖失敗!")
+                    ProgressHUD.showFailure(text: "封鎖失敗")
                     
                 }
             }

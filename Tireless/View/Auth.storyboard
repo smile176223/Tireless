@@ -202,14 +202,16 @@
                                     <constraint firstAttribute="height" constant="100" id="yGe-4k-amC"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi there, welcome! Fitness, Tireless, Go!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPN-uE-9bc">
-                                <rect key="frame" x="30" y="277" width="195.5" height="56"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPN-uE-9bc">
+                                <rect key="frame" x="30" y="277" width="200" height="56"/>
+                                <string key="text">Hi 歡迎！
+持續運動、努力不懈！</string>
                                 <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mtq-pb-I8l">
-                                <rect key="frame" x="50" y="563" width="314" height="45"/>
+                                <rect key="frame" x="50" y="633" width="314" height="45"/>
                                 <color key="backgroundColor" name="themeBlue"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="COw-1b-bgO"/>
@@ -222,6 +224,11 @@
                                     <action selector="signUpButtonTap:" destination="XWB-MU-exn" eventType="touchUpInside" id="i7F-p1-SWx"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Check Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ibg-ym-ufg">
+                                <rect key="frame" x="30" y="563" width="354" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="f5F-Mq-OwO"/>
                         <color key="backgroundColor" name="themeBGSecond"/>
@@ -234,12 +241,16 @@
                             <constraint firstItem="Mtq-pb-I8l" firstAttribute="leading" secondItem="f5F-Mq-OwO" secondAttribute="leading" constant="50" id="Ryw-Q9-vJd"/>
                             <constraint firstItem="0Vk-vB-Q7n" firstAttribute="leading" secondItem="f5F-Mq-OwO" secondAttribute="leading" constant="60" id="Tsg-MP-qMa"/>
                             <constraint firstItem="C9f-Fj-m33" firstAttribute="leading" secondItem="f5F-Mq-OwO" secondAttribute="leading" constant="30" id="VX8-Jg-ZaM"/>
+                            <constraint firstItem="ibg-ym-ufg" firstAttribute="width" secondItem="C9f-Fj-m33" secondAttribute="width" id="YSB-02-X8W"/>
                             <constraint firstItem="gPN-uE-9bc" firstAttribute="leading" secondItem="1m9-Ab-1Mc" secondAttribute="leading" id="aGb-T7-Fy1"/>
                             <constraint firstItem="f5F-Mq-OwO" firstAttribute="trailing" secondItem="Mtq-pb-I8l" secondAttribute="trailing" constant="50" id="bWf-MM-RIY"/>
-                            <constraint firstItem="Mtq-pb-I8l" firstAttribute="top" secondItem="C9f-Fj-m33" secondAttribute="bottom" constant="20" id="etX-kP-vzu"/>
+                            <constraint firstItem="ibg-ym-ufg" firstAttribute="centerX" secondItem="8ku-O5-66e" secondAttribute="centerX" id="fIG-ve-NmA"/>
                             <constraint firstItem="f5F-Mq-OwO" firstAttribute="trailing" secondItem="0Vk-vB-Q7n" secondAttribute="trailing" constant="60" id="faP-iH-ByV"/>
+                            <constraint firstItem="Mtq-pb-I8l" firstAttribute="top" secondItem="ibg-ym-ufg" secondAttribute="bottom" constant="20" id="jRC-lk-Jg7"/>
                             <constraint firstItem="f5F-Mq-OwO" firstAttribute="trailing" secondItem="BKx-72-3e6" secondAttribute="trailing" constant="30" id="mix-uz-n7o"/>
+                            <constraint firstItem="ibg-ym-ufg" firstAttribute="top" secondItem="C9f-Fj-m33" secondAttribute="bottom" constant="20" id="nOi-be-cLy"/>
                             <constraint firstItem="BKx-72-3e6" firstAttribute="leading" secondItem="f5F-Mq-OwO" secondAttribute="leading" constant="30" id="p2L-4x-98H"/>
+                            <constraint firstItem="ibg-ym-ufg" firstAttribute="height" secondItem="C9f-Fj-m33" secondAttribute="height" id="r9d-n7-nP6"/>
                             <constraint firstItem="f5F-Mq-OwO" firstAttribute="trailing" secondItem="1m9-Ab-1Mc" secondAttribute="trailing" constant="30" id="sbn-On-Vrq"/>
                             <constraint firstItem="C9f-Fj-m33" firstAttribute="top" secondItem="BKx-72-3e6" secondAttribute="bottom" constant="20" id="tQa-ZW-i2q"/>
                             <constraint firstItem="1m9-Ab-1Mc" firstAttribute="top" secondItem="gPN-uE-9bc" secondAttribute="bottom" constant="20" id="uwA-0u-Suu"/>
@@ -248,6 +259,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="checkPasswordTextField" destination="ibg-ym-ufg" id="hv6-JN-aeF"/>
                         <outlet property="emailTextField" destination="BKx-72-3e6" id="O8V-UX-dDv"/>
                         <outlet property="nameTextField" destination="1m9-Ab-1Mc" id="cYB-5P-ch5"/>
                         <outlet property="passwordTextField" destination="C9f-Fj-m33" id="eo7-Az-Ppy"/>

@@ -33,7 +33,7 @@ class JoinGroupViewModel {
             switch result {
             case .success:
                 success()
-                ProgressHUD.showSuccess(text: "已加入!")
+                ProgressHUD.showSuccess(text: "已加入")
             case .failure(let error):
                 failure(error)
                 ProgressHUD.showFailure()
@@ -58,7 +58,7 @@ class JoinGroupViewModel {
             switch result {
             case .success(let success):
                 completion(.success(success))
-                ProgressHUD.showSuccess(text: "已放棄計畫!")
+                ProgressHUD.showSuccess(text: "已放棄計畫")
             case .failure(let error):
                 completion(.failure(error))
                 ProgressHUD.showFailure()
@@ -71,7 +71,7 @@ class JoinGroupViewModel {
             switch result {
             case .success(let success):
                 completion(.success(success))
-                ProgressHUD.showSuccess(text: "已退出揪團!")
+                ProgressHUD.showSuccess(text: "已退出揪團")
             case .failure(let error):
                 completion(.failure(error))
                 ProgressHUD.showFailure()

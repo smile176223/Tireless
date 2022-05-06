@@ -242,7 +242,7 @@ extension ProfileViewController {
             AuthManager.shared.singOut { [weak self] result in
                 switch result {
                 case .success(let success):
-                    ProgressHUD.showSuccess(text: "已登出!")
+                    ProgressHUD.showSuccess(text: "已登出")
                     self?.tabBarController?.selectedIndex = 0
                     print(success)
                 case .failure(let error):
