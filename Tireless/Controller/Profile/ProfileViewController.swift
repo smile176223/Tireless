@@ -116,9 +116,33 @@ class ProfileViewController: UIViewController {
         return UICollectionViewCompositionalLayout(section: section)
     }
     
+    private func planReviewPresent(plan: Plan) {
+        guard let reviewVC = UIStoryboard.plan.instantiateViewController(
+            withIdentifier: "\(PlanReviewViewController.self)")
+                as? PlanReviewViewController
+        else {
+            return
+        }
+        reviewVC.plan = plan
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(reviewVC, animated: true)
+    }
+    
 }
 
-extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ProfileViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch currentTab {
+        case .friends:
+            return
+        case .historyPlan:
+            let cellViewModel = self.viewModel.historyPlanViewModels.value[indexPath.row]
+            planReviewPresent(plan: cellViewModel.plan)
+        }
+    }
+}
+
+extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         switch currentTab {
