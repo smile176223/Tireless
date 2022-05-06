@@ -249,8 +249,13 @@ extension PlanManageViewController {
         }
         let okAction = UIAlertAction(title: "修改", style: .destructive) { _ in
             let times = alertController.textFields?[0].text
-            guard let times = times else {
+            guard var times = times else {
                 return
+            }
+            if Int(times) ?? 0 > 99 {
+                times = "99"
+            } else if Int(times) == 0 {
+                times = "1"
             }
             PlanManager.shared.modifyPlan(planUid: plan.uuid,
                                           times: times) { result in

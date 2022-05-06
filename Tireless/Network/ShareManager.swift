@@ -61,15 +61,28 @@ class ShareManager {
             if let error = error {
                 completion(.failure(error))
             } else {
-                var videosPosts = [ShareFiles]()
-                for document in querySnapshot.documents {
-                    if let videoPost = try? document.data(as: ShareFiles.self, decoder: Firestore.Decoder()) {
-                        if !(AuthManager.shared.blockUsers.contains(videoPost.userId)) {
-                            videosPosts.append(videoPost)
+                DispatchQueue.global().async {
+                    let semaphore = DispatchSemaphore(value: 0)
+                    var videoPosts = [ShareFiles]()
+                    for document in querySnapshot.documents {
+                        if var videoPost = try? document.data(as: ShareFiles.self, decoder: Firestore.Decoder()) {
+                            UserManager.shared.fetchUser(userId: videoPost.userId) { result in
+                                switch result {
+                                case .success(let user):
+                                    videoPost.user = user
+                                    if !(AuthManager.shared.blockUsers.contains(videoPost.userId)) {
+                                        videoPosts.append(videoPost)
+                                    }
+                                case .failure(let error):
+                                    completion(.failure(error))
+                                }
+                                semaphore.signal()
+                            }
                         }
+                        semaphore.wait()
                     }
+                    completion(.success(videoPosts))
                 }
-                completion(.success(videosPosts))
             }
         }
     }

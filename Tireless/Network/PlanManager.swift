@@ -163,6 +163,7 @@ class PlanManager {
                                 }
                             case .failure(let error):
                                 completion(.failure(error))
+                                semaphore.signal()
                             }
                         }
                         semaphore.wait()

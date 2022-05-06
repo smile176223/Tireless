@@ -70,6 +70,9 @@ class ShareCommentViewController: UIViewController {
         }
     }
     @IBAction func sendCommentTap(_ sender: UIButton) {
+        if commentTextField.text?.isEmpty == true {
+            return
+        }
         if AuthManager.shared.checkCurrentUser() == true {
             guard let shareFile = shareFile,
                   let commentText = commentTextField.text else {
