@@ -10,23 +10,26 @@ import UIKit
 
 class CounterView: UIView {
     
-    private var plusButton: UIButton = {
-        let button = UIButton()
+    private var plusButton: CustomButton = {
+        let button = CustomButton()
         button.setBackgroundImage(UIImage(named: "Icons_Add"), for: .normal)
         button.tintColor = .white
+        button.touchEdgeInsets = UIEdgeInsets(top: -15, left: -10, bottom: -15, right: -10)
         return button
     }()
     
-    private var minusButton: UIButton = {
-        let button = UIButton()
+    private var minusButton: CustomButton = {
+        let button = CustomButton()
         button.setBackgroundImage(UIImage(named: "Icons_Subtract"), for: .normal)
         button.tintColor = .white
+        button.touchEdgeInsets = UIEdgeInsets(top: -15, left: -10, bottom: -15, right: -10)
         return button
     }()
     
     private var inputTextField: UITextField = {
         let textField = UITextField()
         textField.textColor = .white
+        textField.font = .bold(size: 20)
         textField.text = "1"
         textField.textAlignment = .center
         textField.keyboardType = .numberPad
@@ -136,9 +139,9 @@ class CounterView: UIView {
         addSubview(inputTextField)
         inputTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            inputTextField.leadingAnchor.constraint(equalTo: minusButton.trailingAnchor),
-            inputTextField.trailingAnchor.constraint(equalTo: plusButton.leadingAnchor),
-            inputTextField.heightAnchor.constraint(equalTo: plusButton.heightAnchor),
+            inputTextField.leadingAnchor.constraint(equalTo: minusButton.trailingAnchor, constant: 18),
+            inputTextField.trailingAnchor.constraint(equalTo: plusButton.leadingAnchor, constant: -18),
+            inputTextField.heightAnchor.constraint(equalTo: plusButton.heightAnchor, constant: 25),
             inputTextField.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
