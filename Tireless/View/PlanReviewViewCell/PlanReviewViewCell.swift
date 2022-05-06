@@ -76,6 +76,8 @@ class PlanReviewViewCell: UITableViewCell {
     private func setupLayout() {
         thumbnailImageView.layer.cornerRadius = 10
         thumbnailImageView.backgroundColor = .themeBGSecond
+        dayLabel.layer.masksToBounds = true
+        dayLabel.layer.cornerRadius = dayLabel.frame.height / 4
     }
 
     @IBAction func playButtonTap(_ sender: UIButton) {
