@@ -20,6 +20,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="621"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpN-Jr-uUS">
+                        <rect key="frame" x="367" y="519" width="9" height="21"/>
+                        <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VHi-GB-YjJ" customClass="CustomButton" customModule="Tireless" customModuleProvider="target">
+                        <rect key="frame" x="354" y="491" width="35" height="10.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="KY2-Ce-Xhi"/>
+                            <constraint firstAttribute="width" constant="35" id="X9Z-QM-s8E"/>
+                        </constraints>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" backgroundImage="ellipsis" catalog="system"/>
+                        <connections>
+                            <action selector="setButtonTqp:" destination="Wou-ON-kcr" eventType="touchUpInside" id="yOK-WM-0Yw"/>
+                        </connections>
+                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWo-sj-QxH">
                         <rect key="frame" x="25" y="509" width="41.5" height="28"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
@@ -33,14 +52,14 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KH5-ZF-vpa">
-                        <rect key="frame" x="334" y="540" width="50" height="50"/>
+                        <rect key="frame" x="354" y="545.5" width="35" height="34.5"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="3fH-oa-koT"/>
-                            <constraint firstAttribute="height" constant="50" id="p7x-IM-n8B"/>
+                            <constraint firstAttribute="width" constant="35" id="3fH-oa-koT"/>
+                            <constraint firstAttribute="height" constant="35" id="p7x-IM-n8B"/>
                         </constraints>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" image="icons_Comment"/>
+                        <state key="normal" backgroundImage="captions.bubble.fill" catalog="system"/>
                         <connections>
                             <action selector="commentButtonTap:" destination="Wou-ON-kcr" eventType="touchUpInside" id="HMO-Sv-CMH"/>
                         </connections>
@@ -48,22 +67,28 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="DpN-Jr-uUS" firstAttribute="top" secondItem="VHi-GB-YjJ" secondAttribute="bottom" constant="10" id="00J-d1-gpK"/>
                     <constraint firstItem="xuz-lT-0fg" firstAttribute="leading" secondItem="fj1-mW-nQ6" secondAttribute="leading" id="16M-8t-6uJ"/>
                     <constraint firstItem="xuz-lT-0fg" firstAttribute="top" secondItem="fj1-mW-nQ6" secondAttribute="top" id="3qA-1b-KMs"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="KH5-ZF-vpa" secondAttribute="bottom" constant="20" id="Ah7-6y-OqR"/>
+                    <constraint firstItem="VHi-GB-YjJ" firstAttribute="centerX" secondItem="KH5-ZF-vpa" secondAttribute="centerX" id="7G6-q2-OgJ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="KH5-ZF-vpa" secondAttribute="bottom" constant="30" id="Ah7-6y-OqR"/>
                     <constraint firstAttribute="trailing" secondItem="xuz-lT-0fg" secondAttribute="trailing" id="D82-PO-ChN"/>
                     <constraint firstItem="wcg-bH-6H4" firstAttribute="leading" secondItem="fj1-mW-nQ6" secondAttribute="leadingMargin" constant="5" id="Ebv-ob-kau"/>
                     <constraint firstItem="NWo-sj-QxH" firstAttribute="leading" secondItem="fj1-mW-nQ6" secondAttribute="leadingMargin" constant="5" id="FPy-Qp-vcM"/>
+                    <constraint firstItem="DpN-Jr-uUS" firstAttribute="centerX" secondItem="KH5-ZF-vpa" secondAttribute="centerX" id="K01-on-PDh"/>
                     <constraint firstItem="wcg-bH-6H4" firstAttribute="top" secondItem="NWo-sj-QxH" secondAttribute="bottom" constant="15" id="MFi-dG-JYT"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="wcg-bH-6H4" secondAttribute="trailing" constant="100" id="NiK-OU-n3H"/>
                     <constraint firstAttribute="bottom" secondItem="xuz-lT-0fg" secondAttribute="bottom" id="O5F-Po-wZj"/>
+                    <constraint firstItem="KH5-ZF-vpa" firstAttribute="top" secondItem="DpN-Jr-uUS" secondAttribute="bottom" constant="5" id="Wil-TR-D5e"/>
                     <constraint firstAttribute="bottomMargin" secondItem="wcg-bH-6H4" secondAttribute="bottom" constant="30" id="miJ-it-00a"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="NWo-sj-QxH" secondAttribute="trailing" constant="100" id="rLH-jD-lLC"/>
-                    <constraint firstAttribute="trailing" secondItem="KH5-ZF-vpa" secondAttribute="trailing" constant="30" id="yFk-VC-giz"/>
+                    <constraint firstAttribute="trailing" secondItem="KH5-ZF-vpa" secondAttribute="trailing" constant="25" id="yFk-VC-giz"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="commentCountLabel" destination="DpN-Jr-uUS" id="Gvr-d0-zLK"/>
+                <outlet property="setButton" destination="VHi-GB-YjJ" id="V2h-9n-23P"/>
                 <outlet property="videoContentText" destination="wcg-bH-6H4" id="sVf-x0-YfM"/>
                 <outlet property="videoTitleText" destination="NWo-sj-QxH" id="OOa-js-Y6E"/>
                 <outlet property="videoView" destination="xuz-lT-0fg" id="JeR-u4-RfT"/>
@@ -72,6 +97,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icons_Comment" width="48" height="48"/>
+        <image name="captions.bubble.fill" catalog="system" width="128" height="110"/>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
     </resources>
 </document>

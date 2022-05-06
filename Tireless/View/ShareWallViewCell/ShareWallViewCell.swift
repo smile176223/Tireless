@@ -17,11 +17,17 @@ class ShareWallViewCell: UITableViewCell {
     
     @IBOutlet weak var videoContentText: UILabel!
     
+    @IBOutlet weak var commentCountLabel: UILabel!
+    
+    @IBOutlet weak var setButton: CustomButton!
+    
     var avPlayer: AVPlayer?
     
     var viewModel: ShareFilesViewModel?
     
     var isCommentButtonTap: (() -> Void)?
+    
+    var isSetButtonTap: (() -> Void)?
     
     private var isPlaying = false
     
@@ -29,6 +35,7 @@ class ShareWallViewCell: UITableViewCell {
         self.viewModel = viewModel
         layoutCell()
         configureVideo()
+        setupLayout()
     }
     
     func layoutCell() {
@@ -36,6 +43,10 @@ class ShareWallViewCell: UITableViewCell {
         let date = Date.dateFormatter.string(
             from: Date.init(milliseconds: viewModel?.shareFile.createdTime ?? 0))
         videoContentText.text = "\(viewModel?.shareFile.content ?? "")\n\(date)"
+    }
+    
+    func setupLayout() {
+        setButton.touchEdgeInsets = UIEdgeInsets(top: -15, left: -10, bottom: -15, right: -10)
     }
     
     func configureVideo() {
@@ -81,6 +92,9 @@ class ShareWallViewCell: UITableViewCell {
     
     @IBAction func commentButtonTap(_ sender: UIButton) {
         isCommentButtonTap?()
+    }
+    @IBAction func setButtonTqp(_ sender: UIButton) {
+        isSetButtonTap?()
     }
     
 }
