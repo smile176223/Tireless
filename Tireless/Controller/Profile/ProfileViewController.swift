@@ -172,7 +172,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         headerView.userNameLabel.text = AuthManager.shared.currentUserData?.name
 
         headerView.isUserImageTap = { [weak self] in
-            self?.setUserAlert()
+            self?.setUserInfoAlert()
         }
 
         headerView.isSearchButtonTap = { [weak self] in
@@ -193,7 +193,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
         
         headerView.isBlockListButtonTab = { [weak self] in
-            self?.blockPresent()
+            self?.userSetAlert()
         }
         
         return headerView
@@ -201,23 +201,9 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
 }
 
 extension ProfileViewController {
-    private func setButtonAlert(userId: String) {
-        let controller = UIAlertController(title: "好友設定", message: nil, preferredStyle: .actionSheet)
-        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
-            self.viewModel.deleteFriend(userId: userId)
-        }
-        controller.addAction(deleteAction)
-        let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
-            self.viewModel.blockUser(blockId: userId)
-        }
-        controller.addAction(banAction)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        present(controller, animated: true, completion: nil)
-    }
-    private func setUserAlert() {
-        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let delete = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
+    private func userSetAlert() {
+        let controller = UIAlertController(title: "設定", message: nil, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
             AuthManager.shared.deleteUser { [weak self] result in
                 switch result {
                 case .success(let string):
@@ -238,7 +224,12 @@ extension ProfileViewController {
                 }
             }
         }
-        let logout = UIAlertAction(title: "登出", style: .default) { _ in
+        controller.addAction(deleteAction)
+        let blockAction = UIAlertAction(title: "黑名單", style: .default) { _ in
+            self.blockPresent()
+        }
+        controller.addAction(blockAction)
+        let logoutAction = UIAlertAction(title: "登出", style: .default) { _ in
             AuthManager.shared.singOut { [weak self] result in
                 switch result {
                 case .success(let success):
@@ -251,8 +242,36 @@ extension ProfileViewController {
                 }
             }
         }
-        controller.addAction(delete)
-        controller.addAction(logout)
+        controller.addAction(logoutAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+    }
+    
+    private func setButtonAlert(userId: String) {
+        let controller = UIAlertController(title: "好友設定", message: nil, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
+            self.viewModel.deleteFriend(userId: userId)
+        }
+        controller.addAction(deleteAction)
+        let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
+            self.viewModel.blockUser(blockId: userId)
+        }
+        controller.addAction(banAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+    }
+    private func setUserInfoAlert() {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let imageChange = UIAlertAction(title: "更換圖片", style: .default) { _ in
+            
+        }
+        let nameChange = UIAlertAction(title: "更換姓名", style: .default) { _ in
+            
+        }
+        controller.addAction(imageChange)
+        controller.addAction(nameChange)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
