@@ -42,7 +42,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0e-el-lfp">
-                    <rect key="frame" x="75" y="171" width="50" height="25.5"/>
+                    <rect key="frame" x="85" y="171" width="50" height="25.5"/>
                     <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="18"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -60,7 +60,7 @@
                 <constraint firstItem="b0e-el-lfp" firstAttribute="centerY" secondItem="DkY-SM-XFK" secondAttribute="centerY" id="2Ox-Uo-qxp"/>
                 <constraint firstItem="yse-va-e1C" firstAttribute="top" secondItem="C0L-F1-9sW" secondAttribute="bottom" constant="20" id="6a5-VZ-8M9"/>
                 <constraint firstItem="2xE-1e-Gry" firstAttribute="leading" secondItem="zsn-l3-wsH" secondAttribute="leading" constant="25" id="MQR-yL-tnd"/>
-                <constraint firstItem="b0e-el-lfp" firstAttribute="leading" secondItem="DkY-SM-XFK" secondAttribute="trailing" constant="10" id="OS2-T4-STy"/>
+                <constraint firstItem="b0e-el-lfp" firstAttribute="leading" secondItem="DkY-SM-XFK" secondAttribute="trailing" constant="20" id="OS2-T4-STy"/>
                 <constraint firstItem="2xE-1e-Gry" firstAttribute="top" secondItem="UgI-JL-mLK" secondAttribute="top" constant="35" id="Rhd-rJ-h3L"/>
                 <constraint firstItem="u9B-3z-66Q" firstAttribute="top" secondItem="DkY-SM-XFK" secondAttribute="bottom" constant="10" id="auD-i2-jLc"/>
                 <constraint firstItem="DkY-SM-XFK" firstAttribute="top" secondItem="yse-va-e1C" secondAttribute="bottom" constant="5" id="dWY-fR-40Q"/>

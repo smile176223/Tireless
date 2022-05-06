@@ -154,8 +154,8 @@ class GroupPlanViewController: UIViewController {
         
         let innergroup =
         NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 1)
-        let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.22),
-                                                     heightDimension: .fractionalHeight(0.09))
+        let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                     heightDimension: .absolute(50))
         let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innergroup])
         let section = NSCollectionLayoutSection(group: nestedGroup)
         
