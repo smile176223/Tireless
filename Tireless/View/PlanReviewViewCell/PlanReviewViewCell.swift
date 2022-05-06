@@ -20,7 +20,11 @@ class PlanReviewViewCell: UITableViewCell {
     
     @IBOutlet weak var playButton: UIButton!
     
+    @IBOutlet weak var noVideoButton: UIButton!
+    
     var isPlayButtonTap: (() -> Void)?
+    
+    var isNoVideoButtonTap: (() -> Void)?
     
     var viewModel: FinishTimeViewModel?
     
@@ -43,12 +47,14 @@ class PlanReviewViewCell: UITableViewCell {
         let finishDate = Date(milliseconds: viewModel.finishTime.time)
         finishTimeLabel.text = "\(Date.dateFormatter.string(from: finishDate))"
         if viewModel.finishTime.videoId == "" {
-            thumbnailImageView.image = UIImage.noVideo
+//            thumbnailImageView.image = UIImage.noVideo
             thumbnailImageView.contentMode = .center
             thumbnailImageView.alpha = 1
             playButton.isHidden = true
+            noVideoButton.isHidden = false
         } else {
             playButton.isHidden = false
+            noVideoButton.isHidden = true
             thumbnailImageView.alpha = 0.7
             thumbnailImageView.contentMode = .scaleAspectFill
         }
@@ -82,5 +88,8 @@ class PlanReviewViewCell: UITableViewCell {
 
     @IBAction func playButtonTap(_ sender: UIButton) {
         isPlayButtonTap?()
+    }
+    @IBAction func noVideoButtonTap(_ sender: UIButton) {
+        isNoVideoButtonTap?()
     }
 }

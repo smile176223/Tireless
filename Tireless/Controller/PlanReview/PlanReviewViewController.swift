@@ -55,7 +55,7 @@ class PlanReviewViewController: UIViewController {
         viewModel.fetchPlanReview(finishTime: finishTime)
     }
     
-    func video(videoURL: String) {
+    func playVideo(videoURL: String) {
         if let videoURL = URL(string: videoURL) {
             self.player = AVPlayer(url: videoURL)
         }
@@ -67,6 +67,17 @@ class PlanReviewViewController: UIViewController {
             return
         }
         present(playerViewController, animated: true)
+    }
+    
+    private func showAlert() {
+        let alertController = UIAlertController(title: "無影片",
+                                                message: "使用者未上傳影片!",
+                                                preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "確定", style: .default) { _ in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true)
     }
 }
 
@@ -85,7 +96,11 @@ extension PlanReviewViewController: UITableViewDelegate, UITableViewDataSource {
 
         cell.isPlayButtonTap = { [weak self] in
             guard let url = cellViewModel.finishTime.videoURL else { return }
-            self?.video(videoURL: url)
+            self?.playVideo(videoURL: url)
+        }
+        
+        cell.isNoVideoButtonTap = { [weak self] in
+            self?.showAlert()
         }
         
         return cell

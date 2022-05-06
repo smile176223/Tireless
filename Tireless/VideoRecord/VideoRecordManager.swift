@@ -41,7 +41,7 @@ class VideoRecordManager {
             if err != nil {
                 print("fail to save")
             }
-            self?.saveToPhotos(tempURL: url)
+//            self?.saveToPhotos(tempURL: url)
             DispatchQueue.main.async {
                 success(url)
             }

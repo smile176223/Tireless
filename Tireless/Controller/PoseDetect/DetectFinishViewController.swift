@@ -47,9 +47,6 @@ class DetectFinishViewController: UIViewController {
     
     private func finishPresent() {
         self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
-//        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
-//            tabBarController.selectedIndex = 0
-//        }
     }
 
     private func shareButtonTap() {

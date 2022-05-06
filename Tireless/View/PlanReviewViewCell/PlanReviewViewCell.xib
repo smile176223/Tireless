@@ -63,10 +63,20 @@
                             <constraint firstAttribute="height" constant="1" id="Gd6-ym-R0k"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usB-V8-NUl">
+                        <rect key="frame" x="324" y="65" width="30" height="20"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" backgroundImage="video.slash.fill" catalog="system"/>
+                        <connections>
+                            <action selector="noVideoButtonTap:" destination="8Yy-Rg-i2n" eventType="touchUpInside" id="iAU-5A-ohB"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" name="themeBG"/>
                 <constraints>
                     <constraint firstItem="Ixy-eQ-Rm5" firstAttribute="leading" secondItem="drp-pC-dhs" secondAttribute="leading" constant="100" id="3Mc-ey-0Tf"/>
+                    <constraint firstItem="usB-V8-NUl" firstAttribute="centerY" secondItem="TjM-PT-LfX" secondAttribute="centerY" id="Frd-99-Oyw"/>
                     <constraint firstItem="TjM-PT-LfX" firstAttribute="centerY" secondItem="8UV-Vk-Z2U" secondAttribute="centerY" id="FtK-Wf-C6P"/>
                     <constraint firstItem="EeI-Ox-Iy8" firstAttribute="leading" secondItem="Ixy-eQ-Rm5" secondAttribute="leading" id="LPZ-cj-eaU"/>
                     <constraint firstItem="oeI-6f-7aT" firstAttribute="top" secondItem="EeI-Ox-Iy8" secondAttribute="bottom" constant="25" id="No1-Jk-p86"/>
@@ -75,7 +85,9 @@
                     <constraint firstItem="EeI-Ox-Iy8" firstAttribute="centerY" secondItem="drp-pC-dhs" secondAttribute="centerY" constant="20" id="Vem-IL-pde"/>
                     <constraint firstAttribute="trailing" secondItem="8UV-Vk-Z2U" secondAttribute="trailing" constant="30" id="YlZ-3J-0oc"/>
                     <constraint firstItem="oeI-6f-7aT" firstAttribute="leading" secondItem="EeI-Ox-Iy8" secondAttribute="leading" id="mrg-t9-WTF"/>
+                    <constraint firstItem="usB-V8-NUl" firstAttribute="centerX" secondItem="TjM-PT-LfX" secondAttribute="centerX" id="p30-1O-7wK"/>
                     <constraint firstItem="bAu-Uf-A3x" firstAttribute="leading" secondItem="drp-pC-dhs" secondAttribute="leading" constant="22" id="pI9-Nd-AT0"/>
+                    <constraint firstItem="usB-V8-NUl" firstAttribute="width" secondItem="TjM-PT-LfX" secondAttribute="width" id="r9E-RR-07J"/>
                     <constraint firstItem="Ixy-eQ-Rm5" firstAttribute="top" secondItem="8UV-Vk-Z2U" secondAttribute="top" id="vbh-ZX-rNT"/>
                     <constraint firstItem="TjM-PT-LfX" firstAttribute="centerX" secondItem="8UV-Vk-Z2U" secondAttribute="centerX" id="wmR-ag-BHK"/>
                     <constraint firstItem="8UV-Vk-Z2U" firstAttribute="centerY" secondItem="drp-pC-dhs" secondAttribute="centerY" id="xLM-al-gGZ"/>
@@ -84,6 +96,7 @@
             <connections>
                 <outlet property="dayLabel" destination="bAu-Uf-A3x" id="3H2-j2-tzM"/>
                 <outlet property="finishTimeLabel" destination="EeI-Ox-Iy8" id="i1s-U1-nbd"/>
+                <outlet property="noVideoButton" destination="usB-V8-NUl" id="6y2-la-i7c"/>
                 <outlet property="planTimeLabel" destination="Ixy-eQ-Rm5" id="vWh-2e-Red"/>
                 <outlet property="playButton" destination="TjM-PT-LfX" id="Z9L-6l-Tqm"/>
                 <outlet property="thumbnailImageView" destination="8UV-Vk-Z2U" id="vsJ-6W-y5o"/>
@@ -93,6 +106,7 @@
     </objects>
     <resources>
         <image name="play.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="video.slash.fill" catalog="system" width="128" height="106"/>
         <namedColor name="themeBG">
             <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

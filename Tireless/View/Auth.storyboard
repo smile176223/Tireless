@@ -277,6 +277,7 @@
             <point key="canvasLocation" x="66.666666666666671" y="63.616071428571423"/>
         </scene>
     </scenes>
+    <color key="tintColor" name="themeYellow"/>
     <resources>
         <image name="TirelessLogo" width="500" height="500"/>
         <namedColor name="themeBG">

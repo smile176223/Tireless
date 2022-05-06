@@ -193,6 +193,7 @@
             <point key="canvasLocation" x="-272" y="94"/>
         </scene>
     </scenes>
+    <color key="tintColor" name="themeYellow"/>
     <resources>
         <image name="Icons_Back" width="44" height="44"/>
         <namedColor name="themeYellow">
