@@ -17,8 +17,6 @@ class ShareWallViewCell: UITableViewCell {
     
     @IBOutlet weak var videoContentText: UILabel!
     
-    @IBOutlet weak var commentCountLabel: UILabel!
-    
     @IBOutlet weak var setButton: CustomButton!
     
     var avPlayer: AVPlayer?
