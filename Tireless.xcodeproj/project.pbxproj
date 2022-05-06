@@ -133,6 +133,7 @@
 		FF5E89DA2823BCCC00214A5D /* PlanReviewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF5E89D92823BCCC00214A5D /* PlanReviewHeaderView.xib */; };
 		FF5E89DC2824A3EF00214A5D /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89DB2824A3EF00214A5D /* UILabel+Extension.swift */; };
 		FF5E89DE2824AA9000214A5D /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89DD2824AA9000214A5D /* UIButton+Extension.swift */; };
+		FF5E89E02825B29400214A5D /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89DF2825B29400214A5D /* ProfileManager.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -282,6 +283,7 @@
 		FF5E89D92823BCCC00214A5D /* PlanReviewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanReviewHeaderView.xib; sourceTree = "<group>"; };
 		FF5E89DB2824A3EF00214A5D /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		FF5E89DD2824AA9000214A5D /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		FF5E89DF2825B29400214A5D /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				FF3FBEA0281546F700E6B5DC /* JoinGroupManager.swift */,
 				FF308E6C28066E0D00265863 /* ShareManager.swift */,
 				FF3F7810281D1E3B00D8360A /* CommentManager.swift */,
+				FF5E89DF2825B29400214A5D /* ProfileManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1074,6 +1077,7 @@
 				FF5E89DC2824A3EF00214A5D /* UILabel+Extension.swift in Sources */,
 				FF3FBE6A2811C33B00E6B5DC /* PlanManageViewController.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */,
+				FF5E89E02825B29400214A5D /* ProfileManager.swift in Sources */,
 				FF5E89D12823527000214A5D /* PlanReviewViewController.swift in Sources */,
 				FF3F77F6281AC96B00D8360A /* InviteFriendViewController.swift in Sources */,
 				FFC7B9EC281FB1BA0080A31E /* GroupPlanStatusViewCell.swift in Sources */,

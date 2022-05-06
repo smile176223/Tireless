@@ -47,7 +47,7 @@ class UserManager {
     }
     
     func fetchUser(userId: String, completion: @escaping (Result<User, Error>) -> Void) {
-        userDB.document(userId).getDocument { querySnapshot, error in
+        userDB.document(userId).addSnapshotListener { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))

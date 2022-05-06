@@ -292,13 +292,55 @@ extension ProfileViewController {
             
         }
         let nameChange = UIAlertAction(title: "更換姓名", style: .default) { _ in
-            
+            self.showSettingAlert()
         }
-        controller.addAction(imageChange)
+//        controller.addAction(imageChange)
         controller.addAction(nameChange)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
+    }
+    
+    private func showSettingAlert() {
+        let alertController = UIAlertController(title: "更名",
+                                                message: "可以更改使用者姓名/暱稱",
+                                                preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "姓名/暱稱"
+            textField.keyboardType = .numberPad
+        }
+        let okAction = UIAlertAction(title: "修改", style: .destructive) { _ in
+            let name = alertController.textFields?[0].text
+            guard let name = name else {
+                return
+            }
+            ProfileManager.shared.changeUserName(name: name) { result in
+                switch result {
+                case .success(let text):
+                    ProgressHUD.showSuccess(text: "修改成功")
+                    AuthManager.shared.getCurrentUser { result in
+                        switch result {
+                        case .success(let bool):
+                            print(bool)
+                            self.collectionView.reloadData()
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                    print(text)
+                case .failure(let error):
+                    ProgressHUD.showFailure()
+                    print(error)
+                }
+            }
+            alertController.dismiss(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true)
     }
     
     private func searchFriendPresent() {
