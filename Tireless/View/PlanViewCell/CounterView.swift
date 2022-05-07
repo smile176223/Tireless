@@ -85,10 +85,15 @@ class CounterView: UIView {
         } else {
             enable(item: minusButton)
         }
+        if inputTextField.text == "99" {
+            disable(item: plusButton)
+        } else {
+            enable(item: plusButton)
+        }
         guard let text = inputTextField.text,
               let amount = Int(text)
         else { return }
-        if amount > 30 {
+        if amount > 99 {
             inputTextField.text = String(99)
         }
     }
