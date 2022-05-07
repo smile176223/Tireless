@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="621"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="E5z-w4-nHq">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogoText" translatesAutoresizingMaskIntoConstraints="NO" id="E5z-w4-nHq">
                         <rect key="frame" x="25" y="503" width="40" height="40"/>
                         <color key="backgroundColor" name="themeBGSecond"/>
                         <constraints>
@@ -100,7 +100,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="TirelessLogo" width="500" height="500"/>
+        <image name="TirelessLogoText" width="500" height="500"/>
         <image name="captions.bubble.fill" catalog="system" width="128" height="110"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <namedColor name="themeBGSecond">

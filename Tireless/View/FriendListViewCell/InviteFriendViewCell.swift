@@ -53,7 +53,7 @@ class InviteFriendViewCell: UITableViewCell {
         if viewModel?.user.picture != "" {
             userImageView.loadImage(viewModel?.user.picture)
         } else {
-            userImageView.image = UIImage(named: "TirelessLogo")
+            userImageView.image = UIImage.placeHolder
         }
         userNameLabel.text = viewModel?.user.name
     }
@@ -64,7 +64,7 @@ class InviteFriendViewCell: UITableViewCell {
         if blocksViewModel?.user.picture != "" {
             userImageView.loadImage(blocksViewModel?.user.picture)
         } else {
-            userImageView.image = UIImage(named: "TirelessLogo")
+            userImageView.image = UIImage.placeHolder
         }
         userNameLabel.text = blocksViewModel?.user.name
     }

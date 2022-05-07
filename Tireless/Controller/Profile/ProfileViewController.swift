@@ -189,7 +189,7 @@ extension ProfileViewController: UICollectionViewDataSource {
             return UICollectionReusableView()
         }
         if AuthManager.shared.currentUserData?.picture == "" {
-            headerView.userImageView.image = UIImage(named: "TirelessLogo")
+            headerView.userImageView.image = UIImage.placeHolder
         } else {
             headerView.userImageView.loadImage(AuthManager.shared.currentUserData?.picture)
         }

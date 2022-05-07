@@ -64,7 +64,7 @@ class HomeViewCell: UICollectionViewCell {
         case PlanExercise.pushup.rawValue:
             imageView.image = UIImage.groupPushup
         default:
-            imageView.image = UIImage(named: "TirelessLogo")
+            imageView.image = UIImage.placeHolder
         }
     }
     

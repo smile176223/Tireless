@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="210"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="1jH-yT-AM0">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogoText" translatesAutoresizingMaskIntoConstraints="NO" id="1jH-yT-AM0">
                     <rect key="frame" x="157" y="20" width="100" height="100"/>
                     <color key="backgroundColor" name="themeBGSecond"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -154,7 +154,7 @@
         </collectionReusableView>
     </objects>
     <resources>
-        <image name="TirelessLogo" width="500" height="500"/>
+        <image name="TirelessLogoText" width="500" height="500"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="person.fill.badge.plus" catalog="system" width="128" height="124"/>
         <image name="plus.magnifyingglass" catalog="system" width="128" height="115"/>

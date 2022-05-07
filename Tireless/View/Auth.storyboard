@@ -30,7 +30,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="cff-XN-4O8">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogoText" translatesAutoresizingMaskIntoConstraints="NO" id="cff-XN-4O8">
                                         <rect key="frame" x="60" y="50" width="294" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="46d-4P-0qG"/>
@@ -196,7 +196,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="0Vk-vB-Q7n">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogoText" translatesAutoresizingMaskIntoConstraints="NO" id="0Vk-vB-Q7n">
                                 <rect key="frame" x="60" y="147" width="294" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="yGe-4k-amC"/>
@@ -291,7 +291,7 @@
     </scenes>
     <color key="tintColor" name="themeYellow"/>
     <resources>
-        <image name="TirelessLogo" width="500" height="500"/>
+        <image name="TirelessLogoText" width="500" height="500"/>
         <namedColor name="themeBG">
             <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

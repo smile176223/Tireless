@@ -26,7 +26,7 @@ extension UIImage {
     
     static var groupPushup = UIImage(named: "group_pushup")
     
-    static var placeHolder = UIImage(named: "TirelessLogo")
+    static var placeHolder = UIImage(named: "TirelessLogoText")
     
     static var tabHome = UIImage(named: "icons_home")
     

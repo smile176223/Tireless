@@ -17,19 +17,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="iRE-kr-PkY">
-                                <rect key="frame" x="82" y="323" width="250" height="250"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="KwZ-ZD-35R">
+                                <rect key="frame" x="87" y="358" width="240" height="180"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="250" id="EZc-da-QuY"/>
-                                    <constraint firstAttribute="height" constant="250" id="WEa-UB-uNT"/>
+                                    <constraint firstAttribute="width" constant="240" id="XGW-Vn-nDT"/>
+                                    <constraint firstAttribute="height" constant="180" id="ec0-cG-uaq"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="themeBG"/>
                         <constraints>
-                            <constraint firstItem="iRE-kr-PkY" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="2BE-wl-gVm"/>
-                            <constraint firstItem="iRE-kr-PkY" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="MOp-Sw-p1a"/>
+                            <constraint firstItem="KwZ-ZD-35R" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="E5r-nc-eP2"/>
+                            <constraint firstItem="KwZ-ZD-35R" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="zEU-Gd-C5L"/>
                         </constraints>
                     </view>
                 </viewController>

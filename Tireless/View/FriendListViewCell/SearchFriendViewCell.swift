@@ -44,7 +44,7 @@ class SearchFriendViewCell: UITableViewCell {
         if viewModel?.user.picture != "" {
             userImageView.loadImage(viewModel?.user.picture)
         } else {
-            userImageView.image = UIImage(named: "TirelessLogo")
+            userImageView.image = UIImage.placeHolder
         }
         userNameLabel.text = viewModel?.user.name
     }

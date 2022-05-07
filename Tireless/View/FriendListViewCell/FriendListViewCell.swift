@@ -34,7 +34,7 @@ class FriendListViewCell: UICollectionViewCell {
         friendImageView.loadImage(viewModel?.user.picture)
         if viewModel?.user.picture == "" {
             friendImageView.backgroundColor = .themeBG
-            friendImageView.image = UIImage(named: "TirelessLogo")
+            friendImageView.image = UIImage.placeHolder
         }
     }
     
