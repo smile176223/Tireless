@@ -22,6 +22,7 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L5N-zW-kiI">
                                 <rect key="frame" x="30" y="10" width="50" height="50"/>
+                                <color key="backgroundColor" name="themeBG"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="L5N-zW-kiI" secondAttribute="height" id="AU9-1O-Y7b"/>
                                 </constraints>

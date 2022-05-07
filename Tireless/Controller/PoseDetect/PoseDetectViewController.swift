@@ -94,8 +94,6 @@ class PoseDetectViewController: UIViewController {
         setUpCaptureSessionOutput()
         setUpCaptureSessionInput()
         setupBackButton()
-        
-        setupCurrentExercise()
     
         recordButton.layer.cornerRadius = 25
         
@@ -119,9 +117,7 @@ class PoseDetectViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        if plan?.planName == PlanExercise.plank.rawValue {
-//            AppUtility.lockOrientation(.landscapeRight, andRotateTo: .landscapeRight)
-//        }
+        setupCurrentExercise()
         videoRecordManager.startRecording { [weak self] in
             self?.startSession()
             self?.drawStart = true
@@ -149,6 +145,7 @@ class PoseDetectViewController: UIViewController {
     }
     
     private func setupCurrentExercise() {
+        viewModel.resetExercise()
         guard let plan = plan else {
             return
         }

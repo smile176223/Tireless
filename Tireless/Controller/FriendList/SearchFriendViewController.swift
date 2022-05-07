@@ -16,6 +16,8 @@ class SearchFriendViewController: UIViewController {
         }
     }
     
+    private var searchEmptyView = UIImageView()
+    
     let viewModel = SearchFriendViewModel()
     
     var checkList = [AuthManager.shared.currentUser]
@@ -49,6 +51,7 @@ class SearchFriendViewController: UIViewController {
         }
         
         makeCheckList()
+        
     }
     private func makeCheckList() {
         guard let friendsList = friendsList else {
@@ -58,11 +61,25 @@ class SearchFriendViewController: UIViewController {
             self.checkList.append(friend.userId)
         }
     }
+    
+    private func setSearchEmptyView() {
+        searchEmptyView.image = UIImage(named: "tireless_nouser")
+        searchEmptyView.contentMode = .scaleAspectFit
+        self.view.addSubview(searchEmptyView)
+        searchEmptyView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            searchEmptyView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            searchEmptyView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            searchEmptyView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
+            searchEmptyView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
+        ])
+        
+    }
 }
 
 extension SearchFriendViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.viewModel.friendViewModels.value.count
+        return viewModel.friendViewModels.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

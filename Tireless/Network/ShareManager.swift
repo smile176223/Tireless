@@ -21,7 +21,7 @@ class ShareManager {
     var blockUsers = [String]()
     
     func uploadVideo(shareFile: ShareFiles, completion: @escaping (Result<String, Error>) -> Void) {
-        let videoRef = Storage.storage().reference().child("Videos/\(shareFile.shareName)")
+        let videoRef = Storage.storage().reference().child("Videos/\(UUID().uuidString)")
         let uploadTask = videoRef.putFile(from: shareFile.shareURL, metadata: nil) { _, error in
             if let error = error {
                 completion(.failure(error))

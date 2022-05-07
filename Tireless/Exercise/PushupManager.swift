@@ -31,6 +31,10 @@ class PushupManager {
         checkPointC = true
     }
     
+    func resetCount() {
+        pushupCount = 0
+    }
+    
     func pushupWork(_ posePoints: [PosePoint]) -> Int {
         if checkInFrameLikeHood(posePoints) == false {
             resetIfOut()

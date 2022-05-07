@@ -52,13 +52,13 @@ class PlankManager {
         let centerA = (posePoints[22].position.y + posePoints[32].position.y) / 2
         let centerB = (posePoints[26].position.y + posePoints[30].position.y) / 2
         
-        if checkAngle(rightElbowShoulder, min: 85, max: 130),
+        if checkAngle(rightElbowShoulder, min: 75, max: 130),
            checkAngle(rightElbowHip, min: 30, max: 85),
            posePoints[28].position.y > centerA * 0.8,
            posePoints[28].position.y > centerB * 0.8,
            posePoints[9].position.y > posePoints[22].position.y {
             isPlank = true
-        } else if checkAngle(leftElbowShoulder, min: 85, max: 130),
+        } else if checkAngle(leftElbowShoulder, min: 75, max: 130),
                   checkAngle(leftElbowHip, min: 30, max: 85),
                   posePoints[28].position.y > centerA * 0.8,
                   posePoints[28].position.y > centerB * 0.8,

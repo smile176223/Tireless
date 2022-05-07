@@ -69,11 +69,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        if AuthManager.shared.currentUser != "" {
-//            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
-//        }
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        if AuthManager.shared.currentUser != "" {
+            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
+        }
+    }
     
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()

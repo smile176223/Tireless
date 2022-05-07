@@ -67,6 +67,10 @@ class SquatManager {
         checkPointB = false
     }
     
+    func resetCount() {
+        squatCount = 0
+    }
+    
     private func belly(_ fromPoint: CGPoint, _ toPoint: CGPoint, _ endPoint: CGPoint) -> CGPoint {
         return CGPoint(x: (fromPoint.x + toPoint.x + toPoint.x) / 3,
                        y: (fromPoint.y + toPoint.y + toPoint.y) / 3)

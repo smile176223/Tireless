@@ -119,6 +119,12 @@ class PoseDetectViewModel {
         self.lastDetector = activeDetector
     }
     
+    func resetExercise() {
+        SquatManager.shared.resetCount()
+        PushupManager.shared.resetCount()
+        plankCountTime = 0
+    }
+    
     func setupExercise(with plan: Plan) {
         switch plan.planName {
         case PlanExercise.squat.rawValue:
