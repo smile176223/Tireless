@@ -24,10 +24,16 @@
                             <constraint firstAttribute="height" constant="60" id="ftd-5o-vTn"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAu-Uf-A3x" customClass="UILabelPadding" customModule="Tireless" customModuleProvider="target">
-                        <rect key="frame" x="22" y="61" width="45" height="28"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAu-Uf-A3x" customClass="UILabelPadding" customModule="Tireless" customModuleProvider="target">
+                        <rect key="frame" x="22" y="45" width="60" height="60"/>
                         <color key="backgroundColor" name="themeBGSecond"/>
-                        <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="IB0-kC-kpz"/>
+                            <constraint firstAttribute="height" constant="60" id="ggU-mi-wbB"/>
+                        </constraints>
+                        <string key="text">Day
+99</string>
+                        <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="16"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>

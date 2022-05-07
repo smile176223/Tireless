@@ -42,7 +42,7 @@ class PlanReviewViewCell: UITableViewCell {
         guard let viewModel = viewModel else {
             return
         }
-        dayLabel.text = "Day\(viewModel.finishTime.day)"
+        dayLabel.text = "DAY\n\(viewModel.finishTime.day)"
         planTimeLabel.text = "\(viewModel.finishTime.planTimes) 次/秒"
         let finishDate = Date(milliseconds: viewModel.finishTime.time)
         finishTimeLabel.text = "\(Date.dateFormatter.string(from: finishDate))"
@@ -83,7 +83,7 @@ class PlanReviewViewCell: UITableViewCell {
         thumbnailImageView.layer.cornerRadius = 10
         thumbnailImageView.backgroundColor = .themeBGSecond
         dayLabel.layer.masksToBounds = true
-        dayLabel.layer.cornerRadius = dayLabel.frame.height / 4
+        dayLabel.layer.cornerRadius = dayLabel.frame.height / 2
     }
 
     @IBAction func playButtonTap(_ sender: UIButton) {
