@@ -135,6 +135,19 @@ class PlanManageViewController: UIViewController {
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(reviewVC, animated: true)
     }
+    
+    private func planModifyPresent(plan: Plan) {
+        guard let modifyVC = UIStoryboard.plan.instantiateViewController(
+            withIdentifier: "\(PlanModifyViewController.self)")
+                as? PlanModifyViewController
+        else {
+            return
+        }
+        modifyVC.plan = plan
+        modifyVC.modalPresentationStyle = .overCurrentContext
+        modifyVC.modalTransitionStyle = .crossDissolve
+        present(modifyVC, animated: true)
+    }
 }
 
 extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -239,49 +252,10 @@ extension PlanManageViewController {
         self.present(alertController, animated: true)
     }
     
-    private func showSettingAlert(plan: Plan) {
-        let alertController = UIAlertController(title: "計畫修改",
-                                                message: "可以調整計畫的次數",
-                                                preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = "次數"
-            textField.keyboardType = .numberPad
-        }
-        let okAction = UIAlertAction(title: "修改", style: .destructive) { _ in
-            let times = alertController.textFields?[0].text
-            guard var times = times else {
-                return
-            }
-            if Int(times) ?? 0 > 99 {
-                times = "99"
-            } else if Int(times) == 0 {
-                times = "1"
-            }
-            PlanManager.shared.modifyPlan(planUid: plan.uuid,
-                                          times: times) { result in
-                switch result {
-                case .success(let text):
-                    ProgressHUD.showSuccess(text: "修改計畫成功")
-                    print(text)
-                case .failure(let error):
-                    ProgressHUD.showFailure()
-                    print(error)
-                }
-            }
-            alertController.dismiss(animated: true)
-        }
-        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-            alertController.dismiss(animated: true)
-        }
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        self.present(alertController, animated: true)
-    }
-    
     private func setUserAlert(plan: Plan) {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let adjust = UIAlertAction(title: "修改計畫次數", style: .default) { _ in
-            self.showSettingAlert(plan: plan)
+            self.planModifyPresent(plan: plan)
         }
         let delete = UIAlertAction(title: "刪除計畫", style: .destructive) { _ in
             self.showDeleteAlert(plan: plan)

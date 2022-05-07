@@ -109,6 +109,7 @@ class PlanManager {
                 for document in querySnapshot.documents {
                     ref.document(document.documentID).setData(["planTimes": times], merge: true)
                 }
+                completion(.success("success"))
             }
         }
     }
