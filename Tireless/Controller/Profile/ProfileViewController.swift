@@ -288,9 +288,9 @@ extension ProfileViewController {
     }
     private func setUserInfoAlert() {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let imageChange = UIAlertAction(title: "更換圖片", style: .default) { _ in
-            
-        }
+//        let imageChange = UIAlertAction(title: "更換圖片", style: .default) { _ in
+//            
+//        }
         let nameChange = UIAlertAction(title: "更換姓名", style: .default) { _ in
             self.showSettingAlert()
         }

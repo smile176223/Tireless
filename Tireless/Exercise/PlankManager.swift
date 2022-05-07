@@ -54,14 +54,14 @@ class PlankManager {
         
         if checkAngle(rightElbowShoulder, min: 85, max: 130),
            checkAngle(rightElbowHip, min: 30, max: 85),
-           posePoints[28].position.y > centerA * 0.9,
-           posePoints[28].position.y > centerB * 0.9,
+           posePoints[28].position.y > centerA * 0.8,
+           posePoints[28].position.y > centerB * 0.8,
            posePoints[9].position.y > posePoints[22].position.y {
             isPlank = true
         } else if checkAngle(leftElbowShoulder, min: 85, max: 130),
                   checkAngle(leftElbowHip, min: 30, max: 85),
-                  posePoints[28].position.y > centerA * 0.9,
-                  posePoints[28].position.y > centerB * 0.9,
+                  posePoints[28].position.y > centerA * 0.8,
+                  posePoints[28].position.y > centerB * 0.8,
                   posePoints[7].position.y > posePoints[26].position.y {
             isPlank = true
         } else {
