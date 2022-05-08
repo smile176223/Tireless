@@ -65,7 +65,6 @@ class PlanManageViewController: UIViewController {
             planEmptyView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
             planEmptyView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
         ])
-        
     }
     
     private func configureCollectionView() {

@@ -16,6 +16,8 @@ class InviteFriendViewController: UIViewController {
         }
     }
     
+    var emptyView = UIImageView()
+    
     let viewModel = InviteFriendViewModel()
     
     override func viewDidLoad() {
@@ -28,15 +30,35 @@ class InviteFriendViewController: UIViewController {
         
         tableView.register(UINib(nibName: "\(InviteFriendViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(InviteFriendViewCell.self)")
+        setEmptyView() 
         
         viewModel.getReceiveInvite()
         
-        viewModel.friendViewModels.bind { [weak self] _ in
+        viewModel.friendViewModels.bind { [weak self] firends in
+            if firends.count == 0 {
+                self?.tableView.isHidden = true
+                self?.emptyView.isHidden = false
+            } else {
+                self?.tableView.isHidden = false
+                self?.emptyView.isHidden = true
+            }
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }
-        
+    }
+    
+    private func setEmptyView() {
+        emptyView.image = UIImage(named: "tireless_noinvite")
+        emptyView.contentMode = .scaleAspectFit
+        self.view.addSubview(emptyView)
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            emptyView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            emptyView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            emptyView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
+            emptyView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
+        ])
     }
 }
 
