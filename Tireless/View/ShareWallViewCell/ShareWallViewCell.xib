@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,8 +21,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="621"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogoText" translatesAutoresizingMaskIntoConstraints="NO" id="E5z-w4-nHq">
+                        <rect key="frame" x="25" y="503" width="40" height="40"/>
+                        <color key="backgroundColor" name="themeBGSecond"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="2ag-yL-dk7"/>
+                            <constraint firstAttribute="height" constant="40" id="CDr-mC-rol"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VHi-GB-YjJ" customClass="CustomButton" customModule="Tireless" customModuleProvider="target">
+                        <rect key="frame" x="354" y="512" width="35" height="10.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="KY2-Ce-Xhi"/>
+                            <constraint firstAttribute="width" constant="35" id="X9Z-QM-s8E"/>
+                        </constraints>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" backgroundImage="ellipsis" catalog="system"/>
+                        <connections>
+                            <action selector="setButtonTqp:" destination="Wou-ON-kcr" eventType="touchUpInside" id="yOK-WM-0Yw"/>
+                        </connections>
+                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWo-sj-QxH">
-                        <rect key="frame" x="25" y="509" width="41.5" height="28"/>
+                        <rect key="frame" x="75" y="509" width="41.5" height="28"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -33,14 +55,14 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KH5-ZF-vpa">
-                        <rect key="frame" x="334" y="540" width="50" height="50"/>
+                        <rect key="frame" x="354" y="545.5" width="35" height="34.5"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="3fH-oa-koT"/>
-                            <constraint firstAttribute="height" constant="50" id="p7x-IM-n8B"/>
+                            <constraint firstAttribute="width" constant="35" id="3fH-oa-koT"/>
+                            <constraint firstAttribute="height" constant="35" id="p7x-IM-n8B"/>
                         </constraints>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" image="icons_Comment"/>
+                        <state key="normal" backgroundImage="captions.bubble.fill" catalog="system"/>
                         <connections>
                             <action selector="commentButtonTap:" destination="Wou-ON-kcr" eventType="touchUpInside" id="HMO-Sv-CMH"/>
                         </connections>
@@ -50,28 +72,39 @@
                 <constraints>
                     <constraint firstItem="xuz-lT-0fg" firstAttribute="leading" secondItem="fj1-mW-nQ6" secondAttribute="leading" id="16M-8t-6uJ"/>
                     <constraint firstItem="xuz-lT-0fg" firstAttribute="top" secondItem="fj1-mW-nQ6" secondAttribute="top" id="3qA-1b-KMs"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="KH5-ZF-vpa" secondAttribute="bottom" constant="20" id="Ah7-6y-OqR"/>
+                    <constraint firstItem="VHi-GB-YjJ" firstAttribute="centerX" secondItem="KH5-ZF-vpa" secondAttribute="centerX" id="7G6-q2-OgJ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="KH5-ZF-vpa" secondAttribute="bottom" constant="30" id="Ah7-6y-OqR"/>
                     <constraint firstAttribute="trailing" secondItem="xuz-lT-0fg" secondAttribute="trailing" id="D82-PO-ChN"/>
                     <constraint firstItem="wcg-bH-6H4" firstAttribute="leading" secondItem="fj1-mW-nQ6" secondAttribute="leadingMargin" constant="5" id="Ebv-ob-kau"/>
-                    <constraint firstItem="NWo-sj-QxH" firstAttribute="leading" secondItem="fj1-mW-nQ6" secondAttribute="leadingMargin" constant="5" id="FPy-Qp-vcM"/>
                     <constraint firstItem="wcg-bH-6H4" firstAttribute="top" secondItem="NWo-sj-QxH" secondAttribute="bottom" constant="15" id="MFi-dG-JYT"/>
-                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="wcg-bH-6H4" secondAttribute="trailing" constant="100" id="NiK-OU-n3H"/>
+                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="wcg-bH-6H4" secondAttribute="trailing" constant="60" id="NiK-OU-n3H"/>
                     <constraint firstAttribute="bottom" secondItem="xuz-lT-0fg" secondAttribute="bottom" id="O5F-Po-wZj"/>
                     <constraint firstAttribute="bottomMargin" secondItem="wcg-bH-6H4" secondAttribute="bottom" constant="30" id="miJ-it-00a"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="NWo-sj-QxH" secondAttribute="trailing" constant="100" id="rLH-jD-lLC"/>
-                    <constraint firstAttribute="trailing" secondItem="KH5-ZF-vpa" secondAttribute="trailing" constant="30" id="yFk-VC-giz"/>
+                    <constraint firstItem="E5z-w4-nHq" firstAttribute="leading" secondItem="fj1-mW-nQ6" secondAttribute="leading" constant="25" id="wJV-0Q-WkM"/>
+                    <constraint firstItem="KH5-ZF-vpa" firstAttribute="top" secondItem="VHi-GB-YjJ" secondAttribute="bottom" constant="15" id="xIf-pd-Y7e"/>
+                    <constraint firstItem="E5z-w4-nHq" firstAttribute="centerY" secondItem="NWo-sj-QxH" secondAttribute="centerY" id="y9Y-MS-V4Y"/>
+                    <constraint firstAttribute="trailing" secondItem="KH5-ZF-vpa" secondAttribute="trailing" constant="25" id="yFk-VC-giz"/>
+                    <constraint firstItem="NWo-sj-QxH" firstAttribute="leading" secondItem="E5z-w4-nHq" secondAttribute="trailing" constant="10" id="zcX-qH-fLe"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="setButton" destination="VHi-GB-YjJ" id="V2h-9n-23P"/>
                 <outlet property="videoContentText" destination="wcg-bH-6H4" id="sVf-x0-YfM"/>
                 <outlet property="videoTitleText" destination="NWo-sj-QxH" id="OOa-js-Y6E"/>
+                <outlet property="videoUserImageVeiw" destination="E5z-w4-nHq" id="Ojg-9N-4PT"/>
                 <outlet property="videoView" destination="xuz-lT-0fg" id="JeR-u4-RfT"/>
             </connections>
             <point key="canvasLocation" x="24.637681159420293" y="153.68303571428569"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icons_Comment" width="48" height="48"/>
+        <image name="TirelessLogoText" width="500" height="500"/>
+        <image name="captions.bubble.fill" catalog="system" width="128" height="110"/>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <namedColor name="themeBGSecond">
+            <color red="0.12941176470588237" green="0.15686274509803921" blue="0.24705882352941178" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

@@ -11,6 +11,8 @@ class GroupPlanViewCell: UICollectionViewCell {
     
     @IBOutlet weak var groupPlanImageView: UIImageView!
     
+    @IBOutlet weak var groupPlanUserName: UILabel!
+    
     var viewModel: JoinUsersViewModel?
     
     override func awakeFromNib() {
@@ -19,8 +21,7 @@ class GroupPlanViewCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-//        groupPlanImageView.layer.cornerRadius = groupPlanImageView.frame.height / 2
-        self.layer.cornerRadius = 20
+        groupPlanImageView.layer.cornerRadius = groupPlanImageView.frame.height / 2
     }
     
     func setup(viewModel: JoinUsersViewModel) {
@@ -34,5 +35,6 @@ class GroupPlanViewCell: UICollectionViewCell {
         } else {
             groupPlanImageView.image = UIImage.placeHolder
         }
+        groupPlanUserName.text = viewModel?.user.name
     }
 }

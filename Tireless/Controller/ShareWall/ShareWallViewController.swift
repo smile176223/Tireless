@@ -97,6 +97,27 @@ class ShareWallViewController: UIViewController {
         commentVC.modalPresentationStyle = .overCurrentContext
         self.tabBarController?.present(commentVC, animated: true)
     }
+    
+    private func setButtonAlert(userId: String) {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
+            UserManager.shared.blockUser(blockId: userId) { result in
+                switch result {
+                case .success(let text):
+                    ProgressHUD.showSuccess(text: "已封鎖")
+                    self.dismiss(animated: true)
+                    print(text)
+                case .failure(let error):
+                    print(error)
+                    ProgressHUD.showFailure()
+                }
+            }
+        }
+        controller.addAction(banAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+    }
 }
 
 extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
@@ -116,6 +137,14 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
         cell.setup(viewModel: cellViewModel)
         cell.isCommentButtonTap = {
             self.commentPresent(shareFile: cellViewModel.shareFile)
+        }
+        if cellViewModel.shareFile.userId == AuthManager.shared.currentUser {
+            cell.setButton.isHidden = true
+        } else {
+            cell.setButton.isHidden = false
+        }
+        cell.isSetButtonTap = {
+            self.setButtonAlert(userId: cellViewModel.shareFile.userId)
         }
         
         return cell

@@ -12,32 +12,47 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GroupPlanViewCell" id="dlB-4B-1Aa" customClass="GroupPlanViewCell" customModule="Tireless" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="afR-Bo-lXv">
-                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogo" translatesAutoresizingMaskIntoConstraints="NO" id="1Wh-ee-VQN">
-                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogoText" translatesAutoresizingMaskIntoConstraints="NO" id="1Wh-ee-VQN">
+                        <rect key="frame" x="0.0" y="5" width="40" height="40"/>
+                        <color key="backgroundColor" name="themeBGSecond"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="7Hv-Yc-4aZ"/>
+                            <constraint firstAttribute="height" constant="40" id="UAn-Bd-UvO"/>
+                        </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAg-xa-Bsp">
+                        <rect key="frame" x="60" y="14.5" width="45" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="1Wh-ee-VQN" secondAttribute="trailing" id="4vm-UU-DgY"/>
-                    <constraint firstAttribute="bottom" secondItem="1Wh-ee-VQN" secondAttribute="bottom" id="ekP-AK-zBz"/>
-                    <constraint firstItem="1Wh-ee-VQN" firstAttribute="top" secondItem="afR-Bo-lXv" secondAttribute="top" id="k0h-1o-KrV"/>
-                    <constraint firstItem="1Wh-ee-VQN" firstAttribute="leading" secondItem="afR-Bo-lXv" secondAttribute="leading" id="pxI-YY-FLf"/>
+                    <constraint firstItem="1Wh-ee-VQN" firstAttribute="centerY" secondItem="afR-Bo-lXv" secondAttribute="centerY" id="mXg-Ij-LMD"/>
+                    <constraint firstItem="OAg-xa-Bsp" firstAttribute="leading" secondItem="1Wh-ee-VQN" secondAttribute="trailing" constant="20" id="rru-QP-pjE"/>
+                    <constraint firstItem="OAg-xa-Bsp" firstAttribute="centerY" secondItem="afR-Bo-lXv" secondAttribute="centerY" id="ru6-7I-xeW"/>
+                    <constraint firstItem="1Wh-ee-VQN" firstAttribute="leading" secondItem="afR-Bo-lXv" secondAttribute="leading" id="x7W-nP-o3N"/>
                 </constraints>
             </collectionViewCellContentView>
-            <color key="backgroundColor" name="themeBGSecond"/>
+            <color key="backgroundColor" name="themeBG"/>
             <connections>
                 <outlet property="groupPlanImageView" destination="1Wh-ee-VQN" id="MMw-jC-TTq"/>
+                <outlet property="groupPlanUserName" destination="OAg-xa-Bsp" id="obx-bb-ztN"/>
             </connections>
             <point key="canvasLocation" x="359.4202898550725" y="89.732142857142847"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="TirelessLogo" width="500" height="500"/>
+        <image name="TirelessLogoText" width="500" height="500"/>
+        <namedColor name="themeBG">
+            <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="themeBGSecond">
             <color red="0.12941176470588237" green="0.15686274509803921" blue="0.24705882352941178" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

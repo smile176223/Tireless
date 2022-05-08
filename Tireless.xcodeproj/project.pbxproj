@@ -131,6 +131,10 @@
 		FF5E89D62823AB9600214A5D /* FinishTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89D52823AB9600214A5D /* FinishTimeViewModel.swift */; };
 		FF5E89D82823BCB000214A5D /* PlanReviewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89D72823BCB000214A5D /* PlanReviewHeaderView.swift */; };
 		FF5E89DA2823BCCC00214A5D /* PlanReviewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF5E89D92823BCCC00214A5D /* PlanReviewHeaderView.xib */; };
+		FF5E89DC2824A3EF00214A5D /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89DB2824A3EF00214A5D /* UILabel+Extension.swift */; };
+		FF5E89DE2824AA9000214A5D /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89DD2824AA9000214A5D /* UIButton+Extension.swift */; };
+		FF5E89E02825B29400214A5D /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89DF2825B29400214A5D /* ProfileManager.swift */; };
+		FF5E89E22826F50F00214A5D /* PlanModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89E12826F50F00214A5D /* PlanModifyViewController.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
 		FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15828008F640041A937 /* PoseDetectViewController.swift */; };
@@ -278,6 +282,10 @@
 		FF5E89D52823AB9600214A5D /* FinishTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTimeViewModel.swift; sourceTree = "<group>"; };
 		FF5E89D72823BCB000214A5D /* PlanReviewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanReviewHeaderView.swift; sourceTree = "<group>"; };
 		FF5E89D92823BCCC00214A5D /* PlanReviewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanReviewHeaderView.xib; sourceTree = "<group>"; };
+		FF5E89DB2824A3EF00214A5D /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		FF5E89DD2824AA9000214A5D /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		FF5E89DF2825B29400214A5D /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
+		FF5E89E12826F50F00214A5D /* PlanModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanModifyViewController.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFC0C15628008F640041A937 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -539,6 +547,7 @@
 				FF3FBEA0281546F700E6B5DC /* JoinGroupManager.swift */,
 				FF308E6C28066E0D00265863 /* ShareManager.swift */,
 				FF3F7810281D1E3B00D8360A /* CommentManager.swift */,
+				FF5E89DF2825B29400214A5D /* ProfileManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -552,6 +561,8 @@
 				FF3FBE592811538500E6B5DC /* UIFont+Extension.swift */,
 				FFC7B9E9281EB54D0080A31E /* UIImage+Extension.swift */,
 				FF5E89BF2822290C00214A5D /* Orientation+Extension.swift */,
+				FF5E89DB2824A3EF00214A5D /* UILabel+Extension.swift */,
+				FF5E89DD2824AA9000214A5D /* UIButton+Extension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -646,6 +657,7 @@
 			children = (
 				FF3FBE692811C33B00E6B5DC /* PlanManageViewController.swift */,
 				FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */,
+				FF5E89E12826F50F00214A5D /* PlanModifyViewController.swift */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -1065,11 +1077,14 @@
 				FFC7B9E8281E90F20080A31E /* JoinGroupsViewModel.swift in Sources */,
 				FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */,
 				FF2EF6F528204CA9008418A0 /* JoinUsersViewModel.swift in Sources */,
+				FF5E89DC2824A3EF00214A5D /* UILabel+Extension.swift in Sources */,
 				FF3FBE6A2811C33B00E6B5DC /* PlanManageViewController.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */,
+				FF5E89E02825B29400214A5D /* ProfileManager.swift in Sources */,
 				FF5E89D12823527000214A5D /* PlanReviewViewController.swift in Sources */,
 				FF3F77F6281AC96B00D8360A /* InviteFriendViewController.swift in Sources */,
 				FFC7B9EC281FB1BA0080A31E /* GroupPlanStatusViewCell.swift in Sources */,
+				FF5E89E22826F50F00214A5D /* PlanModifyViewController.swift in Sources */,
 				FF3F77FE281B006700D8360A /* SignUpViewController.swift in Sources */,
 				FF3F77F8281AE1D400D8360A /* InviteFriendViewCell.swift in Sources */,
 				FF3F780D281D088000D8360A /* ShareCommentViewCell.swift in Sources */,
@@ -1123,6 +1138,7 @@
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
 				FF3F77F0281A1EBA00D8360A /* SearchFriendViewCell.swift in Sources */,
 				FF3F7817281E3BA900D8360A /* HistoryPlanViewModel.swift in Sources */,
+				FF5E89DE2824AA9000214A5D /* UIButton+Extension.swift in Sources */,
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
 				FF3F7807281C47F100D8360A /* ShareCommentViewController.swift in Sources */,
 				FF3F77E228185D4C00D8360A /* CryptoKitHelper.swift in Sources */,
@@ -1305,6 +1321,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1339,6 +1356,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -37,11 +37,11 @@ class VideoRecordManager {
             return
         }
         let url = getDirectory()
-        recorder.stopRecording(withOutput: url) { [weak self] err in
-            if err != nil {
+        recorder.stopRecording(withOutput: url) { error in
+            if error != nil {
                 print("fail to save")
             }
-            self?.saveToPhotos(tempURL: url)
+//            self?.saveToPhotos(tempURL: url)
             DispatchQueue.main.async {
                 success(url)
             }
@@ -78,7 +78,7 @@ class VideoRecordManager {
     func countDownTimer() {
         _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] timer in
             self?.countTime += 1
-            if self?.countTime == 10 {
+            if self?.countTime == 15 {
                 self?.stopRecording(success: { url in
                     self?.getVideoRecordUrl?(url)
                 }, failure: {

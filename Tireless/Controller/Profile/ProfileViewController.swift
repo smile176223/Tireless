@@ -16,6 +16,8 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    var emptyView = UIImageView()
+    
     let viewModel = ProfileViewModel()
     
     var friendsList: [User]?
@@ -34,6 +36,8 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setEmptyView()
         
         view.backgroundColor = .themeBG
         configureCollectionView()
@@ -66,6 +70,19 @@ class ProfileViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    private func setEmptyView() {
+        emptyView.image = UIImage(named: "tireless_nodata")
+        emptyView.contentMode = .scaleAspectFit
+        self.view.addSubview(emptyView)
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            emptyView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            emptyView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 300),
+            emptyView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
+            emptyView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
+        ])
     }
     
     private func configureCollectionView() {
@@ -116,15 +133,49 @@ class ProfileViewController: UIViewController {
         return UICollectionViewCompositionalLayout(section: section)
     }
     
+    private func planReviewPresent(plan: Plan) {
+        guard let reviewVC = UIStoryboard.plan.instantiateViewController(
+            withIdentifier: "\(PlanReviewViewController.self)")
+                as? PlanReviewViewController
+        else {
+            return
+        }
+        reviewVC.plan = plan
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(reviewVC, animated: true)
+    }
+    
 }
 
-extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ProfileViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch currentTab {
+        case .friends:
+            return
+        case .historyPlan:
+            let cellViewModel = self.viewModel.historyPlanViewModels.value[indexPath.row]
+            planReviewPresent(plan: cellViewModel.plan)
+        }
+    }
+}
+
+extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         switch currentTab {
         case .friends:
+            if viewModel.friendViewModels.value.count == 0 {
+                emptyView.isHidden = false
+            } else {
+                emptyView.isHidden = true
+            }
             return viewModel.friendViewModels.value.count
         case .historyPlan:
+            if viewModel.historyPlanViewModels.value.count == 0 {
+                emptyView.isHidden = false
+            } else {
+                emptyView.isHidden = true
+            }
             return viewModel.historyPlanViewModels.value.count
         }
     }
@@ -165,14 +216,14 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return UICollectionReusableView()
         }
         if AuthManager.shared.currentUserData?.picture == "" {
-            headerView.userImageView.image = UIImage(named: "TirelessLogo")
+            headerView.userImageView.image = UIImage.placeHolder
         } else {
             headerView.userImageView.loadImage(AuthManager.shared.currentUserData?.picture)
         }
         headerView.userNameLabel.text = AuthManager.shared.currentUserData?.name
 
         headerView.isUserImageTap = { [weak self] in
-            self?.setUserAlert()
+            self?.setUserInfoAlert()
         }
 
         headerView.isSearchButtonTap = { [weak self] in
@@ -193,7 +244,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
         
         headerView.isBlockListButtonTab = { [weak self] in
-            self?.blockPresent()
+            self?.userSetAlert()
         }
         
         return headerView
@@ -201,23 +252,9 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
 }
 
 extension ProfileViewController {
-    private func setButtonAlert(userId: String) {
-        let controller = UIAlertController(title: "好友設定", message: nil, preferredStyle: .actionSheet)
-        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
-            self.viewModel.deleteFriend(userId: userId)
-        }
-        controller.addAction(deleteAction)
-        let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
-            self.viewModel.blockUser(blockId: userId)
-        }
-        controller.addAction(banAction)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        present(controller, animated: true, completion: nil)
-    }
-    private func setUserAlert() {
-        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let delete = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
+    private func userSetAlert() {
+        let controller = UIAlertController(title: "設定", message: nil, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
             AuthManager.shared.deleteUser { [weak self] result in
                 switch result {
                 case .success(let string):
@@ -238,11 +275,16 @@ extension ProfileViewController {
                 }
             }
         }
-        let logout = UIAlertAction(title: "登出", style: .default) { _ in
+        controller.addAction(deleteAction)
+        let blockAction = UIAlertAction(title: "黑名單", style: .default) { _ in
+            self.blockPresent()
+        }
+        controller.addAction(blockAction)
+        let logoutAction = UIAlertAction(title: "登出", style: .default) { _ in
             AuthManager.shared.singOut { [weak self] result in
                 switch result {
                 case .success(let success):
-                    ProgressHUD.showSuccess(text: "已登出!")
+                    ProgressHUD.showSuccess(text: "已登出")
                     self?.tabBarController?.selectedIndex = 0
                     print(success)
                 case .failure(let error):
@@ -251,11 +293,81 @@ extension ProfileViewController {
                 }
             }
         }
-        controller.addAction(delete)
-        controller.addAction(logout)
+        controller.addAction(logoutAction)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
+    }
+    
+    private func setButtonAlert(userId: String) {
+        let controller = UIAlertController(title: "好友設定", message: nil, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
+            self.viewModel.deleteFriend(userId: userId)
+        }
+        controller.addAction(deleteAction)
+        let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
+            self.viewModel.blockUser(blockId: userId)
+        }
+        controller.addAction(banAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+    }
+    private func setUserInfoAlert() {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//        let imageChange = UIAlertAction(title: "更換圖片", style: .default) { _ in
+//            
+//        }
+        let nameChange = UIAlertAction(title: "更換姓名", style: .default) { _ in
+            self.showSettingAlert()
+        }
+//        controller.addAction(imageChange)
+        controller.addAction(nameChange)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+    }
+    
+    private func showSettingAlert() {
+        let alertController = UIAlertController(title: "更名",
+                                                message: "可以更改使用者姓名/暱稱",
+                                                preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "姓名/暱稱"
+            textField.keyboardType = .numberPad
+        }
+        let okAction = UIAlertAction(title: "修改", style: .destructive) { _ in
+            let name = alertController.textFields?[0].text
+            guard let name = name else {
+                return
+            }
+            ProfileManager.shared.changeUserName(name: name) { result in
+                switch result {
+                case .success(let text):
+                    ProgressHUD.showSuccess(text: "修改成功")
+                    AuthManager.shared.getCurrentUser { result in
+                        switch result {
+                        case .success(let bool):
+                            print(bool)
+                            self.collectionView.reloadData()
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                    print(text)
+                case .failure(let error):
+                    ProgressHUD.showFailure()
+                    print(error)
+                }
+            }
+            alertController.dismiss(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true)
     }
     
     private func searchFriendPresent() {

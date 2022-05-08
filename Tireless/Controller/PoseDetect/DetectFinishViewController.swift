@@ -47,9 +47,6 @@ class DetectFinishViewController: UIViewController {
     
     private func finishPresent() {
         self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
-//        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
-//            tabBarController.selectedIndex = 0
-//        }
     }
 
     private func shareButtonTap() {
@@ -65,6 +62,7 @@ class DetectFinishViewController: UIViewController {
                                    uuid: "")
         
         detectFinishView.isShareButtonTap = { [weak self] in
+            self?.detectFinishView.shareButton.isEnabled = false
             if self?.isUserCanShare == true {
                 self?.videoManager.uploadVideo(shareFile: uploadVideo) { result in
                     switch result {
@@ -73,6 +71,7 @@ class DetectFinishViewController: UIViewController {
                         self?.sharePresent()
                     case .failure(let error):
                         print("error", error)
+                        self?.detectFinishView.shareButton.isEnabled = true
                     }
                 }
             } else {

@@ -31,7 +31,7 @@ class PlanDetailViewModel {
             switch result {
             case .success:
                 success()
-                ProgressHUD.showSuccess(text: "建立成功!")
+                ProgressHUD.showSuccess(text: "建立成功")
             case .failure(let error):
                 failure(error)
                 ProgressHUD.showFailure()

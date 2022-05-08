@@ -45,7 +45,7 @@ class ProfileViewModel {
             switch result {
             case .success(let text):
                 print(text)
-                ProgressHUD.showSuccess(text: "已刪除!")
+                ProgressHUD.showSuccess(text: "已刪除")
             case .failure(let error):
                 print(error)
                 ProgressHUD.showFailure()
@@ -57,7 +57,7 @@ class ProfileViewModel {
         UserManager.shared.blockUser(blockId: blockId) { result in
             switch result {
             case .success(let text):
-                ProgressHUD.showSuccess(text: "已封鎖!")
+                ProgressHUD.showSuccess(text: "已封鎖")
                 print(text)
             case .failure(let error):
                 print(error)

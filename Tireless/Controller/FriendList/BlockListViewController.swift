@@ -16,20 +16,33 @@ class BlockListViewController: UIViewController {
         }
     }
     
+    var emptyView = UIImageView()
+    
     let viewModel = BlockListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = "黑名單"
         self.navigationController?.navigationBar.backgroundColor = .themeBG
+        self.navigationController?.navigationBar.barTintColor = .themeBG
         self.view.backgroundColor = .themeBG
         self.tableView.backgroundColor = .themeBG
+        
+        setEmptyView()
         
         tableView.register(UINib(nibName: "\(InviteFriendViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(InviteFriendViewCell.self)")
         
-        viewModel.blocksViewModels.bind { [weak self] _ in
+        viewModel.blocksViewModels.bind { [weak self] blocks in
             DispatchQueue.main.async {
+                if blocks.count == 0 {
+                    self?.tableView.isHidden = true
+                    self?.emptyView.isHidden = false
+                } else {
+                    self?.tableView.isHidden = false
+                    self?.emptyView.isHidden = true
+                }
                 self?.tableView.reloadData()
             }
         }
@@ -37,6 +50,19 @@ class BlockListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.fetchBlocks()
+    }
+    
+    private func setEmptyView() {
+        emptyView.image = UIImage(named: "tireless_nodata")
+        emptyView.contentMode = .scaleAspectFit
+        self.view.addSubview(emptyView)
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            emptyView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            emptyView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            emptyView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
+            emptyView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
+        ])
     }
 }
 

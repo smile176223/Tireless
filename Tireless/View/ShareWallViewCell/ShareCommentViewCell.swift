@@ -33,7 +33,7 @@ class ShareCommentViewCell: UITableViewCell {
     
     func layoutCell() {
         if viewModel?.comment.user?.picture == "" {
-            commentImageView.image = UIImage(named: "TirelessLogo")
+            commentImageView.image = UIImage.placeHolder
         } else {
             commentImageView.loadImage(viewModel?.comment.user?.picture)
         }

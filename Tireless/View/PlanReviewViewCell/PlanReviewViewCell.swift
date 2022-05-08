@@ -20,7 +20,11 @@ class PlanReviewViewCell: UITableViewCell {
     
     @IBOutlet weak var playButton: UIButton!
     
+    @IBOutlet weak var noVideoButton: UIButton!
+    
     var isPlayButtonTap: (() -> Void)?
+    
+    var isNoVideoButtonTap: (() -> Void)?
     
     var viewModel: FinishTimeViewModel?
     
@@ -38,17 +42,19 @@ class PlanReviewViewCell: UITableViewCell {
         guard let viewModel = viewModel else {
             return
         }
-        dayLabel.text = "Day\(viewModel.finishTime.day)"
+        dayLabel.text = "DAY\n\(viewModel.finishTime.day)"
         planTimeLabel.text = "\(viewModel.finishTime.planTimes) 次/秒"
         let finishDate = Date(milliseconds: viewModel.finishTime.time)
         finishTimeLabel.text = "\(Date.dateFormatter.string(from: finishDate))"
         if viewModel.finishTime.videoId == "" {
-            thumbnailImageView.image = UIImage.noVideo
+//            thumbnailImageView.image = UIImage.noVideo
             thumbnailImageView.contentMode = .center
             thumbnailImageView.alpha = 1
             playButton.isHidden = true
+            noVideoButton.isHidden = false
         } else {
             playButton.isHidden = false
+            noVideoButton.isHidden = true
             thumbnailImageView.alpha = 0.7
             thumbnailImageView.contentMode = .scaleAspectFill
         }
@@ -76,9 +82,14 @@ class PlanReviewViewCell: UITableViewCell {
     private func setupLayout() {
         thumbnailImageView.layer.cornerRadius = 10
         thumbnailImageView.backgroundColor = .themeBGSecond
+        dayLabel.layer.masksToBounds = true
+        dayLabel.layer.cornerRadius = dayLabel.frame.height / 2
     }
 
     @IBAction func playButtonTap(_ sender: UIButton) {
         isPlayButtonTap?()
+    }
+    @IBAction func noVideoButtonTap(_ sender: UIButton) {
+        isNoVideoButtonTap?()
     }
 }

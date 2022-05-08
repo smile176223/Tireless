@@ -16,26 +16,49 @@ class InviteFriendViewController: UIViewController {
         }
     }
     
+    var emptyView = UIImageView()
+    
     let viewModel = InviteFriendViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = "好友邀請"
         self.navigationController?.navigationBar.backgroundColor = .themeBG
         self.view.backgroundColor = .themeBG
         self.tableView.backgroundColor = .themeBG
         
         tableView.register(UINib(nibName: "\(InviteFriendViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(InviteFriendViewCell.self)")
+        setEmptyView() 
         
         viewModel.getReceiveInvite()
         
-        viewModel.friendViewModels.bind { [weak self] _ in
+        viewModel.friendViewModels.bind { [weak self] firends in
+            if firends.count == 0 {
+                self?.tableView.isHidden = true
+                self?.emptyView.isHidden = false
+            } else {
+                self?.tableView.isHidden = false
+                self?.emptyView.isHidden = true
+            }
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }
-        
+    }
+    
+    private func setEmptyView() {
+        emptyView.image = UIImage(named: "tireless_noinvite")
+        emptyView.contentMode = .scaleAspectFit
+        self.view.addSubview(emptyView)
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            emptyView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            emptyView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            emptyView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
+            emptyView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
+        ])
     }
 }
 
@@ -55,12 +78,12 @@ extension InviteFriendViewController: UITableViewDelegate, UITableViewDataSource
         
         cell.isAgreeButtonTap = {
             FriendManager.shared.addFriend(userId: cellViewModel.user.userId)
-            ProgressHUD.showSuccess(text: "已加入!")
+            ProgressHUD.showSuccess(text: "已加入")
         }
         
         cell.isRejectButtonTap = {
             FriendManager.shared.rejectInvite(userId: cellViewModel.user.userId)
-            ProgressHUD.showSuccess(text: "已拒絕!")
+            ProgressHUD.showSuccess(text: "已拒絕")
         }
         
         return cell

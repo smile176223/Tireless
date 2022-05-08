@@ -94,8 +94,6 @@ class PoseDetectViewController: UIViewController {
         setUpCaptureSessionOutput()
         setUpCaptureSessionInput()
         setupBackButton()
-        
-        setupCurrentExercise()
     
         recordButton.layer.cornerRadius = 25
         
@@ -119,22 +117,17 @@ class PoseDetectViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        if plan?.planName == PlanExercise.plank.rawValue {
-//            AppUtility.lockOrientation(.landscapeRight, andRotateTo: .landscapeRight)
-//        }
+        setupCurrentExercise()
         videoRecordManager.startRecording { [weak self] in
-            self?.startSession()
-            self?.drawStart = true
+//            self?.startSession()
+//            self?.drawStart = true
         }
-//        startSession()
-//        drawStart = true
+        startSession()
+        drawStart = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        if plan?.planName == PlanExercise.plank.rawValue {
-//            AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
-//        }
         viewModel.stopTimer()
         stopSession()
     }
@@ -145,10 +138,11 @@ class PoseDetectViewController: UIViewController {
     }
     
     @IBAction func recordTap(_ sender: UIButton) {
-        counter += 1
+        counter = planTarget
     }
     
     private func setupCurrentExercise() {
+        viewModel.resetExercise()
         guard let plan = plan else {
             return
         }

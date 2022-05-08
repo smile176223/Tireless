@@ -97,5 +97,10 @@ class PlanManageViewCell: UICollectionViewCell {
     private func setupLayout() {
         self.layer.cornerRadius = 25
         planImageView.layer.cornerRadius = planImageView.frame.height / 2
+        self.clipsToBounds = false
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOpacity = 0.8
+        self.layer.shadowOffset = .zero
+        self.layer.shadowRadius = 1
     }
 }
