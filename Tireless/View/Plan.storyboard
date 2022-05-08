@@ -158,7 +158,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rWS-8e-wUm"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="cBT-32-7YY" firstAttribute="leading" secondItem="rWS-8e-wUm" secondAttribute="leading" constant="25" id="8L8-HD-be5"/>
                             <constraint firstItem="rWS-8e-wUm" firstAttribute="trailing" secondItem="cBT-32-7YY" secondAttribute="trailing" constant="25" id="SBk-yk-M2R"/>

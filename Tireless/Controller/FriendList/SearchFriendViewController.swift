@@ -44,8 +44,13 @@ class SearchFriendViewController: UIViewController {
         tableView.register(UINib(nibName: "\(SearchFriendViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(SearchFriendViewCell.self)")
         
-        viewModel.friendViewModels.bind { [weak self] _ in
+        viewModel.friendViewModels.bind { [weak self] user in
             DispatchQueue.main.async {
+                if user.count == 0 {
+                    self?.setSearchEmptyView()
+                } else {
+                    self?.searchEmptyView.removeFromSuperview()
+                }
                 self?.tableView.reloadData()
             }
         }
@@ -63,6 +68,7 @@ class SearchFriendViewController: UIViewController {
     }
     
     private func setSearchEmptyView() {
+        searchEmptyView.removeFromSuperview()
         searchEmptyView.image = UIImage(named: "tireless_nouser")
         searchEmptyView.contentMode = .scaleAspectFit
         self.view.addSubview(searchEmptyView)

@@ -16,6 +16,8 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    var emptyView = UIImageView()
+    
     let viewModel = ProfileViewModel()
     
     var friendsList: [User]?
@@ -34,6 +36,8 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setEmptyView()
         
         view.backgroundColor = .themeBG
         configureCollectionView()
@@ -66,6 +70,19 @@ class ProfileViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    private func setEmptyView() {
+        emptyView.image = UIImage(named: "tireless_nodata")
+        emptyView.contentMode = .scaleAspectFit
+        self.view.addSubview(emptyView)
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            emptyView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            emptyView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 300),
+            emptyView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 3),
+            emptyView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
+        ])
     }
     
     private func configureCollectionView() {
@@ -147,8 +164,18 @@ extension ProfileViewController: UICollectionViewDataSource {
                         numberOfItemsInSection section: Int) -> Int {
         switch currentTab {
         case .friends:
+            if viewModel.friendViewModels.value.count == 0 {
+                emptyView.isHidden = false
+            } else {
+                emptyView.isHidden = true
+            }
             return viewModel.friendViewModels.value.count
         case .historyPlan:
+            if viewModel.historyPlanViewModels.value.count == 0 {
+                emptyView.isHidden = false
+            } else {
+                emptyView.isHidden = true
+            }
             return viewModel.historyPlanViewModels.value.count
         }
     }
