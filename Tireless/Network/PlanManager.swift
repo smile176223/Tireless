@@ -58,22 +58,7 @@ class PlanManager {
             }
         }
         if plan.planGroup == true {
-            groupPlanDB.whereField("joinUsers", arrayContains: userId).getDocuments { querySnapshot, error in
-                guard let querySnapshot = querySnapshot else { return }
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                } else {
-                    for document in querySnapshot.documents {
-                        if var data = try? document.data(as: GroupPlanUser.self, decoder: Firestore.Decoder()) {
-                            data.joinUsers.removeAll { joinUsers in
-                                return joinUsers == userId
-                            }
-                            try? document.reference.setData(from: data)
-                        }
-                    }
-                }
-            }
+            groupPlanDB.document(plan.uuid).updateData(["joinUsers": FieldValue.arrayRemove([userId])])
         }
     }
     

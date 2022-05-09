@@ -38,7 +38,7 @@ class HomeDailyHeaderView: UICollectionReusableView {
     private func commonInit() {
         labelConstraints()
         self.backgroundColor = .themeBG
-        setupLayout() 
+        setupLayout()
     }
     
     private func setupLayout() {
@@ -47,7 +47,6 @@ class HomeDailyHeaderView: UICollectionReusableView {
         formatter.timeStyle = .none
         formatter.string(from: Date())
         dateLabel.text = formatter.string(from: Date())
-        titleLabel.text = "每日運動計畫"
     }
     
     private func labelConstraints() {

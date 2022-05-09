@@ -129,9 +129,11 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                         switch result {
                         case .success(let bool):
                             print(bool)
-                            ProgressHUD.showSuccess(text: "登入成功")
+                            if bool == true {
+                                ProgressHUD.showSuccess(text: "登入成功")
+                            }
                         case .failure(let error):
-                            ProgressHUD.showSuccess(text: "登入失敗")
+                            ProgressHUD.showFailure(text: "登入失敗")
                             print(error)
                         }
                     }
@@ -145,7 +147,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                     self?.viewModel.createUser()
                     self?.finishPresent()
                 case .failure(let error):
-                    ProgressHUD.showSuccess(text: "登入失敗")
+                    ProgressHUD.showFailure(text: "登入失敗")
                     print(error)
                 }
             }

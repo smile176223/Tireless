@@ -33,7 +33,7 @@ class ShareWallViewController: UIViewController {
         
         navigationItem.hidesBackButton = true
         
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .themeBG
         tableView.isPagingEnabled = true
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
