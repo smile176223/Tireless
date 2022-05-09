@@ -248,6 +248,13 @@ extension PlanManageViewController {
         }
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
+        // iPad specific code
+        alertController.popoverPresentationController?.sourceView = self.view
+        let xOrigin = self.view.bounds.width / 2
+        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
+        alertController.popoverPresentationController?.sourceRect = popoverRect
+        alertController.popoverPresentationController?.permittedArrowDirections = .down
+        
         self.present(alertController, animated: true)
     }
     
@@ -265,6 +272,14 @@ extension PlanManageViewController {
         controller.addAction(delete)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
+        
+        // iPad specific code
+        controller.popoverPresentationController?.sourceView = self.view
+        let xOrigin = self.view.bounds.width / 2
+        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
+        controller.popoverPresentationController?.sourceRect = popoverRect
+        controller.popoverPresentationController?.permittedArrowDirections = .down
+        
         present(controller, animated: true, completion: nil)
     }
 }

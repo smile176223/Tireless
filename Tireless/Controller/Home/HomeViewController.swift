@@ -233,12 +233,16 @@ extension HomeViewController: UICollectionViewDataSource {
         }
 
         if indexPath.section == 0 {
+            headerDailyView.isHidden = false
+            headerDailyView.titleLabel.text = "每日運動計畫"
             return headerDailyView
         } else if indexPath.section == 1 {
+            headerDailyView.isHidden = true
             headerView.textLabel.text = "建立個人計畫"
             headerView.createGroupButton.isHidden = true
             return headerView
         } else if indexPath.section == 2 {
+            headerDailyView.isHidden = true
             headerView.textLabel.text = "揪團計畫"
             headerView.createGroupButton.isHidden = false
             return headerView

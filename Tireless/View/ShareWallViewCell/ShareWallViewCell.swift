@@ -36,6 +36,8 @@ class ShareWallViewCell: UITableViewCell {
         layoutCell()
         configureVideo()
         setupLayout()
+        setupLabel(videoTitleText)
+        setupLabel(videoContentText)
     }
     
     func layoutCell() {
@@ -51,6 +53,14 @@ class ShareWallViewCell: UITableViewCell {
     func setupLayout() {
         setButton.touchEdgeInsets = UIEdgeInsets(top: -15, left: -10, bottom: -15, right: -10)
         videoUserImageVeiw.layer.cornerRadius = videoUserImageVeiw.frame.height / 2
+    }
+    
+    private func setupLabel(_ label: UILabel) {
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowRadius = 3.0
+        label.layer.shadowOpacity = 1.0
+        label.layer.shadowOffset = CGSize(width: 4, height: 4)
+        label.layer.masksToBounds = false
     }
     
     func configureVideo() {

@@ -145,7 +145,7 @@ class PoseDetectViewModel {
             average += posePoint.inFrameLikelihood
         }
         let averagePercent = average / Float(posePoints.count) * 100
-        let averageFormat = String(format: "%.2f", averagePercent)
+        let averageFormat = String(format: "%.0f", averagePercent)
         return averageFormat
     }
     

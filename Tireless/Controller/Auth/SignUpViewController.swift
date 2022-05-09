@@ -29,13 +29,13 @@ class SignUpViewController: UIViewController {
     
     private func setupLayout() {
         signUpButton.layer.cornerRadius = 12
-        nameTextField.attributedPlaceholder = NSAttributedString(string: "Name",
+        nameTextField.attributedPlaceholder = NSAttributedString(string: "姓名",
                                                                  attributes: [.foregroundColor: UIColor.darkGray])
-        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "信箱",
                                                                   attributes: [.foregroundColor: UIColor.darkGray])
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password",
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "密碼",
                                                                      attributes: [.foregroundColor: UIColor.darkGray])
-        checkPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Check Password",
+        checkPasswordTextField.attributedPlaceholder = NSAttributedString(string: "確認密碼",
                                                                      attributes: [.foregroundColor: UIColor.darkGray])
     }
     @IBAction func signUpButtonTap(_ sender: UIButton) {

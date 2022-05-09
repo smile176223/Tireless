@@ -54,6 +54,30 @@ class AuthViewController: UIViewController {
         signUpPush()
     }
     
+    @IBAction func privacyPoliciesButtonTap(_ sender: UIButton) {
+        guard let webVC = UIStoryboard.auth.instantiateViewController(withIdentifier: "\(WebkitViewController.self)")
+                as? WebkitViewController
+        else {
+            return
+        }
+        webVC.viewModel = WebkitViewModel(
+            urlString: "https://pages.flycricket.io/tireless-1/privacy.html")
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(webVC, animated: true)
+    }
+    
+    @IBAction func eulaButtonTap(_ sender: UIButton) {
+        guard let webVC = UIStoryboard.auth.instantiateViewController(withIdentifier: "\(WebkitViewController.self)")
+                as? WebkitViewController
+        else {
+            return
+        }
+        webVC.viewModel = WebkitViewModel(
+            urlString: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(webVC, animated: true)
+    }
+    
     private func makeSigninWithAppleButton() {
         let appleIDButton: ASAuthorizationAppleIDButton =
         ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
@@ -91,9 +115,9 @@ class AuthViewController: UIViewController {
         authView.clipsToBounds = true
         authView.layer.cornerRadius = 15
         authView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "信箱",
                                                                   attributes: [.foregroundColor: UIColor.darkGray])
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password",
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "密碼",
                                                                      attributes: [.foregroundColor: UIColor.darkGray])
     }
 }
@@ -129,9 +153,11 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                         switch result {
                         case .success(let bool):
                             print(bool)
-                            ProgressHUD.showSuccess(text: "登入成功")
+                            if bool == true {
+                                ProgressHUD.showSuccess(text: "登入成功")
+                            }
                         case .failure(let error):
-                            ProgressHUD.showSuccess(text: "登入失敗")
+                            ProgressHUD.showFailure(text: "登入失敗")
                             print(error)
                         }
                     }
@@ -145,7 +171,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                     self?.viewModel.createUser()
                     self?.finishPresent()
                 case .failure(let error):
-                    ProgressHUD.showSuccess(text: "登入失敗")
+                    ProgressHUD.showFailure(text: "登入失敗")
                     print(error)
                 }
             }
