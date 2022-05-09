@@ -78,7 +78,7 @@ class VideoRecordManager {
     func countDownTimer() {
         _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self] timer in
             self?.countTime += 1
-            if self?.countTime == 15 {
+            if self?.countTime == 10 {
                 self?.stopRecording(success: { url in
                     self?.getVideoRecordUrl?(url)
                 }, failure: {

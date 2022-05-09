@@ -91,9 +91,9 @@ class AuthViewController: UIViewController {
         authView.clipsToBounds = true
         authView.layer.cornerRadius = 15
         authView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "信箱",
                                                                   attributes: [.foregroundColor: UIColor.darkGray])
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password",
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "密碼",
                                                                      attributes: [.foregroundColor: UIColor.darkGray])
     }
 }
