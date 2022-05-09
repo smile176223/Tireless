@@ -61,6 +61,10 @@ class HomeViewModel {
         }
     }
     
+    func logoutReset() {
+        setJoinGroups([JoinGroup]())
+    }
+    
     private func convertDefaultPlanToViewModels(from defaultPlans: [DefaultPlans]) -> [DefaultPlansViewModel] {
         var viewModels = [DefaultPlansViewModel]()
         for defaultPlan in defaultPlans {
