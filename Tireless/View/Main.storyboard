@@ -22,4 +22,10 @@
             <point key="canvasLocation" x="-544" y="61"/>
         </scene>
     </scenes>
+    <color key="tintColor" name="themeYellow"/>
+    <resources>
+        <namedColor name="themeYellow">
+            <color red="1" green="0.80000000000000004" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

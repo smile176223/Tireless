@@ -17,14 +17,14 @@ class HistoryPlanViewCell: UICollectionViewCell {
     
     @IBOutlet weak var historyFinishTimeLabel: UILabel!
     
-    var viewModel: HistoryPlanViewModels?
+    var viewModel: HistoryPlanViewModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLayout()
     }
     
-    func setup(viewModel: HistoryPlanViewModels) {
+    func setup(viewModel: HistoryPlanViewModel) {
         self.viewModel = viewModel
         layoutCell()
     }
@@ -37,11 +37,11 @@ class HistoryPlanViewCell: UICollectionViewCell {
             historyImageView.image = UIImage(named: viewModel.plan.planName)
         } else {
             switch viewModel.plan.planName {
-            case PlanImage.squat.rawValue:
+            case PlanExercise.squat.rawValue:
                 historyImageView.image = UIImage.groupSquat
-            case PlanImage.plank.rawValue:
+            case PlanExercise.plank.rawValue:
                 historyImageView.image = UIImage.groupPlank
-            case PlanImage.pushup.rawValue:
+            case PlanExercise.pushup.rawValue:
                 historyImageView.image = UIImage.groupPushup
             default:
                 historyImageView.image = UIImage.placeHolder
@@ -54,7 +54,7 @@ class HistoryPlanViewCell: UICollectionViewCell {
             historyPlanNameLabel.text = "\(viewModel.plan.planName) (個人)"
         }
         let finish = viewModel.plan.finishTime.endIndex - 1
-        let finishDate = Date(milliseconds: viewModel.plan.finishTime[finish]?.time ?? 0)
+        let finishDate = Date(milliseconds: viewModel.plan.finishTime[finish].time)
         historyFinishTimeLabel.text = "完成時間: \(Date.dateFormatter.string(from: finishDate))"
     }
     

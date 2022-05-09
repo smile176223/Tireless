@@ -28,7 +28,7 @@ struct Plan: Codable {
     var createdTime: Int64
     var planGroup: Bool
     var progress: Double
-    var finishTime: [FinishTime?]
+    var finishTime: [FinishTime]
     var uuid: String
     var user: User?
     
@@ -59,4 +59,6 @@ struct FinishTime: Codable {
     let day: Int
     let time: Int64
     let planTimes: String
+    var videoId: String?
+    var videoURL: String?
 }

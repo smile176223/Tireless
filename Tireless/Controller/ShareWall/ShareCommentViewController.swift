@@ -70,22 +70,31 @@ class ShareCommentViewController: UIViewController {
         }
     }
     @IBAction func sendCommentTap(_ sender: UIButton) {
-        guard let shareFile = shareFile,
-              let commentText = commentTextField.text else {
+        if commentTextField.text?.isEmpty == true {
             return
         }
-        CommentManager.shared.postComment(uuid: shareFile.uuid,
-                                          comment: Comment(userId: AuthManager.shared.currentUser,
-                                                           content: commentText,
-                                                           createdTime: Date().millisecondsSince1970)) { result in
-            switch result {
-            case .success(let text):
-                print(text)
-            case .failure(let error):
-                print(error)
+        if AuthManager.shared.checkCurrentUser() == true {
+            guard let shareFile = shareFile,
+                  let commentText = commentTextField.text else {
+                return
+            }
+            CommentManager.shared.postComment(uuid: shareFile.uuid,
+                                              comment: Comment(userId: AuthManager.shared.currentUser,
+                                                               content: commentText,
+                                                               createdTime: Date().millisecondsSince1970)) { result in
+                switch result {
+                case .success(let text):
+                    print(text)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            commentTextField.text = ""
+        } else {
+            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                present(authVC, animated: true, completion: nil)
             }
         }
-        commentTextField.text = ""
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -93,6 +102,27 @@ class ShareCommentViewController: UIViewController {
             maskView.removeFromSuperview()
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    private func setButtonAlert(userId: String) {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
+            UserManager.shared.blockUser(blockId: userId) { result in
+                switch result {
+                case .success(let text):
+                    print(text)
+                    ProgressHUD.showSuccess(text: "封鎖成功")
+                case .failure(let error):
+                    print(error)
+                    ProgressHUD.showFailure(text: "封鎖失敗")
+                    
+                }
+            }
+        }
+        controller.addAction(banAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
     }
 }
 
@@ -109,6 +139,10 @@ extension ShareCommentViewController: UITableViewDelegate, UITableViewDataSource
         
         let cellViewModel = self.viewModel.commentsViewModel.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
+        
+        cell.isSetButtonTap = { [weak self] in
+            self?.setButtonAlert(userId: cellViewModel.comment.userId)
+        }
         
         return cell
     }

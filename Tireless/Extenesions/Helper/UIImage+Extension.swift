@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum PlanImage: String {
+enum PlanExercise: String {
     case squat = "深蹲"
     
     case plank = "棒式"
@@ -16,7 +16,7 @@ enum PlanImage: String {
 }
 
 extension UIImage {
-    static func asset(_ asset: PlanImage) -> UIImage? {
+    static func asset(_ asset: PlanExercise) -> UIImage? {
         return UIImage(named: asset.rawValue)
     }
     
@@ -26,7 +26,7 @@ extension UIImage {
     
     static var groupPushup = UIImage(named: "group_pushup")
     
-    static var placeHolder = UIImage(named: "TirelessLogo")
+    static var placeHolder = UIImage(named: "TirelessLogoText")
     
     static var tabHome = UIImage(named: "icons_home")
     
@@ -35,4 +35,6 @@ extension UIImage {
     static var tabVideo = UIImage(named: "icons_video")
     
     static var tabUser = UIImage(named: "icons_user")
+    
+    static var noVideo = UIImage(named: "icons_novideo")
 }

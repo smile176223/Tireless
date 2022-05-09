@@ -61,6 +61,10 @@ class PlanManageViewModel {
         }
     }
     
+    func logoutReset() {
+        setPlans([Plan]())
+    }
+    
     func convertPlansToViewModels(from plans: [Plan], isGroup: Bool) -> [PlanViewModel] {
         var viewModels = [PlanViewModel]()
         for plan in plans where plan.planGroup == isGroup {

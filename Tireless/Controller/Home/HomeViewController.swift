@@ -69,11 +69,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        if AuthManager.shared.currentUser != "" {
-//            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
-//        }
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        if AuthManager.shared.currentUser != "" {
+            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
+        }
+    }
     
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
@@ -96,9 +96,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     private func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout {(sectionIndex, _) -> NSCollectionLayoutSection? in
-            guard let sectionType = Section(rawValue: sectionIndex) else {
-                return nil
-            }
+            guard let sectionType = Section(rawValue: sectionIndex) else { return nil }
             var columns = sectionType.columnCount
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(1.0))
@@ -235,13 +233,17 @@ extension HomeViewController: UICollectionViewDataSource {
         }
 
         if indexPath.section == 0 {
+            headerDailyView.isHidden = false
+            headerDailyView.titleLabel.text = "每日運動計畫"
             return headerDailyView
         } else if indexPath.section == 1 {
-            headerView.textLabel.text = "個人計畫"
+            headerDailyView.isHidden = true
+            headerView.textLabel.text = "建立個人計畫"
             headerView.createGroupButton.isHidden = true
             return headerView
         } else if indexPath.section == 2 {
-            headerView.textLabel.text = "團體計劃"
+            headerDailyView.isHidden = true
+            headerView.textLabel.text = "揪團計畫"
             headerView.createGroupButton.isHidden = false
             return headerView
         }

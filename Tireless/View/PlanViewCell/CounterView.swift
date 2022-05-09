@@ -10,23 +10,26 @@ import UIKit
 
 class CounterView: UIView {
     
-    private var plusButton: UIButton = {
-        let button = UIButton()
+    private var plusButton: CustomButton = {
+        let button = CustomButton()
         button.setBackgroundImage(UIImage(named: "Icons_Add"), for: .normal)
         button.tintColor = .white
+        button.touchEdgeInsets = UIEdgeInsets(top: -15, left: -10, bottom: -15, right: -10)
         return button
     }()
     
-    private var minusButton: UIButton = {
-        let button = UIButton()
+    private var minusButton: CustomButton = {
+        let button = CustomButton()
         button.setBackgroundImage(UIImage(named: "Icons_Subtract"), for: .normal)
         button.tintColor = .white
+        button.touchEdgeInsets = UIEdgeInsets(top: -15, left: -10, bottom: -15, right: -10)
         return button
     }()
     
     private var inputTextField: UITextField = {
         let textField = UITextField()
         textField.textColor = .white
+        textField.font = .bold(size: 20)
         textField.text = "1"
         textField.textAlignment = .center
         textField.keyboardType = .numberPad
@@ -47,10 +50,15 @@ class CounterView: UIView {
         buttonConstraints()
         textFieldConstraints()
         self.backgroundColor = .themeBGSecond
-        self.layer.cornerRadius = 23
+        self.layer.cornerRadius = 15
         minusButton.addTarget(self, action: #selector(minusButtonTap), for: .touchUpInside)
         plusButton.addTarget(self, action: #selector(plusButtonTap), for: .touchUpInside)
         inputTextField.delegate = self
+        self.clipsToBounds = false
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOpacity = 0.8
+        self.layer.shadowOffset = .zero
+        self.layer.shadowRadius = 1
     }
     
     @objc func minusButtonTap() {
@@ -77,10 +85,15 @@ class CounterView: UIView {
         } else {
             enable(item: minusButton)
         }
+        if inputTextField.text == "99" {
+            disable(item: plusButton)
+        } else {
+            enable(item: plusButton)
+        }
         guard let text = inputTextField.text,
               let amount = Int(text)
         else { return }
-        if amount > 30 {
+        if amount > 99 {
             inputTextField.text = String(99)
         }
     }
@@ -136,9 +149,9 @@ class CounterView: UIView {
         addSubview(inputTextField)
         inputTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            inputTextField.leadingAnchor.constraint(equalTo: minusButton.trailingAnchor),
-            inputTextField.trailingAnchor.constraint(equalTo: plusButton.leadingAnchor),
-            inputTextField.heightAnchor.constraint(equalTo: plusButton.heightAnchor),
+            inputTextField.leadingAnchor.constraint(equalTo: minusButton.trailingAnchor, constant: 18),
+            inputTextField.trailingAnchor.constraint(equalTo: plusButton.leadingAnchor, constant: -18),
+            inputTextField.heightAnchor.constraint(equalTo: plusButton.heightAnchor, constant: 25),
             inputTextField.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }

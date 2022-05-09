@@ -17,6 +17,8 @@ class PoseDetectViewController: UIViewController {
     
     @IBOutlet weak var recordButton: UIButton!
     
+    @IBOutlet weak var inFrameLikeLiHoodLabel: UILabel!
+    
     private enum Constant {
         static let videoDataOutputQueueLabel = "com.LiamHao.Tireless.VideoDataOutputQueue"
         static let sessionQueueLabel = "com.LiamHao.Tireless.SessionQueue"
@@ -24,7 +26,7 @@ class PoseDetectViewController: UIViewController {
         static let lineWidth: CGFloat = 3.0
     }
     
-    private var isUsingFrontCamera = false
+    private var isUsingFrontCamera = true
     
     private var isUserRejectRecording = false
     
@@ -67,7 +69,7 @@ class PoseDetectViewController: UIViewController {
     private let videoRecordManager = VideoRecordManager()
     
     private var videoUrl: URL?
-    
+
     private lazy var previewOverlayView: UIImageView = {
         precondition(isViewLoaded)
         let previewOverlayView = UIImageView(frame: .zero)
@@ -92,6 +94,9 @@ class PoseDetectViewController: UIViewController {
         setUpCaptureSessionOutput()
         setUpCaptureSessionInput()
         setupBackButton()
+        
+        setupLabel(countLabel)
+        setupLabel(inFrameLikeLiHoodLabel)
     
         recordButton.layer.cornerRadius = 25
         
@@ -102,20 +107,31 @@ class PoseDetectViewController: UIViewController {
         videoRecordManager.userRejectRecord = { [weak self] in
             self?.isUserRejectRecording = true
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        videoRecordManager.startRecording { [weak self] in
-//            self?.startSession()
-//            self?.drawStart = true
+        
+        viewModel.noPoint = { [weak self] in
+            DispatchQueue.main.async {
+                self?.inFrameLikeLiHoodLabel.text = "準確度：0%"
+            }
         }
-        startSession()
-        drawStart = true
+        
+        viewModel.inFrameLikeLiHoodRefresh = { [weak self] inFrameLikeLiHood in
+            self?.inFrameLikeLiHoodLabel.text = "準確度：\(inFrameLikeLiHood)%"
+        }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupCurrentExercise()
+        videoRecordManager.startRecording { [weak self] in
+            self?.startSession()
+            self?.drawStart = true
+        }
+//        startSession()
+//        drawStart = true
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.stopTimer()
         stopSession()
     }
     
@@ -124,8 +140,24 @@ class PoseDetectViewController: UIViewController {
         previewLayer?.frame = cameraPreView.bounds
     }
     
-    @IBAction func recordTap(_ sender: Any) {
-        counter += 1
+    @IBAction func recordTap(_ sender: UIButton) {
+        counter = planTarget
+    }
+    
+    private func setupCurrentExercise() {
+        viewModel.resetExercise()
+        guard let plan = plan else {
+            return
+        }
+        viewModel.setupExercise(with: plan)
+    }
+    
+    private func setupLabel(_ label: UILabel) {
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowRadius = 3.0
+        label.layer.shadowOpacity = 1.0
+        label.layer.shadowOffset = CGSize(width: 4, height: 4)
+        label.layer.masksToBounds = false
     }
     
     func blurEffect() {

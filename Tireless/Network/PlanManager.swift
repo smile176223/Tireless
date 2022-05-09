@@ -58,22 +58,7 @@ class PlanManager {
             }
         }
         if plan.planGroup == true {
-            groupPlanDB.whereField("joinUsers", arrayContains: userId).getDocuments { querySnapshot, error in
-                guard let querySnapshot = querySnapshot else { return }
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                } else {
-                    for document in querySnapshot.documents {
-                        if var data = try? document.data(as: GroupPlanUser.self, decoder: Firestore.Decoder()) {
-                            data.joinUsers.removeAll { joinUsers in
-                                return joinUsers == userId
-                            }
-                            try? document.reference.setData(from: data)
-                        }
-                    }
-                }
-            }
+            groupPlanDB.document(plan.uuid).updateData(["joinUsers": FieldValue.arrayRemove([userId])])
         }
     }
     
@@ -109,7 +94,35 @@ class PlanManager {
                 for document in querySnapshot.documents {
                     ref.document(document.documentID).setData(["planTimes": times], merge: true)
                 }
+                completion(.success("success"))
             }
+        }
+    }
+    
+    func fetchPlanReviewVideo(finishTime: [FinishTime], completion: @escaping (Result<[FinishTime], Error>) -> Void) {
+        let ref = Firestore.firestore().collection("shareWall")
+        var tempFinish = finishTime
+        DispatchQueue.global().async {
+            let semaphore = DispatchSemaphore(value: 0)
+            for index in 0..<finishTime.count {
+                if let videoId = finishTime[index].videoId {
+                    if videoId == "" {
+                        continue
+                    }
+                    ref.document(videoId).getDocument { querySnapshot, error in
+                        if let error = error {
+                            completion(.failure(error))
+                        } else {
+                            if let data = try? querySnapshot?.data(as: ShareFiles.self, decoder: Firestore.Decoder()) {
+                                tempFinish[index].videoURL = "\(data.shareURL)"
+                            }
+                        }
+                        semaphore.signal()
+                    }
+                }
+                semaphore.wait()
+            }
+            completion(.success(tempFinish))
         }
     }
     
@@ -136,6 +149,7 @@ class PlanManager {
                                 }
                             case .failure(let error):
                                 completion(.failure(error))
+                                semaphore.signal()
                             }
                         }
                         semaphore.wait()

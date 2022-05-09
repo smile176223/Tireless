@@ -18,8 +18,10 @@ class ShareManager {
     
     var uploadProgress: ((Progress) -> Void)?
     
-    func uploadVideo(shareFile: ShareFiles, completion: @escaping (Result<URL, Error>) -> Void) {
-        let videoRef = Storage.storage().reference().child("Videos/\(shareFile.shareName)")
+    var blockUsers = [String]()
+    
+    func uploadVideo(shareFile: ShareFiles, completion: @escaping (Result<String, Error>) -> Void) {
+        let videoRef = Storage.storage().reference().child("Videos/\(UUID().uuidString)")
         let uploadTask = videoRef.putFile(from: shareFile.shareURL, metadata: nil) { _, error in
             if let error = error {
                 completion(.failure(error))
@@ -32,13 +34,14 @@ class ShareManager {
                 guard let downloadURL = url else {
                     return
                 }
-                completion(.success(downloadURL))
+//                completion(.success(downloadURL))
                 do {
                     var tempFile = shareFile
                     tempFile.shareURL = downloadURL
                     let document = self.shareWallDB.document()
                     tempFile.uuid = document.documentID
                     try document.setData(from: tempFile)
+                    completion(.success(tempFile.uuid))
                 } catch {
                     print(error)
                 }
@@ -58,13 +61,28 @@ class ShareManager {
             if let error = error {
                 completion(.failure(error))
             } else {
-                var videos = [ShareFiles]()
-                for document in querySnapshot.documents {
-                    if let video = try? document.data(as: ShareFiles.self, decoder: Firestore.Decoder()) {
-                        videos.append(video)
+                DispatchQueue.global().async {
+                    let semaphore = DispatchSemaphore(value: 0)
+                    var videoPosts = [ShareFiles]()
+                    for document in querySnapshot.documents {
+                        if var videoPost = try? document.data(as: ShareFiles.self, decoder: Firestore.Decoder()) {
+                            UserManager.shared.fetchUser(userId: videoPost.userId) { result in
+                                switch result {
+                                case .success(let user):
+                                    videoPost.user = user
+                                    if !(AuthManager.shared.blockUsers.contains(videoPost.userId)) {
+                                        videoPosts.append(videoPost)
+                                    }
+                                case .failure(let error):
+                                    completion(.failure(error))
+                                }
+                                semaphore.signal()
+                            }
+                        }
+                        semaphore.wait()
                     }
+                    completion(.success(videoPosts))
                 }
-                completion(.success(videos))
             }
         }
     }

@@ -26,7 +26,9 @@ class FriendManager {
                 var friends = [User]()
                 for document in querySnapshot.documents {
                     if let user = try? document.data(as: User.self, decoder: Firestore.Decoder()) {
-                        friends.append(user)
+                        if !(AuthManager.shared.blockUsers.contains(user.userId)) {
+                            friends.append(user)
+                        }
                     }
                 }
                 completion(.success(friends))
@@ -56,13 +58,15 @@ class FriendManager {
             } else {
                 for document in querySnapshot.documents {
                     if let user = try? document.data(as: UserId.self, decoder: Firestore.Decoder()) {
-                        UserManager.shared.fetchUser(userId: user.userId) { result in
-                            switch result {
-                            case .success(let user):
-                                users.append(user)
-                                completion(.success(users))
-                            case .failure(let error):
-                                completion(.failure(error))
+                        if !(AuthManager.shared.blockUsers.contains(user.userId)) {
+                            UserManager.shared.fetchUser(userId: user.userId) { result in
+                                switch result {
+                                case .success(let user):
+                                    users.append(user)
+                                    completion(.success(users))
+                                case .failure(let error):
+                                    completion(.failure(error))
+                                }
                             }
                         }
                     }

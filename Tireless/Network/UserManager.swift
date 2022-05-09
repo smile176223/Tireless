@@ -47,7 +47,7 @@ class UserManager {
     }
     
     func fetchUser(userId: String, completion: @escaping (Result<User, Error>) -> Void) {
-        userDB.document(userId).getDocument { querySnapshot, error in
+        userDB.document(userId).addSnapshotListener { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))
@@ -136,5 +136,37 @@ class UserManager {
             }
         }
         completion(.success("success"))
+    }
+    
+    func blockUser(blockId: String, completion: @escaping (Result<String, Error>) -> Void) {
+        let blockLists = userDB.document(AuthManager.shared.currentUser).collection("BlockLists").document(blockId)
+        blockLists.setData(["userId": blockId])
+        FriendManager.shared.deleteFriend(userId: blockId) { result in
+            switch result {
+            case .success(let text):
+                completion(.success(text))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func fetchBlockUser(completion: @escaping (Result<[String], Error>) -> Void) {
+        let ref = userDB.document(AuthManager.shared.currentUser).collection("BlockLists")
+        ref.addSnapshotListener { querySnapshot, error in
+                guard let querySnapshot = querySnapshot else { return }
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                } else {
+                    var blockLists = [String]()
+                    for document in querySnapshot.documents {
+                        if let blockuser = try? document.data(as: Friend.self, decoder: Firestore.Decoder()) {
+                            blockLists.append(blockuser.userId)
+                        }
+                    }
+                    completion(.success(blockLists))
+                }
+        }
     }
 }

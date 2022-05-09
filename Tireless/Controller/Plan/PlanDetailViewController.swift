@@ -48,7 +48,10 @@ class PlanDetailViewController: UIViewController {
                                       planGroup: false)
                 self?.viewModel.createPlan(
                     success: {
-                        self?.dismiss(animated: true)
+                        self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                        if let tabBarController = self?.presentingViewController as? UITabBarController {
+                            tabBarController.selectedIndex = 1
+                        }
                     }, failure: { error in
                         print(error)
                     })

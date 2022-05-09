@@ -25,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eb7-50-38m">
-                    <rect key="frame" x="50" y="244" width="314" height="418"/>
+                    <rect key="frame" x="50" y="239" width="314" height="418"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="9sA-g2-nNj">
                             <rect key="frame" x="62" y="358" width="190" height="40"/>
@@ -33,9 +33,10 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g27-AY-pPA">
                                     <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
                                     <color key="backgroundColor" name="themeBGSecond"/>
+                                    <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="15"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="分享"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="影片分享"/>
                                     <connections>
                                         <action selector="shareButtonTap:" destination="-1" eventType="touchUpInside" id="uZs-OP-bNt"/>
                                     </connections>
@@ -47,9 +48,10 @@
                                         <constraint firstAttribute="width" constant="80" id="iL1-O5-WIh"/>
                                         <constraint firstAttribute="height" constant="40" id="mvh-Hw-eCb"/>
                                     </constraints>
+                                    <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="15"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="完成"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="運動完成"/>
                                     <connections>
                                         <action selector="finishButtonTap:" destination="-1" eventType="touchUpInside" id="UM0-ZJ-wwb"/>
                                     </connections>
@@ -100,9 +102,9 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eb7-50-38m" secondAttribute="trailing" constant="50" id="AJv-92-cDV"/>
-                <constraint firstItem="eb7-50-38m" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="200" id="Ipm-wZ-jbf"/>
+                <constraint firstItem="eb7-50-38m" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="KxH-EN-A2m"/>
+                <constraint firstItem="eb7-50-38m" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.466518" id="dNm-Ex-7na"/>
                 <constraint firstItem="eb7-50-38m" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="iQe-Y1-3JY"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eb7-50-38m" secondAttribute="bottom" constant="200" id="vs2-WU-4uL"/>
             </constraints>
             <point key="canvasLocation" x="139" y="120"/>
         </view>

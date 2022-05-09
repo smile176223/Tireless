@@ -15,7 +15,7 @@ class ProfileViewModel {
     
     let friendViewModels = Box([FriendsViewModel]())
     
-    let historyPlanViewModels = Box([HistoryPlanViewModels]())
+    let historyPlanViewModels = Box([HistoryPlanViewModel]())
 
     func fetchUser(userId: String) {
         UserManager.shared.fetchUser(userId: userId) { [weak self] result in
@@ -45,7 +45,20 @@ class ProfileViewModel {
             switch result {
             case .success(let text):
                 print(text)
-                ProgressHUD.showSuccess(text: "已刪除!")
+                ProgressHUD.showSuccess(text: "已刪除")
+            case .failure(let error):
+                print(error)
+                ProgressHUD.showFailure()
+            }
+        }
+    }
+    
+    func blockUser(blockId: String) {
+        UserManager.shared.blockUser(blockId: blockId) { result in
+            switch result {
+            case .success(let text):
+                ProgressHUD.showSuccess(text: "已封鎖")
+                print(text)
             case .failure(let error):
                 print(error)
                 ProgressHUD.showFailure()
@@ -77,10 +90,10 @@ class ProfileViewModel {
         friendViewModels.value = convertFriendsToViewModels(from: friends)
     }
     
-    func convertPlansToViewModels(from plans: [Plan]) -> [HistoryPlanViewModels] {
-        var viewModels = [HistoryPlanViewModels]()
+    func convertPlansToViewModels(from plans: [Plan]) -> [HistoryPlanViewModel] {
+        var viewModels = [HistoryPlanViewModel]()
         for plan in plans {
-            let viewModel = HistoryPlanViewModels(model: plan)
+            let viewModel = HistoryPlanViewModel(model: plan)
             viewModels.append(viewModel)
         }
         return viewModels

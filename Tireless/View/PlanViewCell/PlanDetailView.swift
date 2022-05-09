@@ -17,7 +17,6 @@ class PlanDetailView: UIView {
     private var imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-//        image.image = UIImage(named: "深蹲")
         return image
     }()
     
@@ -171,7 +170,7 @@ class PlanDetailView: UIView {
         NSLayoutConstraint.activate([
             createButton.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor, constant: -30),
             createButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            createButton.widthAnchor.constraint(equalToConstant: 150)
+            createButton.widthAnchor.constraint(equalToConstant: 130)
         ])
         bottomView.addSubview(daysCounter)
         daysCounter.translatesAutoresizingMaskIntoConstraints = false

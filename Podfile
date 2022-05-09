@@ -13,6 +13,7 @@ target 'Tireless' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
+  pod 'Firebase/Crashlytics'
   pod 'FirebaseFirestoreSwift', '8.14.0-beta'
   pod 'Kingfisher'
   pod 'IQKeyboardManagerSwift', '6.3.0'

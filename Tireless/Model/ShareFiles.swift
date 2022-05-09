@@ -14,6 +14,7 @@ struct ShareFiles: Codable {
     var createdTime: Int64
     var content: String
     var uuid: String
+    var user: User?
 
     enum CodingKeys: String, CodingKey {
         case userId
@@ -22,6 +23,7 @@ struct ShareFiles: Codable {
         case createdTime
         case content
         case uuid
+        case user
     }
 }
 

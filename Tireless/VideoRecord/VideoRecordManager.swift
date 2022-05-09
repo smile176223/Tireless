@@ -37,11 +37,11 @@ class VideoRecordManager {
             return
         }
         let url = getDirectory()
-        recorder.stopRecording(withOutput: url) { [weak self] err in
-            if err != nil {
+        recorder.stopRecording(withOutput: url) { error in
+            if error != nil {
                 print("fail to save")
             }
-            self?.saveToPhotos(tempURL: url)
+//            self?.saveToPhotos(tempURL: url)
             DispatchQueue.main.async {
                 success(url)
             }

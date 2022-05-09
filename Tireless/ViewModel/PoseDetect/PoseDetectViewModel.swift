@@ -15,11 +15,21 @@ class PoseDetectViewModel {
         case pose = "Pose Detection"
     }
     
-//    let posePointViewModels = Box([PosePointViewModel]())
+    private enum Exercise {
+        case squat
+        case pushup
+        case plank
+    }
     
     let poseViewModels = Box([Pose]())
     
     private var isUsingFrontCamera = false
+    
+    private var isPlank = false
+    
+    private var timer = Timer()
+    
+    private var plankCountTime = 0
     
     private var poseDetector: PoseDetector?
     
@@ -29,20 +39,20 @@ class PoseDetectViewModel {
     
     private var lastDetector: Detector?
     
-    private let squatManager = SquatManager()
-    
-    private let startManager = StartManager()
+    private var currentExercise: Exercise = .squat
     
     var countRefresh: ((Int) -> Void)?
+    
+    var inFrameLikeLiHoodRefresh: ((String) -> Void)?
+    
+    var noPoint: (() -> Void)?
     
     func detectPose(in sampleBuffer: CMSampleBuffer,
                     width: CGFloat,                    
                     height: CGFloat,
                     previewLayer: AVCaptureVideoPreviewLayer) {
         let visionImage = VisionImage(buffer: sampleBuffer)
-        let orientation = UIUtilities.imageOrientation(
-            fromDevicePosition: isUsingFrontCamera ? .front : .back
-        )
+        let orientation = UIUtilities.imageOrientation(fromDevicePosition: isUsingFrontCamera ? .front : .back)
         visionImage.orientation = orientation
         let activeDetector = self.currentDetector
         resetManagedLifecycleDetectors(activeDetector: activeDetector)
@@ -56,6 +66,7 @@ class PoseDetectViewModel {
                 return
             }
             guard !poses.isEmpty else {
+                self.noPoint?()
                 return
             }
             DispatchQueue.main.sync { [weak self] in
@@ -70,10 +81,21 @@ class PoseDetectViewModel {
                                                        inFrameLikelihood: $0.inFrameLikelihood,
                                                        type: $0.type.rawValue))
                 }
-                if startManager.checkStart(posePoint) == true {
-                    self?.countRefresh?(self?.squatManager.squatWork(posePoint) ?? 0)
+                self?.inFrameLikeLiHoodRefresh?(getInFrameLikeLiHoodAverage(with: posePoint))
+    
+                if StartManager.shared.checkStart(posePoint) == true {
+                    switch currentExercise {
+                    case .squat:
+                        self?.countRefresh?(SquatManager.shared.squatWork(posePoint))
+                    case .pushup:
+                        self?.countRefresh?(PushupManager.shared.pushupWork(posePoint))
+                    case .plank:
+                        self?.isPlank = PlankManager.shared.plankWork(posePoint)
+                        self?.countRefresh?(plankCountTime)
+                    }
                 } else {
-                    self?.squatManager.resetIfOut()
+                    SquatManager.shared.resetIfOut()
+                    PushupManager.shared.resetIfOut()
                 }
             }
         }
@@ -97,16 +119,51 @@ class PoseDetectViewModel {
         self.lastDetector = activeDetector
     }
     
-//    private func convertPosePointToViewModel(from posePoints: [PosePoint]) -> [PosePointViewModel] {
-//        var viewModels = [PosePointViewModel]()
-//        for posePoint in posePoints {
-//            let viewModel = PosePointViewModel(model: posePoint)
-//            viewModels.append(viewModel)
-//        }
-//        return viewModels
-//    }
-//
-//    private func setPosePoint(_ posePoint: [PosePoint]) {
-//        posePointViewModels.value = convertPosePointToViewModel(from: posePoint)
-//    }
+    func resetExercise() {
+        SquatManager.shared.resetCount()
+        PushupManager.shared.resetCount()
+        plankCountTime = 0
+    }
+    
+    func setupExercise(with plan: Plan) {
+        switch plan.planName {
+        case PlanExercise.squat.rawValue:
+            currentExercise = .squat
+        case PlanExercise.pushup.rawValue:
+            currentExercise = .pushup
+        case PlanExercise.plank.rawValue:
+            currentExercise = .plank
+            setupTimer()
+        default:
+            currentExercise = .squat
+        }
+    }
+    
+    func getInFrameLikeLiHoodAverage(with posePoints: [PosePoint]) -> String {
+        var average: Float = 0
+        for posePoint in posePoints {
+            average += posePoint.inFrameLikelihood
+        }
+        let averagePercent = average / Float(posePoints.count) * 100
+        let averageFormat = String(format: "%.0f", averagePercent)
+        return averageFormat
+    }
+    
+    private func setupTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1,
+                                     target: self,
+                                     selector: #selector(updatePlankTime),
+                                     userInfo: nil,
+                                     repeats: true)
+    }
+    
+    @objc private func updatePlankTime() {
+        if isPlank == true {
+            plankCountTime += 1
+        }
+    }
+    
+    func stopTimer() {
+        timer.invalidate()
+    }
 }
