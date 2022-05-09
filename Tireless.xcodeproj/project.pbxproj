@@ -17,6 +17,8 @@
 		FF1444B12801A6760027F560 /* StartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444B02801A6760027F560 /* StartManager.swift */; };
 		FF1444C9280411A50027F560 /* CountDownGo.json in Resources */ = {isa = PBXBuildFile; fileRef = FF1444C8280411A50027F560 /* CountDownGo.json */; };
 		FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */; };
+		FF2D8DD92828FDC30093DA78 /* WebkitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DD82828FDC30093DA78 /* WebkitViewController.swift */; };
+		FF2D8DDB282900720093DA78 /* WebkitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DDA282900720093DA78 /* WebkitViewModel.swift */; };
 		FF2EF6ED28203A58008418A0 /* GroupPlanViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6EC28203A58008418A0 /* GroupPlanViewCell.swift */; };
 		FF2EF6EF28203A63008418A0 /* GroupPlanViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2EF6EE28203A63008418A0 /* GroupPlanViewCell.xib */; };
 		FF2EF6F128203A9C008418A0 /* GroupPlanHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6F028203A9C008418A0 /* GroupPlanHeaderView.swift */; };
@@ -167,6 +169,8 @@
 		FF1444B02801A6760027F560 /* StartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartManager.swift; sourceTree = "<group>"; };
 		FF1444C8280411A50027F560 /* CountDownGo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountDownGo.json; sourceTree = "<group>"; };
 		FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishViewController.swift; sourceTree = "<group>"; };
+		FF2D8DD82828FDC30093DA78 /* WebkitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebkitViewController.swift; sourceTree = "<group>"; };
+		FF2D8DDA282900720093DA78 /* WebkitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebkitViewModel.swift; sourceTree = "<group>"; };
 		FF2EF6EC28203A58008418A0 /* GroupPlanViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanViewCell.swift; sourceTree = "<group>"; };
 		FF2EF6EE28203A63008418A0 /* GroupPlanViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupPlanViewCell.xib; sourceTree = "<group>"; };
 		FF2EF6F028203A9C008418A0 /* GroupPlanHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanHeaderView.swift; sourceTree = "<group>"; };
@@ -704,6 +708,7 @@
 			children = (
 				FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */,
 				FF3F77FD281B006700D8360A /* SignUpViewController.swift */,
+				FF2D8DD82828FDC30093DA78 /* WebkitViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -712,6 +717,7 @@
 			isa = PBXGroup;
 			children = (
 				FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */,
+				FF2D8DDA282900720093DA78 /* WebkitViewModel.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1080,6 +1086,7 @@
 				FF5E89DC2824A3EF00214A5D /* UILabel+Extension.swift in Sources */,
 				FF3FBE6A2811C33B00E6B5DC /* PlanManageViewController.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */,
+				FF2D8DDB282900720093DA78 /* WebkitViewModel.swift in Sources */,
 				FF5E89E02825B29400214A5D /* ProfileManager.swift in Sources */,
 				FF5E89D12823527000214A5D /* PlanReviewViewController.swift in Sources */,
 				FF3F77F6281AC96B00D8360A /* InviteFriendViewController.swift in Sources */,
@@ -1103,6 +1110,7 @@
 				FF5E89C02822290C00214A5D /* Orientation+Extension.swift in Sources */,
 				FF5E89C228227D5A00214A5D /* BlockListViewController.swift in Sources */,
 				FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */,
+				FF2D8DD92828FDC30093DA78 /* WebkitViewController.swift in Sources */,
 				FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */,
 				FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */,
 				FF3FBE7A2812972100E6B5DC /* PlanManageViewModel.swift in Sources */,

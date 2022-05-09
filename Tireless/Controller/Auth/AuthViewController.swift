@@ -54,6 +54,30 @@ class AuthViewController: UIViewController {
         signUpPush()
     }
     
+    @IBAction func privacyPoliciesButtonTap(_ sender: UIButton) {
+        guard let webVC = UIStoryboard.auth.instantiateViewController(withIdentifier: "\(WebkitViewController.self)")
+                as? WebkitViewController
+        else {
+            return
+        }
+        webVC.viewModel = WebkitViewModel(
+            urlString: "https://pages.flycricket.io/tireless-1/privacy.html")
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(webVC, animated: true)
+    }
+    
+    @IBAction func eulaButtonTap(_ sender: UIButton) {
+        guard let webVC = UIStoryboard.auth.instantiateViewController(withIdentifier: "\(WebkitViewController.self)")
+                as? WebkitViewController
+        else {
+            return
+        }
+        webVC.viewModel = WebkitViewModel(
+            urlString: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(webVC, animated: true)
+    }
+    
     private func makeSigninWithAppleButton() {
         let appleIDButton: ASAuthorizationAppleIDButton =
         ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
