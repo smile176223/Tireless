@@ -19,6 +19,9 @@
 		FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */; };
 		FF2D8DD92828FDC30093DA78 /* WebkitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DD82828FDC30093DA78 /* WebkitViewController.swift */; };
 		FF2D8DDB282900720093DA78 /* WebkitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DDA282900720093DA78 /* WebkitViewModel.swift */; };
+		FF2D8DDF28293D170093DA78 /* VideoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DDE28293D170093DA78 /* VideoContainer.swift */; };
+		FF2D8DE128293D470093DA78 /* VideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DE028293D470093DA78 /* VideoPlayerController.swift */; };
+		FF2D8DE328293DAC0093DA78 /* VideoLayerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DE228293DAC0093DA78 /* VideoLayerObject.swift */; };
 		FF2EF6ED28203A58008418A0 /* GroupPlanViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6EC28203A58008418A0 /* GroupPlanViewCell.swift */; };
 		FF2EF6EF28203A63008418A0 /* GroupPlanViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2EF6EE28203A63008418A0 /* GroupPlanViewCell.xib */; };
 		FF2EF6F128203A9C008418A0 /* GroupPlanHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6F028203A9C008418A0 /* GroupPlanHeaderView.swift */; };
@@ -171,6 +174,9 @@
 		FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishViewController.swift; sourceTree = "<group>"; };
 		FF2D8DD82828FDC30093DA78 /* WebkitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebkitViewController.swift; sourceTree = "<group>"; };
 		FF2D8DDA282900720093DA78 /* WebkitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebkitViewModel.swift; sourceTree = "<group>"; };
+		FF2D8DDE28293D170093DA78 /* VideoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContainer.swift; sourceTree = "<group>"; };
+		FF2D8DE028293D470093DA78 /* VideoPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerController.swift; sourceTree = "<group>"; };
+		FF2D8DE228293DAC0093DA78 /* VideoLayerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoLayerObject.swift; sourceTree = "<group>"; };
 		FF2EF6EC28203A58008418A0 /* GroupPlanViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanViewCell.swift; sourceTree = "<group>"; };
 		FF2EF6EE28203A63008418A0 /* GroupPlanViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupPlanViewCell.xib; sourceTree = "<group>"; };
 		FF2EF6F028203A9C008418A0 /* GroupPlanHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanHeaderView.swift; sourceTree = "<group>"; };
@@ -489,6 +495,16 @@
 				FF3FBE8528143B3200E6B5DC /* Pushup.json */,
 			);
 			path = Lottie;
+			sourceTree = "<group>";
+		};
+		FF2D8DDD28293CFD0093DA78 /* VideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				FF2D8DDE28293D170093DA78 /* VideoContainer.swift */,
+				FF2D8DE028293D470093DA78 /* VideoPlayerController.swift */,
+				FF2D8DE228293DAC0093DA78 /* VideoLayerObject.swift */,
+			);
+			path = VideoPlayer;
 			sourceTree = "<group>";
 		};
 		FF2FE0EC280ED80500F8890D /* HomeViewCell */ = {
@@ -812,6 +828,7 @@
 				FF308E6B28066DF200265863 /* Network */,
 				FF1444C12803AEA50027F560 /* Exercise */,
 				FF1444BB280336170027F560 /* VideoRecord */,
+				FF2D8DDD28293CFD0093DA78 /* VideoPlayer */,
 				FF1444A2280156480027F560 /* Extenesions */,
 				FF14448E28009B480027F560 /* View */,
 				FF14449228009B740027F560 /* Util */,
@@ -1125,6 +1142,7 @@
 				FF3FBE9828150DEC00E6B5DC /* UserManager.swift in Sources */,
 				FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */,
 				FF308E6828057D7800265863 /* HomeViewController.swift in Sources */,
+				FF2D8DDF28293D170093DA78 /* VideoContainer.swift in Sources */,
 				FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */,
 				FF5E89D62823AB9600214A5D /* FinishTimeViewModel.swift in Sources */,
 				FF1444AF280183920027F560 /* SquatManager.swift in Sources */,
@@ -1160,6 +1178,7 @@
 				FF3FBEAF2815C81A00E6B5DC /* GroupPlanViewController.swift in Sources */,
 				FF3FBEC22817DEDB00E6B5DC /* AuthViewModel.swift in Sources */,
 				FFC7B9E4281E8A8C0080A31E /* HomeGroupPlanViewCell.swift in Sources */,
+				FF2D8DE128293D470093DA78 /* VideoPlayerController.swift in Sources */,
 				FF2EF6F128203A9C008418A0 /* GroupPlanHeaderView.swift in Sources */,
 				FF3FBE602811A1B600E6B5DC /* CounterView.swift in Sources */,
 				FF2FE0EB280EA8A200F8890D /* UIColor+Extension.swift in Sources */,
@@ -1170,6 +1189,7 @@
 				FF5E89DE2824AA9000214A5D /* UIButton+Extension.swift in Sources */,
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
 				FF3F7807281C47F100D8360A /* ShareCommentViewController.swift in Sources */,
+				FF2D8DE328293DAC0093DA78 /* VideoLayerObject.swift in Sources */,
 				FF3F77E228185D4C00D8360A /* CryptoKitHelper.swift in Sources */,
 				FFC7B9FE28201D7D0080A31E /* HistoryPlanViewCell.swift in Sources */,
 				FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */,

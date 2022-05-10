@@ -42,6 +42,10 @@ class ShareWallViewController: UIViewController {
         tableView.register(UINib(nibName: "\(ShareWallViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(ShareWallViewCell.self)")
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.appEnteredFromBackground),
+                                               name: UIApplication.willEnterForegroundNotification, object: nil)
+        
         setupBind()
         lottieLoading()
     }
@@ -55,17 +59,22 @@ class ShareWallViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         viewModel.fetchData()
-        if let cell = tableView.visibleCells.first as? ShareWallViewCell {
-            cell.play()
-        }
+//        if let cell = tableView.visibleCells.first as? ShareWallViewCell {
+//            cell.play()
+//        }
     }
+//
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        self.navigationController?.isNavigationBarHidden = false
+//        if let cell = tableView.visibleCells.first as? ShareWallViewCell {
+//            cell.pause()
+//        }
+//    }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.navigationController?.isNavigationBarHidden = false
-        if let cell = tableView.visibleCells.first as? ShareWallViewCell {
-            cell.pause()
-        }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        pausePlayeVideos()
     }
     
     func setupBind() {
@@ -161,25 +170,52 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
         view.safeAreaLayoutGuide.layoutFrame.height + view.safeAreaInsets.top
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let cell = cell as? ShareWallViewCell {
-            self.currentIndex = indexPath.row
-            cell.play()
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let videoCell = cell as? AutoPlayVideoLayerContainer, let _ = videoCell.videoURL {
+            VideoPlayerController.sharedVideoPlayer.removeLayerFor(cell: videoCell)
         }
     }
     
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let cell = cell as? ShareWallViewCell {
-            cell.pause()
-        }
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if let cell = cell as? ShareWallViewCell {
+//            self.currentIndex = indexPath.row
+//            cell.play()
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if let cell = cell as? ShareWallViewCell {
+//            cell.pause()
+//        }
+//    }
 }
 
 extension ShareWallViewController: UIScrollViewDelegate {
 
+//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        let cell = self.tableView.cellForRow(at: IndexPath(row: self.currentIndex, section: 0)) as? ShareWallViewCell
+//        cell?.pause()
+//    }
+//
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        let cell = self.tableView.cellForRow(at: IndexPath(row: self.currentIndex, section: 0)) as? ShareWallViewCell
+//        cell?.pause()
+//    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        pausePlayeVideos()
+    }
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        let cell = self.tableView.cellForRow(at: IndexPath(row: self.currentIndex, section: 0)) as? ShareWallViewCell
-        cell?.replay()
+        if !decelerate {
+            pausePlayeVideos()
+        }
+    }
+    func pausePlayeVideos() {
+        VideoPlayerController.sharedVideoPlayer.pausePlayeVideosFor(tableView: tableView)
+    }
+    
+    @objc func appEnteredFromBackground() {
+        VideoPlayerController.sharedVideoPlayer.pausePlayeVideosFor(tableView: tableView, appEnteredFromBackground: true)
     }
 
 }
