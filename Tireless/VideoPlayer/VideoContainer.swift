@@ -1,12 +1,12 @@
 //
-//  VideoContainer.swift
+//  ASVideoContainer.swift
 //  Tireless
 //
-//  Created by Hao on 2022/5/9.
+//  Created by Hao on 2022/5/10.
 //
+
 import UIKit
 import AVFoundation
-
 class VideoContainer {
     var url: String
     var playOn: Bool {

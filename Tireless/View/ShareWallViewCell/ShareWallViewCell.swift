@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class ShareWallViewCell: UITableViewCell {
+class ShareWallViewCell: UITableViewCell, AutoPlayVideoLayerContainer {
     
     @IBOutlet weak var videoView: UIView!
     
@@ -21,15 +21,11 @@ class ShareWallViewCell: UITableViewCell {
     
     @IBOutlet weak var videoUserImageVeiw: UIImageView!
     
-//    var avPlayer: AVPlayer?
-    
     var viewModel: ShareFilesViewModel?
     
     var isCommentButtonTap: (() -> Void)?
     
     var isSetButtonTap: (() -> Void)?
-    
-//    private var isPlaying = false
     
     var playerController: VideoPlayerController?
     
@@ -40,33 +36,30 @@ class ShareWallViewCell: UITableViewCell {
             if let videoURL = videoURL {
                 VideoPlayerController.sharedVideoPlayer.setupVideoFor(url: videoURL)
             }
+            videoLayer.isHidden = videoURL == nil
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         videoLayer.backgroundColor = UIColor.clear.cgColor
-        videoLayer.videoGravity = AVLayerVideoGravity.resize
+        videoLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         videoView.layer.addSublayer(videoLayer)
+        selectionStyle = .none
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let horizontalMargin: CGFloat = 20
-        let width: CGFloat = bounds.size.width - horizontalMargin * 2
-        let height: CGFloat = (width * 0.9).rounded(.up)
-        videoLayer.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        videoLayer.frame = videoView.bounds
     }
     
     func setup(viewModel: ShareFilesViewModel) {
         self.viewModel = viewModel
         layoutCell()
-//        configureVideo()
         setupLayout()
         setupLabel(videoTitleText)
         setupLabel(videoContentText)
         configureCell(videoUrl: viewModel.shareFile.shareURL)
-        videoView.clipsToBounds = true
     
     }
     
@@ -97,47 +90,6 @@ class ShareWallViewCell: UITableViewCell {
         label.layer.masksToBounds = false
     }
     
-//    func configureVideo() {
-//        guard let viewModel = viewModel else {
-//            return
-//        }
-//        avPlayer = AVPlayer(url: viewModel.shareFile.shareURL)
-//
-//        let avPlayerView = AVPlayerLayer()
-//        avPlayerView.player = avPlayer
-//        avPlayerView.frame = contentView.bounds
-//        avPlayerView.videoGravity = .resizeAspectFill
-//        loopVideo(avPlayer: avPlayer ?? AVPlayer())
-//        videoView.layer.addSublayer(avPlayerView)
-//    }
-//
-//    func loopVideo(avPlayer: AVPlayer) {
-//        NotificationCenter.default.addObserver(
-//            forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-//            object: nil,
-//            queue: nil) { _ in
-//            avPlayer.seek(to: .zero)
-//            avPlayer.play()
-//        }
-//    }
-//
-//    func replay() {
-//        if !isPlaying {
-//            avPlayer?.seek(to: .zero)
-//            play()
-//        }
-//    }
-//
-//    func play() {
-//        avPlayer?.play()
-//        isPlaying = true
-//    }
-//
-//    func pause() {
-//        avPlayer?.pause()
-//        isPlaying = false
-//    }
-    
     @IBAction func commentButtonTap(_ sender: UIButton) {
         isCommentButtonTap?()
     }
@@ -145,9 +97,6 @@ class ShareWallViewCell: UITableViewCell {
         isSetButtonTap?()
     }
     
-}
-
-extension ShareWallViewCell: AutoPlayVideoLayerContainer {
     func visibleVideoHeight() -> CGFloat {
         let videoFrameInParentSuperView: CGRect? = self.superview?.superview?.convert(videoView.frame, from: videoView)
         guard let videoFrame = videoFrameInParentSuperView,
@@ -157,4 +106,5 @@ extension ShareWallViewCell: AutoPlayVideoLayerContainer {
         let visibleVideoFrame = videoFrame.intersection(superViewFrame)
         return visibleVideoFrame.size.height
     }
+    
 }

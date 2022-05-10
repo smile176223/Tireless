@@ -19,9 +19,6 @@
 		FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */; };
 		FF2D8DD92828FDC30093DA78 /* WebkitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DD82828FDC30093DA78 /* WebkitViewController.swift */; };
 		FF2D8DDB282900720093DA78 /* WebkitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DDA282900720093DA78 /* WebkitViewModel.swift */; };
-		FF2D8DDF28293D170093DA78 /* VideoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DDE28293D170093DA78 /* VideoContainer.swift */; };
-		FF2D8DE128293D470093DA78 /* VideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DE028293D470093DA78 /* VideoPlayerController.swift */; };
-		FF2D8DE328293DAC0093DA78 /* VideoLayerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DE228293DAC0093DA78 /* VideoLayerObject.swift */; };
 		FF2EF6ED28203A58008418A0 /* GroupPlanViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6EC28203A58008418A0 /* GroupPlanViewCell.swift */; };
 		FF2EF6EF28203A63008418A0 /* GroupPlanViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2EF6EE28203A63008418A0 /* GroupPlanViewCell.xib */; };
 		FF2EF6F128203A9C008418A0 /* GroupPlanHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6F028203A9C008418A0 /* GroupPlanHeaderView.swift */; };
@@ -157,6 +154,9 @@
 		FFC7B9F7281FD0140080A31E /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9F6281FD0140080A31E /* JGProgressHUDWrapper.swift */; };
 		FFC7B9FE28201D7D0080A31E /* HistoryPlanViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9FD28201D7D0080A31E /* HistoryPlanViewCell.swift */; };
 		FFC7BA0028201D840080A31E /* HistoryPlanViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFC7B9FF28201D840080A31E /* HistoryPlanViewCell.xib */; };
+		FFCFCAED282A102500FE6E83 /* VideoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCFCAEC282A102500FE6E83 /* VideoContainer.swift */; };
+		FFCFCAEF282A103C00FE6E83 /* VideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCFCAEE282A103C00FE6E83 /* VideoPlayerController.swift */; };
+		FFCFCAF1282A105E00FE6E83 /* VideoLayerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCFCAF0282A105E00FE6E83 /* VideoLayerObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -174,9 +174,6 @@
 		FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishViewController.swift; sourceTree = "<group>"; };
 		FF2D8DD82828FDC30093DA78 /* WebkitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebkitViewController.swift; sourceTree = "<group>"; };
 		FF2D8DDA282900720093DA78 /* WebkitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebkitViewModel.swift; sourceTree = "<group>"; };
-		FF2D8DDE28293D170093DA78 /* VideoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContainer.swift; sourceTree = "<group>"; };
-		FF2D8DE028293D470093DA78 /* VideoPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerController.swift; sourceTree = "<group>"; };
-		FF2D8DE228293DAC0093DA78 /* VideoLayerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoLayerObject.swift; sourceTree = "<group>"; };
 		FF2EF6EC28203A58008418A0 /* GroupPlanViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanViewCell.swift; sourceTree = "<group>"; };
 		FF2EF6EE28203A63008418A0 /* GroupPlanViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupPlanViewCell.xib; sourceTree = "<group>"; };
 		FF2EF6F028203A9C008418A0 /* GroupPlanHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanHeaderView.swift; sourceTree = "<group>"; };
@@ -315,6 +312,9 @@
 		FFC7B9F6281FD0140080A31E /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
 		FFC7B9FD28201D7D0080A31E /* HistoryPlanViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPlanViewCell.swift; sourceTree = "<group>"; };
 		FFC7B9FF28201D840080A31E /* HistoryPlanViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryPlanViewCell.xib; sourceTree = "<group>"; };
+		FFCFCAEC282A102500FE6E83 /* VideoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContainer.swift; sourceTree = "<group>"; };
+		FFCFCAEE282A103C00FE6E83 /* VideoPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerController.swift; sourceTree = "<group>"; };
+		FFCFCAF0282A105E00FE6E83 /* VideoLayerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoLayerObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -500,9 +500,9 @@
 		FF2D8DDD28293CFD0093DA78 /* VideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				FF2D8DDE28293D170093DA78 /* VideoContainer.swift */,
-				FF2D8DE028293D470093DA78 /* VideoPlayerController.swift */,
-				FF2D8DE228293DAC0093DA78 /* VideoLayerObject.swift */,
+				FFCFCAEC282A102500FE6E83 /* VideoContainer.swift */,
+				FFCFCAEE282A103C00FE6E83 /* VideoPlayerController.swift */,
+				FFCFCAF0282A105E00FE6E83 /* VideoLayerObject.swift */,
 			);
 			path = VideoPlayer;
 			sourceTree = "<group>";
@@ -1106,6 +1106,7 @@
 				FF5E89C428227FF200214A5D /* BlockListViewModel.swift in Sources */,
 				FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */,
 				FF3FBE742812835300E6B5DC /* PlanManager.swift in Sources */,
+				FFCFCAED282A102500FE6E83 /* VideoContainer.swift in Sources */,
 				FF3FBE9F2815320500E6B5DC /* GroupPlan.swift in Sources */,
 				FF3FBEB32815E29E00E6B5DC /* JoinGroupViewModel.swift in Sources */,
 				FF3FBE7828128C2700E6B5DC /* PlanDetailViewModel.swift in Sources */,
@@ -1132,6 +1133,7 @@
 				FF5E89E22826F50F00214A5D /* PlanModifyViewController.swift in Sources */,
 				FF3F77FE281B006700D8360A /* SignUpViewController.swift in Sources */,
 				FF3F77F8281AE1D400D8360A /* InviteFriendViewCell.swift in Sources */,
+				FFCFCAEF282A103C00FE6E83 /* VideoPlayerController.swift in Sources */,
 				FF3F780D281D088000D8360A /* ShareCommentViewCell.swift in Sources */,
 				FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */,
 				FF3F7813281D407000D8360A /* ShareCommentViewModel.swift in Sources */,
@@ -1142,7 +1144,6 @@
 				FF3FBE9828150DEC00E6B5DC /* UserManager.swift in Sources */,
 				FF308E64280578A700265863 /* ShareWallViewController.swift in Sources */,
 				FF308E6828057D7800265863 /* HomeViewController.swift in Sources */,
-				FF2D8DDF28293D170093DA78 /* VideoContainer.swift in Sources */,
 				FF308E5F28055F9E00265863 /* DetectFinishView.swift in Sources */,
 				FF5E89D62823AB9600214A5D /* FinishTimeViewModel.swift in Sources */,
 				FF1444AF280183920027F560 /* SquatManager.swift in Sources */,
@@ -1162,6 +1163,7 @@
 				FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */,
 				FF3F7815281D40A200D8360A /* CommentsViewModel.swift in Sources */,
 				FF3F7811281D1E3B00D8360A /* CommentManager.swift in Sources */,
+				FFCFCAF1282A105E00FE6E83 /* VideoLayerObject.swift in Sources */,
 				FF3FBE6C281238FE00E6B5DC /* Plan.swift in Sources */,
 				FF3FBE562810648000E6B5DC /* PlanDetailView.swift in Sources */,
 				FFC7B9EA281EB54D0080A31E /* UIImage+Extension.swift in Sources */,
@@ -1178,7 +1180,6 @@
 				FF3FBEAF2815C81A00E6B5DC /* GroupPlanViewController.swift in Sources */,
 				FF3FBEC22817DEDB00E6B5DC /* AuthViewModel.swift in Sources */,
 				FFC7B9E4281E8A8C0080A31E /* HomeGroupPlanViewCell.swift in Sources */,
-				FF2D8DE128293D470093DA78 /* VideoPlayerController.swift in Sources */,
 				FF2EF6F128203A9C008418A0 /* GroupPlanHeaderView.swift in Sources */,
 				FF3FBE602811A1B600E6B5DC /* CounterView.swift in Sources */,
 				FF2FE0EB280EA8A200F8890D /* UIColor+Extension.swift in Sources */,
@@ -1189,7 +1190,6 @@
 				FF5E89DE2824AA9000214A5D /* UIButton+Extension.swift in Sources */,
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
 				FF3F7807281C47F100D8360A /* ShareCommentViewController.swift in Sources */,
-				FF2D8DE328293DAC0093DA78 /* VideoLayerObject.swift in Sources */,
 				FF3F77E228185D4C00D8360A /* CryptoKitHelper.swift in Sources */,
 				FFC7B9FE28201D7D0080A31E /* HistoryPlanViewCell.swift in Sources */,
 				FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */,

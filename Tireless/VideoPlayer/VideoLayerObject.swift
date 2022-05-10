@@ -1,18 +1,19 @@
 //
-//  VideoLayerObject.swift
+//  ASVideoLayerObject.swift
 //  Tireless
 //
-//  Created by Hao on 2022/5/9.
+//  Created by Hao on 2022/5/10.
 //
 
 import UIKit
 import AVFoundation
+
 class VideoLayerObject: NSObject {
     var layer = AVPlayerLayer()
     var used = false
     override init() {
         layer.backgroundColor = UIColor.clear.cgColor
-        layer.videoGravity = AVLayerVideoGravity.resize
+        layer.videoGravity = AVLayerVideoGravity.resizeAspectFill
     }
 }
 
