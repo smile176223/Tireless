@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import AVFoundation
+import Lottie
 
 class ShareWallViewCell: UITableViewCell, AutoPlayVideoLayerContainer {
     
@@ -30,6 +31,8 @@ class ShareWallViewCell: UITableViewCell, AutoPlayVideoLayerContainer {
     var playerController: VideoPlayerController?
     
     var videoLayer: AVPlayerLayer = AVPlayerLayer()
+    
+    var lottieView: AnimationView?
     
     var videoURL: String? {
         didSet {

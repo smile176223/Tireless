@@ -1362,9 +1362,9 @@
 				DEVELOPMENT_TEAM = 3F3N8USCH4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tireless/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "We need access your Camera!";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access your Microphone!";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access your Photo Library!";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Tireless須開啟您的相機，以執行運動辨識及錄影的功能。";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Tireless須開啟您的麥克風，以執行錄影的功能。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Tireless須存取您相機膠卷中的照片及影片，以執行儲存的功能。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1381,7 +1381,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1397,9 +1397,9 @@
 				DEVELOPMENT_TEAM = 3F3N8USCH4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tireless/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "We need access your Camera!";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access your Microphone!";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access your Photo Library!";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Tireless須開啟您的相機，以執行運動辨識及錄影的功能。";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Tireless須開啟您的麥克風，以執行錄影的功能。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Tireless須存取您相機膠卷中的照片及影片，以執行儲存的功能。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1416,7 +1416,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

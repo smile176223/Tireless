@@ -59,15 +59,11 @@ class ShareWallViewController: UIViewController {
         viewModel.fetchData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        pausePlayeVideos()
-    }
-    
     func setupBind() {
         viewModel.shareFilesViewModel.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
+                self?.pausePlayeVideos()
             }
         }
     }
@@ -125,7 +121,7 @@ class ShareWallViewController: UIViewController {
 
 extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.viewModel.shareFilesViewModel.value.count
+        return self.viewModel.shareFilesViewModel.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
