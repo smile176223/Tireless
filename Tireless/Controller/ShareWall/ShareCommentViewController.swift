@@ -92,6 +92,7 @@ class ShareCommentViewController: UIViewController {
             commentTextField.text = ""
         } else {
             if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                maskView.removeFromSuperview()
                 present(authVC, animated: true, completion: nil)
             }
         }
