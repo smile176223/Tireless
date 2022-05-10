@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+
 class VideoContainer {
     var url: String
     var playOn: Bool {
