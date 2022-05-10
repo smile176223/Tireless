@@ -13,7 +13,7 @@ class AuthManager {
     
     private init() {}
     
-    var currentUser = String()
+    var currentUser = String() 
     
     var currentUserData: User?
     

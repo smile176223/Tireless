@@ -58,18 +58,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             case .success(let bool):
                 if bool == true {
                     self.viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
+                } else if bool == false {
+                    self.viewModel.logoutReset()
                 }
             case .failure(let error):
                 print(error)
             }
         }
         
-        if AuthManager.shared.currentUser != "" {
-            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         if AuthManager.shared.currentUser != "" {
             viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
         }

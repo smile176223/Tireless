@@ -154,6 +154,9 @@
 		FFC7B9F7281FD0140080A31E /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9F6281FD0140080A31E /* JGProgressHUDWrapper.swift */; };
 		FFC7B9FE28201D7D0080A31E /* HistoryPlanViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC7B9FD28201D7D0080A31E /* HistoryPlanViewCell.swift */; };
 		FFC7BA0028201D840080A31E /* HistoryPlanViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFC7B9FF28201D840080A31E /* HistoryPlanViewCell.xib */; };
+		FFCFCAED282A102500FE6E83 /* VideoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCFCAEC282A102500FE6E83 /* VideoContainer.swift */; };
+		FFCFCAEF282A103C00FE6E83 /* VideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCFCAEE282A103C00FE6E83 /* VideoPlayerController.swift */; };
+		FFCFCAF1282A105E00FE6E83 /* VideoLayerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCFCAF0282A105E00FE6E83 /* VideoLayerObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -309,6 +312,9 @@
 		FFC7B9F6281FD0140080A31E /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
 		FFC7B9FD28201D7D0080A31E /* HistoryPlanViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPlanViewCell.swift; sourceTree = "<group>"; };
 		FFC7B9FF28201D840080A31E /* HistoryPlanViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryPlanViewCell.xib; sourceTree = "<group>"; };
+		FFCFCAEC282A102500FE6E83 /* VideoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContainer.swift; sourceTree = "<group>"; };
+		FFCFCAEE282A103C00FE6E83 /* VideoPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerController.swift; sourceTree = "<group>"; };
+		FFCFCAF0282A105E00FE6E83 /* VideoLayerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoLayerObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -489,6 +495,16 @@
 				FF3FBE8528143B3200E6B5DC /* Pushup.json */,
 			);
 			path = Lottie;
+			sourceTree = "<group>";
+		};
+		FF2D8DDD28293CFD0093DA78 /* VideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				FFCFCAEC282A102500FE6E83 /* VideoContainer.swift */,
+				FFCFCAEE282A103C00FE6E83 /* VideoPlayerController.swift */,
+				FFCFCAF0282A105E00FE6E83 /* VideoLayerObject.swift */,
+			);
+			path = VideoPlayer;
 			sourceTree = "<group>";
 		};
 		FF2FE0EC280ED80500F8890D /* HomeViewCell */ = {
@@ -812,6 +828,7 @@
 				FF308E6B28066DF200265863 /* Network */,
 				FF1444C12803AEA50027F560 /* Exercise */,
 				FF1444BB280336170027F560 /* VideoRecord */,
+				FF2D8DDD28293CFD0093DA78 /* VideoPlayer */,
 				FF1444A2280156480027F560 /* Extenesions */,
 				FF14448E28009B480027F560 /* View */,
 				FF14449228009B740027F560 /* Util */,
@@ -1089,6 +1106,7 @@
 				FF5E89C428227FF200214A5D /* BlockListViewModel.swift in Sources */,
 				FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */,
 				FF3FBE742812835300E6B5DC /* PlanManager.swift in Sources */,
+				FFCFCAED282A102500FE6E83 /* VideoContainer.swift in Sources */,
 				FF3FBE9F2815320500E6B5DC /* GroupPlan.swift in Sources */,
 				FF3FBEB32815E29E00E6B5DC /* JoinGroupViewModel.swift in Sources */,
 				FF3FBE7828128C2700E6B5DC /* PlanDetailViewModel.swift in Sources */,
@@ -1115,6 +1133,7 @@
 				FF5E89E22826F50F00214A5D /* PlanModifyViewController.swift in Sources */,
 				FF3F77FE281B006700D8360A /* SignUpViewController.swift in Sources */,
 				FF3F77F8281AE1D400D8360A /* InviteFriendViewCell.swift in Sources */,
+				FFCFCAEF282A103C00FE6E83 /* VideoPlayerController.swift in Sources */,
 				FF3F780D281D088000D8360A /* ShareCommentViewCell.swift in Sources */,
 				FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */,
 				FF3F7813281D407000D8360A /* ShareCommentViewModel.swift in Sources */,
@@ -1144,6 +1163,7 @@
 				FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */,
 				FF3F7815281D40A200D8360A /* CommentsViewModel.swift in Sources */,
 				FF3F7811281D1E3B00D8360A /* CommentManager.swift in Sources */,
+				FFCFCAF1282A105E00FE6E83 /* VideoLayerObject.swift in Sources */,
 				FF3FBE6C281238FE00E6B5DC /* Plan.swift in Sources */,
 				FF3FBE562810648000E6B5DC /* PlanDetailView.swift in Sources */,
 				FFC7B9EA281EB54D0080A31E /* UIImage+Extension.swift in Sources */,
@@ -1342,9 +1362,9 @@
 				DEVELOPMENT_TEAM = 3F3N8USCH4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tireless/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "We need access your Camera!";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access your Microphone!";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access your Photo Library!";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Tireless須開啟您的相機，以執行運動辨識及錄影的功能。";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Tireless須開啟您的麥克風，以執行錄影的功能。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Tireless須存取您相機膠卷中的照片及影片，以執行儲存的功能。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1361,7 +1381,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1377,9 +1397,9 @@
 				DEVELOPMENT_TEAM = 3F3N8USCH4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tireless/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "We need access your Camera!";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access your Microphone!";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access your Photo Library!";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Tireless須開啟您的相機，以執行運動辨識及錄影的功能。";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Tireless須開啟您的麥克風，以執行錄影的功能。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Tireless須存取您相機膠卷中的照片及影片，以執行儲存的功能。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1396,7 +1416,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
