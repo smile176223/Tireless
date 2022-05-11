@@ -55,15 +55,14 @@ class ShareWallViewCell: UITableViewCell, AutoPlayVideoLayerContainer {
         super.layoutSubviews()
         videoLayer.frame = videoView.bounds
     }
-    
+
     func setup(viewModel: ShareFilesViewModel) {
         self.viewModel = viewModel
+        configureCell(videoUrl: viewModel.shareFile.shareURL)
         layoutCell()
         setupLayout()
         setupLabel(videoTitleText)
         setupLabel(videoContentText)
-        configureCell(videoUrl: viewModel.shareFile.shareURL)
-    
     }
     
     func configureCell(videoUrl: URL) {
