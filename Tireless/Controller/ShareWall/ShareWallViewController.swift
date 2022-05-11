@@ -20,8 +20,6 @@ class ShareWallViewController: UIViewController {
         }
     }
     
-    private var currentIndex = 0
-    
     let viewModel = ShareWallViewModel()
     
     override func viewDidLoad() {
@@ -48,10 +46,10 @@ class ShareWallViewController: UIViewController {
         lottieLoading()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
+//    override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -60,10 +58,12 @@ class ShareWallViewController: UIViewController {
     }
     
     func setupBind() {
-        viewModel.shareFilesViewModel.bind { [weak self] _ in
+        viewModel.shareFilesViewModel.bind { [weak self] files in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
-                self?.pausePlayeVideos()
+                if files.count != 0 {
+                    self?.pausePlayeVideos()
+                }
             }
         }
     }
@@ -97,6 +97,7 @@ class ShareWallViewController: UIViewController {
                 switch result {
                 case .success(let text):
                     ProgressHUD.showSuccess(text: "已封鎖")
+                    self.viewModel.fetchData()
                     self.dismiss(animated: true)
                     print(text)
                 case .failure(let error):
