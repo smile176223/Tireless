@@ -115,6 +115,19 @@
                         <action selector="blockListButtonTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="T7y-Uf-r0h"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcX-zt-apM">
+                    <rect key="frame" x="10" y="18" width="30" height="29.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="Adr-fo-4Sp"/>
+                        <constraint firstAttribute="height" constant="30" id="yoN-aX-3tF"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" backgroundImage="bell.fill" catalog="system"/>
+                    <connections>
+                        <action selector="bellAlertButtonTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="I1D-iE-cMr"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="gRZ-DJ-kJz"/>
             <color key="backgroundColor" name="themeBG"/>
@@ -131,12 +144,14 @@
                 <constraint firstItem="sse-8T-hYs" firstAttribute="trailing" secondItem="RZb-2F-qYH" secondAttribute="trailing" id="VVa-sK-78C"/>
                 <constraint firstItem="RZb-2F-qYH" firstAttribute="centerY" secondItem="i9n-fb-ABp" secondAttribute="centerY" id="W2F-a6-PUx"/>
                 <constraint firstItem="BLq-2R-1ca" firstAttribute="centerX" secondItem="i3S-Gm-XM7" secondAttribute="centerX" constant="-80" id="Wyk-eM-WzO"/>
+                <constraint firstItem="HcX-zt-apM" firstAttribute="centerY" secondItem="sMC-ke-iNc" secondAttribute="centerY" id="aa0-F7-Mh9"/>
                 <constraint firstItem="BLq-2R-1ca" firstAttribute="top" secondItem="aLv-fP-krm" secondAttribute="bottom" constant="10" id="brX-vW-tR2"/>
                 <constraint firstItem="gRZ-DJ-kJz" firstAttribute="trailing" secondItem="RZb-2F-qYH" secondAttribute="trailing" constant="10" id="cnS-IX-8B9"/>
                 <constraint firstItem="szw-Hz-U3K" firstAttribute="centerX" secondItem="i3S-Gm-XM7" secondAttribute="centerX" constant="80" id="gxh-TY-d4N"/>
                 <constraint firstItem="smj-qE-Jdy" firstAttribute="centerX" secondItem="BLq-2R-1ca" secondAttribute="centerX" id="ioC-QN-a8e"/>
                 <constraint firstItem="RZb-2F-qYH" firstAttribute="top" secondItem="sse-8T-hYs" secondAttribute="bottom" constant="10" id="n44-j7-q2i"/>
                 <constraint firstItem="sse-8T-hYs" firstAttribute="width" secondItem="sse-8T-hYs" secondAttribute="height" id="nbI-Xe-fGR"/>
+                <constraint firstItem="HcX-zt-apM" firstAttribute="leading" secondItem="i3S-Gm-XM7" secondAttribute="leading" constant="10" id="pbk-Lb-Ahl"/>
                 <constraint firstItem="sMC-ke-iNc" firstAttribute="centerX" secondItem="sse-8T-hYs" secondAttribute="centerX" id="qWm-Ta-yAl"/>
                 <constraint firstItem="sMC-ke-iNc" firstAttribute="top" secondItem="1jH-yT-AM0" secondAttribute="top" id="rDm-cv-gQa"/>
                 <constraint firstItem="smj-qE-Jdy" firstAttribute="top" secondItem="BLq-2R-1ca" secondAttribute="bottom" constant="2" id="rT0-co-GWN"/>
@@ -155,6 +170,7 @@
     </objects>
     <resources>
         <image name="TirelessLogoText" width="500" height="500"/>
+        <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="person.fill.badge.plus" catalog="system" width="128" height="124"/>
         <image name="plus.magnifyingglass" catalog="system" width="128" height="115"/>

@@ -247,6 +247,10 @@ extension ProfileViewController: UICollectionViewDataSource {
             self?.userSetAlert()
         }
         
+        headerView.isBellAlertButtonTap = { [weak self] in
+            self?.notificationPresent()
+        }
+        
         return headerView
     }
 }
@@ -428,5 +432,17 @@ extension ProfileViewController {
         }
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(blockVC, animated: true)
+    }
+    
+    private func notificationPresent() {
+        guard let notifyVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: "\(NotificationViewController.self)")
+                as? NotificationViewController
+        else {
+            return
+        }
+        notifyVC.modalPresentationStyle = .overCurrentContext
+        notifyVC.modalTransitionStyle = .crossDissolve
+        present(notifyVC, animated: true)
     }
 }

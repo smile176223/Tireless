@@ -143,7 +143,13 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
             cell.setButton.isHidden = false
         }
         cell.isSetButtonTap = {
-            self.setButtonAlert(userId: cellViewModel.shareFile.userId)
+            if AuthManager.shared.checkCurrentUser() == true {
+                self.setButtonAlert(userId: cellViewModel.shareFile.userId)
+            } else {
+                if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                    self.present(authVC, animated: true, completion: nil)
+                }
+            }
         }
         
         return cell

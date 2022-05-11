@@ -31,6 +31,8 @@ class ProfileHeaderView: UICollectionReusableView {
     
     var isBlockListButtonTab: (() -> Void)?
     
+    var isBellAlertButtonTap: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLayout()
@@ -68,6 +70,10 @@ class ProfileHeaderView: UICollectionReusableView {
     
     @IBAction func blockListButtonTap(_ sender: UIButton) {
         isBlockListButtonTab?()
+    }
+    
+    @IBAction func bellAlertButtonTap(_ sender: UIButton) {
+        isBellAlertButtonTap?()
     }
     
     private func setupLayout() {
