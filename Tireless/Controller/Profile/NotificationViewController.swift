@@ -26,15 +26,22 @@ class NotificationViewController: UIViewController {
         
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("viewdis")
-        let center = UNUserNotificationCenter.current()
-        center.getPendingNotificationRequests(completionHandler: { requests in
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            var nextTriggerDates: [Date] = []
             for request in requests {
-                print(request.trigger)
+                if let trigger = request.trigger as? UNCalendarNotificationTrigger,
+                    let triggerDate = trigger.nextTriggerDate() {
+                    nextTriggerDates.append(triggerDate)
+                }
             }
-        })
+            if let nextTriggerDate = nextTriggerDates.min() {
+                DispatchQueue.main.async {
+                    self.datePicker.date = nextTriggerDate
+                }
+            }
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
