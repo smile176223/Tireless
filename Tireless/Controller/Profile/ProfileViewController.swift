@@ -166,14 +166,18 @@ extension ProfileViewController: UICollectionViewDataSource {
         case .friends:
             if viewModel.friendViewModels.value.count == 0 {
                 emptyView.isHidden = false
+                collectionView.isScrollEnabled = false
             } else {
+                collectionView.isScrollEnabled = true
                 emptyView.isHidden = true
             }
             return viewModel.friendViewModels.value.count
         case .historyPlan:
             if viewModel.historyPlanViewModels.value.count == 0 {
+                collectionView.isScrollEnabled = false
                 emptyView.isHidden = false
             } else {
+                collectionView.isScrollEnabled = true
                 emptyView.isHidden = true
             }
             return viewModel.historyPlanViewModels.value.count

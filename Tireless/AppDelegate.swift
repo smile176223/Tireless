@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import IQKeyboardManagerSwift
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.toolbarTintColor = .white
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+          if let error = error {
+            print("request authorization error: \(error)")
+          } else if granted {
+            print("autorization granted")
+          } else {
+            print("user denied notifications")
+          }
+        }
+        
         return true
     }
     // MARK: UISceneSession Lifecycle
