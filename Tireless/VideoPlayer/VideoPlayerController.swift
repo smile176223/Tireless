@@ -15,6 +15,8 @@ protocol AutoPlayVideoLayerContainer {
 }
 
 class VideoPlayerController: NSObject, NSCacheDelegate {
+    // swiftlint:disable block_based_kvo
+    // swiftlint:disable switch_case_alignment
     var minimumLayerHeightToPlay: CGFloat = 60
     var mute = false
     var preferredPeakBitRate: Double = 1000000
@@ -139,7 +141,8 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
             videoContainer.player.currentItem?.addObserver(self,
                                                            forKeyPath: "status",
                                                            options: [.new, .initial],
-                                                           context: &VideoPlayerController.playerViewControllerKVOContext)
+                                                           context:
+                                                            &VideoPlayerController.playerViewControllerKVOContext)
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(self.playerDidFinishPlaying(note:)),
                                                    name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,

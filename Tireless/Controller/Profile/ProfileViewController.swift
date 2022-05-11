@@ -166,14 +166,18 @@ extension ProfileViewController: UICollectionViewDataSource {
         case .friends:
             if viewModel.friendViewModels.value.count == 0 {
                 emptyView.isHidden = false
+                collectionView.isScrollEnabled = false
             } else {
+                collectionView.isScrollEnabled = true
                 emptyView.isHidden = true
             }
             return viewModel.friendViewModels.value.count
         case .historyPlan:
             if viewModel.historyPlanViewModels.value.count == 0 {
+                collectionView.isScrollEnabled = false
                 emptyView.isHidden = false
             } else {
+                collectionView.isScrollEnabled = true
                 emptyView.isHidden = true
             }
             return viewModel.historyPlanViewModels.value.count
@@ -245,6 +249,10 @@ extension ProfileViewController: UICollectionViewDataSource {
         
         headerView.isBlockListButtonTab = { [weak self] in
             self?.userSetAlert()
+        }
+        
+        headerView.isBellAlertButtonTap = { [weak self] in
+            self?.notificationPresent()
         }
         
         return headerView
@@ -428,5 +436,17 @@ extension ProfileViewController {
         }
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(blockVC, animated: true)
+    }
+    
+    private func notificationPresent() {
+        guard let notifyVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: "\(NotificationViewController.self)")
+                as? NotificationViewController
+        else {
+            return
+        }
+        notifyVC.modalPresentationStyle = .overCurrentContext
+        notifyVC.modalTransitionStyle = .crossDissolve
+        present(notifyVC, animated: true)
     }
 }
