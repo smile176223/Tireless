@@ -119,7 +119,7 @@ class ProfileViewController: UIViewController {
         let section = NSCollectionLayoutSection(group: group)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .absolute(220))
+                                                heightDimension: .absolute(260))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                  elementKind:
                                                                     UICollectionView.elementKindSectionHeader,
@@ -253,6 +253,10 @@ extension ProfileViewController: UICollectionViewDataSource {
         
         headerView.isBellAlertButtonTap = { [weak self] in
             self?.notificationPresent()
+        }
+        
+        headerView.isFriendsButtonTap = { [weak self] in
+            self?.friendsListPresent()
         }
         
         return headerView
@@ -439,6 +443,18 @@ extension ProfileViewController {
     }
     
     private func notificationPresent() {
+        guard let notifyVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: "\(NotificationViewController.self)")
+                as? NotificationViewController
+        else {
+            return
+        }
+        notifyVC.modalPresentationStyle = .overCurrentContext
+        notifyVC.modalTransitionStyle = .crossDissolve
+        present(notifyVC, animated: true)
+    }
+    
+    private func friendsListPresent() {
         guard let notifyVC = UIStoryboard.profile.instantiateViewController(
             withIdentifier: "\(NotificationViewController.self)")
                 as? NotificationViewController

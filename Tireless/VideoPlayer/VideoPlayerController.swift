@@ -165,7 +165,9 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
         }
     }
 
-    func pausePlayeVideosFor(tableView: UITableView, appEnteredFromBackground: Bool = false) {
+    func pauseAndPlayVideosFor(tableView: UITableView,
+                               appEnteredFromBackground: Bool = false,
+                               onlyStop: Bool = false) {
         let visisbleCells = tableView.visibleCells
         var videoCellContainer: AutoPlayVideoLayerContainer?
         var maxHeight: CGFloat = 0.0
@@ -192,7 +194,9 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
             if appEnteredFromBackground {
                 setupVideoFor(url: videoCellURL)
             }
-            playVideo(withLayer: videoCell.videoLayer, url: videoCellURL)
+            if !onlyStop {
+                playVideo(withLayer: videoCell.videoLayer, url: videoCellURL)
+            }
         }
     }
     

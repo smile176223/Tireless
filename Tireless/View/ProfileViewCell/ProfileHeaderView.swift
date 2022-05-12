@@ -33,6 +33,8 @@ class ProfileHeaderView: UICollectionReusableView {
     
     var isBellAlertButtonTap: (() -> Void)?
     
+    var isFriendsButtonTap: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLayout()
@@ -74,6 +76,10 @@ class ProfileHeaderView: UICollectionReusableView {
     
     @IBAction func bellAlertButtonTap(_ sender: UIButton) {
         isBellAlertButtonTap?()
+    }
+    
+    @IBAction func friendsButtonTap(_ sender: UIButton) {
+        isFriendsButtonTap?()
     }
     
     private func setupLayout() {

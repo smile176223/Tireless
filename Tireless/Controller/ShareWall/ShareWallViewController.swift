@@ -52,6 +52,11 @@ class ShareWallViewController: UIViewController {
         viewModel.fetchData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        onlyStopVideo() 
+    }
+    
     func setupBind() {
         viewModel.shareFilesViewModel.bind { [weak self] files in
             DispatchQueue.main.async {
@@ -181,12 +186,17 @@ extension ShareWallViewController: UIScrollViewDelegate {
         }
     }
     func pausePlayeVideos() {
-        VideoPlayerController.sharedVideoPlayer.pausePlayeVideosFor(tableView: tableView)
+        VideoPlayerController.sharedVideoPlayer.pauseAndPlayVideosFor(tableView: tableView)
     }
     
     @objc func appEnteredFromBackground() {
-        VideoPlayerController.sharedVideoPlayer.pausePlayeVideosFor(tableView: tableView,
+        VideoPlayerController.sharedVideoPlayer.pauseAndPlayVideosFor(tableView: tableView,
                                                                       appEnteredFromBackground: true)
+    }
+    
+    func onlyStopVideo() {
+        VideoPlayerController.sharedVideoPlayer.pauseAndPlayVideosFor(tableView: tableView,
+                                                                      onlyStop: true)
     }
 
 }
