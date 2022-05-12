@@ -52,14 +52,6 @@ class ProfileHeaderView: UICollectionReusableView {
         isUserImageTap?()
     }
     
-    @IBAction func searchButtonTap(_ sender: UIButton) {
-        isSearchButtonTap?()
-    }
-    
-    @IBAction func inviteTap(_ sender: UIButton) {
-        isInviteTap?()
-    }
-    
     @IBAction func friendsTabButtonTap(_ sender: UIButton) {
         indicatorAnimate(sender)
         isFriendsTab?()

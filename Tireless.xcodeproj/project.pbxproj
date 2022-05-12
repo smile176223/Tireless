@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		A2EC4823DFDFB7062A4D7718 /* Pods_Tireless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745C2223D0E016BB19811AAA /* Pods_Tireless.framework */; };
+		FF0234C2282CE65E001647B9 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */; };
+		FF0234C4282CEC23001647B9 /* FriendListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */; };
+		FF0234C6282CEC2E001647B9 /* FriendListHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF0234C5282CEC2E001647B9 /* FriendListHeaderView.xib */; };
+		FF0234C8282CFA58001647B9 /* FriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C7282CFA58001647B9 /* FriendListViewModel.swift */; };
 		FF14449428009C010027F560 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF14449328009C010027F560 /* Box.swift */; };
 		FF1444A6280156700027F560 /* UIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A5280156700027F560 /* UIUtilities.swift */; };
 		FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */; };
@@ -164,6 +168,10 @@
 		05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.debug.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.debug.xcconfig"; sourceTree = "<group>"; };
 		745C2223D0E016BB19811AAA /* Pods_Tireless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tireless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.release.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.release.xcconfig"; sourceTree = "<group>"; };
+		FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
+		FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListHeaderView.swift; sourceTree = "<group>"; };
+		FF0234C5282CEC2E001647B9 /* FriendListHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendListHeaderView.xib; sourceTree = "<group>"; };
+		FF0234C7282CFA58001647B9 /* FriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewModel.swift; sourceTree = "<group>"; };
 		FF14449328009C010027F560 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		FF1444A5280156700027F560 /* UIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtilities.swift; sourceTree = "<group>"; };
 		FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectViewModel.swift; sourceTree = "<group>"; };
@@ -757,6 +765,8 @@
 			children = (
 				FF3FBE8D2814F8ED00E6B5DC /* FriendListViewCell.swift */,
 				FF3FBE8F2814F8FB00E6B5DC /* FriendListViewCell.xib */,
+				FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */,
+				FF0234C5282CEC2E001647B9 /* FriendListHeaderView.xib */,
 				FF3F77EB281A1A5600D8360A /* SearchFriendHeaderView.swift */,
 				FF3F77E9281A1A5000D8360A /* SearchFriendHeaderView.xib */,
 				FF3F77EF281A1EBA00D8360A /* SearchFriendViewCell.swift */,
@@ -770,6 +780,7 @@
 		FF5E89CD28234F9A00214A5D /* FriendList */ = {
 			isa = PBXGroup;
 			children = (
+				FF0234C7282CFA58001647B9 /* FriendListViewModel.swift */,
 				FF3F77F3281A7D7800D8360A /* SearchFriendViewModel.swift */,
 				FF3F77FB281AE50100D8360A /* InviteFriendViewModel.swift */,
 				FF3F77E52819AEEE00D8360A /* FriendsViewModel.swift */,
@@ -785,6 +796,7 @@
 				FF3F77E72819C3F900D8360A /* SearchFriendViewController.swift */,
 				FF3F77F5281AC96B00D8360A /* InviteFriendViewController.swift */,
 				FF5E89C128227D5A00214A5D /* BlockListViewController.swift */,
+				FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */,
 			);
 			path = FriendList;
 			sourceTree = "<group>";
@@ -963,6 +975,7 @@
 				FF3F77FA281AE1DE00D8360A /* InviteFriendViewCell.xib in Resources */,
 				FF1444C9280411A50027F560 /* CountDownGo.json in Resources */,
 				FF3FBE962814FE7C00E6B5DC /* ProfileHeaderView.xib in Resources */,
+				FF0234C6282CEC2E001647B9 /* FriendListHeaderView.xib in Resources */,
 				FF2EF6EF28203A63008418A0 /* GroupPlanViewCell.xib in Resources */,
 				FFC0C16128008F650041A937 /* LaunchScreen.storyboard in Resources */,
 				FF3FBE622811B5EC00E6B5DC /* Squat.json in Resources */,
@@ -1104,6 +1117,7 @@
 				FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */,
 				FF308E96280C680F00265863 /* SharePictureViewCell.swift in Sources */,
 				FF3FBE7C281299DE00E6B5DC /* PlanViewModel.swift in Sources */,
+				FF0234C2282CE65E001647B9 /* FriendsListViewController.swift in Sources */,
 				FF3FBE9D28151FF000E6B5DC /* Friend.swift in Sources */,
 				FF3FBEBF2817927000E6B5DC /* AuthViewController.swift in Sources */,
 				FF5E89C428227FF200214A5D /* BlockListViewModel.swift in Sources */,
@@ -1127,6 +1141,7 @@
 				FF2EF6F528204CA9008418A0 /* JoinUsersViewModel.swift in Sources */,
 				FF5E89DC2824A3EF00214A5D /* UILabel+Extension.swift in Sources */,
 				FF3FBE6A2811C33B00E6B5DC /* PlanManageViewController.swift in Sources */,
+				FF0234C8282CFA58001647B9 /* FriendListViewModel.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */,
 				FF2D8DDB282900720093DA78 /* WebkitViewModel.swift in Sources */,
 				FF5E89E02825B29400214A5D /* ProfileManager.swift in Sources */,
@@ -1189,6 +1204,7 @@
 				FF2FE0EB280EA8A200F8890D /* UIColor+Extension.swift in Sources */,
 				FF3F77E82819C3F900D8360A /* SearchFriendViewController.swift in Sources */,
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
+				FF0234C4282CEC23001647B9 /* FriendListHeaderView.swift in Sources */,
 				FF3F77F0281A1EBA00D8360A /* SearchFriendViewCell.swift in Sources */,
 				FF3F7817281E3BA900D8360A /* HistoryPlanViewModel.swift in Sources */,
 				FF5E89DE2824AA9000214A5D /* UIButton+Extension.swift in Sources */,

@@ -85,7 +85,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPY-Xq-x2y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1946" y="84"/>
+            <point key="canvasLocation" x="106" y="852"/>
         </scene>
         <!--Notification View Controller-->
         <scene sceneID="qGt-Zh-OSr">
@@ -172,7 +172,38 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tBk-65-cst" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2869.5652173913045" y="83.705357142857139"/>
+            <point key="canvasLocation" x="1945" y="84"/>
+        </scene>
+        <!--Friends List View Controller-->
+        <scene sceneID="OI4-Yl-Uhz">
+            <objects>
+                <viewController storyboardIdentifier="FriendsListViewController" id="l5I-nX-Sks" customClass="FriendsListViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Oc-Zh-Byy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9ud-na-ANe">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ZxJ-Tb-A8A"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="9ud-na-ANe" firstAttribute="leading" secondItem="ZxJ-Tb-A8A" secondAttribute="leading" id="QJ2-CD-rBD"/>
+                            <constraint firstItem="9ud-na-ANe" firstAttribute="top" secondItem="ZxJ-Tb-A8A" secondAttribute="top" id="nf5-82-rg3"/>
+                            <constraint firstItem="ZxJ-Tb-A8A" firstAttribute="bottom" secondItem="9ud-na-ANe" secondAttribute="bottom" id="tRl-VC-X6j"/>
+                            <constraint firstItem="ZxJ-Tb-A8A" firstAttribute="trailing" secondItem="9ud-na-ANe" secondAttribute="trailing" id="vaF-nA-DY3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="9ud-na-ANe" id="ThE-J9-y7s"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JUe-KL-TSL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1048" y="852"/>
         </scene>
         <!--Invite Friend View Controller-->
         <scene sceneID="17C-vz-gCy">
