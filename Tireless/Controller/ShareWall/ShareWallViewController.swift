@@ -20,8 +20,6 @@ class ShareWallViewController: UIViewController {
         }
     }
     
-    private var currentIndex = 0
-    
     let viewModel = ShareWallViewModel()
     
     override func viewDidLoad() {
@@ -48,22 +46,24 @@ class ShareWallViewController: UIViewController {
         lottieLoading()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         viewModel.fetchData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        onlyStopVideo() 
+    }
+    
     func setupBind() {
-        viewModel.shareFilesViewModel.bind { [weak self] _ in
+        viewModel.shareFilesViewModel.bind { [weak self] files in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
-                self?.pausePlayeVideos()
+                if files.count != 0 {
+                    self?.pausePlayeVideos()
+                }
             }
         }
     }
@@ -97,6 +97,7 @@ class ShareWallViewController: UIViewController {
                 switch result {
                 case .success(let text):
                     ProgressHUD.showSuccess(text: "已封鎖")
+                    self.viewModel.fetchData()
                     self.dismiss(animated: true)
                     print(text)
                 case .failure(let error):
@@ -121,7 +122,11 @@ class ShareWallViewController: UIViewController {
 
 extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.shareFilesViewModel.value.count
+        if self.viewModel.shareFilesViewModel.value.count == 0 {
+            return 1
+        } else {
+            return self.viewModel.shareFilesViewModel.value.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -131,6 +136,9 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         lottieView?.removeFromSuperview()
+        if self.viewModel.shareFilesViewModel.value.count == 0 {
+            return cell
+        }
         
         let cellViewModel = self.viewModel.shareFilesViewModel.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
@@ -178,12 +186,17 @@ extension ShareWallViewController: UIScrollViewDelegate {
         }
     }
     func pausePlayeVideos() {
-        VideoPlayerController.sharedVideoPlayer.pausePlayeVideosFor(tableView: tableView)
+        VideoPlayerController.sharedVideoPlayer.pauseAndPlayVideosFor(tableView: tableView)
     }
     
     @objc func appEnteredFromBackground() {
-        VideoPlayerController.sharedVideoPlayer.pausePlayeVideosFor(tableView: tableView,
+        VideoPlayerController.sharedVideoPlayer.pauseAndPlayVideosFor(tableView: tableView,
                                                                       appEnteredFromBackground: true)
+    }
+    
+    func onlyStopVideo() {
+        VideoPlayerController.sharedVideoPlayer.pauseAndPlayVideosFor(tableView: tableView,
+                                                                      onlyStop: true)
     }
 
 }

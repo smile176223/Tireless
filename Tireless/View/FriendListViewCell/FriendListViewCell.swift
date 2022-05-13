@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FriendListViewCell: UICollectionViewCell {
+class FriendListViewCell: UITableViewCell {
     
     @IBOutlet weak var friendImageView: UIImageView!
     
@@ -33,7 +33,7 @@ class FriendListViewCell: UICollectionViewCell {
         friendNameLabel.text = viewModel?.user.name
         friendImageView.loadImage(viewModel?.user.picture)
         if viewModel?.user.picture == "" {
-            friendImageView.backgroundColor = .themeBG
+            friendImageView.backgroundColor = .themeBGSecond
             friendImageView.image = UIImage.placeHolder
         }
     }
