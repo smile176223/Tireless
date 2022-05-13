@@ -99,11 +99,14 @@ class ProfileViewController: UIViewController {
     
     private func createLayout() -> UICollectionViewLayout {
         var itemHeight: CGFloat = 0
+        var groupInset: CGFloat = 0
         switch currentTab {
         case .statistics:
             itemHeight = 350
+            groupInset = 15
         case .historyPlan:
             itemHeight = 130
+            groupInset = 0
         }
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .estimated(itemHeight))
@@ -112,6 +115,7 @@ class ProfileViewController: UIViewController {
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
                                                        subitems: [item])
+        group.contentInsets = .init(top: 0, leading: groupInset, bottom: 0, trailing: groupInset)
         
         let section = NSCollectionLayoutSection(group: group)
         
