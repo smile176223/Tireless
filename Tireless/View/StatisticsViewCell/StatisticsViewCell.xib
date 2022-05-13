@@ -70,13 +70,13 @@
                             <constraint firstAttribute="width" constant="1" id="wbS-Dr-En2"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="在努力養成運動習慣的路上前進了" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63g-AM-wVm">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="在努力養成運動習慣的路上達成了" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63g-AM-wVm">
                         <rect key="frame" x="37.5" y="214" width="300" height="28"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0天" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THb-iD-BFp">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0次" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THb-iD-BFp">
                         <rect key="frame" x="297.5" y="257" width="40" height="35"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="25"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -141,6 +141,12 @@
                     <constraint firstItem="f2Y-xQ-JQt" firstAttribute="leading" secondItem="gPY-XH-E2p" secondAttribute="trailing" constant="30" id="zu5-9o-MpK"/>
                 </constraints>
             </collectionViewCellContentView>
+            <connections>
+                <outlet property="completeLabel" destination="THb-iD-BFp" id="Wke-xa-710"/>
+                <outlet property="plankCountLabel" destination="OZg-mv-2a5" id="skw-89-E0k"/>
+                <outlet property="pushupCountLabel" destination="Guy-Qr-xkN" id="IIs-cV-4an"/>
+                <outlet property="squatCountLabel" destination="xlV-kq-pZz" id="JQx-FH-JFQ"/>
+            </connections>
             <point key="canvasLocation" x="-31.159420289855074" y="12.723214285714285"/>
         </collectionViewCell>
     </objects>

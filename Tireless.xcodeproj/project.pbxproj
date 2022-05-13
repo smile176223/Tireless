@@ -15,6 +15,7 @@
 		FF0234CD282D1DB0001647B9 /* StatisticsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234CC282D1DB0001647B9 /* StatisticsViewCell.swift */; };
 		FF0234D0282D1DBA001647B9 /* StatisticsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF0234CF282D1DBA001647B9 /* StatisticsViewCell.xib */; };
 		FF0234D2282D8335001647B9 /* StatisticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234D1282D8335001647B9 /* StatisticsManager.swift */; };
+		FF0234D4282DE43D001647B9 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234D3282DE43D001647B9 /* Statistics.swift */; };
 		FF14449428009C010027F560 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF14449328009C010027F560 /* Box.swift */; };
 		FF1444A6280156700027F560 /* UIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A5280156700027F560 /* UIUtilities.swift */; };
 		FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */; };
@@ -178,6 +179,7 @@
 		FF0234CC282D1DB0001647B9 /* StatisticsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewCell.swift; sourceTree = "<group>"; };
 		FF0234CF282D1DBA001647B9 /* StatisticsViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsViewCell.xib; sourceTree = "<group>"; };
 		FF0234D1282D8335001647B9 /* StatisticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsManager.swift; sourceTree = "<group>"; };
+		FF0234D3282DE43D001647B9 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		FF14449328009C010027F560 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		FF1444A5280156700027F560 /* UIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtilities.swift; sourceTree = "<group>"; };
 		FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectViewModel.swift; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 				FF3FBE9C28151FF000E6B5DC /* Friend.swift */,
 				FF3FBE9E2815320500E6B5DC /* GroupPlan.swift */,
 				FF3FBEB42816F52C00E6B5DC /* JoinGroup.swift */,
+				FF0234D3282DE43D001647B9 /* Statistics.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1229,6 +1232,7 @@
 				FF3F7817281E3BA900D8360A /* HistoryPlanViewModel.swift in Sources */,
 				FF5E89DE2824AA9000214A5D /* UIButton+Extension.swift in Sources */,
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
+				FF0234D4282DE43D001647B9 /* Statistics.swift in Sources */,
 				FF3F7807281C47F100D8360A /* ShareCommentViewController.swift in Sources */,
 				FF3F77E228185D4C00D8360A /* CryptoKitHelper.swift in Sources */,
 				FFC7B9FE28201D7D0080A31E /* HistoryPlanViewCell.swift in Sources */,

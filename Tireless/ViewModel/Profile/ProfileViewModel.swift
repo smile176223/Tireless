@@ -16,6 +16,11 @@ class ProfileViewModel {
     var historyPlan: [Plan]?
     
     let historyPlanViewModels = Box([HistoryPlanViewModel]())
+    
+    var statisticsViewModels = Box(Statistics(squatCount: 0,
+                                              pushupCount: 0,
+                                              plankCount: 0,
+                                              totalComplete: 0))
 
     func fetchUser(userId: String) {
         UserManager.shared.fetchUser(userId: userId) { [weak self] result in
@@ -45,6 +50,35 @@ class ProfileViewModel {
             case .success(let plans):
                 self?.setHistoryPlan(plans)
                 self?.historyPlan = plans
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func fetchStatistics(with planExercise: PlanExercise) {
+        StatisticsManager.shared.fetchStatistics(with: planExercise.rawValue) { result in
+            switch result {
+            case .success(let count):
+                switch planExercise {
+                case .squat:
+                    self.statisticsViewModels.value.squatCount = count
+                case .pushup:
+                    self.statisticsViewModels.value.pushupCount = count
+                case .plank:
+                    self.statisticsViewModels.value.plankCount = count
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func fetchDays() {
+        StatisticsManager.shared.fetchDays { result in
+            switch result {
+            case .success(let count):
+                self.statisticsViewModels.value.totalComplete = count
             case .failure(let error):
                 print(error)
             }

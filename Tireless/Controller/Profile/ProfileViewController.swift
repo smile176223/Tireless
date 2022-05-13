@@ -46,20 +46,22 @@ class ProfileViewController: UIViewController {
             }
         }
         
+        viewModel.statisticsViewModels.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
         viewModel.fetchUser(userId: AuthManager.shared.currentUser)
-        StatisticsManager.shared.fetchSquat { result in
-            switch result {
-            case .success(let string):
-                print(string)
-            case .failure(let error):
-                print(error)
-            }
-        }
+        viewModel.fetchStatistics(with: PlanExercise.squat)
+        viewModel.fetchStatistics(with: PlanExercise.plank)
+        viewModel.fetchStatistics(with: PlanExercise.pushup)
+        viewModel.fetchDays()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -185,12 +187,8 @@ extension ProfileViewController: UICollectionViewDataSource {
         
         switch currentTab {
         case .statistics:
-//            let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
-//            friendsCell.setup(viewModel: cellViewModel)
-//
-//            friendsCell.isSetButtonTap = { [weak self] in
-//                self?.setButtonAlert(userId: cellViewModel.user.userId)
-//            }
+            let cellViewModel = self.viewModel.statisticsViewModels.value
+            statisticsCell.setup(viewModel: cellViewModel)
             return statisticsCell
         case .historyPlan:
             let cellViewModel = self.viewModel.historyPlanViewModels.value[indexPath.row]
