@@ -21,15 +21,13 @@ class ProfileHeaderView: UICollectionReusableView {
     
     var isUserImageTap: (() -> Void)?
     
-    var isSearchButtonTap: (() -> Void)?
-    
-    var isInviteTap: (() -> Void)?
-    
-    var isFriendsTab: (() -> Void)?
+    var isCountTab: (() -> Void)?
     
     var isHistoryTab: (() -> Void)?
     
-    var isBlockListButtonTab: (() -> Void)?
+    var isAwardTab: (() -> Void)?
+    
+    var isSetListButtonTab: (() -> Void)?
     
     var isBellAlertButtonTap: (() -> Void)?
     
@@ -52,9 +50,9 @@ class ProfileHeaderView: UICollectionReusableView {
         isUserImageTap?()
     }
     
-    @IBAction func friendsTabButtonTap(_ sender: UIButton) {
+    @IBAction func countTabButtonTap(_ sender: UIButton) {
         indicatorAnimate(sender)
-        isFriendsTab?()
+        isCountTab?()
     }
     
     @IBAction func historyabButtonTap(_ sender: UIButton) {
@@ -62,8 +60,13 @@ class ProfileHeaderView: UICollectionReusableView {
         isHistoryTab?()
     }
     
+    @IBAction func awardButtonTap(_ sender: UIButton) {
+        indicatorAnimate(sender)
+        isAwardTab?()
+    }
+    
     @IBAction func blockListButtonTap(_ sender: UIButton) {
-        isBlockListButtonTab?()
+        isSetListButtonTab?()
     }
     
     @IBAction func bellAlertButtonTap(_ sender: UIButton) {

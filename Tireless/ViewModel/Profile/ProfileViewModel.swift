@@ -11,6 +11,10 @@ class ProfileViewModel {
     
     var userInfo = Box([User]())
     
+    var plan: [Plan]?
+    
+    var historyPlan: [Plan]?
+    
     let historyPlanViewModels = Box([HistoryPlanViewModel]())
 
     func fetchUser(userId: String) {
@@ -24,11 +28,23 @@ class ProfileViewModel {
         }
     }
     
+    func fetchPlan() {
+        PlanManager.shared.fetchPlan(userId: AuthManager.shared.currentUser) { [weak self] result in
+            switch result {
+            case .success(let plans):
+                self?.plan = plans
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     func fetchHistoryPlan() {
         PlanManager.shared.fetchHistoryPlan(userId: AuthManager.shared.currentUser) { [weak self] result in
             switch result {
             case .success(let plans):
                 self?.setHistoryPlan(plans)
+                self?.historyPlan = plans
             case .failure(let error):
                 print(error)
             }

@@ -12,6 +12,9 @@
 		FF0234C4282CEC23001647B9 /* FriendListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */; };
 		FF0234C6282CEC2E001647B9 /* FriendListHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF0234C5282CEC2E001647B9 /* FriendListHeaderView.xib */; };
 		FF0234C8282CFA58001647B9 /* FriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C7282CFA58001647B9 /* FriendListViewModel.swift */; };
+		FF0234CD282D1DB0001647B9 /* StatisticsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234CC282D1DB0001647B9 /* StatisticsViewCell.swift */; };
+		FF0234D0282D1DBA001647B9 /* StatisticsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF0234CF282D1DBA001647B9 /* StatisticsViewCell.xib */; };
+		FF0234D2282D8335001647B9 /* StatisticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234D1282D8335001647B9 /* StatisticsManager.swift */; };
 		FF14449428009C010027F560 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF14449328009C010027F560 /* Box.swift */; };
 		FF1444A6280156700027F560 /* UIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A5280156700027F560 /* UIUtilities.swift */; };
 		FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */; };
@@ -172,6 +175,9 @@
 		FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListHeaderView.swift; sourceTree = "<group>"; };
 		FF0234C5282CEC2E001647B9 /* FriendListHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendListHeaderView.xib; sourceTree = "<group>"; };
 		FF0234C7282CFA58001647B9 /* FriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewModel.swift; sourceTree = "<group>"; };
+		FF0234CC282D1DB0001647B9 /* StatisticsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewCell.swift; sourceTree = "<group>"; };
+		FF0234CF282D1DBA001647B9 /* StatisticsViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsViewCell.xib; sourceTree = "<group>"; };
+		FF0234D1282D8335001647B9 /* StatisticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsManager.swift; sourceTree = "<group>"; };
 		FF14449328009C010027F560 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		FF1444A5280156700027F560 /* UIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtilities.swift; sourceTree = "<group>"; };
 		FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectViewModel.swift; sourceTree = "<group>"; };
@@ -356,11 +362,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FF0234CA282D1D77001647B9 /* StatisticsViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FF0234CC282D1DB0001647B9 /* StatisticsViewCell.swift */,
+				FF0234CF282D1DBA001647B9 /* StatisticsViewCell.xib */,
+			);
+			path = StatisticsViewCell;
+			sourceTree = "<group>";
+		};
 		FF14448E28009B480027F560 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				FF5E89CC28234EC500214A5D /* FriendListViewCell */,
 				FF3FBE8C2814F8D400E6B5DC /* ProfileViewCell */,
+				FF0234CA282D1D77001647B9 /* StatisticsViewCell */,
 				FFC7B9FC28201A400080A31E /* HistoryPlanViewCell */,
 				FF3FBE542810646500E6B5DC /* PlanViewCell */,
 				FF5E89C728234E7500214A5D /* PlanReviewViewCell */,
@@ -578,6 +594,7 @@
 				FF308E6C28066E0D00265863 /* ShareManager.swift */,
 				FF3F7810281D1E3B00D8360A /* CommentManager.swift */,
 				FF5E89DF2825B29400214A5D /* ProfileManager.swift */,
+				FF0234D1282D8335001647B9 /* StatisticsManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -977,6 +994,7 @@
 				FF3FBE962814FE7C00E6B5DC /* ProfileHeaderView.xib in Resources */,
 				FF0234C6282CEC2E001647B9 /* FriendListHeaderView.xib in Resources */,
 				FF2EF6EF28203A63008418A0 /* GroupPlanViewCell.xib in Resources */,
+				FF0234D0282D1DBA001647B9 /* StatisticsViewCell.xib in Resources */,
 				FFC0C16128008F650041A937 /* LaunchScreen.storyboard in Resources */,
 				FF3FBE622811B5EC00E6B5DC /* Squat.json in Resources */,
 				FF308E94280C67FD00265863 /* SharePictureViewCell.xib in Resources */,
@@ -1153,6 +1171,7 @@
 				FF3F77F8281AE1D400D8360A /* InviteFriendViewCell.swift in Sources */,
 				FFCFCAEF282A103C00FE6E83 /* VideoPlayerController.swift in Sources */,
 				FF3F780D281D088000D8360A /* ShareCommentViewCell.swift in Sources */,
+				FF0234CD282D1DB0001647B9 /* StatisticsViewCell.swift in Sources */,
 				FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */,
 				FF3F7813281D407000D8360A /* ShareCommentViewModel.swift in Sources */,
 				FF2FE0F0280EDB7900F8890D /* HomeHeaderView.swift in Sources */,
@@ -1188,6 +1207,7 @@
 				FF3F77EC281A1A5600D8360A /* SearchFriendHeaderView.swift in Sources */,
 				FF3FBEAD2815C4A400E6B5DC /* SetGroupPlanViewModel.swift in Sources */,
 				FF1444A6280156700027F560 /* UIUtilities.swift in Sources */,
+				FF0234D2282D8335001647B9 /* StatisticsManager.swift in Sources */,
 				FF3F7805281C383500D8360A /* GroupPlanStatusViewController.swift in Sources */,
 				FF2FE0F4280F9A5E00F8890D /* HomeDailyHeaderView.swift in Sources */,
 				FF3FBE8E2814F8ED00E6B5DC /* FriendListViewCell.swift in Sources */,

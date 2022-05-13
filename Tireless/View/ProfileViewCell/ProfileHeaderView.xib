@@ -97,6 +97,9 @@
                     <state key="normal" title="成就獎章">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="awardButtonTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="QWx-ZI-7lQ"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLq-2R-1ca">
                     <rect key="frame" x="20" y="185.5" width="100" height="30"/>
@@ -110,7 +113,7 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
-                        <action selector="friendsTabButtonTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="NqD-z2-v44"/>
+                        <action selector="countTabButtonTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="oKD-Ol-BYR"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Vm-fc-Crg">

@@ -26,7 +26,7 @@ class PoseDetectViewController: UIViewController {
         static let lineWidth: CGFloat = 3.0
     }
     
-    private var isUsingFrontCamera = true
+    private var isUsingFrontCamera = false
     
     private var isUserRejectRecording = false
     

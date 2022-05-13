@@ -21,11 +21,11 @@ class ProfileViewController: UIViewController {
     let viewModel = ProfileViewModel()
     
     enum ProfileTab {
-        case friends
+        case statistics
         case historyPlan
     }
     
-    var currentTab: ProfileTab = .friends {
+    var currentTab: ProfileTab = .statistics {
         didSet {
             collectionView.collectionViewLayout = createLayout()
             collectionView.reloadData()
@@ -52,6 +52,14 @@ class ProfileViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
         viewModel.fetchUser(userId: AuthManager.shared.currentUser)
+        StatisticsManager.shared.fetchSquat { result in
+            switch result {
+            case .success(let string):
+                print(string)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -76,8 +84,8 @@ class ProfileViewController: UIViewController {
         collectionView.collectionViewLayout = createLayout()
         collectionView.backgroundColor = .themeBG
         
-//        collectionView.register(UINib(nibName: "\(FriendListViewCell.self)", bundle: nil),
-//                                forCellWithReuseIdentifier: "\(FriendListViewCell.self)")
+        collectionView.register(UINib(nibName: "\(StatisticsViewCell.self)", bundle: nil),
+                                forCellWithReuseIdentifier: "\(StatisticsViewCell.self)")
         
         collectionView.register(UINib(nibName: "\(HistoryPlanViewCell.self)", bundle: nil),
                                 forCellWithReuseIdentifier: "\(HistoryPlanViewCell.self)")
@@ -90,8 +98,8 @@ class ProfileViewController: UIViewController {
     private func createLayout() -> UICollectionViewLayout {
         var itemHeight: CGFloat = 0
         switch currentTab {
-        case .friends:
-            itemHeight = 80
+        case .statistics:
+            itemHeight = 330
         case .historyPlan:
             itemHeight = 130
         }
@@ -137,7 +145,7 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch currentTab {
-        case .friends:
+        case .statistics:
             return
         case .historyPlan:
             let cellViewModel = self.viewModel.historyPlanViewModels.value[indexPath.row]
@@ -150,8 +158,9 @@ extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         switch currentTab {
-        case .friends:
-            return 0
+        case .statistics:
+            emptyView.isHidden = true
+            return 1
         case .historyPlan:
             if viewModel.historyPlanViewModels.value.count == 0 {
                 collectionView.isScrollEnabled = false
@@ -165,24 +174,24 @@ extension ProfileViewController: UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let friendsCell = collectionView.dequeueReusableCell(
-//            withReuseIdentifier: "\(FriendListViewCell.self)", for: indexPath) as? FriendListViewCell else {
-//            return UICollectionViewCell()
-//        }
+        guard let statisticsCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "\(StatisticsViewCell.self)", for: indexPath) as? StatisticsViewCell else {
+            return UICollectionViewCell()
+        }
         guard let historyCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "\(HistoryPlanViewCell.self)", for: indexPath) as? HistoryPlanViewCell else {
             return UICollectionViewCell()
         }
         
         switch currentTab {
-        case .friends:
+        case .statistics:
 //            let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
 //            friendsCell.setup(viewModel: cellViewModel)
 //
 //            friendsCell.isSetButtonTap = { [weak self] in
 //                self?.setButtonAlert(userId: cellViewModel.user.userId)
 //            }
-            return historyCell
+            return statisticsCell
         case .historyPlan:
             let cellViewModel = self.viewModel.historyPlanViewModels.value[indexPath.row]
             historyCell.setup(viewModel: cellViewModel)
@@ -210,8 +219,8 @@ extension ProfileViewController: UICollectionViewDataSource {
             self?.setUserInfoAlert()
         }
         
-        headerView.isFriendsTab = { [weak self] in
-            self?.currentTab = .friends
+        headerView.isCountTab = { [weak self] in
+            self?.currentTab = .statistics
         }
         
         headerView.isHistoryTab = { [weak self] in
@@ -219,7 +228,7 @@ extension ProfileViewController: UICollectionViewDataSource {
             self?.viewModel.fetchHistoryPlan()
         }
         
-        headerView.isBlockListButtonTab = { [weak self] in
+        headerView.isSetListButtonTab = { [weak self] in
             self?.userSetAlert()
         }
         
