@@ -83,6 +83,7 @@ class ProfileHeaderView: UICollectionReusableView {
         userImageView.layer.borderColor = UIColor.gray.cgColor
         headerLineView.layer.cornerRadius = 5
         userNameLabel.font = .bold(size: 20)
+        indicatorView.layer.cornerRadius = 15
     }
     
     private func indicatorAnimate(_ sender: UIButton) {

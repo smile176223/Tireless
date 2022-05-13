@@ -101,7 +101,7 @@ class ProfileViewController: UIViewController {
         var itemHeight: CGFloat = 0
         switch currentTab {
         case .statistics:
-            itemHeight = 330
+            itemHeight = 350
         case .historyPlan:
             itemHeight = 130
         }

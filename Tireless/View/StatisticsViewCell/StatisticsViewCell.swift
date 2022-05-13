@@ -36,6 +36,6 @@ class StatisticsViewCell: UICollectionViewCell {
         squatCountLabel.text = "\(viewModel.squatCount)"
         pushupCountLabel.text = "\(viewModel.pushupCount)"
         plankCountLabel.text = "\(viewModel.plankCount)"
-        completeLabel.text = "\(viewModel.totalComplete) 次"
+        completeLabel.text = "\(viewModel.totalComplete) 次每日計畫"
     }
 }
