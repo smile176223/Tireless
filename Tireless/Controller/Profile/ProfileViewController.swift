@@ -303,13 +303,13 @@ extension ProfileViewController {
     
     private func setUserInfoAlert() {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        let imageChange = UIAlertAction(title: "更換圖片", style: .default) { _ in
-//            
-//        }
+        let imageChange = UIAlertAction(title: "更換圖片", style: .default) { _ in
+            self.selectImage()
+        }
         let nameChange = UIAlertAction(title: "更換姓名", style: .default) { _ in
             self.showSettingAlert()
         }
-//        controller.addAction(imageChange)
+        controller.addAction(imageChange)
         controller.addAction(nameChange)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
@@ -404,5 +404,48 @@ extension ProfileViewController {
         }
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(friendsVC, animated: true)
+    }
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func selectImage() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.delegate = self
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo
+                               info: [UIImagePickerController.InfoKey: Any]) {
+        
+        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            print(selectedImage)
+            
+            guard let image: UIImage = info[.editedImage] as? UIImage else { return }
+            guard let imageData: Data = image.jpegData(compressionQuality: 0.5) else { return }
+            
+            ShareManager.shared.uploadPicture(imageData: imageData) { result in
+                switch result {
+                case .success(let url):
+                    print(url)
+                    self.viewModel.fetchUser(userId: AuthManager.shared.currentUser)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+//            let newImage = selectedImage.scale(newWidth: 100.0)
+//            guard let imageData: NSData = newImage.jpegData(compressionQuality: 1) as NSData? else { return }
+//            let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
+//
+//            patchData(name: "", image: strBase64)
+            
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
 }

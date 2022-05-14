@@ -231,6 +231,7 @@ extension HomeViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             headerDailyView.isHidden = false
             headerDailyView.titleLabel.text = "每日運動計畫"
+            headerDailyView.dateLabel.text = viewModel.setupDay()
             return headerDailyView
         } else if indexPath.section == 1 {
             headerDailyView.isHidden = true
