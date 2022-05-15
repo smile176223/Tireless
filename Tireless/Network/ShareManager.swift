@@ -87,6 +87,20 @@ class ShareManager {
         }
     }
     
+    func deleteVideo(uuid: String, completion: @escaping (Result<String, Error>) -> Void) {
+        shareWallDB.whereField("uuid", isEqualTo: uuid).getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                for doucument in querySnapshot.documents {
+                    doucument.reference.delete()
+                }
+                completion(.success("success delete"))
+            }
+        }
+    }
+    
     func uploadPicture(imageData: Data, comletion: @escaping (Result<URL, Error>) -> Void) {
         let videoRef = Storage.storage().reference().child("Pictures/\(UUID().uuidString)")
         

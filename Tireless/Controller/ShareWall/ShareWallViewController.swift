@@ -118,6 +118,24 @@ class ShareWallViewController: UIViewController {
         
         present(controller, animated: true, completion: nil)
     }
+    
+    private func setMeButtonAlert(uuid: String) {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
+            self.viewModel.deleteVideo(uuid: uuid)
+        }
+        controller.addAction(deleteAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        // iPad specific code
+        controller.popoverPresentationController?.sourceView = self.view
+        let xOrigin = self.view.bounds.width / 2
+        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
+        controller.popoverPresentationController?.sourceRect = popoverRect
+        controller.popoverPresentationController?.permittedArrowDirections = .down
+        
+        present(controller, animated: true, completion: nil)
+    }
 }
 
 extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
@@ -146,16 +164,17 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
                 self.commentPresent(shareFile: cellViewModel.shareFile)
             }
             if cellViewModel.shareFile.userId == AuthManager.shared.currentUser {
-                cell.setButton.isHidden = true
+                cell.isSetButtonTap = {
+                    self.setMeButtonAlert(uuid: cellViewModel.shareFile.uuid)
+                }
             } else {
-                cell.setButton.isHidden = false
-            }
-            cell.isSetButtonTap = {
-                if AuthManager.shared.checkCurrentUser() == true {
-                    self.setButtonAlert(userId: cellViewModel.shareFile.userId)
-                } else {
-                    if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-                        self.present(authVC, animated: true, completion: nil)
+                cell.isSetButtonTap = {
+                    if AuthManager.shared.checkCurrentUser() == true {
+                        self.setButtonAlert(userId: cellViewModel.shareFile.userId)
+                    } else {
+                        if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                            self.present(authVC, animated: true, completion: nil)
+                        }
                     }
                 }
             }
