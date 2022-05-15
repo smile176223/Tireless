@@ -912,9 +912,9 @@
 		FFC7B9FB281FFC7F0080A31E /* GroupPlan */ = {
 			isa = PBXGroup;
 			children = (
-				FF3F7804281C383500D8360A /* GroupPlanStatusViewController.swift */,
 				FF3FBEA6281570B000E6B5DC /* SetGroupPlanViewController.swift */,
 				FF3FBEAE2815C81A00E6B5DC /* GroupPlanViewController.swift */,
+				FF3F7804281C383500D8360A /* GroupPlanStatusViewController.swift */,
 			);
 			path = GroupPlan;
 			sourceTree = "<group>";

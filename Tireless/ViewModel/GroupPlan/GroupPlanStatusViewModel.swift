@@ -24,7 +24,9 @@ class GroupPlanStatusViewModel {
     
     func convertPlansToViewModels(from plans: [Plan]) -> [PlanViewModel] {
         var viewModels = [PlanViewModel]()
-        for plan in plans {
+        var sortPlans = plans
+        sortPlans.sort { $0.progress > $1.progress }
+        for plan in sortPlans {
             let viewModel = PlanViewModel(model: plan)
             viewModels.append(viewModel)
         }

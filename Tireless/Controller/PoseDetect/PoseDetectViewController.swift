@@ -26,7 +26,7 @@ class PoseDetectViewController: UIViewController {
         static let lineWidth: CGFloat = 3.0
     }
     
-    private var isUsingFrontCamera = true
+    private var isUsingFrontCamera = false
     
     private var isUserRejectRecording = false
     
@@ -122,11 +122,11 @@ class PoseDetectViewController: UIViewController {
         super.viewWillAppear(animated)
         setupCurrentExercise()
         videoRecordManager.startRecording { [weak self] in
-            self?.startSession()
-            self?.drawStart = true
+//            self?.startSession()
+//            self?.drawStart = true
         }
-//        startSession()
-//        drawStart = true
+        startSession()
+        drawStart = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
