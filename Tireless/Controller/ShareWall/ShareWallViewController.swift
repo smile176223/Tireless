@@ -137,30 +137,30 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
         
         lottieView?.removeFromSuperview()
         if self.viewModel.shareFilesViewModel.value.count == 0 {
+            cell.setupEmpty()
             return cell
-        }
-        
-        let cellViewModel = self.viewModel.shareFilesViewModel.value[indexPath.row]
-        cell.setup(viewModel: cellViewModel)
-        cell.isCommentButtonTap = {
-            self.commentPresent(shareFile: cellViewModel.shareFile)
-        }
-        if cellViewModel.shareFile.userId == AuthManager.shared.currentUser {
-            cell.setButton.isHidden = true
         } else {
-            cell.setButton.isHidden = false
-        }
-        cell.isSetButtonTap = {
-            if AuthManager.shared.checkCurrentUser() == true {
-                self.setButtonAlert(userId: cellViewModel.shareFile.userId)
+            let cellViewModel = self.viewModel.shareFilesViewModel.value[indexPath.row]
+            cell.setup(viewModel: cellViewModel)
+            cell.isCommentButtonTap = {
+                self.commentPresent(shareFile: cellViewModel.shareFile)
+            }
+            if cellViewModel.shareFile.userId == AuthManager.shared.currentUser {
+                cell.setButton.isHidden = true
             } else {
-                if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-                    self.present(authVC, animated: true, completion: nil)
+                cell.setButton.isHidden = false
+            }
+            cell.isSetButtonTap = {
+                if AuthManager.shared.checkCurrentUser() == true {
+                    self.setButtonAlert(userId: cellViewModel.shareFile.userId)
+                } else {
+                    if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                        self.present(authVC, animated: true, completion: nil)
+                    }
                 }
             }
+            return cell
         }
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
