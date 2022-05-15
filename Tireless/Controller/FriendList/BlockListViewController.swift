@@ -79,10 +79,33 @@ extension BlockListViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cellViewModel = self.viewModel.blocksViewModels.value[indexPath.row]
         cell.setupBlock(viewModel: cellViewModel)
+        
+        cell.isRejectButtonTap = { [weak self] in
+            self?.presentRemoveAlert(userId: cellViewModel.user.userId)
+        }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80
     }
+}
+
+extension BlockListViewController {
+    private func presentRemoveAlert(userId: String) {
+        let alert = UIAlertController(title: "確認是否將該使用者移除黑名單",
+                                      message: "移除黑名單後，您將再次看到該使用者的資訊",
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
+            self.viewModel.removeBlockUser(userId: userId)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+            self.dismiss(animated: true)
+        }
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true)
+    }
+  
 }
