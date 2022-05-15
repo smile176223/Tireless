@@ -51,7 +51,6 @@ class ProfileViewController: UIViewController {
                 self?.collectionView.reloadData()
             }
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -307,7 +306,7 @@ extension ProfileViewController {
             self.selectImage()
         }
         let nameChange = UIAlertAction(title: "更換姓名", style: .default) { _ in
-            self.showSettingAlert()
+            self.editProfilePresent()
         }
         controller.addAction(imageChange)
         controller.addAction(nameChange)
@@ -322,55 +321,6 @@ extension ProfileViewController {
         controller.popoverPresentationController?.permittedArrowDirections = .down
         
         present(controller, animated: true, completion: nil)
-    }
-    
-    private func showSettingAlert() {
-        let alertController = UIAlertController(title: "更名",
-                                                message: "可以更改使用者姓名/暱稱",
-                                                preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = "姓名/暱稱"
-            textField.keyboardType = .numberPad
-        }
-        let okAction = UIAlertAction(title: "修改", style: .destructive) { _ in
-            let name = alertController.textFields?[0].text
-            guard let name = name else {
-                return
-            }
-            ProfileManager.shared.changeUserName(name: name) { result in
-                switch result {
-                case .success(let text):
-                    ProgressHUD.showSuccess(text: "修改成功")
-                    AuthManager.shared.getCurrentUser { result in
-                        switch result {
-                        case .success(let bool):
-                            print(bool)
-                            self.collectionView.reloadData()
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-                    print(text)
-                case .failure(let error):
-                    ProgressHUD.showFailure()
-                    print(error)
-                }
-            }
-            alertController.dismiss(animated: true)
-        }
-        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-            alertController.dismiss(animated: true)
-        }
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        // iPad specific code
-        alertController.popoverPresentationController?.sourceView = self.view
-        let xOrigin = self.view.bounds.width / 2
-        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
-        alertController.popoverPresentationController?.sourceRect = popoverRect
-        alertController.popoverPresentationController?.permittedArrowDirections = .down
-        
-        self.present(alertController, animated: true)
     }
     
     private func blockPresent() {
@@ -405,6 +355,21 @@ extension ProfileViewController {
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(friendsVC, animated: true)
     }
+    
+    private func editProfilePresent() {
+        guard let editVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: "\(EditProfileViewController.self)")
+                as? EditProfileViewController
+        else {
+            return
+        }
+        editVC.isCheckbuttonTap = { [weak self] in
+            self?.collectionView.reloadData()
+        }
+        editVC.modalPresentationStyle = .overCurrentContext
+        editVC.modalTransitionStyle = .crossDissolve
+        present(editVC, animated: true)
+    }
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -422,30 +387,29 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo
                                info: [UIImagePickerController.InfoKey: Any]) {
-        
-        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            print(selectedImage)
-            
-            guard let image: UIImage = info[.editedImage] as? UIImage else { return }
-            guard let imageData: Data = image.jpegData(compressionQuality: 0.5) else { return }
-            
-            ShareManager.shared.uploadPicture(imageData: imageData) { result in
-                switch result {
-                case .success(let url):
-                    print(url)
-                    self.viewModel.fetchUser(userId: AuthManager.shared.currentUser)
-                case .failure(let error):
-                    print(error)
+        guard let image: UIImage = info[.editedImage] as? UIImage else { return }
+        guard let imageData: Data = image.jpegData(compressionQuality: 0.5) else { return }
+        ProgressHUD.show()
+        ShareManager.shared.uploadPicture(imageData: imageData) { result in
+            switch result {
+            case .success(let url):
+                print(url)
+                AuthManager.shared.getCurrentUser { result in
+                    switch result {
+                    case .success(let bool):
+                        print(bool)
+                        ProgressHUD.showSuccess(text: "成功更換")
+                        self.collectionView.reloadData()
+                    case .failure(let error):
+                        ProgressHUD.showFailure(text: "讀取失敗")
+                        print(error)
+                    }
                 }
+            case .failure(let error):
+                ProgressHUD.showFailure(text: "更換失敗")
+                print(error)
             }
-//            let newImage = selectedImage.scale(newWidth: 100.0)
-//            guard let imageData: NSData = newImage.jpegData(compressionQuality: 1) as NSData? else { return }
-//            let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
-//
-//            patchData(name: "", image: strBase64)
-            
         }
-        
         dismiss(animated: true, completion: nil)
     }
 }
