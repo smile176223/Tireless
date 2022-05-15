@@ -95,7 +95,15 @@ class UserManager {
     func deleteUser(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
         let joinDB = Firestore.firestore().collection("JoinGroups")
         let groupPlanDB = Firestore.firestore().collection("GroupPlans")
-        userDB.document(userId).delete()
+        deleteUserFriends(userId: userId) { result in
+            switch result {
+            case .success(let string):
+                self.userDB.document(userId).delete()
+                completion(.success(string))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
         joinDB.whereField("createdUserId", isEqualTo: userId).getDocuments { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
@@ -136,6 +144,30 @@ class UserManager {
             }
         }
         completion(.success("success"))
+    }
+    
+    func deleteUserFriends(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+        let ref = userDB.document(userId).collection("Friends")
+        ref.getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if let error = error {
+                completion(.failure(error))
+                return
+            } else {
+                for doucument in querySnapshot.documents {
+                    if let userId = try? doucument.data(as: UserId.self, decoder: Firestore.Decoder()) {
+                        FriendManager.shared.deleteFriend(userId: userId.userId) { result in
+                            switch result {
+                            case .success(let string):
+                                completion(.success(string))
+                            case .failure(let error):
+                                completion(.failure(error))
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func blockUser(blockId: String, completion: @escaping (Result<String, Error>) -> Void) {

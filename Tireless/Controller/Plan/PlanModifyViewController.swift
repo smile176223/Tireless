@@ -38,6 +38,11 @@ class PlanModifyViewController: UIViewController {
     }
     
     private func setupLayout() {
+        guard let plan = plan,
+              let times = Int(plan.planTimes) else {
+            return
+        }
+        planCounter.setInputField(times)
         planImageView.layer.cornerRadius = planImageView.frame.height / 2
         planCheckButton.layer.cornerRadius = 15
         planAlertView.layer.cornerRadius = 25
