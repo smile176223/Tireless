@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class SignUpViewController: UIViewController {
     
@@ -20,6 +21,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     
     let viewModel = AuthViewModel()
+    
+    let hud = JGProgressHUD(style: .dark)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +68,7 @@ class SignUpViewController: UIViewController {
             makeAlert(show: "密碼不一致")
             return
         }
+        hud.show(in: self.view)
         AuthManager.shared.signUpWithFirebase(email: emailText,
                                               password: passwordText) { [weak self] authResult in
             self?.viewModel.getUser(email: authResult.user.email ?? "",
@@ -73,8 +77,10 @@ class SignUpViewController: UIViewController {
                                     picture: "")
             self?.viewModel.createUser()
             self?.finishPresent()
+            ProgressHUD.showSuccess(text: "註冊成功")
         } failure: { errorText in
             self.makeAlert(show: errorText)
+            ProgressHUD.showFailure(text: "註冊失敗")
         }
     }
     

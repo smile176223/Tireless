@@ -97,7 +97,7 @@
                 <outlet property="videoUserImageVeiw" destination="E5z-w4-nHq" id="Ojg-9N-4PT"/>
                 <outlet property="videoView" destination="xuz-lT-0fg" id="JeR-u4-RfT"/>
             </connections>
-            <point key="canvasLocation" x="24.637681159420293" y="153.68303571428569"/>
+            <point key="canvasLocation" x="24.637681159420293" y="153.01339285714286"/>
         </tableViewCell>
     </objects>
     <resources>
