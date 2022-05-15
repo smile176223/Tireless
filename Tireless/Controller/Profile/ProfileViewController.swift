@@ -249,25 +249,18 @@ extension ProfileViewController {
     private func userSetAlert() {
         let controller = UIAlertController(title: "設定", message: nil, preferredStyle: .actionSheet)
         let deleteAction = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
-            AuthManager.shared.deleteUser { [weak self] result in
-                switch result {
-                case .success(let string):
-                    print(string)
-                    self?.tabBarController?.selectedIndex = 0
-                case .failure(let error):
-                    print(error)
-                    let alert = UIAlertController(title: "錯誤",
-                                                  message: "麻煩再次登入才可刪除帳號!",
-                                                  preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "ok", style: .default) { _ in
-                        if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-                            self?.present(authVC, animated: true, completion: nil)
-                        }
-                    }
-                    alert.addAction(okAction)
-                    self?.present(alert, animated: true)
-                }
+            let alert = UIAlertController(title: "確認是否刪除帳號",
+                                          message: "刪除後資料無法回復，請謹慎使用!",
+                                          preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "確認", style: .destructive) { _ in
+                self.deleteAccount()
             }
+            let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+                self.dismiss(animated: true)
+            }
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true)
         }
         controller.addAction(deleteAction)
         let blockAction = UIAlertAction(title: "黑名單", style: .default) { _ in
@@ -298,6 +291,28 @@ extension ProfileViewController {
         controller.popoverPresentationController?.permittedArrowDirections = .down
         
         present(controller, animated: true, completion: nil)
+    }
+    
+    private func deleteAccount() {
+        AuthManager.shared.deleteUser { [weak self] result in
+            switch result {
+            case .success(let string):
+                print(string)
+                self?.tabBarController?.selectedIndex = 0
+            case .failure(let error):
+                print(error)
+                let alert = UIAlertController(title: "錯誤",
+                                              message: "麻煩再次登入才可刪除帳號!",
+                                              preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "ok", style: .default) { _ in
+                    if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                        self?.present(authVC, animated: true, completion: nil)
+                    }
+                }
+                alert.addAction(okAction)
+                self?.present(alert, animated: true)
+            }
+        }
     }
     
     private func setUserInfoAlert() {
