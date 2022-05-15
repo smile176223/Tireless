@@ -102,13 +102,23 @@ class AuthManager {
     }
     
     func signInWithFirebase(email: String, password: String,
-                            completion: @escaping (Result<AuthDataResult, Error>) -> Void) {
+                            success: @escaping ((AuthDataResult) -> Void),
+                            failure: @escaping ((String) -> Void)) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
-                completion(.failure(error))
+                if let errorCode = AuthErrorCode(rawValue: error._code) {
+                    switch errorCode {
+                    case .wrongPassword:
+                        failure("密碼錯誤")
+                    case .invalidEmail:
+                        failure("無效的信箱")
+                    default:
+                        failure("登入失敗")
+                    }
+                }
             } else {
                 guard let result = result else { return }
-                completion(.success(result))
+                success(result)
             }
         }
     }

@@ -79,8 +79,10 @@ class SignUpViewController: UIViewController {
             self?.finishPresent()
             ProgressHUD.showSuccess(text: "註冊成功")
         } failure: { errorText in
-            self.makeAlert(show: errorText)
-            ProgressHUD.showFailure(text: "註冊失敗")
+            self.hud.textLabel.text = errorText
+            self.hud.indicatorView = JGProgressHUDErrorIndicatorView()
+            self.hud.show(in: self.view)
+            self.hud.dismiss(afterDelay: 1.0)
         }
     }
     
