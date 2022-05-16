@@ -24,10 +24,10 @@ class ProgressHUD {
     
     var view: UIView {
         
-        let sceneDelegate = UIApplication.shared.connectedScenes.first!.delegate as? SceneDelegate
-        
-        return (sceneDelegate?.window!.rootViewController?.view)!
-        
+        let viewController = UIApplication.shared.windows.first!.rootViewController
+
+        return (viewController?.view)!
+
     }
     
     static func show(type: HUDType) {
