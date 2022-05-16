@@ -43,7 +43,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         configureCollectionView()
 
-        viewModel.setDefault()
+//        viewModel.setDefault()
         
         viewModel.joinGroupsViewModel.bind { [weak self] _ in
             DispatchQueue.main.async {
@@ -69,6 +69,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         if AuthManager.shared.currentUser != "" {
             viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.setDefault()
     }
     
     private func configureCollectionView() {
