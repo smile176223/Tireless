@@ -60,7 +60,6 @@ class InviteFriendViewCell: UITableViewCell {
     
     private func layoutBlockCell() {
         agreeButton.isHidden = true
-        rejectButton.isHidden = true
         if blocksViewModel?.user.picture != "" {
             userImageView.loadImage(blocksViewModel?.user.picture)
         } else {

@@ -39,6 +39,13 @@ class HomeViewModel {
         setDefaultPlans(plans)
     }
     
+    func setupDay() -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        return formatter.string(from: Date())
+    }
+    
     private func countDaily(_ day: Int) -> Int {
         let calendar = Calendar.current.date(byAdding: .day, value: day, to: Date())
         return calendar?.get(.day) ?? 0

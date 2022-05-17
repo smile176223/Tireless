@@ -84,30 +84,41 @@ class AuthManager {
     
     func deleteUser(completion: @escaping (Result<String, Error>) -> Void) {
         let needDeleteUser = self.currentUser
-        Auth.auth().currentUser?.delete { error in
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                UserManager.shared.deleteUser(userId: needDeleteUser) { result in
-                    switch result {
-                    case .success(let string):
-                        completion(.success(string))
-                    case .failure(let error):
+        UserManager.shared.deleteUser(userId: needDeleteUser) { result in
+            switch result {
+            case .success(let string):
+                completion(.success(string))
+                Auth.auth().currentUser?.delete { error in
+                    if let error = error {
                         completion(.failure(error))
+                    } else {
+                        completion(.success(string))
                     }
                 }
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
     
     func signInWithFirebase(email: String, password: String,
-                            completion: @escaping (Result<AuthDataResult, Error>) -> Void) {
+                            success: @escaping ((AuthDataResult) -> Void),
+                            failure: @escaping ((String) -> Void)) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
-                completion(.failure(error))
+                if let errorCode = AuthErrorCode(rawValue: error._code) {
+                    switch errorCode {
+                    case .wrongPassword:
+                        failure("密碼錯誤")
+                    case .invalidEmail:
+                        failure("無效的信箱")
+                    default:
+                        failure("登入失敗")
+                    }
+                }
             } else {
                 guard let result = result else { return }
-                completion(.success(result))
+                success(result)
             }
         }
     }

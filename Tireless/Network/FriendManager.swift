@@ -121,4 +121,20 @@ class FriendManager {
             completion(.success("Success delete"))
         }
     }
+    
+    func removeBlockUser(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+        let ref = userDB.document(AuthManager.shared.currentUser).collection("BlockLists")
+        ref.whereField("userId", isEqualTo: userId).getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if let error = error {
+                completion(.failure(error))
+                return
+            } else {
+                for document in querySnapshot.documents {
+                    document.reference.delete()
+                }
+                completion(.success("Success"))
+            }
+        }
+    }
 }

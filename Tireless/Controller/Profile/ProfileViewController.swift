@@ -51,7 +51,6 @@ class ProfileViewController: UIViewController {
                 self?.collectionView.reloadData()
             }
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,11 +98,14 @@ class ProfileViewController: UIViewController {
     
     private func createLayout() -> UICollectionViewLayout {
         var itemHeight: CGFloat = 0
+        var groupInset: CGFloat = 0
         switch currentTab {
         case .statistics:
             itemHeight = 350
+            groupInset = 15
         case .historyPlan:
             itemHeight = 130
+            groupInset = 0
         }
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .estimated(itemHeight))
@@ -112,6 +114,7 @@ class ProfileViewController: UIViewController {
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
                                                        subitems: [item])
+        group.contentInsets = .init(top: 0, leading: groupInset, bottom: 0, trailing: groupInset)
         
         let section = NSCollectionLayoutSection(group: group)
         
@@ -246,25 +249,18 @@ extension ProfileViewController {
     private func userSetAlert() {
         let controller = UIAlertController(title: "設定", message: nil, preferredStyle: .actionSheet)
         let deleteAction = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
-            AuthManager.shared.deleteUser { [weak self] result in
-                switch result {
-                case .success(let string):
-                    print(string)
-                    self?.tabBarController?.selectedIndex = 0
-                case .failure(let error):
-                    print(error)
-                    let alert = UIAlertController(title: "錯誤",
-                                                  message: "麻煩再次登入才可刪除帳號!",
-                                                  preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "ok", style: .default) { _ in
-                        if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-                            self?.present(authVC, animated: true, completion: nil)
-                        }
-                    }
-                    alert.addAction(okAction)
-                    self?.present(alert, animated: true)
-                }
+            let alert = UIAlertController(title: "確認是否刪除帳號",
+                                          message: "刪除後資料無法回復，請謹慎使用!",
+                                          preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "確認", style: .destructive) { _ in
+                self.deleteAccount()
             }
+            let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+                self.dismiss(animated: true)
+            }
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true)
         }
         controller.addAction(deleteAction)
         let blockAction = UIAlertAction(title: "黑名單", style: .default) { _ in
@@ -297,15 +293,37 @@ extension ProfileViewController {
         present(controller, animated: true, completion: nil)
     }
     
+    private func deleteAccount() {
+        AuthManager.shared.deleteUser { [weak self] result in
+            switch result {
+            case .success(let string):
+                print(string)
+                self?.tabBarController?.selectedIndex = 0
+            case .failure(let error):
+                print(error)
+                let alert = UIAlertController(title: "錯誤",
+                                              message: "麻煩再次登入才可刪除帳號!",
+                                              preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "ok", style: .default) { _ in
+                    if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                        self?.present(authVC, animated: true, completion: nil)
+                    }
+                }
+                alert.addAction(okAction)
+                self?.present(alert, animated: true)
+            }
+        }
+    }
+    
     private func setUserInfoAlert() {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        let imageChange = UIAlertAction(title: "更換圖片", style: .default) { _ in
-//            
-//        }
-        let nameChange = UIAlertAction(title: "更換姓名", style: .default) { _ in
-            self.showSettingAlert()
+        let imageChange = UIAlertAction(title: "更換圖片", style: .default) { _ in
+            self.selectImage()
         }
-//        controller.addAction(imageChange)
+        let nameChange = UIAlertAction(title: "更換姓名", style: .default) { _ in
+            self.editProfilePresent()
+        }
+        controller.addAction(imageChange)
         controller.addAction(nameChange)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
@@ -318,55 +336,6 @@ extension ProfileViewController {
         controller.popoverPresentationController?.permittedArrowDirections = .down
         
         present(controller, animated: true, completion: nil)
-    }
-    
-    private func showSettingAlert() {
-        let alertController = UIAlertController(title: "更名",
-                                                message: "可以更改使用者姓名/暱稱",
-                                                preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = "姓名/暱稱"
-            textField.keyboardType = .numberPad
-        }
-        let okAction = UIAlertAction(title: "修改", style: .destructive) { _ in
-            let name = alertController.textFields?[0].text
-            guard let name = name else {
-                return
-            }
-            ProfileManager.shared.changeUserName(name: name) { result in
-                switch result {
-                case .success(let text):
-                    ProgressHUD.showSuccess(text: "修改成功")
-                    AuthManager.shared.getCurrentUser { result in
-                        switch result {
-                        case .success(let bool):
-                            print(bool)
-                            self.collectionView.reloadData()
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-                    print(text)
-                case .failure(let error):
-                    ProgressHUD.showFailure()
-                    print(error)
-                }
-            }
-            alertController.dismiss(animated: true)
-        }
-        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-            alertController.dismiss(animated: true)
-        }
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        // iPad specific code
-        alertController.popoverPresentationController?.sourceView = self.view
-        let xOrigin = self.view.bounds.width / 2
-        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
-        alertController.popoverPresentationController?.sourceRect = popoverRect
-        alertController.popoverPresentationController?.permittedArrowDirections = .down
-        
-        self.present(alertController, animated: true)
     }
     
     private func blockPresent() {
@@ -400,5 +369,62 @@ extension ProfileViewController {
         }
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(friendsVC, animated: true)
+    }
+    
+    private func editProfilePresent() {
+        guard let editVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: "\(EditProfileViewController.self)")
+                as? EditProfileViewController
+        else {
+            return
+        }
+        editVC.isCheckbuttonTap = { [weak self] in
+            self?.collectionView.reloadData()
+        }
+        editVC.modalPresentationStyle = .overCurrentContext
+        editVC.modalTransitionStyle = .crossDissolve
+        present(editVC, animated: true)
+    }
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func selectImage() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.delegate = self
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo
+                               info: [UIImagePickerController.InfoKey: Any]) {
+        guard let image: UIImage = info[.editedImage] as? UIImage else { return }
+        guard let imageData: Data = image.jpegData(compressionQuality: 0.5) else { return }
+        ProgressHUD.show()
+        ShareManager.shared.uploadPicture(imageData: imageData) { result in
+            switch result {
+            case .success(let url):
+                print(url)
+                AuthManager.shared.getCurrentUser { result in
+                    switch result {
+                    case .success(let bool):
+                        print(bool)
+                        ProgressHUD.showSuccess(text: "成功更換")
+                        self.collectionView.reloadData()
+                    case .failure(let error):
+                        ProgressHUD.showFailure(text: "讀取失敗")
+                        print(error)
+                    }
+                }
+            case .failure(let error):
+                ProgressHUD.showFailure(text: "更換失敗")
+                print(error)
+            }
+        }
+        dismiss(animated: true, completion: nil)
     }
 }

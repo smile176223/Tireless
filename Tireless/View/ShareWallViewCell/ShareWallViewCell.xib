@@ -42,14 +42,14 @@
                             <action selector="setButtonTqp:" destination="Wou-ON-kcr" eventType="touchUpInside" id="yOK-WM-0Yw"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWo-sj-QxH">
-                        <rect key="frame" x="75" y="509" width="44" height="28"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tireless User" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWo-sj-QxH">
+                        <rect key="frame" x="75" y="509" width="125" height="28"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcg-bH-6H4">
-                        <rect key="frame" x="25" y="552" width="76" height="28"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tireless Challenge" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcg-bH-6H4">
+                        <rect key="frame" x="25" y="552" width="175" height="28"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -90,13 +90,14 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="commentButton" destination="KH5-ZF-vpa" id="rW4-KT-Y0q"/>
                 <outlet property="setButton" destination="VHi-GB-YjJ" id="V2h-9n-23P"/>
                 <outlet property="videoContentText" destination="wcg-bH-6H4" id="sVf-x0-YfM"/>
                 <outlet property="videoTitleText" destination="NWo-sj-QxH" id="OOa-js-Y6E"/>
                 <outlet property="videoUserImageVeiw" destination="E5z-w4-nHq" id="Ojg-9N-4PT"/>
                 <outlet property="videoView" destination="xuz-lT-0fg" id="JeR-u4-RfT"/>
             </connections>
-            <point key="canvasLocation" x="24.637681159420293" y="153.68303571428569"/>
+            <point key="canvasLocation" x="24.637681159420293" y="153.01339285714286"/>
         </tableViewCell>
     </objects>
     <resources>

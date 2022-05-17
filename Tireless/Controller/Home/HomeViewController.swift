@@ -43,7 +43,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         configureCollectionView()
 
-        viewModel.setDefault()
+//        viewModel.setDefault()
         
         viewModel.joinGroupsViewModel.bind { [weak self] _ in
             DispatchQueue.main.async {
@@ -69,6 +69,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         if AuthManager.shared.currentUser != "" {
             viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.setDefault()
     }
     
     private func configureCollectionView() {
@@ -231,6 +235,7 @@ extension HomeViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             headerDailyView.isHidden = false
             headerDailyView.titleLabel.text = "每日運動計畫"
+            headerDailyView.dateLabel.text = viewModel.setupDay()
             return headerDailyView
         } else if indexPath.section == 1 {
             headerDailyView.isHidden = true

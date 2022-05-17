@@ -37,14 +37,14 @@ class PictureWallViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        shareManager.fetchPicture { result in
-            switch result {
-            case .success(let shareFiles):
-                self.shareFiles = shareFiles
-            case .failure(let error):
-                print(error)
-            }
-        }
+//        shareManager.fetchPicture { result in
+//            switch result {
+//            case .success(let shareFiles):
+//                self.shareFiles = shareFiles
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
     }
 }
 
