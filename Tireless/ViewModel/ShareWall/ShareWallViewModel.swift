@@ -22,6 +22,20 @@ class ShareWallViewModel {
         }
     }
     
+    func deleteVideo(uuid: String) {
+        ShareManager.shared.deleteVideo(uuid: uuid) { result in
+            switch result {
+            case .success(let text):
+                ProgressHUD.showSuccess(text: "已刪除")
+                self.fetchData()
+                print(text)
+            case .failure(let error):
+                ProgressHUD.showFailure(text: "請重試")
+                print(error)
+            }
+        }
+    }
+    
     func convertVideosToViewModels(from shareFiles: [ShareFiles]) -> [ShareFilesViewModel] {
         var viewModels = [ShareFilesViewModel]()
         for shareFile in shareFiles {

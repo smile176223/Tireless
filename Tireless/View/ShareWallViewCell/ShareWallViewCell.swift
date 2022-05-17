@@ -20,6 +20,8 @@ class ShareWallViewCell: UITableViewCell, AutoPlayVideoLayerContainer {
     
     @IBOutlet weak var setButton: CustomButton!
     
+    @IBOutlet weak var commentButton: UIButton!
+    
     @IBOutlet weak var videoUserImageVeiw: UIImageView!
     
     var viewModel: ShareFilesViewModel?
@@ -55,15 +57,26 @@ class ShareWallViewCell: UITableViewCell, AutoPlayVideoLayerContainer {
         super.layoutSubviews()
         videoLayer.frame = videoView.bounds
     }
-    
+
     func setup(viewModel: ShareFilesViewModel) {
         self.viewModel = viewModel
+        configureCell(videoUrl: viewModel.shareFile.shareURL)
         layoutCell()
         setupLayout()
         setupLabel(videoTitleText)
         setupLabel(videoContentText)
-        configureCell(videoUrl: viewModel.shareFile.shareURL)
+        setButton.isHidden = false
+        commentButton.isHidden = false
+        videoUserImageVeiw.isHidden = false
+    }
     
+    func setupEmpty() {
+        self.videoURL = nil
+        setButton.isHidden = true
+        commentButton.isHidden = true
+        videoTitleText.text = ""
+        videoUserImageVeiw.isHidden = true
+        videoContentText.text = ""
     }
     
     func configureCell(videoUrl: URL) {
@@ -77,6 +90,8 @@ class ShareWallViewCell: UITableViewCell, AutoPlayVideoLayerContainer {
         videoContentText.text = "\(viewModel?.shareFile.content ?? "")\n\(date)"
         if viewModel?.shareFile.user?.picture != "" {
             videoUserImageVeiw.loadImage(viewModel?.shareFile.user?.picture)
+        } else {
+            videoUserImageVeiw.image = UIImage.placeHolder
         }
     }
     

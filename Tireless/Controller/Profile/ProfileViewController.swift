@@ -20,14 +20,12 @@ class ProfileViewController: UIViewController {
     
     let viewModel = ProfileViewModel()
     
-    var friendsList: [User]?
-    
     enum ProfileTab {
-        case friends
+        case statistics
         case historyPlan
     }
     
-    var currentTab: ProfileTab = .friends {
+    var currentTab: ProfileTab = .statistics {
         didSet {
             collectionView.collectionViewLayout = createLayout()
             collectionView.reloadData()
@@ -41,30 +39,28 @@ class ProfileViewController: UIViewController {
         
         view.backgroundColor = .themeBG
         configureCollectionView()
-        
-        viewModel.friendViewModels.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
-        }
-        
-        viewModel.friends.bind { [weak self] friends in
-            self?.friendsList = friends
-        }
-        
+
         viewModel.historyPlanViewModels.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.collectionView.reloadData()
             }
         }
         
+        viewModel.statisticsViewModels.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
         viewModel.fetchUser(userId: AuthManager.shared.currentUser)
-        viewModel.fetchFriends(userId: AuthManager.shared.currentUser)
+        viewModel.fetchStatistics(with: PlanExercise.squat)
+        viewModel.fetchStatistics(with: PlanExercise.plank)
+        viewModel.fetchStatistics(with: PlanExercise.pushup)
+        viewModel.fetchDays()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -89,8 +85,8 @@ class ProfileViewController: UIViewController {
         collectionView.collectionViewLayout = createLayout()
         collectionView.backgroundColor = .themeBG
         
-        collectionView.register(UINib(nibName: "\(FriendListViewCell.self)", bundle: nil),
-                                forCellWithReuseIdentifier: "\(FriendListViewCell.self)")
+        collectionView.register(UINib(nibName: "\(StatisticsViewCell.self)", bundle: nil),
+                                forCellWithReuseIdentifier: "\(StatisticsViewCell.self)")
         
         collectionView.register(UINib(nibName: "\(HistoryPlanViewCell.self)", bundle: nil),
                                 forCellWithReuseIdentifier: "\(HistoryPlanViewCell.self)")
@@ -102,11 +98,14 @@ class ProfileViewController: UIViewController {
     
     private func createLayout() -> UICollectionViewLayout {
         var itemHeight: CGFloat = 0
+        var groupInset: CGFloat = 0
         switch currentTab {
-        case .friends:
-            itemHeight = 80
+        case .statistics:
+            itemHeight = 350
+            groupInset = 15
         case .historyPlan:
             itemHeight = 130
+            groupInset = 0
         }
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .estimated(itemHeight))
@@ -115,11 +114,12 @@ class ProfileViewController: UIViewController {
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
                                                        subitems: [item])
+        group.contentInsets = .init(top: 0, leading: groupInset, bottom: 0, trailing: groupInset)
         
         let section = NSCollectionLayoutSection(group: group)
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                heightDimension: .absolute(220))
+                                                heightDimension: .absolute(240))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
                                                                  elementKind:
                                                                     UICollectionView.elementKindSectionHeader,
@@ -150,7 +150,7 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch currentTab {
-        case .friends:
+        case .statistics:
             return
         case .historyPlan:
             let cellViewModel = self.viewModel.historyPlanViewModels.value[indexPath.row]
@@ -163,17 +163,15 @@ extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         switch currentTab {
-        case .friends:
-            if viewModel.friendViewModels.value.count == 0 {
-                emptyView.isHidden = false
-            } else {
-                emptyView.isHidden = true
-            }
-            return viewModel.friendViewModels.value.count
+        case .statistics:
+            emptyView.isHidden = true
+            return 1
         case .historyPlan:
             if viewModel.historyPlanViewModels.value.count == 0 {
+                collectionView.isScrollEnabled = false
                 emptyView.isHidden = false
             } else {
+                collectionView.isScrollEnabled = true
                 emptyView.isHidden = true
             }
             return viewModel.historyPlanViewModels.value.count
@@ -181,8 +179,8 @@ extension ProfileViewController: UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let friendsCell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "\(FriendListViewCell.self)", for: indexPath) as? FriendListViewCell else {
+        guard let statisticsCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "\(StatisticsViewCell.self)", for: indexPath) as? StatisticsViewCell else {
             return UICollectionViewCell()
         }
         guard let historyCell = collectionView.dequeueReusableCell(
@@ -191,14 +189,10 @@ extension ProfileViewController: UICollectionViewDataSource {
         }
         
         switch currentTab {
-        case .friends:
-            let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
-            friendsCell.setup(viewModel: cellViewModel)
-            
-            friendsCell.isSetButtonTap = { [weak self] in
-                self?.setButtonAlert(userId: cellViewModel.user.userId)
-            }
-            return friendsCell
+        case .statistics:
+            let cellViewModel = self.viewModel.statisticsViewModels.value
+            statisticsCell.setup(viewModel: cellViewModel)
+            return statisticsCell
         case .historyPlan:
             let cellViewModel = self.viewModel.historyPlanViewModels.value[indexPath.row]
             historyCell.setup(viewModel: cellViewModel)
@@ -225,17 +219,9 @@ extension ProfileViewController: UICollectionViewDataSource {
         headerView.isUserImageTap = { [weak self] in
             self?.setUserInfoAlert()
         }
-
-        headerView.isSearchButtonTap = { [weak self] in
-            self?.searchFriendPresent()
-        }
-
-        headerView.isInviteTap = { [weak self] in
-            self?.invitePresent()
-        }
         
-        headerView.isFriendsTab = { [weak self] in
-            self?.currentTab = .friends
+        headerView.isCountTab = { [weak self] in
+            self?.currentTab = .statistics
         }
         
         headerView.isHistoryTab = { [weak self] in
@@ -243,8 +229,16 @@ extension ProfileViewController: UICollectionViewDataSource {
             self?.viewModel.fetchHistoryPlan()
         }
         
-        headerView.isBlockListButtonTab = { [weak self] in
+        headerView.isSetListButtonTab = { [weak self] in
             self?.userSetAlert()
+        }
+        
+        headerView.isBellAlertButtonTap = { [weak self] in
+            self?.notificationPresent()
+        }
+        
+        headerView.isFriendsButtonTap = { [weak self] in
+            self?.friendsListPresent()
         }
         
         return headerView
@@ -255,25 +249,18 @@ extension ProfileViewController {
     private func userSetAlert() {
         let controller = UIAlertController(title: "設定", message: nil, preferredStyle: .actionSheet)
         let deleteAction = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
-            AuthManager.shared.deleteUser { [weak self] result in
-                switch result {
-                case .success(let string):
-                    print(string)
-                    self?.tabBarController?.selectedIndex = 0
-                case .failure(let error):
-                    print(error)
-                    let alert = UIAlertController(title: "錯誤",
-                                                  message: "麻煩再次登入才可刪除帳號!",
-                                                  preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "ok", style: .default) { _ in
-                        if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-                            self?.present(authVC, animated: true, completion: nil)
-                        }
-                    }
-                    alert.addAction(okAction)
-                    self?.present(alert, animated: true)
-                }
+            let alert = UIAlertController(title: "確認是否刪除帳號",
+                                          message: "刪除後資料無法回復，請謹慎使用!",
+                                          preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "確認", style: .destructive) { _ in
+                self.deleteAccount()
             }
+            let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+                self.dismiss(animated: true)
+            }
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true)
         }
         controller.addAction(deleteAction)
         let blockAction = UIAlertAction(title: "黑名單", style: .default) { _ in
@@ -306,36 +293,37 @@ extension ProfileViewController {
         present(controller, animated: true, completion: nil)
     }
     
-    private func setButtonAlert(userId: String) {
-        let controller = UIAlertController(title: "好友設定", message: nil, preferredStyle: .actionSheet)
-        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
-            self.viewModel.deleteFriend(userId: userId)
+    private func deleteAccount() {
+        AuthManager.shared.deleteUser { [weak self] result in
+            switch result {
+            case .success(let string):
+                print(string)
+                self?.tabBarController?.selectedIndex = 0
+            case .failure(let error):
+                print(error)
+                let alert = UIAlertController(title: "錯誤",
+                                              message: "麻煩再次登入才可刪除帳號!",
+                                              preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "ok", style: .default) { _ in
+                    if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                        self?.present(authVC, animated: true, completion: nil)
+                    }
+                }
+                alert.addAction(okAction)
+                self?.present(alert, animated: true)
+            }
         }
-        controller.addAction(deleteAction)
-        let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
-            self.viewModel.blockUser(blockId: userId)
-        }
-        controller.addAction(banAction)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        // iPad specific code
-        controller.popoverPresentationController?.sourceView = self.view
-        let xOrigin = self.view.bounds.width / 2
-        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
-        controller.popoverPresentationController?.sourceRect = popoverRect
-        controller.popoverPresentationController?.permittedArrowDirections = .down
-        
-        present(controller, animated: true, completion: nil)
     }
+    
     private func setUserInfoAlert() {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        let imageChange = UIAlertAction(title: "更換圖片", style: .default) { _ in
-//            
-//        }
-        let nameChange = UIAlertAction(title: "更換姓名", style: .default) { _ in
-            self.showSettingAlert()
+        let imageChange = UIAlertAction(title: "更換圖片", style: .default) { _ in
+            self.selectImage()
         }
-//        controller.addAction(imageChange)
+        let nameChange = UIAlertAction(title: "更換姓名", style: .default) { _ in
+            self.editProfilePresent()
+        }
+        controller.addAction(imageChange)
         controller.addAction(nameChange)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(cancelAction)
@@ -350,76 +338,6 @@ extension ProfileViewController {
         present(controller, animated: true, completion: nil)
     }
     
-    private func showSettingAlert() {
-        let alertController = UIAlertController(title: "更名",
-                                                message: "可以更改使用者姓名/暱稱",
-                                                preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = "姓名/暱稱"
-            textField.keyboardType = .numberPad
-        }
-        let okAction = UIAlertAction(title: "修改", style: .destructive) { _ in
-            let name = alertController.textFields?[0].text
-            guard let name = name else {
-                return
-            }
-            ProfileManager.shared.changeUserName(name: name) { result in
-                switch result {
-                case .success(let text):
-                    ProgressHUD.showSuccess(text: "修改成功")
-                    AuthManager.shared.getCurrentUser { result in
-                        switch result {
-                        case .success(let bool):
-                            print(bool)
-                            self.collectionView.reloadData()
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-                    print(text)
-                case .failure(let error):
-                    ProgressHUD.showFailure()
-                    print(error)
-                }
-            }
-            alertController.dismiss(animated: true)
-        }
-        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-            alertController.dismiss(animated: true)
-        }
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        // iPad specific code
-        alertController.popoverPresentationController?.sourceView = self.view
-        let xOrigin = self.view.bounds.width / 2
-        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
-        alertController.popoverPresentationController?.sourceRect = popoverRect
-        alertController.popoverPresentationController?.permittedArrowDirections = .down
-        
-        self.present(alertController, animated: true)
-    }
-    
-    private func searchFriendPresent() {
-        guard let searchVC = storyboard?.instantiateViewController(withIdentifier: "\(SearchFriendViewController.self)")
-                as? SearchFriendViewController
-        else {
-            return
-        }
-        searchVC.friendsList = self.friendsList
-        self.navigationItem.backButtonTitle = ""
-        self.navigationController?.pushViewController(searchVC, animated: true)
-    }
-    
-    private func invitePresent() {
-        guard let inviteVC = storyboard?.instantiateViewController(withIdentifier: "\(InviteFriendViewController.self)")
-                as? InviteFriendViewController
-        else {
-            return
-        }
-        self.navigationItem.backButtonTitle = ""
-        self.navigationController?.pushViewController(inviteVC, animated: true)
-    }
-    
     private func blockPresent() {
         guard let blockVC = storyboard?.instantiateViewController(withIdentifier: "\(BlockListViewController.self)")
                 as? BlockListViewController
@@ -428,5 +346,85 @@ extension ProfileViewController {
         }
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(blockVC, animated: true)
+    }
+    
+    private func notificationPresent() {
+        guard let notifyVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: "\(NotificationViewController.self)")
+                as? NotificationViewController
+        else {
+            return
+        }
+        notifyVC.modalPresentationStyle = .overCurrentContext
+        notifyVC.modalTransitionStyle = .crossDissolve
+        present(notifyVC, animated: true)
+    }
+    
+    private func friendsListPresent() {
+        guard let friendsVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: "\(FriendsListViewController.self)")
+                as? FriendsListViewController
+        else {
+            return
+        }
+        self.navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(friendsVC, animated: true)
+    }
+    
+    private func editProfilePresent() {
+        guard let editVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: "\(EditProfileViewController.self)")
+                as? EditProfileViewController
+        else {
+            return
+        }
+        editVC.isCheckbuttonTap = { [weak self] in
+            self?.collectionView.reloadData()
+        }
+        editVC.modalPresentationStyle = .overCurrentContext
+        editVC.modalTransitionStyle = .crossDissolve
+        present(editVC, animated: true)
+    }
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func selectImage() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.delegate = self
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo
+                               info: [UIImagePickerController.InfoKey: Any]) {
+        guard let image: UIImage = info[.editedImage] as? UIImage else { return }
+        guard let imageData: Data = image.jpegData(compressionQuality: 0.5) else { return }
+        ProgressHUD.show()
+        ShareManager.shared.uploadPicture(imageData: imageData) { result in
+            switch result {
+            case .success(let url):
+                print(url)
+                AuthManager.shared.getCurrentUser { result in
+                    switch result {
+                    case .success(let bool):
+                        print(bool)
+                        ProgressHUD.showSuccess(text: "成功更換")
+                        self.collectionView.reloadData()
+                    case .failure(let error):
+                        ProgressHUD.showFailure(text: "讀取失敗")
+                        print(error)
+                    }
+                }
+            case .failure(let error):
+                ProgressHUD.showFailure(text: "更換失敗")
+                print(error)
+            }
+        }
+        dismiss(animated: true, completion: nil)
     }
 }

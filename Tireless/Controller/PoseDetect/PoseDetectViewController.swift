@@ -110,12 +110,12 @@ class PoseDetectViewController: UIViewController {
         
         viewModel.noPoint = { [weak self] in
             DispatchQueue.main.async {
-                self?.inFrameLikeLiHoodLabel.text = "準確度：0%"
+                self?.inFrameLikeLiHoodLabel.text = "人體準確度：0%"
             }
         }
         
         viewModel.inFrameLikeLiHoodRefresh = { [weak self] inFrameLikeLiHood in
-            self?.inFrameLikeLiHoodLabel.text = "準確度：\(inFrameLikeLiHood)%"
+            self?.inFrameLikeLiHoodLabel.text = "人體準確度：\(inFrameLikeLiHood)%"
         }
     }
     override func viewWillAppear(_ animated: Bool) {

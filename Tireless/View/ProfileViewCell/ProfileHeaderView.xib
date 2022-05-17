@@ -12,9 +12,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProfileHeaderView" id="i3S-Gm-XM7" customClass="ProfileHeaderView" customModule="Tireless" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="210"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="230"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="smj-qE-Jdy">
+                    <rect key="frame" x="77" y="185.5" width="100" height="40"/>
+                    <color key="backgroundColor" name="themeBGSecond"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="0Ai-pp-MkR"/>
+                        <constraint firstAttribute="width" constant="100" id="krm-Ht-Cer"/>
+                    </constraints>
+                </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TirelessLogoText" translatesAutoresizingMaskIntoConstraints="NO" id="1jH-yT-AM0">
                     <rect key="frame" x="157" y="20" width="100" height="100"/>
                     <color key="backgroundColor" name="themeBGSecond"/>
@@ -33,55 +41,14 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aLv-fP-krm">
-                    <rect key="frame" x="40" y="160.5" width="334" height="5"/>
+                    <rect key="frame" x="20" y="170.5" width="374" height="5"/>
                     <color key="backgroundColor" name="themeYellow"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="5" id="CUR-Bh-xn4"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sse-8T-hYs">
-                    <rect key="frame" x="372" y="87" width="32" height="30"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="sse-8T-hYs" secondAttribute="height" id="Cxr-Lx-ybh"/>
-                        <constraint firstAttribute="height" constant="30" id="eDZ-Qh-8z7"/>
-                    </constraints>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" backgroundImage="person.fill.badge.plus" catalog="system"/>
-                    <connections>
-                        <action selector="inviteTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="Rqg-n2-B0T"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZb-2F-qYH">
-                    <rect key="frame" x="374" y="126" width="30" height="28.5"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="cSI-3L-41C"/>
-                        <constraint firstAttribute="width" constant="30" id="pw7-fd-1xN"/>
-                    </constraints>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" backgroundImage="plus.magnifyingglass" catalog="system"/>
-                    <connections>
-                        <action selector="searchButtonTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="DyV-9O-UH1"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLq-2R-1ca">
-                    <rect key="frame" x="77" y="175.5" width="100" height="30"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="100" id="NMv-gN-jyg"/>
-                        <constraint firstAttribute="height" constant="30" id="lIH-XM-5ZD"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="15"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="好友列表">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="friendsTabButtonTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="NqD-z2-v44"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="szw-Hz-U3K">
-                    <rect key="frame" x="237" y="175.5" width="100" height="30"/>
+                    <rect key="frame" x="237" y="190.5" width="100" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="Itr-JE-Brb"/>
                         <constraint firstAttribute="width" constant="100" id="kTj-XB-uee"/>
@@ -95,13 +62,6 @@
                         <action selector="historyabButtonTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="nC4-Bl-2tK"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="smj-qE-Jdy">
-                    <rect key="frame" x="87" y="207.5" width="80" height="2"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="2" id="JvA-NV-E8T"/>
-                    </constraints>
-                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sMC-ke-iNc">
                     <rect key="frame" x="374" y="27" width="30" height="10.5"/>
                     <constraints>
@@ -115,31 +75,69 @@
                         <action selector="blockListButtonTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="T7y-Uf-r0h"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcX-zt-apM">
+                    <rect key="frame" x="10" y="18" width="30" height="29.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="Adr-fo-4Sp"/>
+                        <constraint firstAttribute="height" constant="30" id="yoN-aX-3tF"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" backgroundImage="bell.fill" catalog="system"/>
+                    <connections>
+                        <action selector="bellAlertButtonTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="I1D-iE-cMr"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLq-2R-1ca">
+                    <rect key="frame" x="77" y="190.5" width="100" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="NMv-gN-jyg"/>
+                        <constraint firstAttribute="height" constant="30" id="lIH-XM-5ZD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="15"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="運動統計">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="countTabButtonTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="oKD-Ol-BYR"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Vm-fc-Crg">
+                    <rect key="frame" x="356" y="131.5" width="38" height="27.5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="4gs-nU-aVE"/>
+                        <constraint firstAttribute="width" secondItem="2Vm-fc-Crg" secondAttribute="height" multiplier="19:15" id="z2X-aN-DWh"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" backgroundImage="person.text.rectangle" catalog="system"/>
+                    <connections>
+                        <action selector="friendsButtonTap:" destination="i3S-Gm-XM7" eventType="touchUpInside" id="2zN-2V-nYV"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="gRZ-DJ-kJz"/>
             <color key="backgroundColor" name="themeBG"/>
             <constraints>
                 <constraint firstItem="szw-Hz-U3K" firstAttribute="centerY" secondItem="BLq-2R-1ca" secondAttribute="centerY" id="1hF-b5-3qm"/>
+                <constraint firstItem="aLv-fP-krm" firstAttribute="top" secondItem="2Vm-fc-Crg" secondAttribute="bottom" constant="10" id="3xR-er-64H"/>
+                <constraint firstItem="aLv-fP-krm" firstAttribute="top" secondItem="i9n-fb-ABp" secondAttribute="bottom" constant="20" id="4Mr-6m-PiE"/>
                 <constraint firstItem="1jH-yT-AM0" firstAttribute="centerX" secondItem="i3S-Gm-XM7" secondAttribute="centerX" id="6UP-3Z-Puf"/>
-                <constraint firstItem="sse-8T-hYs" firstAttribute="width" secondItem="sse-8T-hYs" secondAttribute="height" id="BFt-O6-GeW"/>
-                <constraint firstItem="smj-qE-Jdy" firstAttribute="width" secondItem="BLq-2R-1ca" secondAttribute="width" multiplier="0.8" id="EyP-au-FfN"/>
-                <constraint firstItem="aLv-fP-krm" firstAttribute="leading" secondItem="gRZ-DJ-kJz" secondAttribute="leading" constant="40" id="FMW-rO-WRH"/>
-                <constraint firstItem="aLv-fP-krm" firstAttribute="top" secondItem="i9n-fb-ABp" secondAttribute="bottom" constant="10" id="Mmu-lI-fsZ"/>
-                <constraint firstItem="gRZ-DJ-kJz" firstAttribute="trailing" secondItem="aLv-fP-krm" secondAttribute="trailing" constant="40" id="OHM-dA-G9o"/>
+                <constraint firstItem="aLv-fP-krm" firstAttribute="leading" secondItem="gRZ-DJ-kJz" secondAttribute="leading" constant="20" id="FMW-rO-WRH"/>
+                <constraint firstItem="HcX-zt-apM" firstAttribute="leading" secondItem="i3S-Gm-XM7" secondAttribute="leading" constant="10" id="HCG-Ct-nqZ"/>
+                <constraint firstItem="gRZ-DJ-kJz" firstAttribute="trailing" secondItem="aLv-fP-krm" secondAttribute="trailing" constant="20" id="OHM-dA-G9o"/>
                 <constraint firstItem="i9n-fb-ABp" firstAttribute="top" secondItem="1jH-yT-AM0" secondAttribute="bottom" constant="10" id="Sfy-iH-MJN"/>
+                <constraint firstItem="HcX-zt-apM" firstAttribute="centerY" secondItem="sMC-ke-iNc" secondAttribute="centerY" id="U0H-E4-ruV"/>
                 <constraint firstItem="aLv-fP-krm" firstAttribute="centerX" secondItem="1jH-yT-AM0" secondAttribute="centerX" id="UEV-me-TK1"/>
-                <constraint firstItem="sse-8T-hYs" firstAttribute="trailing" secondItem="RZb-2F-qYH" secondAttribute="trailing" id="VVa-sK-78C"/>
-                <constraint firstItem="RZb-2F-qYH" firstAttribute="centerY" secondItem="i9n-fb-ABp" secondAttribute="centerY" id="W2F-a6-PUx"/>
-                <constraint firstItem="BLq-2R-1ca" firstAttribute="centerX" secondItem="i3S-Gm-XM7" secondAttribute="centerX" constant="-80" id="Wyk-eM-WzO"/>
-                <constraint firstItem="BLq-2R-1ca" firstAttribute="top" secondItem="aLv-fP-krm" secondAttribute="bottom" constant="10" id="brX-vW-tR2"/>
-                <constraint firstItem="gRZ-DJ-kJz" firstAttribute="trailing" secondItem="RZb-2F-qYH" secondAttribute="trailing" constant="10" id="cnS-IX-8B9"/>
-                <constraint firstItem="szw-Hz-U3K" firstAttribute="centerX" secondItem="i3S-Gm-XM7" secondAttribute="centerX" constant="80" id="gxh-TY-d4N"/>
+                <constraint firstItem="BLq-2R-1ca" firstAttribute="centerX" secondItem="i9n-fb-ABp" secondAttribute="centerX" constant="-80" id="VAo-ig-Iv0"/>
+                <constraint firstItem="BLq-2R-1ca" firstAttribute="top" secondItem="aLv-fP-krm" secondAttribute="bottom" constant="15" id="brX-vW-tR2"/>
+                <constraint firstItem="smj-qE-Jdy" firstAttribute="centerY" secondItem="BLq-2R-1ca" secondAttribute="centerY" id="hop-HI-5Ge"/>
                 <constraint firstItem="smj-qE-Jdy" firstAttribute="centerX" secondItem="BLq-2R-1ca" secondAttribute="centerX" id="ioC-QN-a8e"/>
-                <constraint firstItem="RZb-2F-qYH" firstAttribute="top" secondItem="sse-8T-hYs" secondAttribute="bottom" constant="10" id="n44-j7-q2i"/>
-                <constraint firstItem="sse-8T-hYs" firstAttribute="width" secondItem="sse-8T-hYs" secondAttribute="height" id="nbI-Xe-fGR"/>
-                <constraint firstItem="sMC-ke-iNc" firstAttribute="centerX" secondItem="sse-8T-hYs" secondAttribute="centerX" id="qWm-Ta-yAl"/>
+                <constraint firstItem="szw-Hz-U3K" firstAttribute="centerX" secondItem="i9n-fb-ABp" secondAttribute="centerX" constant="80" id="jrx-Pf-24a"/>
+                <constraint firstItem="2Vm-fc-Crg" firstAttribute="trailing" secondItem="aLv-fP-krm" secondAttribute="trailing" id="kfp-xG-HpD"/>
+                <constraint firstAttribute="trailing" secondItem="sMC-ke-iNc" secondAttribute="trailing" constant="10" id="oPk-cm-IM8"/>
                 <constraint firstItem="sMC-ke-iNc" firstAttribute="top" secondItem="1jH-yT-AM0" secondAttribute="top" id="rDm-cv-gQa"/>
-                <constraint firstItem="smj-qE-Jdy" firstAttribute="top" secondItem="BLq-2R-1ca" secondAttribute="bottom" constant="2" id="rT0-co-GWN"/>
                 <constraint firstItem="i9n-fb-ABp" firstAttribute="centerX" secondItem="1jH-yT-AM0" secondAttribute="centerX" id="xtw-yj-4cx"/>
                 <constraint firstItem="1jH-yT-AM0" firstAttribute="top" secondItem="i3S-Gm-XM7" secondAttribute="top" constant="20" id="zgd-rv-Ajy"/>
             </constraints>
@@ -150,14 +148,14 @@
                 <outlet property="userImageView" destination="1jH-yT-AM0" id="sFl-p6-W31"/>
                 <outlet property="userNameLabel" destination="i9n-fb-ABp" id="mE7-fd-Btz"/>
             </connections>
-            <point key="canvasLocation" x="-487" y="48"/>
+            <point key="canvasLocation" x="-488.40579710144931" y="47.544642857142854"/>
         </collectionReusableView>
     </objects>
     <resources>
         <image name="TirelessLogoText" width="500" height="500"/>
+        <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
-        <image name="person.fill.badge.plus" catalog="system" width="128" height="124"/>
-        <image name="plus.magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="person.text.rectangle" catalog="system" width="128" height="93"/>
         <namedColor name="themeBG">
             <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

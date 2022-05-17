@@ -87,46 +87,44 @@ class ShareManager {
         }
     }
     
-    func uploadPicture(shareFile: ShareFiles, comletion: @escaping (Result<URL, Error>) -> Void) {
-        let videoRef = Storage.storage().reference().child("Pictures/\(shareFile.shareName)")
-        _ = videoRef.putFile(from: shareFile.shareURL, metadata: nil) { _, error in
-            if let error = error {
-                comletion(.failure(error))
-                return
-            }
-            videoRef.downloadURL { url, error in
-                if let error = error {
-                    comletion(.failure(error))
-                }
-                guard let downloadURL = url else {
-                    return
-                }
-                comletion(.success(downloadURL))
-                do {
-                    var tempPicture = shareFile
-                    tempPicture.shareURL = downloadURL
-                    try _ = self.picturesDB.addDocument(from: tempPicture)
-                } catch {
-                    print(error)
-                }
-            }
-        }
-    }
-    
-    func fetchPicture(completion: @escaping (Result<[ShareFiles], Error>) -> Void) {
-        picturesDB.order(by: "createdTime", descending: true).getDocuments { querySnapshot, error in
+    func deleteVideo(uuid: String, completion: @escaping (Result<String, Error>) -> Void) {
+        shareWallDB.whereField("uuid", isEqualTo: uuid).getDocuments { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
                 completion(.failure(error))
             } else {
-                var shareFiles = [ShareFiles]()
-                for document in querySnapshot.documents {
-                    if let shareFile = try? document.data(as: ShareFiles.self, decoder: Firestore.Decoder()) {
-                        shareFiles.append(shareFile)
-                    }
+                for doucument in querySnapshot.documents {
+                    doucument.reference.delete()
                 }
-                completion(.success(shareFiles))
+                completion(.success("success delete"))
             }
         }
     }
+    
+    func uploadPicture(imageData: Data, comletion: @escaping (Result<URL, Error>) -> Void) {
+        let videoRef = Storage.storage().reference().child("Pictures/\(UUID().uuidString)")
+        
+        videoRef.putData(imageData, metadata: nil) { (_, error) in
+            if let error = error {
+                comletion(.failure(error))
+            } else {
+                videoRef.downloadURL(completion: { (url, error) in
+                    guard let url = url else { return }
+                    if let error = error {
+                        comletion(.failure(error))
+                    } else {
+                        self.setupPicture(imageURL: url)
+                        comletion(.success(url))
+                    }
+                })
+            }
+            
+        }
+    }
+    
+    func setupPicture(imageURL: URL) {
+        let ref = Firestore.firestore().collection("Users").document(AuthManager.shared.currentUser)
+        ref.setData(["picture": imageURL.absoluteString], merge: true)
+    }
+    
 }

@@ -215,7 +215,6 @@ extension SetGroupPlanViewController: UICollectionViewDelegate {
                 self.selectPlan = self.plans?[indexPath.row]
             }
         }
-        print(indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

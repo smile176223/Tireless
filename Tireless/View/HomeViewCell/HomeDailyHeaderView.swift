@@ -38,17 +38,8 @@ class HomeDailyHeaderView: UICollectionReusableView {
     private func commonInit() {
         labelConstraints()
         self.backgroundColor = .themeBG
-        setupLayout()
     }
-    
-    private func setupLayout() {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
-        formatter.string(from: Date())
-        dateLabel.text = formatter.string(from: Date())
-    }
-    
+
     private func labelConstraints() {
         addSubview(dateLabel)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false

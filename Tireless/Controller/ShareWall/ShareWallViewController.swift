@@ -20,8 +20,6 @@ class ShareWallViewController: UIViewController {
         }
     }
     
-    private var currentIndex = 0
-    
     let viewModel = ShareWallViewModel()
     
     override func viewDidLoad() {
@@ -48,22 +46,24 @@ class ShareWallViewController: UIViewController {
         lottieLoading()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         viewModel.fetchData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        onlyStopVideo() 
+    }
+    
     func setupBind() {
-        viewModel.shareFilesViewModel.bind { [weak self] _ in
+        viewModel.shareFilesViewModel.bind { [weak self] files in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
-                self?.pausePlayeVideos()
+                if files.count != 0 {
+                    self?.pausePlayeVideos()
+                }
             }
         }
     }
@@ -97,6 +97,7 @@ class ShareWallViewController: UIViewController {
                 switch result {
                 case .success(let text):
                     ProgressHUD.showSuccess(text: "已封鎖")
+                    self.viewModel.fetchData()
                     self.dismiss(animated: true)
                     print(text)
                 case .failure(let error):
@@ -117,11 +118,33 @@ class ShareWallViewController: UIViewController {
         
         present(controller, animated: true, completion: nil)
     }
+    
+    private func setMeButtonAlert(uuid: String) {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
+            self.viewModel.deleteVideo(uuid: uuid)
+        }
+        controller.addAction(deleteAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        // iPad specific code
+        controller.popoverPresentationController?.sourceView = self.view
+        let xOrigin = self.view.bounds.width / 2
+        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
+        controller.popoverPresentationController?.sourceRect = popoverRect
+        controller.popoverPresentationController?.permittedArrowDirections = .down
+        
+        present(controller, animated: true, completion: nil)
+    }
 }
 
 extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.shareFilesViewModel.value.count
+        if self.viewModel.shareFilesViewModel.value.count == 0 {
+            return 1
+        } else {
+            return self.viewModel.shareFilesViewModel.value.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -131,22 +154,32 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         lottieView?.removeFromSuperview()
-        
-        let cellViewModel = self.viewModel.shareFilesViewModel.value[indexPath.row]
-        cell.setup(viewModel: cellViewModel)
-        cell.isCommentButtonTap = {
-            self.commentPresent(shareFile: cellViewModel.shareFile)
-        }
-        if cellViewModel.shareFile.userId == AuthManager.shared.currentUser {
-            cell.setButton.isHidden = true
+        if self.viewModel.shareFilesViewModel.value.count == 0 {
+            cell.setupEmpty()
+            return cell
         } else {
-            cell.setButton.isHidden = false
+            let cellViewModel = self.viewModel.shareFilesViewModel.value[indexPath.row]
+            cell.setup(viewModel: cellViewModel)
+            cell.isCommentButtonTap = {
+                self.commentPresent(shareFile: cellViewModel.shareFile)
+            }
+            if cellViewModel.shareFile.userId == AuthManager.shared.currentUser {
+                cell.isSetButtonTap = {
+                    self.setMeButtonAlert(uuid: cellViewModel.shareFile.uuid)
+                }
+            } else {
+                cell.isSetButtonTap = {
+                    if AuthManager.shared.checkCurrentUser() == true {
+                        self.setButtonAlert(userId: cellViewModel.shareFile.userId)
+                    } else {
+                        if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                            self.present(authVC, animated: true, completion: nil)
+                        }
+                    }
+                }
+            }
+            return cell
         }
-        cell.isSetButtonTap = {
-            self.setButtonAlert(userId: cellViewModel.shareFile.userId)
-        }
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -172,12 +205,17 @@ extension ShareWallViewController: UIScrollViewDelegate {
         }
     }
     func pausePlayeVideos() {
-        VideoPlayerController.sharedVideoPlayer.pausePlayeVideosFor(tableView: tableView)
+        VideoPlayerController.sharedVideoPlayer.pauseAndPlayVideosFor(tableView: tableView)
     }
     
     @objc func appEnteredFromBackground() {
-        VideoPlayerController.sharedVideoPlayer.pausePlayeVideosFor(tableView: tableView,
+        VideoPlayerController.sharedVideoPlayer.pauseAndPlayVideosFor(tableView: tableView,
                                                                       appEnteredFromBackground: true)
+    }
+    
+    func onlyStopVideo() {
+        VideoPlayerController.sharedVideoPlayer.pauseAndPlayVideosFor(tableView: tableView,
+                                                                      onlyStop: true)
     }
 
 }

@@ -11,11 +11,16 @@ class ProfileViewModel {
     
     var userInfo = Box([User]())
     
-    var friends = Box([User]())
+    var plan: [Plan]?
     
-    let friendViewModels = Box([FriendsViewModel]())
+    var historyPlan: [Plan]?
     
     let historyPlanViewModels = Box([HistoryPlanViewModel]())
+    
+    var statisticsViewModels = Box(Statistics(squatCount: 0,
+                                              pushupCount: 0,
+                                              plankCount: 0,
+                                              totalComplete: 0))
 
     func fetchUser(userId: String) {
         UserManager.shared.fetchUser(userId: userId) { [weak self] result in
@@ -28,40 +33,13 @@ class ProfileViewModel {
         }
     }
     
-    func fetchFriends(userId: String) {
-        UserManager.shared.fetchFriends(userId: userId) { [weak self] result in
+    func fetchPlan() {
+        PlanManager.shared.fetchPlan(userId: AuthManager.shared.currentUser) { [weak self] result in
             switch result {
-            case .success(let friends):
-                self?.setFriends(friends)
-                self?.friends.value = friends
+            case .success(let plans):
+                self?.plan = plans
             case .failure(let error):
                 print(error)
-            }
-        }
-    }
-    
-    func deleteFriend(userId: String) {
-        FriendManager.shared.deleteFriend(userId: userId) { result in
-            switch result {
-            case .success(let text):
-                print(text)
-                ProgressHUD.showSuccess(text: "已刪除")
-            case .failure(let error):
-                print(error)
-                ProgressHUD.showFailure()
-            }
-        }
-    }
-    
-    func blockUser(blockId: String) {
-        UserManager.shared.blockUser(blockId: blockId) { result in
-            switch result {
-            case .success(let text):
-                ProgressHUD.showSuccess(text: "已封鎖")
-                print(text)
-            case .failure(let error):
-                print(error)
-                ProgressHUD.showFailure()
             }
         }
     }
@@ -71,23 +49,40 @@ class ProfileViewModel {
             switch result {
             case .success(let plans):
                 self?.setHistoryPlan(plans)
+                self?.historyPlan = plans
             case .failure(let error):
                 print(error)
             }
         }
     }
     
-    func convertFriendsToViewModels(from friends: [User]) -> [FriendsViewModel] {
-        var viewModels = [FriendsViewModel]()
-        for friend in friends {
-            let viewModel = FriendsViewModel(model: friend)
-            viewModels.append(viewModel)
+    func fetchStatistics(with planExercise: PlanExercise) {
+        StatisticsManager.shared.fetchStatistics(with: planExercise.rawValue) { result in
+            switch result {
+            case .success(let count):
+                switch planExercise {
+                case .squat:
+                    self.statisticsViewModels.value.squatCount = count
+                case .pushup:
+                    self.statisticsViewModels.value.pushupCount = count
+                case .plank:
+                    self.statisticsViewModels.value.plankCount = count
+                }
+            case .failure(let error):
+                print(error)
+            }
         }
-        return viewModels
     }
     
-    func setFriends(_ friends: [User]) {
-        friendViewModels.value = convertFriendsToViewModels(from: friends)
+    func fetchDays() {
+        StatisticsManager.shared.fetchDays { result in
+            switch result {
+            case .success(let count):
+                self.statisticsViewModels.value.totalComplete = count
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func convertPlansToViewModels(from plans: [Plan]) -> [HistoryPlanViewModel] {

@@ -18,6 +18,7 @@ class VideoLayerObject: NSObject {
 }
 
 struct VideoLayers {
+    // swiftlint:disable for_where
     var layers = [VideoLayerObject]()
     init() {
         for _ in 0..<1 {

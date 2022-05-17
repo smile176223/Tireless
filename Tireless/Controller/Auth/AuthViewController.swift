@@ -7,6 +7,7 @@
 
 import UIKit
 import AuthenticationServices
+import JGProgressHUD
 
 class AuthViewController: UIViewController {
     
@@ -24,6 +25,8 @@ class AuthViewController: UIViewController {
     
     let viewModel = AuthViewModel()
     
+    let hud = JGProgressHUD(style: .dark)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,18 +39,18 @@ class AuthViewController: UIViewController {
               let passwordText = passwordTextField.text else {
             return
         }
-        ProgressHUD.show()
+        hud.show(in: self.view)
         AuthManager.shared.signInWithFirebase(email: emailText, password: passwordText) { result in
-            switch result {
-            case .success(let result):
-                print(result)
-                ProgressHUD.showSuccess(text: "登入成功")
-                self.finishPresent()
-            case .failure(let error):
-                ProgressHUD.showSuccess(text: "登入失敗")
-                print(error)
-            }
+            print(result)
+            ProgressHUD.showSuccess(text: "登入成功")
+            self.finishPresent()
+        } failure: { error in
+            self.hud.textLabel.text = error
+            self.hud.indicatorView = JGProgressHUDErrorIndicatorView()
+            self.hud.show(in: self.view)
+            self.hud.dismiss(afterDelay: 1.0)
         }
+
     }
     
     @IBAction func signUpButtonTap(_ sender: UIButton) {
@@ -126,7 +129,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
     
     func authorizationController(controller: ASAuthorizationController,
                                  didCompleteWithAuthorization authorization: ASAuthorization) {
-        
+        hud.show(in: self.view)
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             guard let nonce = currentNonce else {
                 return
@@ -143,10 +146,12 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
             let formatter = PersonNameComponentsFormatter()
             formatter.style = .default
             var name = formatter.string(from: appleName)
-            ProgressHUD.show()
             AuthManager.shared.signInWithApple(idToken: idTokenString,
                                                nonce: nonce,
                                                appleName: name) { [weak self] result in
+                guard let self = self else {
+                    return
+                }
                 switch result {
                 case .success(let authResult):
                     AuthManager.shared.getCurrentUser { result in
@@ -154,22 +159,26 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                         case .success(let bool):
                             print(bool)
                             if bool == true {
-                                ProgressHUD.showSuccess(text: "登入成功")
+//                                ProgressHUD.showSuccess(text: "登入成功")
                             }
                         case .failure(let error):
-                            ProgressHUD.showFailure(text: "登入失敗")
+                            self.hud.textLabel.text = "登入失敗"
+                            self.hud.indicatorView = JGProgressHUDErrorIndicatorView()
+                            self.hud.show(in: self.view)
+                            self.hud.dismiss(afterDelay: 1.0)
                             print(error)
                         }
                     }
                     if name == "" {
                         name = "Tireless"
                     }
-                    self?.viewModel.getUser(email: authResult.user.email ?? "",
+                    self.viewModel.getUser(email: authResult.user.email ?? "",
                                             userId: authResult.user.uid,
                                             name: name,
                                             picture: "")
-                    self?.viewModel.createUser()
-                    self?.finishPresent()
+                    self.viewModel.createUser()
+                    ProgressHUD.showSuccess(text: "登入成功")
+                    self.finishPresent()
                 case .failure(let error):
                     ProgressHUD.showFailure(text: "登入失敗")
                     print(error)

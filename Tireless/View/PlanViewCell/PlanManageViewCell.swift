@@ -102,5 +102,11 @@ class PlanManageViewCell: UICollectionViewCell {
         self.layer.shadowOpacity = 0.8
         self.layer.shadowOffset = .zero
         self.layer.shadowRadius = 1
+        planStartButton.layer.cornerRadius = self.planStartButton.frame.height / 2
+        planStartButton.layer.shadowColor = UIColor.darkGray.cgColor
+        planStartButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+        planStartButton.layer.shadowOpacity = 1.0
+        planStartButton.layer.shadowRadius = 2.0
+        planStartButton.layer.masksToBounds = false
     }
 }

@@ -5,66 +5,80 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FriendListViewCell" id="F06-zk-cZA" customClass="FriendListViewCell" customModule="Tireless" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="BfZ-zt-ZZl">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendListViewCell" id="xcG-wx-NoY" customClass="FriendListViewCell" customModule="Tireless" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xcG-wx-NoY" id="kLI-d3-VW9">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TKi-T3-Rvx">
-                        <rect key="frame" x="20" y="15" width="50" height="50"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tt1-ob-SUB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vfi-jH-cm6">
+                                <rect key="frame" x="20" y="5" width="50" height="50"/>
+                                <color key="backgroundColor" name="themeBGSecond"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="8Hd-po-t0U"/>
+                                    <constraint firstAttribute="width" constant="50" id="ADj-OT-4BT"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcN-sM-geg">
+                                <rect key="frame" x="90" y="18" width="46" height="24"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EBJ-ga-MbA">
+                                <rect key="frame" x="364" y="15" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="mxO-qE-h6w"/>
+                                    <constraint firstAttribute="height" constant="30" id="ol4-ow-jAP"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="" image="ellipsis" catalog="system"/>
+                                <connections>
+                                    <action selector="setButtonTap:" destination="xcG-wx-NoY" eventType="touchUpInside" id="S2C-XR-ecb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="themeBG"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="50" id="lSZ-9q-YBD"/>
-                            <constraint firstAttribute="height" constant="50" id="naz-6v-2ok"/>
+                            <constraint firstItem="Vfi-jH-cm6" firstAttribute="centerY" secondItem="Tt1-ob-SUB" secondAttribute="centerY" id="0gA-TL-AYh"/>
+                            <constraint firstItem="kcN-sM-geg" firstAttribute="leading" secondItem="Vfi-jH-cm6" secondAttribute="trailing" constant="20" id="1fq-U6-LBx"/>
+                            <constraint firstItem="EBJ-ga-MbA" firstAttribute="centerY" secondItem="kcN-sM-geg" secondAttribute="centerY" id="3sb-9S-pPs"/>
+                            <constraint firstItem="Vfi-jH-cm6" firstAttribute="leading" secondItem="Tt1-ob-SUB" secondAttribute="leading" constant="20" id="RV4-pu-eIz"/>
+                            <constraint firstAttribute="trailing" secondItem="EBJ-ga-MbA" secondAttribute="trailing" constant="20" id="Xk3-J3-yOw"/>
+                            <constraint firstItem="kcN-sM-geg" firstAttribute="centerY" secondItem="Vfi-jH-cm6" secondAttribute="centerY" id="hLU-vQ-MLB"/>
                         </constraints>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vpy-0z-ePQ">
-                        <rect key="frame" x="90" y="29.5" width="45" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yRP-fw-t8f">
-                        <rect key="frame" x="325" y="25" width="30" height="30"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="yRP-fw-t8f" secondAttribute="height" id="3D4-sh-r1e"/>
-                            <constraint firstAttribute="height" constant="30" id="gJc-Re-Fuc"/>
-                        </constraints>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" image="ellipsis" catalog="system"/>
-                        <connections>
-                            <action selector="setButtonTap:" destination="F06-zk-cZA" eventType="touchUpInside" id="Uux-63-1ft"/>
-                        </connections>
-                    </button>
+                    </view>
                 </subviews>
-                <color key="backgroundColor" name="themeBGSecond"/>
                 <constraints>
-                    <constraint firstItem="Vpy-0z-ePQ" firstAttribute="centerY" secondItem="TKi-T3-Rvx" secondAttribute="centerY" id="CCX-vB-0KJ"/>
-                    <constraint firstItem="TKi-T3-Rvx" firstAttribute="centerY" secondItem="BfZ-zt-ZZl" secondAttribute="centerY" id="Q0V-XL-jbA"/>
-                    <constraint firstAttribute="trailing" secondItem="yRP-fw-t8f" secondAttribute="trailing" constant="20" id="UJc-fy-Zvg"/>
-                    <constraint firstItem="TKi-T3-Rvx" firstAttribute="leading" secondItem="BfZ-zt-ZZl" secondAttribute="leading" constant="20" id="bsh-kT-Ryk"/>
-                    <constraint firstItem="yRP-fw-t8f" firstAttribute="centerY" secondItem="Vpy-0z-ePQ" secondAttribute="centerY" id="gJe-RK-dUi"/>
-                    <constraint firstItem="Vpy-0z-ePQ" firstAttribute="leading" secondItem="TKi-T3-Rvx" secondAttribute="trailing" constant="20" id="nPA-m0-yma"/>
+                    <constraint firstAttribute="bottom" secondItem="Tt1-ob-SUB" secondAttribute="bottom" id="CA3-02-QAX"/>
+                    <constraint firstItem="Tt1-ob-SUB" firstAttribute="top" secondItem="kLI-d3-VW9" secondAttribute="top" id="H7g-7G-tPm"/>
+                    <constraint firstItem="Tt1-ob-SUB" firstAttribute="leading" secondItem="kLI-d3-VW9" secondAttribute="leading" id="QLc-Ai-qIm"/>
+                    <constraint firstAttribute="trailing" secondItem="Tt1-ob-SUB" secondAttribute="trailing" id="uYo-Bo-zmQ"/>
                 </constraints>
-            </collectionViewCellContentView>
+            </tableViewCellContentView>
             <connections>
-                <outlet property="friendImageView" destination="TKi-T3-Rvx" id="IGj-h5-VGO"/>
-                <outlet property="friendNameLabel" destination="Vpy-0z-ePQ" id="4jJ-nM-ww7"/>
-                <outlet property="friendSetButton" destination="BfZ-zt-ZZl" id="zrf-Rg-viq"/>
+                <outlet property="friendImageView" destination="Vfi-jH-cm6" id="n1c-wg-7pd"/>
+                <outlet property="friendNameLabel" destination="kcN-sM-geg" id="8t1-GT-Quy"/>
+                <outlet property="friendSetButton" destination="EBJ-ga-MbA" id="Y1W-z3-D58"/>
             </connections>
-            <point key="canvasLocation" x="159" y="151"/>
-        </collectionViewCell>
+            <point key="canvasLocation" x="221.73913043478262" y="18.75"/>
+        </tableViewCell>
     </objects>
     <resources>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <namedColor name="themeBG">
+            <color red="0.035294117647058823" green="0.054901960784313725" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="themeBGSecond">
             <color red="0.12941176470588237" green="0.15686274509803921" blue="0.24705882352941178" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
