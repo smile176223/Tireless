@@ -19,8 +19,6 @@ class DetectFinishViewController: UIViewController {
     
     var plan: Plan?
     
-    var isUserCanShare = true
-    
     var recordStatus: RecordStatus = .userAgree
     
     override func viewDidLoad() {
@@ -63,27 +61,18 @@ class DetectFinishViewController: UIViewController {
         detectFinishView.isShareButtonTap = { [weak self] in
             self?.detectFinishView.shareButton.isEnabled = false
             self?.detectFinishView.downButton.isEnabled = false
-            if self?.isUserCanShare == true {
-                self?.videoManager.uploadVideo(shareFile: uploadVideo) { result in
-                    switch result {
-                    case .success(let uuid):
-                        self?.updateValue(videoId: uuid)
-                        self?.sharePresent()
-                        self?.detectFinishView.shareButton.isEnabled = true
-                        self?.detectFinishView.downButton.isEnabled = true
-                    case .failure(let error):
-                        print("error", error)
-                        self?.detectFinishView.shareButton.isEnabled = true
-                        self?.detectFinishView.downButton.isEnabled = true
-                    }
+            self?.videoManager.uploadVideo(shareFile: uploadVideo) { result in
+                switch result {
+                case .success(let uuid):
+                    self?.updateValue(videoId: uuid)
+                    self?.sharePresent()
+                    self?.detectFinishView.shareButton.isEnabled = true
+                    self?.detectFinishView.downButton.isEnabled = true
+                case .failure(let error):
+                    print("error", error)
+                    self?.detectFinishView.shareButton.isEnabled = true
+                    self?.detectFinishView.downButton.isEnabled = true
                 }
-            } else {
-                let alertController = UIAlertController(title: "上傳次數上限三次", message: "作者沒有錢錢了!", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "忍痛放棄", style: .default) { _ in
-                    alertController.dismiss(animated: true)
-                }
-                alertController.addAction(okAction)
-                self?.present(alertController, animated: true)
             }
         }
     }
