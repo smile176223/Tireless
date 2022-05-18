@@ -11,30 +11,21 @@ import AVFoundation
 import Lottie
 
 class PoseDetectViewController: UIViewController {
+    
     @IBOutlet weak var cameraPreView: UIView!
     
     @IBOutlet weak var countLabel: UILabel!
     
-    @IBOutlet weak var recordButton: UIButton!
-    
     @IBOutlet weak var inFrameLikeLiHoodLabel: UILabel!
     
     private enum Constant {
-        static let videoDataOutputQueueLabel = "com.LiamHao.Tireless.VideoDataOutputQueue"
-        static let sessionQueueLabel = "com.LiamHao.Tireless.SessionQueue"
         static let smallDotRadius: CGFloat = 4.0
         static let lineWidth: CGFloat = 3.0
     }
     
-    private var isUsingFrontCamera = true
-    
     private var isUserRejectRecording = false
     
     private var previewLayer: AVCaptureVideoPreviewLayer?
-    
-    private lazy var captureSession = AVCaptureSession()
-    
-    private lazy var sessionQueue = DispatchQueue(label: Constant.sessionQueueLabel)
     
     private var lastFrame: CMSampleBuffer?
     
@@ -42,6 +33,9 @@ class PoseDetectViewController: UIViewController {
     
     private let planViewModel = PlanManageViewModel()
     
+    let videoCapture = VideoCapture()
+    
+    // can replace by plan
     var planTarget: Int = 0
     
     var plan: Plan?
@@ -87,18 +81,16 @@ class PoseDetectViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer = AVCaptureVideoPreviewLayer(session: videoCapture.captureSession)
         previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         setUpPreviewOverlayView()
         setUpAnnotationOverlayView()
-        setUpCaptureSessionOutput()
-        setUpCaptureSessionInput()
-        setupBackButton()
         
+        videoCapture.setupCaptureSession()
+        videoCapture.delegate = self
+
         setupLabel(countLabel)
         setupLabel(inFrameLikeLiHoodLabel)
-    
-        recordButton.layer.cornerRadius = 25
         
         videoRecordManager.getVideoRecordUrl = { [weak self] url in
             self?.videoUrl = url
@@ -122,26 +114,23 @@ class PoseDetectViewController: UIViewController {
         super.viewWillAppear(animated)
         setupCurrentExercise()
         videoRecordManager.startRecording { [weak self] in
-            self?.startSession()
+            self?.videoCapture.startSession()
             self?.drawStart = true
         }
-//        startSession()
+        // just for demo
+//        videoCapture.startSession()
 //        drawStart = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         viewModel.stopTimer()
-        stopSession()
+        videoCapture.stopSession()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         previewLayer?.frame = cameraPreView.bounds
-    }
-    
-    @IBAction func recordTap(_ sender: UIButton) {
-        counter = planTarget
     }
     
     private func setupCurrentExercise() {
@@ -167,21 +156,8 @@ class PoseDetectViewController: UIViewController {
         cameraPreView.addSubview(effectView)
     }
     
-    private func setupBackButton() {
-        self.navigationItem.hidesBackButton = true
-        let customBackButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"),
-                                               style: UIBarButtonItem.Style.plain,
-                                               target: self,
-                                               action: #selector(backTap))
-        customBackButton.tintColor = .black
-        self.navigationItem.leftBarButtonItem = customBackButton
-    }
-    
-    @objc func backTap(_ sender: UIButton) {
-        videoRecordManager.userTapBack()
-        self.navigationController?.popToRootViewController(animated: true)
-    }
     @IBAction func bacKButtonTap(_ sender: Any) {
+        videoRecordManager.userTapBack()
         self.dismiss(animated: true)
     }
     
@@ -222,73 +198,6 @@ class PoseDetectViewController: UIViewController {
         })
     }
     
-    private func setUpCaptureSessionOutput() {
-        sessionQueue.async {
-            self.captureSession.beginConfiguration()
-            self.captureSession.sessionPreset = AVCaptureSession.Preset.vga640x480
-            let output = AVCaptureVideoDataOutput()
-            output.videoSettings = [
-                (kCVPixelBufferPixelFormatTypeKey as String): kCVPixelFormatType_32BGRA
-            ]
-            output.alwaysDiscardsLateVideoFrames = true
-            let outputQueue = DispatchQueue(label: Constant.videoDataOutputQueueLabel)
-            output.setSampleBufferDelegate(self, queue: outputQueue)
-            guard self.captureSession.canAddOutput(output) else {
-                print("Failed to add capture session output.")
-                return
-            }
-            self.captureSession.addOutput(output)
-            self.captureSession.commitConfiguration()
-        }
-    }
-    
-    private func setUpCaptureSessionInput() {
-        sessionQueue.async {
-            let cameraPosition: AVCaptureDevice.Position = self.isUsingFrontCamera ? .front : .back
-            guard let device = self.captureDevice(forPosition: cameraPosition) else {
-                print("Failed to get capture device for camera position: \(cameraPosition)")
-                return
-            }
-            do {
-                self.captureSession.beginConfiguration()
-                let currentInputs = self.captureSession.inputs
-                for input in currentInputs {
-                    self.captureSession.removeInput(input)
-                }
-                let input = try AVCaptureDeviceInput(device: device)
-                guard self.captureSession.canAddInput(input) else {
-                    print("Failed to add capture session input.")
-                    return
-                }
-                self.captureSession.addInput(input)
-                self.captureSession.commitConfiguration()
-            } catch {
-                print("Failed to create capture device input: \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    private func captureDevice(forPosition position: AVCaptureDevice.Position) -> AVCaptureDevice? {
-        let discoverySession = AVCaptureDevice.DiscoverySession(
-            deviceTypes: [.builtInWideAngleCamera],
-            mediaType: .video,
-            position: .unspecified
-        )
-        return discoverySession.devices.first { $0.position == position }
-    }
-    
-    private func startSession() {
-        sessionQueue.async { [weak self] in
-            self?.captureSession.startRunning()
-        }
-    }
-    
-    private func stopSession() {
-        sessionQueue.async { [weak self] in
-            self?.captureSession.stopRunning()
-        }
-    }
-    
     private func setUpPreviewOverlayView() {
         cameraPreView.addSubview(previewOverlayView)
         NSLayoutConstraint.activate([
@@ -323,7 +232,7 @@ class PoseDetectViewController: UIViewController {
         guard let imageBuffer = imageBuffer else {
             return
         }
-        let orientation: UIImage.Orientation = isUsingFrontCamera ? .leftMirrored : .right
+        let orientation: UIImage.Orientation = videoCapture.isUsingFrontCamera ? .leftMirrored : .right
         let image = UIUtilities.createUIImage(from: imageBuffer, orientation: orientation)
         previewOverlayView.image = image
     }
@@ -353,21 +262,17 @@ class PoseDetectViewController: UIViewController {
         
         self.present(navShowVC, animated: true, completion: { [weak self] in
             self?.blurEffect()
-            self?.stopSession()
+            self?.videoCapture.stopSession()
         })
     }
 }
 
-extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
-    func captureOutput(
-        _ output: AVCaptureOutput,
-        didOutput sampleBuffer: CMSampleBuffer,
-        from connection: AVCaptureConnection
-    ) {
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+extension PoseDetectViewController: VideoCaptureDelegate {
+    func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame: CMSampleBuffer) {
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(didCaptureVideoFrame) else {
             return
         }
-        lastFrame = sampleBuffer
+        lastFrame = didCaptureVideoFrame
         let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
         let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
         DispatchQueue.main.sync {
@@ -376,7 +281,7 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         }
         guard let previewLayer = previewLayer else { return }
         if counter != planTarget {
-            viewModel.detectPose(in: sampleBuffer, width: imageWidth, height: imageHeight, previewLayer: previewLayer)
+            viewModel.detectPose(in: didCaptureVideoFrame, width: imageWidth, height: imageHeight, previewLayer: previewLayer)
             
             if drawStart == true {
                 viewModel.countRefresh = { [weak self] countNumber in
@@ -418,4 +323,5 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         normalizedPoint = previewLayer?.layerPointConverted(fromCaptureDevicePoint: normalizedPoint) ?? CGPoint()
         return normalizedPoint
     }
+    
 }

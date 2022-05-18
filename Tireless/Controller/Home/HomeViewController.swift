@@ -42,8 +42,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         navigationController?.navigationBar.isHidden = true
         
         configureCollectionView()
-
-//        viewModel.setDefault()
         
         viewModel.joinGroupsViewModel.bind { [weak self] _ in
             DispatchQueue.main.async {
