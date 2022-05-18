@@ -187,7 +187,7 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let videoCell = cell as? AutoPlayVideoLayerContainer, let _ = videoCell.videoURL {
+        if let videoCell = cell as? AutoPlayVideoLayerContainer, videoCell.videoURL != nil {
             VideoPlayerController.sharedVideoPlayer.removeLayerFor(cell: videoCell)
         }
     }

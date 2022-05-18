@@ -24,9 +24,11 @@ class VideoRecordManager {
         recorder.startRecording { [weak self] error in
             completion()
             self?.countDownTimer()
-            guard error == nil else {
-                self?.userRejectRecord?()
-                return
+            if let error = error {
+                if error._code == RPRecordingErrorCode.userDeclined.rawValue {
+                    self?.userRejectRecord?()
+                    return
+                }
             }
         }
     }
@@ -39,7 +41,7 @@ class VideoRecordManager {
         let url = getDirectory()
         recorder.stopRecording(withOutput: url) { error in
             if error != nil {
-                print("fail to save")
+                return
             }
 //            self?.saveToPhotos(tempURL: url)
             DispatchQueue.main.async {
@@ -82,7 +84,7 @@ class VideoRecordManager {
                 self?.stopRecording(success: { url in
                     self?.getVideoRecordUrl?(url)
                 }, failure: {
-                    print("not recording")
+                    return
                 })
                 timer.invalidate()
             }

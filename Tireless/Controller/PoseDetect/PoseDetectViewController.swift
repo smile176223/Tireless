@@ -25,6 +25,13 @@ class PoseDetectViewController: UIViewController {
     
     let videoCapture = VideoCapture()
     
+    private enum UserRecord {
+        case userReject
+        case userAgree
+    }
+    
+    private var isUserRejectRecord: UserRecord = .userReject
+    
     private var isUserRejectRecording = false
     
     var plan: Plan?
@@ -40,15 +47,20 @@ class PoseDetectViewController: UIViewController {
         }
     }
     
-    private var startFlag = false {
+    private enum Status {
+        case start
+        case stop
+    }
+    
+    private var poseDetectStatus: Status = .stop {
         didSet {
-            if startFlag == true {
+            if poseDetectStatus == .start {
                 lottieCountDownGo()
             }
         }
     }
     
-    private var drawStart = false
+    private var drawPoseDetect: Status = .stop
     
     private var lottieView: AnimationView?
     
@@ -60,9 +72,11 @@ class PoseDetectViewController: UIViewController {
         super.viewDidLoad()
         
         videoCapture.setupCaptureSession()
+        
         videoCapture.delegate = self
 
         setupLabel(countLabel)
+        
         setupLabel(inFrameLikeLiHoodLabel)
         
         videoRecordManager.getVideoRecordUrl = { [weak self] url in
@@ -83,27 +97,34 @@ class PoseDetectViewController: UIViewController {
             self?.inFrameLikeLiHoodLabel.text = "人體準確度：\(inFrameLikeLiHood)%"
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         setupCurrentExercise()
+        
         videoRecordManager.startRecording { [weak self] in
             self?.videoCapture.startSession()
-            self?.drawStart = true
+            self?.drawPoseDetect = .start
         }
-        // just for demo
-//        videoCapture.startSession()
-//        drawStart = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         viewModel.stopTimer()
+        
         videoCapture.stopSession()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         videoCapture.previewLayer?.frame = cameraPreView.bounds
+    }
+    
+    @IBAction func bacKButtonTap(_ sender: Any) {
+        videoRecordManager.userTapBack()
+        self.dismiss(animated: true)
     }
     
     private func setupCurrentExercise() {
@@ -129,11 +150,6 @@ class PoseDetectViewController: UIViewController {
         cameraPreView.addSubview(effectView)
     }
     
-    @IBAction func bacKButtonTap(_ sender: Any) {
-        videoRecordManager.userTapBack()
-        self.dismiss(animated: true)
-    }
-    
     func setupLottie(_ name: String, speed: Double) {
         countLabel.isHidden = true
         lottieView = .init(name: name)
@@ -153,12 +169,12 @@ class PoseDetectViewController: UIViewController {
             self.lottieView?.removeFromSuperview()
             self.countLabel.isHidden = false
             self.countLabel.text = "\(0)"
-            self.drawStart = true
+            self.drawPoseDetect = .start
         })
     }
     
     func lottieDetectDone() {
-        drawStart = false
+        drawPoseDetect = .stop
         setupLottie("DetectDone", speed: 1)
         lottieView?.play(completion: { [weak self] _ in
             guard let self = self else {
@@ -205,6 +221,7 @@ extension PoseDetectViewController: VideoCaptureDelegate {
         lastFrame = didCaptureVideoFrame
         let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
         let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
+        
         DispatchQueue.main.async {
             self.cameraPreView.updatePreviewOverlayViewWithLastFrame(
                 lastFrame: self.lastFrame,
@@ -212,28 +229,29 @@ extension PoseDetectViewController: VideoCaptureDelegate {
             self.cameraPreView.removeDetectionAnnotations()
         }
         
-        guard let previewLayer = videoCapture.previewLayer else { return }
-        guard let plan = plan else { return }
+        guard let previewLayer = videoCapture.previewLayer,
+              let plan = plan else {
+            return
+        }
+        
         if counter != Int(plan.planTimes) {
             viewModel.detectPose(in: didCaptureVideoFrame,
                                  width: imageWidth,
                                  height: imageHeight,
                                  previewLayer: previewLayer)
-            
-            if drawStart == true {
+            if drawPoseDetect == .start {
                 viewModel.countRefresh = { [weak self] countNumber in
-                    if self?.startFlag == false {
-                        self?.startFlag = true
+                    if self?.poseDetectStatus == .stop {
+                        self?.poseDetectStatus = .start
                     }
                     self?.countLabel.text = "\(countNumber)"
                     self?.counter = countNumber
                 }
-                // draw pose
-                viewModel.poseViewModels.bind { poses in
-                    self.cameraPreView.drawPoseOverlay(poses: poses,
-                                                       width: imageWidth,
-                                                       height: imageHeight,
-                                                       previewLayer: previewLayer)
+                viewModel.poseViewModels.bind { [weak self] poses in
+                    self?.cameraPreView.drawPoseOverlay(poses: poses,
+                                                        width: imageWidth,
+                                                        height: imageHeight,
+                                                        previewLayer: previewLayer)
                 }
             }
         }

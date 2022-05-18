@@ -29,11 +29,6 @@ class PoseDetectView: UIView {
         static let lineWidth: CGFloat = 3.0
     }
     
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        commonInit()
-//    }
-    
     let viewModel = PoseDetectViewModel()
     
     override init(frame: CGRect) {
@@ -59,7 +54,10 @@ class PoseDetectView: UIView {
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
     
-    func drawPoseOverlay(poses: [Pose], width: CGFloat, height: CGFloat, previewLayer: AVCaptureVideoPreviewLayer) {
+    func drawPoseOverlay(poses: [Pose],
+                         width: CGFloat,
+                         height: CGFloat,
+                         previewLayer: AVCaptureVideoPreviewLayer) {
         DispatchQueue.main.async {
             poses.forEach { poses in
                 let poseOverlayView = UIUtilities.createPoseOverlayView(
@@ -83,7 +81,7 @@ class PoseDetectView: UIView {
             let cgPoint = CGPoint(x: point.x, y: point.y)
             var normalizedPoint = CGPoint(x: cgPoint.x / width, y: cgPoint.y / height)
             normalizedPoint = previewLayer.layerPointConverted(fromCaptureDevicePoint:
-                                                                normalizedPoint) 
+                                                                normalizedPoint)
             return normalizedPoint
         }
     }
