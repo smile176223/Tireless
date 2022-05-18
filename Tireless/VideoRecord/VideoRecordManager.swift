@@ -8,6 +8,13 @@
 import ReplayKit
 import Photos
 
+enum RecordStatus {
+    
+    case userAgree
+    
+    case userReject
+}
+
 class VideoRecordManager {
     private let recorder = RPScreenRecorder.shared()
     

@@ -23,16 +23,9 @@ class PoseDetectViewController: UIViewController {
     
     private let planViewModel = PlanManageViewModel()
     
-    let videoCapture = VideoCapture()
+    private let videoCapture = VideoCapture()
     
-    private enum UserRecord {
-        case userReject
-        case userAgree
-    }
-    
-    private var isUserRejectRecord: UserRecord = .userReject
-    
-    private var isUserRejectRecording = false
+    private var recordStatus: RecordStatus = .userAgree
     
     var plan: Plan?
     
@@ -84,7 +77,7 @@ class PoseDetectViewController: UIViewController {
         }
         
         videoRecordManager.userRejectRecord = { [weak self] in
-            self?.isUserRejectRecording = true
+            self?.recordStatus = .userReject
         }
         
         viewModel.noPoint = { [weak self] in
@@ -143,14 +136,14 @@ class PoseDetectViewController: UIViewController {
         label.layer.masksToBounds = false
     }
     
-    func blurEffect() {
+    private func blurEffect() {
         let effect = UIBlurEffect(style: .light)
         let effectView = UIVisualEffectView(effect: effect)
         effectView.frame = cameraPreView.bounds
         cameraPreView.addSubview(effectView)
     }
     
-    func setupLottie(_ name: String, speed: Double) {
+    private func setupLottie(_ name: String, speed: Double) {
         countLabel.isHidden = true
         lottieView = .init(name: name)
         lottieView?.frame = view.bounds
@@ -160,8 +153,8 @@ class PoseDetectViewController: UIViewController {
         lottieView?.animationSpeed = speed
     }
     
-    func lottieCountDownGo() {
-        setupLottie("CountDownGo", speed: 1.5)
+    private func lottieCountDownGo() {
+        setupLottie(Lottie.countDownGo.name, speed: 1.5)
         lottieView?.play(completion: { [weak self] _ in
             guard let self = self else {
                 return
@@ -172,10 +165,9 @@ class PoseDetectViewController: UIViewController {
             self.drawPoseDetect = .start
         })
     }
-    
-    func lottieDetectDone() {
+    private func lottieDetectDone() {
         drawPoseDetect = .stop
-        setupLottie("DetectDone", speed: 1)
+        setupLottie(Lottie.detectDone.name, speed: 1)
         lottieView?.play(completion: { [weak self] _ in
             guard let self = self else {
                 return
@@ -189,7 +181,7 @@ class PoseDetectViewController: UIViewController {
         })
     }
     
-    func popupFinish(_ videoURL: URL? = nil) {
+    private func popupFinish(_ videoURL: URL? = nil) {
         guard let showAlert = UIStoryboard.home.instantiateViewController(
             withIdentifier: "\(DetectFinishViewController.self)")
                 as? DetectFinishViewController
@@ -198,8 +190,8 @@ class PoseDetectViewController: UIViewController {
         }
         showAlert.videoURL = videoURL
         showAlert.plan = plan
-        if isUserRejectRecording == true {
-            showAlert.isUserRejectRecording = true
+        if recordStatus == .userReject {
+            showAlert.recordStatus = .userReject
         }
         let navShowVC = UINavigationController(rootViewController: showAlert)
         navShowVC.modalPresentationStyle = .overCurrentContext
@@ -222,7 +214,10 @@ extension PoseDetectViewController: VideoCaptureDelegate {
         let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
         let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
             self.cameraPreView.updatePreviewOverlayViewWithLastFrame(
                 lastFrame: self.lastFrame,
                 isUsingFrontCamera: self.videoCapture.isUsingFrontCamera)

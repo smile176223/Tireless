@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class DetectFinishViewController: UIViewController {
     
@@ -22,7 +21,7 @@ class DetectFinishViewController: UIViewController {
     
     var isUserCanShare = true
     
-    var isUserRejectRecording = false
+    var recordStatus: RecordStatus = .userAgree
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +32,7 @@ class DetectFinishViewController: UIViewController {
         
         uploadProgressShow()
         
-        if isUserRejectRecording == true {
+        if recordStatus == .userReject {
             detectFinishView.shareButton.isHidden = true
         }
     }
