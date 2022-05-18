@@ -7,25 +7,15 @@
 
 import UIKit
 import MLKit
-import AVFoundation
 import Lottie
 
 class PoseDetectViewController: UIViewController {
     
-    @IBOutlet weak var cameraPreView: UIView!
+    @IBOutlet weak var cameraPreView: PoseDetectView!
     
     @IBOutlet weak var countLabel: UILabel!
     
     @IBOutlet weak var inFrameLikeLiHoodLabel: UILabel!
-    
-    private enum Constant {
-        static let smallDotRadius: CGFloat = 4.0
-        static let lineWidth: CGFloat = 3.0
-    }
-    
-    private var isUserRejectRecording = false
-    
-    private var previewLayer: AVCaptureVideoPreviewLayer?
     
     private var lastFrame: CMSampleBuffer?
     
@@ -35,14 +25,16 @@ class PoseDetectViewController: UIViewController {
     
     let videoCapture = VideoCapture()
     
-    // can replace by plan
-    var planTarget: Int = 0
+    private var isUserRejectRecording = false
     
     var plan: Plan?
     
     private var counter = 0 {
         didSet {
-            if counter == planTarget {
+            guard let plan = plan else {
+                return
+            }
+            if counter == Int(plan.planTimes) {
                 self.lottieDetectDone()
             }
         }
@@ -63,28 +55,9 @@ class PoseDetectViewController: UIViewController {
     private let videoRecordManager = VideoRecordManager()
     
     private var videoUrl: URL?
-
-    private lazy var previewOverlayView: UIImageView = {
-        precondition(isViewLoaded)
-        let previewOverlayView = UIImageView(frame: .zero)
-        previewOverlayView.contentMode = UIView.ContentMode.scaleAspectFill
-        previewOverlayView.translatesAutoresizingMaskIntoConstraints = false
-        return previewOverlayView
-    }()
-    
-    private lazy var annotationOverlayView: UIView = {
-        precondition(isViewLoaded)
-        let annotationOverlayView = UIView(frame: .zero)
-        annotationOverlayView.translatesAutoresizingMaskIntoConstraints = false
-        return annotationOverlayView
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        previewLayer = AVCaptureVideoPreviewLayer(session: videoCapture.captureSession)
-        previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        setUpPreviewOverlayView()
-        setUpAnnotationOverlayView()
         
         videoCapture.setupCaptureSession()
         videoCapture.delegate = self
@@ -130,7 +103,7 @@ class PoseDetectViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        previewLayer?.frame = cameraPreView.bounds
+        videoCapture.previewLayer?.frame = cameraPreView.bounds
     }
     
     private func setupCurrentExercise() {
@@ -161,16 +134,22 @@ class PoseDetectViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    func lottieCountDownGo() {
+    func setupLottie(_ name: String, speed: Double) {
         countLabel.isHidden = true
-        lottieView = .init(name: "CountDownGo")
+        lottieView = .init(name: name)
         lottieView?.frame = view.bounds
         cameraPreView.addSubview(lottieView ?? UIView())
         lottieView?.contentMode = .scaleAspectFit
         lottieView?.loopMode = .playOnce
-        lottieView?.animationSpeed = 1.5
+        lottieView?.animationSpeed = speed
+    }
+    
+    func lottieCountDownGo() {
+        setupLottie("CountDownGo", speed: 1.5)
         lottieView?.play(completion: { [weak self] _ in
-            guard let self = self else { return }
+            guard let self = self else {
+                return
+            }
             self.lottieView?.removeFromSuperview()
             self.countLabel.isHidden = false
             self.countLabel.text = "\(0)"
@@ -179,16 +158,12 @@ class PoseDetectViewController: UIViewController {
     }
     
     func lottieDetectDone() {
-        countLabel.isHidden = true
         drawStart = false
-        lottieView = .init(name: "DetectDone")
-        lottieView?.frame = view.bounds
-        cameraPreView.addSubview(lottieView ?? UIView())
-        lottieView?.contentMode = .scaleAspectFit
-        lottieView?.loopMode = .playOnce
-        lottieView?.animationSpeed = 1
+        setupLottie("DetectDone", speed: 1)
         lottieView?.play(completion: { [weak self] _ in
-            guard let self = self else { return }
+            guard let self = self else {
+                return
+            }
             self.lottieView?.removeFromSuperview()
             self.videoRecordManager.stopRecording { url in
                 self.popupFinish(url)
@@ -196,51 +171,6 @@ class PoseDetectViewController: UIViewController {
                 self.popupFinish(self.videoUrl)
             }
         })
-    }
-    
-    private func setUpPreviewOverlayView() {
-        cameraPreView.addSubview(previewOverlayView)
-        NSLayoutConstraint.activate([
-            previewOverlayView.centerXAnchor.constraint(equalTo: cameraPreView.centerXAnchor),
-            previewOverlayView.centerYAnchor.constraint(equalTo: cameraPreView.centerYAnchor),
-            previewOverlayView.leadingAnchor.constraint(equalTo: cameraPreView.leadingAnchor),
-            previewOverlayView.trailingAnchor.constraint(equalTo: cameraPreView.trailingAnchor),
-            previewOverlayView.topAnchor.constraint(equalTo: cameraPreView.topAnchor),
-            previewOverlayView.bottomAnchor.constraint(equalTo: cameraPreView.bottomAnchor)
-        ])
-    }
-    
-    private func setUpAnnotationOverlayView() {
-        cameraPreView.addSubview(annotationOverlayView)
-        NSLayoutConstraint.activate([
-            annotationOverlayView.topAnchor.constraint(equalTo: cameraPreView.topAnchor),
-            annotationOverlayView.leadingAnchor.constraint(equalTo: cameraPreView.leadingAnchor),
-            annotationOverlayView.trailingAnchor.constraint(equalTo: cameraPreView.trailingAnchor),
-            annotationOverlayView.bottomAnchor.constraint(equalTo: cameraPreView.bottomAnchor)
-        ])
-    }
-    
-    private func updatePreviewOverlayViewWithLastFrame() {
-        guard let lastFrame = lastFrame, let imageBuffer = CMSampleBufferGetImageBuffer(lastFrame)
-        else {
-            return
-        }
-        self.updatePreviewOverlayViewWithImageBuffer(imageBuffer)
-    }
-    
-    private func updatePreviewOverlayViewWithImageBuffer(_ imageBuffer: CVImageBuffer?) {
-        guard let imageBuffer = imageBuffer else {
-            return
-        }
-        let orientation: UIImage.Orientation = videoCapture.isUsingFrontCamera ? .leftMirrored : .right
-        let image = UIUtilities.createUIImage(from: imageBuffer, orientation: orientation)
-        previewOverlayView.image = image
-    }
-    
-    private func removeDetectionAnnotations() {
-        for annotationView in annotationOverlayView.subviews {
-            annotationView.removeFromSuperview()
-        }
     }
     
     func popupFinish(_ videoURL: URL? = nil) {
@@ -275,13 +205,20 @@ extension PoseDetectViewController: VideoCaptureDelegate {
         lastFrame = didCaptureVideoFrame
         let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
         let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
-        DispatchQueue.main.sync {
-            self.updatePreviewOverlayViewWithLastFrame()
-            self.removeDetectionAnnotations()
+        DispatchQueue.main.async {
+            self.cameraPreView.updatePreviewOverlayViewWithLastFrame(
+                lastFrame: self.lastFrame,
+                isUsingFrontCamera: self.videoCapture.isUsingFrontCamera)
+            self.cameraPreView.removeDetectionAnnotations()
         }
-        guard let previewLayer = previewLayer else { return }
-        if counter != planTarget {
-            viewModel.detectPose(in: didCaptureVideoFrame, width: imageWidth, height: imageHeight, previewLayer: previewLayer)
+        
+        guard let previewLayer = videoCapture.previewLayer else { return }
+        guard let plan = plan else { return }
+        if counter != Int(plan.planTimes) {
+            viewModel.detectPose(in: didCaptureVideoFrame,
+                                 width: imageWidth,
+                                 height: imageHeight,
+                                 previewLayer: previewLayer)
             
             if drawStart == true {
                 viewModel.countRefresh = { [weak self] countNumber in
@@ -293,35 +230,12 @@ extension PoseDetectViewController: VideoCaptureDelegate {
                 }
                 // draw pose
                 viewModel.poseViewModels.bind { poses in
-                    DispatchQueue.main.async {
-                        poses.forEach { poses in
-                            let poseOverlayView = UIUtilities.createPoseOverlayView(
-                                forPose: poses,
-                                inViewWithBounds: self.annotationOverlayView.bounds,
-                                lineWidth: Constant.lineWidth,
-                                dotRadius: Constant.smallDotRadius,
-                                positionTransformationClosure: { (position) -> CGPoint in
-                                    return self.normalizedPoint(
-                                        fromVisionPoint: position, width: imageWidth, height: imageHeight)
-                                }
-                            )
-                            self.annotationOverlayView.addSubview(poseOverlayView)
-                        }
-                    }
+                    self.cameraPreView.drawPoseOverlay(poses: poses,
+                                                       width: imageWidth,
+                                                       height: imageHeight,
+                                                       previewLayer: previewLayer)
                 }
             }
         }
     }
-    
-    private func normalizedPoint(
-        fromVisionPoint point: VisionPoint,
-        width: CGFloat,
-        height: CGFloat
-    ) -> CGPoint {
-        let cgPoint = CGPoint(x: point.x, y: point.y)
-        var normalizedPoint = CGPoint(x: cgPoint.x / width, y: cgPoint.y / height)
-        normalizedPoint = previewLayer?.layerPointConverted(fromCaptureDevicePoint: normalizedPoint) ?? CGPoint()
-        return normalizedPoint
-    }
-    
 }

@@ -22,9 +22,9 @@ class VideoCapture: NSObject {
     private enum Constant {
         static let videoDataOutputQueueLabel = "com.LiamHao.Tireless.VideoDataOutputQueue"
         static let sessionQueueLabel = "com.LiamHao.Tireless.SessionQueue"
-//        static let smallDotRadius: CGFloat = 4.0
-//        static let lineWidth: CGFloat = 3.0
     }
+    
+    var previewLayer: AVCaptureVideoPreviewLayer?
     
     lazy var captureSession = AVCaptureSession()
     
@@ -86,6 +86,8 @@ class VideoCapture: NSObject {
     }
     
     func setupCaptureSession() {
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         self.setUpCaptureSessionOutput()
         self.setUpCaptureSessionInput()
     }

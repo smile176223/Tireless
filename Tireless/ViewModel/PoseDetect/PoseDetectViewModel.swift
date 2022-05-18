@@ -61,8 +61,7 @@ class PoseDetectViewModel {
             var poses: [Pose]
             do {
                 poses = try poseDetector.results(in: visionImage)
-            } catch let error {
-                print("Failed to detect poses with error: \(error.localizedDescription).")
+            } catch {
                 return
             }
             guard !poses.isEmpty else {
@@ -82,21 +81,7 @@ class PoseDetectViewModel {
                                                        type: $0.type.rawValue))
                 }
                 self?.inFrameLikeLiHoodRefresh?(getInFrameLikeLiHoodAverage(with: posePoint))
-    
-                if StartManager.shared.checkStart(posePoint) == true {
-                    switch currentExercise {
-                    case .squat:
-                        self?.countRefresh?(SquatManager.shared.squatWork(posePoint))
-                    case .pushup:
-                        self?.countRefresh?(PushupManager.shared.pushupWork(posePoint))
-                    case .plank:
-                        self?.isPlank = PlankManager.shared.plankWork(posePoint)
-                        self?.countRefresh?(plankCountTime)
-                    }
-                } else {
-                    SquatManager.shared.resetIfOut()
-                    PushupManager.shared.resetIfOut()
-                }
+                startExercise(with: posePoint)
             }
         }
     }
@@ -136,6 +121,23 @@ class PoseDetectViewModel {
             setupTimer()
         default:
             currentExercise = .squat
+        }
+    }
+    
+    private func startExercise(with posePoint: [PosePoint]) {
+        if StartManager.shared.checkStart(posePoint) == true {
+            switch currentExercise {
+            case .squat:
+                countRefresh?(SquatManager.shared.squatWork(posePoint))
+            case .pushup:
+                countRefresh?(PushupManager.shared.pushupWork(posePoint))
+            case .plank:
+                isPlank = PlankManager.shared.plankWork(posePoint)
+                countRefresh?(plankCountTime)
+            }
+        } else {
+            SquatManager.shared.resetIfOut()
+            PushupManager.shared.resetIfOut()
         }
     }
     

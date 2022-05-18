@@ -105,7 +105,6 @@ class PlanManageViewController: UIViewController {
         else {
             return
         }
-        poseVC.planTarget = Int(target) ?? 0
         poseVC.plan = plan
         poseVC.modalPresentationStyle = .fullScreen
         self.present(poseVC, animated: true)
