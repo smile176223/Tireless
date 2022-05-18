@@ -16,8 +16,6 @@ private enum Tab {
 
     case shareWall
     
-    case pictureWall
-    
     case profile
 
     func controller() -> UIViewController {
@@ -34,9 +32,6 @@ private enum Tab {
             
         case .shareWall:
             controller = UIStoryboard.shareWall.instantiateInitialViewController() ?? UIViewController()
-            
-        case .pictureWall:
-            controller = UIStoryboard.pictureWall.instantiateInitialViewController() ?? UIViewController()
             
         case .profile:
             controller = UIStoryboard.profile.instantiateInitialViewController() ?? UIViewController()
@@ -73,13 +68,6 @@ private enum Tab {
                 title: "探索",
                 image: UIImage.tabVideo,
                 selectedImage: UIImage.tabVideo
-            )
-            
-        case .pictureWall:
-            return UITabBarItem(
-                title: nil,
-                image: UIImage(systemName: "magnifyingglass"),
-                selectedImage: UIImage(systemName: "magnifyingglass")
             )
             
         case .profile:

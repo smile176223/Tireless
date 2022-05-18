@@ -99,7 +99,7 @@ class PlanManageViewController: UIViewController {
     }
     
     private func present(target: String, plan: Plan) {
-        guard let poseVC = UIStoryboard.home.instantiateViewController(
+        guard let poseVC = UIStoryboard.poseDetect.instantiateViewController(
             withIdentifier: "\(PoseDetectViewController.self)")
                 as? PoseDetectViewController
         else {

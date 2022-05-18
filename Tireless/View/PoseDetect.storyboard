@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Pose Detect View Controller-->
+        <scene sceneID="87L-76-yFc">
+            <objects>
+                <viewController storyboardIdentifier="PoseDetectViewController" id="bbN-SU-FyL" customClass="PoseDetectViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bly-lm-0lg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kYK-ps-TJ2" customClass="PoseDetectView" customModule="Tireless" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="請盡量拍到全身" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FvA-u4-3d2">
+                                <rect key="frame" x="10" y="357" width="394" height="182"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="65"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jw-zc-4zL">
+                                <rect key="frame" x="50" y="124" width="314" height="42"/>
+                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9DV-Jf-ooR">
+                                <rect key="frame" x="20" y="64" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Z5s-Xz-rHs"/>
+                                    <constraint firstAttribute="width" constant="50" id="h8k-JI-hlU"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" backgroundImage="Icons_Back"/>
+                                <connections>
+                                    <action selector="bacKButtonTap:" destination="bbN-SU-FyL" eventType="touchUpInside" id="4e3-Gl-W1M"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="eeX-3p-ppc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FvA-u4-3d2" firstAttribute="centerY" secondItem="bly-lm-0lg" secondAttribute="centerY" id="FqB-ld-kb4"/>
+                            <constraint firstItem="9DV-Jf-ooR" firstAttribute="top" secondItem="eeX-3p-ppc" secondAttribute="top" constant="20" id="Hb2-Ec-k4u"/>
+                            <constraint firstItem="eeX-3p-ppc" firstAttribute="trailing" secondItem="FvA-u4-3d2" secondAttribute="trailing" constant="10" id="Iph-iL-UFK"/>
+                            <constraint firstItem="FvA-u4-3d2" firstAttribute="centerX" secondItem="bly-lm-0lg" secondAttribute="centerX" id="XWp-qN-KL6"/>
+                            <constraint firstAttribute="bottom" secondItem="kYK-ps-TJ2" secondAttribute="bottom" id="Xhb-Yi-axP"/>
+                            <constraint firstItem="kYK-ps-TJ2" firstAttribute="leading" secondItem="bly-lm-0lg" secondAttribute="leading" id="bCS-xG-Ib3"/>
+                            <constraint firstItem="9DV-Jf-ooR" firstAttribute="leading" secondItem="eeX-3p-ppc" secondAttribute="leading" constant="20" id="ePH-3U-bzI"/>
+                            <constraint firstItem="2jw-zc-4zL" firstAttribute="top" secondItem="eeX-3p-ppc" secondAttribute="top" constant="80" id="egR-GE-IbV"/>
+                            <constraint firstAttribute="trailing" secondItem="kYK-ps-TJ2" secondAttribute="trailing" id="g3D-Cm-pGz"/>
+                            <constraint firstItem="eeX-3p-ppc" firstAttribute="trailing" secondItem="2jw-zc-4zL" secondAttribute="trailing" constant="50" id="ga8-Nd-aaG"/>
+                            <constraint firstItem="2jw-zc-4zL" firstAttribute="leading" secondItem="eeX-3p-ppc" secondAttribute="leading" constant="50" id="j6o-8I-ucx"/>
+                            <constraint firstItem="kYK-ps-TJ2" firstAttribute="top" secondItem="bly-lm-0lg" secondAttribute="top" id="wAd-0s-Okn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cameraPreView" destination="kYK-ps-TJ2" id="szY-f1-E6a"/>
+                        <outlet property="countLabel" destination="FvA-u4-3d2" id="gtl-Iy-fsU"/>
+                        <outlet property="inFrameLikeLiHoodLabel" destination="2jw-zc-4zL" id="J2W-73-TJ9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZJb-9G-5hH" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1220" y="94"/>
+        </scene>
+        <!--Detect Finish View Controller-->
+        <scene sceneID="djl-uh-X9g">
+            <objects>
+                <viewController storyboardIdentifier="DetectFinishViewController" id="WET-1B-ije" customClass="DetectFinishViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fAT-xU-nhO" customClass="DetectFinishView" customModule="Tireless" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Lym-3F-U97"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="detectFinishView" destination="fAT-xU-nhO" id="nqX-zi-0MB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iZf-Tc-ksS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1971.0144927536232" y="93.75"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Icons_Back" width="44" height="44"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

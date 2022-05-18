@@ -182,7 +182,7 @@ class PoseDetectViewController: UIViewController {
     }
     
     private func popupFinish(_ videoURL: URL? = nil) {
-        guard let showAlert = UIStoryboard.home.instantiateViewController(
+        guard let showAlert = UIStoryboard.poseDetect.instantiateViewController(
             withIdentifier: "\(DetectFinishViewController.self)")
                 as? DetectFinishViewController
         else {
