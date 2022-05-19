@@ -59,22 +59,24 @@ class DetectFinishViewController: UIViewController {
                                    uuid: "")
         
         detectFinishView.isShareButtonTap = { [weak self] in
-            self?.detectFinishView.shareButton.isEnabled = false
-            self?.detectFinishView.downButton.isEnabled = false
+            self?.changeButtonStatus(status: false)
             self?.videoManager.uploadVideo(shareFile: uploadVideo) { result in
                 switch result {
                 case .success(let uuid):
                     self?.updateValue(videoId: uuid)
                     self?.sharePresent()
-                    self?.detectFinishView.shareButton.isEnabled = true
-                    self?.detectFinishView.downButton.isEnabled = true
+                    self?.changeButtonStatus(status: true)
                 case .failure(let error):
                     print("error", error)
-                    self?.detectFinishView.shareButton.isEnabled = true
-                    self?.detectFinishView.downButton.isEnabled = true
+                    self?.changeButtonStatus(status: true)
                 }
             }
         }
+    }
+    
+    private func changeButtonStatus(status: Bool) {
+        self.detectFinishView.shareButton.isEnabled = status
+        self.detectFinishView.downButton.isEnabled = status
     }
     
     private func finishButtonTap() {

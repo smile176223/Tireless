@@ -118,7 +118,7 @@ class FriendManager {
                     document.reference.delete()
                 }
             }
-            completion(.success("Success delete"))
+            completion(.success("success"))
         }
     }
     

@@ -225,11 +225,12 @@ extension PoseDetectViewController: VideoCaptureDelegate {
         }
         
         guard let previewLayer = videoCapture.previewLayer,
-              let plan = plan else {
+              let plan = plan,
+              let target = Int(plan.planTimes) else {
             return
         }
         
-        if counter != Int(plan.planTimes) {
+        if counter < target {
             viewModel.detectPose(in: didCaptureVideoFrame,
                                  width: imageWidth,
                                  height: imageHeight,
@@ -248,7 +249,11 @@ extension PoseDetectViewController: VideoCaptureDelegate {
                                                         height: imageHeight,
                                                         previewLayer: previewLayer)
                 }
+            } else {
+                return
             }
+        } else {
+            return
         }
     }
 }
