@@ -9,4 +9,14 @@ import Foundation
 
 class DetectFinishViewModel {
     
+    var plan: Plan
+    
+    var videoURL: URL?
+    
+    var recordStatus: RecordStatus = .userAgree
+
+    init(plan: Plan) {
+        self.plan = plan
+    }
+    
 }

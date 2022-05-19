@@ -42,7 +42,6 @@ class VideoCapture: NSObject {
             let outputQueue = DispatchQueue(label: Constant.videoDataOutputQueueLabel)
             output.setSampleBufferDelegate(self, queue: outputQueue)
             guard self.captureSession.canAddOutput(output) else {
-                print("Failed to add capture session output.")
                 return
             }
             self.captureSession.addOutput(output)
@@ -54,7 +53,6 @@ class VideoCapture: NSObject {
         sessionQueue.async {
             let cameraPosition: AVCaptureDevice.Position = self.isUsingFrontCamera ? .front : .back
             guard let device = self.captureDevice(forPosition: cameraPosition) else {
-                print("Failed to get capture device for camera position: \(cameraPosition)")
                 return
             }
             do {
@@ -65,13 +63,12 @@ class VideoCapture: NSObject {
                 }
                 let input = try AVCaptureDeviceInput(device: device)
                 guard self.captureSession.canAddInput(input) else {
-                    print("Failed to add capture session input.")
                     return
                 }
                 self.captureSession.addInput(input)
                 self.captureSession.commitConfiguration()
             } catch {
-                print("Failed to create capture device input: \(error.localizedDescription)")
+                return
             }
         }
     }

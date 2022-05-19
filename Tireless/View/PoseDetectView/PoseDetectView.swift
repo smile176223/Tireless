@@ -29,7 +29,7 @@ class PoseDetectView: UIView {
         static let lineWidth: CGFloat = 3.0
     }
     
-    let viewModel = PoseDetectViewModel()
+    var viewModel: PoseDetectViewModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

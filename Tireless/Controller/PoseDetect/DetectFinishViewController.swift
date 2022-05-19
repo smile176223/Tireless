@@ -15,6 +15,8 @@ class DetectFinishViewController: UIViewController {
     
     let videoManager = ShareManager()
     
+    var viewModel: DetectFinishViewModel?
+    
     let planViewModel = PlanManageViewModel()
     
     var plan: Plan?
@@ -30,9 +32,13 @@ class DetectFinishViewController: UIViewController {
         
         uploadProgressShow()
         
-        if recordStatus == .userReject {
+        if viewModel?.recordStatus == .userReject {
             detectFinishView.shareButton.isHidden = true
         }
+        
+//        if recordStatus == .userReject {
+//            detectFinishView.shareButton.isHidden = true
+//        }
     }
 
     private func sharePresent() {

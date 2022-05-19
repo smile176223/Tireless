@@ -5,9 +5,9 @@
 //  Created by Hao on 2022/4/9.
 //
 
-import Foundation
 import MLKit
 import AVFoundation
+import UIKit
 
 class PoseDetectViewModel {
     
@@ -21,7 +21,28 @@ class PoseDetectViewModel {
         case plank
     }
     
+    var plan: Plan
+    
+    var videoURL: URL?
+
+    init(plan: Plan) {
+        self.plan = plan
+        self.setupExercise(with: plan)
+    }
+    
     let poseViewModels = Box([Pose]())
+    
+    let inFrameLikeLiHoodRefresh = Box(String())
+    
+    let countRefresh = Box(Int(-1))
+    
+    let isPoseDetectStart = Box(Bool())
+    
+    let finishExercise = Box(false)
+    
+    var noPoint: (() -> Void)?
+    
+    let updateViewFrame: Box<CMSampleBuffer?> = Box(nil)
     
     private var isUsingFrontCamera = false
     
@@ -41,11 +62,11 @@ class PoseDetectViewModel {
     
     private var currentExercise: Exercise = .squat
     
-    var countRefresh: ((Int) -> Void)?
+    private let videoRecordManager = VideoRecordManager()
     
-    var inFrameLikeLiHoodRefresh: ((String) -> Void)?
+    private let videoCapture = VideoCapture()
     
-    var noPoint: (() -> Void)?
+    var recordStatus: RecordStatus = .userAgree
     
     func detectPose(in sampleBuffer: CMSampleBuffer,
                     width: CGFloat,                    
@@ -80,9 +101,26 @@ class PoseDetectViewModel {
                                                        inFrameLikelihood: $0.inFrameLikelihood,
                                                        type: $0.type.rawValue))
                 }
-                self?.inFrameLikeLiHoodRefresh?(getInFrameLikeLiHoodAverage(with: posePoint))
+                self?.inFrameLikeLiHoodRefresh.value = getInFrameLikeLiHoodAverage(with: posePoint)
                 startExercise(with: posePoint)
             }
+        }
+    }
+    
+    func poseDetect(with sampleBuffer: CMSampleBuffer, show previewLayer: AVCaptureVideoPreviewLayer) {
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer),
+              let target = Int(plan.planTimes) else {
+            return
+        }
+        let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
+        let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
+        if countRefresh.value < target {
+            detectPose(in: sampleBuffer,
+                       width: imageWidth,
+                       height: imageHeight,
+                       previewLayer: previewLayer)
+        } else if countRefresh.value == target, finishExercise.value == false {
+            finishExercise.value = true
         }
     }
     
@@ -111,6 +149,7 @@ class PoseDetectViewModel {
     }
     
     func setupExercise(with plan: Plan) {
+        resetExercise() 
         switch plan.planName {
         case PlanExercise.squat.rawValue:
             currentExercise = .squat
@@ -128,12 +167,15 @@ class PoseDetectViewModel {
         if StartManager.shared.checkStart(posePoint) == true {
             switch currentExercise {
             case .squat:
-                countRefresh?(SquatManager.shared.squatWork(posePoint))
+                countRefresh.value = SquatManager.shared.squatWork(posePoint)
             case .pushup:
-                countRefresh?(PushupManager.shared.pushupWork(posePoint))
+                countRefresh.value = PushupManager.shared.pushupWork(posePoint)
             case .plank:
                 isPlank = PlankManager.shared.plankWork(posePoint)
-                countRefresh?(plankCountTime)
+                countRefresh.value = plankCountTime
+            }
+            if self.isPoseDetectStart.value == false {
+                self.isPoseDetectStart.value = true
             }
         } else {
             SquatManager.shared.resetIfOut()
@@ -168,4 +210,87 @@ class PoseDetectViewModel {
     func stopTimer() {
         timer.invalidate()
     }
+}
+
+extension PoseDetectViewModel {
+    func startRecording(completion: @escaping (() -> Void)) {
+        videoRecordManager.startRecording {
+            completion()
+        }
+    }
+    
+    func stopRecording(completion: @escaping (() -> Void)) {
+        videoRecordManager.stopRecording { url in
+            self.videoURL = url
+            completion()
+        } failure: {
+            self.videoURL = nil
+            completion()
+        }
+    }
+    
+    func userTapBack() {
+        videoRecordManager.userTapBack()
+    }
+    
+    func userRejectRecord() {
+        videoRecordManager.userRejectRecord = { [weak self] in
+            self?.recordStatus = .userReject
+        }
+    }
+}
+
+extension PoseDetectViewModel: VideoCaptureDelegate {
+    func setupSession() {
+        videoCapture.delegate = self
+        videoCapture.setupCaptureSession()
+    }
+    
+    func startCapture() {
+        videoCapture.startSession()
+    }
+    
+    func stopCapture() {
+        videoCapture.stopSession()
+    }
+    
+    func setupPreviewLayer(view: UIView) {
+        videoCapture.previewLayer?.frame = view.bounds
+    }
+    
+    func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame: CMSampleBuffer) {
+        guard let previewLayer = videoCapture.previewLayer else {
+            return
+        }
+        poseDetect(with: didCaptureVideoFrame, show: previewLayer)
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(didCaptureVideoFrame) else {
+            return
+        }
+        let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
+        let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
+
+        DispatchQueue.main.sync { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.updateViewFrame.value = didCaptureVideoFrame
+            
+//            self.updateViewFrame.value = [didCaptureVideoFrame]
+//            self.cameraPreView.updatePreviewOverlayViewWithLastFrame(
+//                lastFrame: didCaptureVideoFrame,
+//                isUsingFrontCamera: self.videoCapture.isUsingFrontCamera)
+//            self.cameraPreView.removeDetectionAnnotations()
+        }
+
+//        viewModel?.poseViewModels.bind { [weak self] poses in
+//            if self?.drawPose == true {
+//                self?.cameraPreView.drawPoseOverlay(poses: poses,
+//                                                    width: imageWidth,
+//                                                    height: imageHeight,
+//                                                    previewLayer: previewLayer)
+//            }
+//        }
+    }
+
 }
