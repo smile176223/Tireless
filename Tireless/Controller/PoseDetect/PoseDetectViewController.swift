@@ -15,11 +15,9 @@ class PoseDetectViewController: UIViewController {
     
     @IBOutlet weak var countLabel: UILabel!
     
-    @IBOutlet weak var inFrameLikeLiHoodLabel: UILabel! // Naming
+    @IBOutlet weak var confidenceLabel: UILabel!
     
-    var viewModel: PoseDetectViewModel? //
-    
-//    private let videoCapture = VideoCapture() //
+    var viewModel: PoseDetectViewModel?
 
     private var drawPose = false
     
@@ -28,25 +26,20 @@ class PoseDetectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        videoCapture.setupCaptureSession()
-        
-//        videoCapture.delegate = self
-        
         viewModel?.setupSession()
 
         setupLabel(countLabel)
         
-        setupLabel(inFrameLikeLiHoodLabel)
+        setupLabel(confidenceLabel)
         
         setupBind()
         
-        viewModel?.userRejectRecord()
+        viewModel?.isUserRejectRecord()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel?.startRecording { [weak self] in
-//            self?.videoCapture.startSession()
             self?.viewModel?.startCapture()
             self?.drawPose = true
         }
@@ -57,13 +50,11 @@ class PoseDetectViewController: UIViewController {
         
         viewModel?.stopTimer()
         
-//        videoCapture.stopSession()
         self.viewModel?.stopCapture()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        videoCapture.previewLayer?.frame = cameraPreView.bounds
         viewModel?.setupPreviewLayer(view: cameraPreView)
     }
     
@@ -73,14 +64,14 @@ class PoseDetectViewController: UIViewController {
     }
     
     private func setupBind() {
-        viewModel?.noPoint = { [weak self] in
+        viewModel?.noPoint.bind { [weak self] _ in
             DispatchQueue.main.async {
-                self?.inFrameLikeLiHoodLabel.text = "人體準確度：0%"
+                self?.confidenceLabel.text = "人體準確度：0%"
             }
         }
         
-        viewModel?.inFrameLikeLiHoodRefresh.bind { [weak self] inFrameLikeLiHood in
-            self?.inFrameLikeLiHoodLabel.text = "人體準確度：\(inFrameLikeLiHood)%"
+        viewModel?.confidenceRefresh.bind { [weak self] inFrameLikeLiHood in
+            self?.confidenceLabel.text = "人體準確度：\(inFrameLikeLiHood)%"
         }
         
         viewModel?.countRefresh.bind { [weak self] count in
@@ -112,6 +103,18 @@ class PoseDetectViewController: UIViewController {
                 lastFrame: viewFrame,
                 isUsingFrontCamera: false)
             self?.cameraPreView.removeDetectionAnnotations()
+        }
+        
+        viewModel?.poseViewOverlay.bind { poseOverlay in
+            guard let poseOverlay = poseOverlay else {
+                return
+            }
+            if self.drawPose == true {
+                self.cameraPreView.drawPoseOverlay(poses: poseOverlay.poses,
+                                                   width: poseOverlay.width,
+                                                   height: poseOverlay.height,
+                                                   previewLayer: poseOverlay.previewLayer)
+            }
         }
     }
     
@@ -193,41 +196,7 @@ class PoseDetectViewController: UIViewController {
         
         self.present(navFinishVC, animated: true, completion: { [weak self] in
             self?.blurEffect()
-//            self?.videoCapture.stopSession()
             self?.viewModel?.stopCapture()
         })
     }
 }
-
-//extension PoseDetectViewController: VideoCaptureDelegate {
-//    func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame: CMSampleBuffer) {
-//        guard let previewLayer = videoCapture.previewLayer else {
-//            return
-//        }
-//        viewModel?.drawPose(with: didCaptureVideoFrame, show: previewLayer)
-//        guard let imageBuffer = CMSampleBufferGetImageBuffer(didCaptureVideoFrame) else {
-//            return
-//        }
-//        let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
-//        let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
-//
-//        DispatchQueue.main.sync { [weak self] in
-//            guard let self = self else {
-//                return
-//            }
-//            self.cameraPreView.updatePreviewOverlayViewWithLastFrame(
-//                lastFrame: didCaptureVideoFrame,
-//                isUsingFrontCamera: self.videoCapture.isUsingFrontCamera)
-//            self.cameraPreView.removeDetectionAnnotations()
-//        }
-//
-//        viewModel?.poseViewModels.bind { [weak self] poses in
-//            if self?.drawPose == true {
-//                self?.cameraPreView.drawPoseOverlay(poses: poses,
-//                                                    width: imageWidth,
-//                                                    height: imageHeight,
-//                                                    previewLayer: previewLayer)
-//            }
-//        }
-//    }
-//}

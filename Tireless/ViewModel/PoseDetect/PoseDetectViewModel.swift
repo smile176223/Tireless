@@ -21,6 +21,13 @@ class PoseDetectViewModel {
         case plank
     }
     
+    struct PoseOverlay {
+        let poses: [Pose]
+        let width: CGFloat
+        let height: CGFloat
+        let previewLayer: AVCaptureVideoPreviewLayer
+    }
+    
     var plan: Plan
     
     var videoURL: URL?
@@ -32,7 +39,7 @@ class PoseDetectViewModel {
     
     let poseViewModels = Box([Pose]())
     
-    let inFrameLikeLiHoodRefresh = Box(String())
+    let confidenceRefresh = Box(String())
     
     let countRefresh = Box(Int(-1))
     
@@ -40,9 +47,11 @@ class PoseDetectViewModel {
     
     let finishExercise = Box(false)
     
-    var noPoint: (() -> Void)?
+    let noPoint = Box(Void())
     
     let updateViewFrame: Box<CMSampleBuffer?> = Box(nil)
+    
+    let poseViewOverlay: Box<PoseOverlay?> = Box(nil)
     
     private var isUsingFrontCamera = false
     
@@ -68,10 +77,10 @@ class PoseDetectViewModel {
     
     var recordStatus: RecordStatus = .userAgree
     
-    func detectPose(in sampleBuffer: CMSampleBuffer,
-                    width: CGFloat,                    
-                    height: CGFloat,
-                    previewLayer: AVCaptureVideoPreviewLayer) {
+    private func detectPose(in sampleBuffer: CMSampleBuffer,
+                            width: CGFloat,
+                            height: CGFloat,
+                            previewLayer: AVCaptureVideoPreviewLayer) {
         let visionImage = VisionImage(buffer: sampleBuffer)
         let orientation = UIUtilities.imageOrientation(fromDevicePosition: isUsingFrontCamera ? .front : .back)
         visionImage.orientation = orientation
@@ -86,7 +95,7 @@ class PoseDetectViewModel {
                 return
             }
             guard !poses.isEmpty else {
-                self.noPoint?()
+                self.noPoint.value = ()
                 return
             }
             DispatchQueue.main.sync { [weak self] in
@@ -101,7 +110,7 @@ class PoseDetectViewModel {
                                                        inFrameLikelihood: $0.inFrameLikelihood,
                                                        type: $0.type.rawValue))
                 }
-                self?.inFrameLikeLiHoodRefresh.value = getInFrameLikeLiHoodAverage(with: posePoint)
+                self?.confidenceRefresh.value = getConfidenceAverage(with: posePoint)
                 startExercise(with: posePoint)
             }
         }
@@ -142,13 +151,13 @@ class PoseDetectViewModel {
         self.lastDetector = activeDetector
     }
     
-    func resetExercise() {
+    private func resetExercise() {
         SquatManager.shared.resetCount()
         PushupManager.shared.resetCount()
         plankCountTime = 0
     }
     
-    func setupExercise(with plan: Plan) {
+    private func setupExercise(with plan: Plan) {
         resetExercise() 
         switch plan.planName {
         case PlanExercise.squat.rawValue:
@@ -183,7 +192,7 @@ class PoseDetectViewModel {
         }
     }
     
-    func getInFrameLikeLiHoodAverage(with posePoints: [PosePoint]) -> String {
+    private func getConfidenceAverage(with posePoints: [PosePoint]) -> String {
         var average: Float = 0
         for posePoint in posePoints {
             average += posePoint.inFrameLikelihood
@@ -233,7 +242,7 @@ extension PoseDetectViewModel {
         videoRecordManager.userTapBack()
     }
     
-    func userRejectRecord() {
+    func isUserRejectRecord() {
         videoRecordManager.userRejectRecord = { [weak self] in
             self?.recordStatus = .userReject
         }
@@ -273,24 +282,12 @@ extension PoseDetectViewModel: VideoCaptureDelegate {
             guard let self = self else {
                 return
             }
-            
             self.updateViewFrame.value = didCaptureVideoFrame
-            
-//            self.updateViewFrame.value = [didCaptureVideoFrame]
-//            self.cameraPreView.updatePreviewOverlayViewWithLastFrame(
-//                lastFrame: didCaptureVideoFrame,
-//                isUsingFrontCamera: self.videoCapture.isUsingFrontCamera)
-//            self.cameraPreView.removeDetectionAnnotations()
         }
-
-//        viewModel?.poseViewModels.bind { [weak self] poses in
-//            if self?.drawPose == true {
-//                self?.cameraPreView.drawPoseOverlay(poses: poses,
-//                                                    width: imageWidth,
-//                                                    height: imageHeight,
-//                                                    previewLayer: previewLayer)
-//            }
-//        }
+        self.poseViewOverlay.value = PoseOverlay(poses: poseViewModels.value,
+                                                 width: imageWidth,
+                                                 height: imageHeight,
+                                                 previewLayer: previewLayer)
     }
 
 }

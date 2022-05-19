@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		850A41B3C4710C925420BDDF /* Pods_TirelessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442A73EE7DC1C03B80A2A26E /* Pods_TirelessTests.framework */; };
 		A2EC4823DFDFB7062A4D7718 /* Pods_Tireless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745C2223D0E016BB19811AAA /* Pods_Tireless.framework */; };
 		FF0234C2282CE65E001647B9 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */; };
 		FF0234C4282CEC23001647B9 /* FriendListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */; };
@@ -23,6 +24,7 @@
 		FF0234E328353DB0001647B9 /* Lottie+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234E228353DB0001647B9 /* Lottie+Extension.swift */; };
 		FF0234E728355640001647B9 /* PoseDetect.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF0234E628355640001647B9 /* PoseDetect.storyboard */; };
 		FF0234E92835C4D7001647B9 /* DetectFinishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234E82835C4D7001647B9 /* DetectFinishViewModel.swift */; };
+		FF0234FE2836678E001647B9 /* TirelessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234FD2836678E001647B9 /* TirelessTests.swift */; };
 		FF14449428009C010027F560 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF14449328009C010027F560 /* Box.swift */; };
 		FF1444A6280156700027F560 /* UIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A5280156700027F560 /* UIUtilities.swift */; };
 		FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */; };
@@ -170,10 +172,23 @@
 		FFCFCAF1282A105E00FE6E83 /* VideoLayerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCFCAF0282A105E00FE6E83 /* VideoLayerObject.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		FF0234FF2836678E001647B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FFC0C14928008F640041A937 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FFC0C15028008F640041A937;
+			remoteInfo = Tireless;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.debug.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.debug.xcconfig"; sourceTree = "<group>"; };
+		442A73EE7DC1C03B80A2A26E /* Pods_TirelessTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TirelessTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		52858477750540DE88E92C77 /* Pods-TirelessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TirelessTests.debug.xcconfig"; path = "Target Support Files/Pods-TirelessTests/Pods-TirelessTests.debug.xcconfig"; sourceTree = "<group>"; };
 		745C2223D0E016BB19811AAA /* Pods_Tireless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tireless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.release.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.release.xcconfig"; sourceTree = "<group>"; };
+		D521D30FA07EDA2E106421DA /* Pods-TirelessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TirelessTests.release.xcconfig"; path = "Target Support Files/Pods-TirelessTests/Pods-TirelessTests.release.xcconfig"; sourceTree = "<group>"; };
 		FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
 		FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListHeaderView.swift; sourceTree = "<group>"; };
 		FF0234C5282CEC2E001647B9 /* FriendListHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendListHeaderView.xib; sourceTree = "<group>"; };
@@ -189,6 +204,8 @@
 		FF0234E228353DB0001647B9 /* Lottie+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Lottie+Extension.swift"; sourceTree = "<group>"; };
 		FF0234E628355640001647B9 /* PoseDetect.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PoseDetect.storyboard; sourceTree = "<group>"; };
 		FF0234E82835C4D7001647B9 /* DetectFinishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishViewModel.swift; sourceTree = "<group>"; };
+		FF0234FB2836678E001647B9 /* TirelessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TirelessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF0234FD2836678E001647B9 /* TirelessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TirelessTests.swift; sourceTree = "<group>"; };
 		FF14449328009C010027F560 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		FF1444A5280156700027F560 /* UIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtilities.swift; sourceTree = "<group>"; };
 		FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectViewModel.swift; sourceTree = "<group>"; };
@@ -340,6 +357,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FF0234F82836678E001647B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				850A41B3C4710C925420BDDF /* Pods_TirelessTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FFC0C14E28008F640041A937 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -356,6 +381,8 @@
 			children = (
 				05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */,
 				902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */,
+				52858477750540DE88E92C77 /* Pods-TirelessTests.debug.xcconfig */,
+				D521D30FA07EDA2E106421DA /* Pods-TirelessTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -364,6 +391,7 @@
 			isa = PBXGroup;
 			children = (
 				745C2223D0E016BB19811AAA /* Pods_Tireless.framework */,
+				442A73EE7DC1C03B80A2A26E /* Pods_TirelessTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -392,6 +420,14 @@
 				FF0234D728340264001647B9 /* VideoCapture.swift */,
 			);
 			path = VideoCapture;
+			sourceTree = "<group>";
+		};
+		FF0234FC2836678E001647B9 /* TirelessTests */ = {
+			isa = PBXGroup;
+			children = (
+				FF0234FD2836678E001647B9 /* TirelessTests.swift */,
+			);
+			path = TirelessTests;
 			sourceTree = "<group>";
 		};
 		FF14448E28009B480027F560 /* View */ = {
@@ -855,6 +891,7 @@
 			isa = PBXGroup;
 			children = (
 				FFC0C15328008F640041A937 /* Tireless */,
+				FF0234FC2836678E001647B9 /* TirelessTests */,
 				FFC0C15228008F640041A937 /* Products */,
 				8F4A639777C772A20A212B98 /* Pods */,
 				F088B6317C172ACEDE2B5A23 /* Frameworks */,
@@ -865,6 +902,7 @@
 			isa = PBXGroup;
 			children = (
 				FFC0C15128008F640041A937 /* Tireless.app */,
+				FF0234FB2836678E001647B9 /* TirelessTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -942,6 +980,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		FF0234FA2836678E001647B9 /* TirelessTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF0235032836678E001647B9 /* Build configuration list for PBXNativeTarget "TirelessTests" */;
+			buildPhases = (
+				5256A89C0B7BDB8CF321483B /* [CP] Check Pods Manifest.lock */,
+				FF0234F72836678E001647B9 /* Sources */,
+				FF0234F82836678E001647B9 /* Frameworks */,
+				FF0234F92836678E001647B9 /* Resources */,
+				7E5396C713796FEAF1582C84 /* [CP] Embed Pods Frameworks */,
+				89C0636EFC55881480720025 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FF0235002836678E001647B9 /* PBXTargetDependency */,
+			);
+			name = TirelessTests;
+			productName = TirelessTests;
+			productReference = FF0234FB2836678E001647B9 /* TirelessTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FFC0C15028008F640041A937 /* Tireless */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFC0C16528008F650041A937 /* Build configuration list for PBXNativeTarget "Tireless" */;
@@ -974,6 +1033,10 @@
 				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
+					FF0234FA2836678E001647B9 = {
+						CreatedOnToolsVersion = 13.3;
+						TestTargetID = FFC0C15028008F640041A937;
+					};
 					FFC0C15028008F640041A937 = {
 						CreatedOnToolsVersion = 13.3;
 					};
@@ -993,11 +1056,19 @@
 			projectRoot = "";
 			targets = (
 				FFC0C15028008F640041A937 /* Tireless */,
+				FF0234FA2836678E001647B9 /* TirelessTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FF0234F92836678E001647B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FFC0C14F28008F640041A937 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1064,6 +1135,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tireless/Pods-Tireless-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		5256A89C0B7BDB8CF321483B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TirelessTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6E41D0217CD08F4B2A7C49A7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1101,6 +1194,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tireless/Pods-Tireless-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7E5396C713796FEAF1582C84 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		89C0636EFC55881480720025 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FF14448D280094800027F560 /* SwiftLint  */ = {
@@ -1144,6 +1271,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FF0234F72836678E001647B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF0234FE2836678E001647B9 /* TirelessTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FFC0C14D28008F640041A937 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1274,6 +1409,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		FF0235002836678E001647B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FFC0C15028008F640041A937 /* Tireless */;
+			targetProxy = FF0234FF2836678E001647B9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		FFC0C15A28008F640041A937 /* Home.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -1294,6 +1437,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		FF0235012836678E001647B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52858477750540DE88E92C77 /* Pods-TirelessTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3F3N8USCH4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiamHao.TirelessTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tireless.app/Tireless";
+			};
+			name = Debug;
+		};
+		FF0235022836678E001647B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D521D30FA07EDA2E106421DA /* Pods-TirelessTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3F3N8USCH4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiamHao.TirelessTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tireless.app/Tireless";
+			};
+			name = Release;
+		};
 		FFC0C16328008F650041A937 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1483,6 +1666,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FF0235032836678E001647B9 /* Build configuration list for PBXNativeTarget "TirelessTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF0235012836678E001647B9 /* Debug */,
+				FF0235022836678E001647B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FFC0C14C28008F640041A937 /* Build configuration list for PBXProject "Tireless" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
