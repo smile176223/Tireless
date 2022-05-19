@@ -18,10 +18,12 @@ class PlanDetailViewModel {
                           finishTime: [],
                           uuid: "")
     
+//    var plan: Plan
+//
 //    init(plan: Plan) {
 //        self.plan = plan
 //    }
-    
+
     func setPlanData(name: String, times: String, days: String, createdTime: Int64, planGroup: Bool) {
         self.plan.planName = name
         self.plan.planTimes = times

@@ -17,11 +17,7 @@ class PoseDetectViewController: UIViewController {
     
     @IBOutlet weak var inFrameLikeLiHoodLabel: UILabel!
     
-    private var lastFrame: CMSampleBuffer?
-    
     private let viewModel = PoseDetectViewModel()
-    
-    private let planViewModel = PlanManageViewModel()
     
     private let videoCapture = VideoCapture()
     
@@ -210,16 +206,15 @@ extension PoseDetectViewController: VideoCaptureDelegate {
         guard let imageBuffer = CMSampleBufferGetImageBuffer(didCaptureVideoFrame) else {
             return
         }
-        lastFrame = didCaptureVideoFrame
         let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
         let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
         
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.sync { [weak self] in
             guard let self = self else {
                 return
             }
             self.cameraPreView.updatePreviewOverlayViewWithLastFrame(
-                lastFrame: self.lastFrame,
+                lastFrame: didCaptureVideoFrame,
                 isUsingFrontCamera: self.videoCapture.isUsingFrontCamera)
             self.cameraPreView.removeDetectionAnnotations()
         }

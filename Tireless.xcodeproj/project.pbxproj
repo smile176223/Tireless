@@ -717,8 +717,8 @@
 		FF3FBE682811C2FE00E6B5DC /* Plan */ = {
 			isa = PBXGroup;
 			children = (
-				FF3FBE692811C33B00E6B5DC /* PlanManageViewController.swift */,
 				FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */,
+				FF3FBE692811C33B00E6B5DC /* PlanManageViewController.swift */,
 				FF5E89E12826F50F00214A5D /* PlanModifyViewController.swift */,
 			);
 			path = Plan;
