@@ -27,14 +27,14 @@ class PoseDetectViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel?.setupSession()
+        
+        viewModel?.setupVideoRecord()
 
         setupLabel(countLabel)
         
         setupLabel(confidenceLabel)
         
         setupBind()
-        
-        viewModel?.setupVideoRecord()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,16 +82,16 @@ class PoseDetectViewController: UIViewController {
             }
         }
         
-        viewModel?.isPoseDetectStart.bind { [weak self] bool in
-            if bool == true {
+        viewModel?.isPoseDetectStart.bind { [weak self] isStart in
+            if isStart {
                 DispatchQueue.main.async {
                     self?.lottieCountDownGo()
                 }
             }
         }
         
-        viewModel?.finishExercise.bind { [weak self] bool in
-            if bool == true {
+        viewModel?.finishExercise.bind { [weak self] isFinish in
+            if isFinish {
                 DispatchQueue.main.async {
                     self?.lottieDetectDone()
                 }
@@ -178,7 +178,6 @@ class PoseDetectViewController: UIViewController {
         guard let plan = viewModel?.plan else {
             return
         }
-//        finishVC.viewModel?.videoURLTest.value = viewModel?.videoURL.value
         if let videoURL = viewModel?.videoURL.value {
             finishVC.viewModel = DetectFinishViewModel(plan: plan,
                                                        videoURL: videoURL)

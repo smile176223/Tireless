@@ -50,11 +50,11 @@ class DetectFinishViewController: UIViewController {
             self?.detectFinishView.lottieProgress(progress.fractionCompleted)
         }
         
-        viewModel?.uploadStatus.bind { bool in
-            guard let bool = bool else {
+        viewModel?.uploadStatus.bind { isUpload in
+            guard let isUpload = isUpload else {
                 return
             }
-            if bool == true {
+            if isUpload {
                 self.sharePresent()
                 self.changeButtonStatus(status: true)
             } else {

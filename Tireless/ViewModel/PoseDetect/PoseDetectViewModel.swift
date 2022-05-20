@@ -291,11 +291,10 @@ extension PoseDetectViewModel: VideoCaptureDelegate {
             }
             self.updateViewFrame.value = UpdateViewFrame(viewFrame: didCaptureVideoFrame,
                                                          isUsingFrontCamera: videoCapture.isUsingFrontCamera)
+            self.poseViewOverlay.value = PoseViewOverlay(poses: poseViewModels.value,
+                                                     width: imageWidth,
+                                                     height: imageHeight,
+                                                     previewLayer: previewLayer)
         }
-        self.poseViewOverlay.value = PoseViewOverlay(poses: poseViewModels.value,
-                                                 width: imageWidth,
-                                                 height: imageHeight,
-                                                 previewLayer: previewLayer)
     }
-
 }

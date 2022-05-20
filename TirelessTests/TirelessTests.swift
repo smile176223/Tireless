@@ -23,7 +23,7 @@ class TirelessTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
+    func testBaseline() throws {
         let posePoint = PosePoint(position: CGPoint(x: 13, y: 1), zPoint: CGFloat(1), inFrameLikelihood: 1, type: "")
         let baseline = CGFloat(10)
         var bool: Bool?
