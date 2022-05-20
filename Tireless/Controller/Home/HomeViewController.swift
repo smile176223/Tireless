@@ -248,7 +248,10 @@ extension HomeViewController: UICollectionViewDelegate {
             else {
                 return
             }
-            detailVC.plan = viewModel.defaultPlansViewModel.value[indexPath.row].defaultPlans
+            let defaultPlan = viewModel.defaultPlansViewModel.value[indexPath.row].defaultPlans
+
+            detailVC.viewModel = PlanDetailViewModel(defaultPlans: defaultPlan)
+            
             detailVC.modalPresentationStyle = .fullScreen
             self.present(detailVC, animated: true)
         } else if indexPath.section == 2 {

@@ -9,39 +9,41 @@ import Foundation
 
 class PlanDetailViewModel {
     
-    var plan: Plan = Plan(planName: "",
-                          planTimes: "",
-                          planDays: "",
-                          createdTime: -1,
-                          planGroup: false,
-                          progress: 0.0,
-                          finishTime: [],
-                          uuid: "")
+    let isCreatePlan: Box<Bool?> = Box(nil)
     
-//    var plan: Plan
-//
-//    init(plan: Plan) {
-//        self.plan = plan
-//    }
-
-    func setPlanData(name: String, times: String, days: String, createdTime: Int64, planGroup: Bool) {
-        self.plan.planName = name
-        self.plan.planTimes = times
-        self.plan.planDays = days
-        self.plan.createdTime = createdTime
-        self.plan.planGroup = planGroup
+    let isUserLogin: Box<Bool?> = Box(nil)
+    
+    var defaultPlans: DefaultPlans
+    
+    init(defaultPlans: DefaultPlans) {
+        self.defaultPlans = defaultPlans
     }
     
-    func createPlan(success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
-        PlanManager.shared.createPlan(userId: AuthManager.shared.currentUser, plan: &plan) { result in
-            switch result {
-            case .success:
-                success()
-                ProgressHUD.showSuccess(text: "建立成功")
-            case .failure(let error):
-                failure(error)
-                ProgressHUD.showFailure()
+    func createPlan(times: String, days: String) {
+        if AuthManager.shared.checkCurrentUser() == true {
+            self.isUserLogin.value = false
+            var plan = Plan(planName: defaultPlans.planName,
+                            planTimes: times,
+                            planDays: days,
+                            createdTime: Date().millisecondsSince1970,
+                            planGroup: false,
+                            progress: 0.0,
+                            finishTime: [],
+                            uuid: "")
+            PlanManager.shared.createPlan(userId: AuthManager.shared.currentUser,
+                                          plan: &plan) { result in
+                switch result {
+                case .success:
+                    ProgressHUD.showSuccess(text: "建立成功")
+                    self.isCreatePlan.value = true
+                case .failure(let error):
+                    ProgressHUD.showFailure()
+                    self.isCreatePlan.value = false
+                    print(error)
+                }
             }
+        } else {
+            self.isUserLogin.value = true
         }
     }
 }
