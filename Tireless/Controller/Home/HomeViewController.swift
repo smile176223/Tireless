@@ -37,6 +37,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .themeBG
 
         navigationController?.navigationBar.isHidden = true
@@ -51,22 +52,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 self.collectionView.reloadData()
             }
         }
-        AuthManager.shared.getCurrentUser { result in
-            switch result {
-            case .success(let bool):
-                if bool == true {
-                    self.viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
-                } else if bool == false {
-                    self.viewModel.logoutReset()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
+
+        viewModel.getCurrentUser()
         
-        if AuthManager.shared.currentUser != "" {
-            viewModel.fetchJoinGroup(userId: AuthManager.shared.currentUser)
-        }
+        viewModel.checkCurrentUser()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

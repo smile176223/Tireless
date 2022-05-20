@@ -98,4 +98,25 @@ class HomeViewModel {
         joinGroupsViewModel.value = convertJoinGroupToViewModels(from: joinGroups)
     }
     
+    func getCurrentUser() {
+        AuthManager.shared.getCurrentUser { result in
+            switch result {
+            case .success(let isLogin):
+                if isLogin {
+                    self.fetchJoinGroup(userId: AuthManager.shared.currentUser)
+                } else {
+                    self.logoutReset()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func checkCurrentUser() {
+        if AuthManager.shared.currentUser != "" {
+            fetchJoinGroup(userId: AuthManager.shared.currentUser)
+        }
+    }
+    
 }
