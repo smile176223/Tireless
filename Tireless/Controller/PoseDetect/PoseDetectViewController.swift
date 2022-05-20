@@ -34,7 +34,7 @@ class PoseDetectViewController: UIViewController {
         
         setupBind()
         
-        viewModel?.isUserRejectRecord()
+        viewModel?.setupVideoRecord()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,10 +98,10 @@ class PoseDetectViewController: UIViewController {
             }
         }
         
-        viewModel?.updateViewFrame.bind { [weak self] viewFrame in
+        viewModel?.updateViewFrame.bind { [weak self] updateViewFrame in
             self?.cameraPreView.updatePreviewOverlayViewWithLastFrame(
-                lastFrame: viewFrame,
-                isUsingFrontCamera: false)
+                lastFrame: updateViewFrame?.viewFrame,
+                isUsingFrontCamera: updateViewFrame?.isUsingFrontCamera ?? false)
             self?.cameraPreView.removeDetectionAnnotations()
         }
         
@@ -178,13 +178,14 @@ class PoseDetectViewController: UIViewController {
         guard let plan = viewModel?.plan else {
             return
         }
-//        finishVC.videoURL = videoURL
-        finishVC.viewModel?.videoURL = viewModel?.videoURL
-        // finishVC.plan = plan
-        finishVC.viewModel = DetectFinishViewModel(plan: plan)
-//        if recordStatus == .userReject {
-//            finishVC.recordStatus = .userReject
-//        }
+//        finishVC.viewModel?.videoURLTest.value = viewModel?.videoURL.value
+        if let videoURL = viewModel?.videoURL.value {
+            finishVC.viewModel = DetectFinishViewModel(plan: plan,
+                                                       videoURL: videoURL)
+        } else {
+            finishVC.viewModel = DetectFinishViewModel(plan: plan,
+                                                       videoURL: nil)
+        }
         if viewModel?.recordStatus == .userReject {
             finishVC.viewModel?.recordStatus = .userReject
         }

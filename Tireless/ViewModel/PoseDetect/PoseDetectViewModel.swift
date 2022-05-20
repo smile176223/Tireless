@@ -21,21 +21,26 @@ class PoseDetectViewModel {
         case plank
     }
     
-    struct PoseOverlay {
+    struct PoseViewOverlay {
         let poses: [Pose]
         let width: CGFloat
         let height: CGFloat
         let previewLayer: AVCaptureVideoPreviewLayer
     }
     
-    var plan: Plan
+    struct UpdateViewFrame {
+        let viewFrame: CMSampleBuffer
+        let isUsingFrontCamera: Bool
+    }
     
-    var videoURL: URL?
+    var plan: Plan
 
     init(plan: Plan) {
         self.plan = plan
         self.setupExercise(with: plan)
     }
+    
+    let videoURL: Box<URL?> = Box(nil)
     
     let poseViewModels = Box([Pose]())
     
@@ -49,9 +54,9 @@ class PoseDetectViewModel {
     
     let noPoint = Box(Void())
     
-    let updateViewFrame: Box<CMSampleBuffer?> = Box(nil)
+    let updateViewFrame: Box<UpdateViewFrame?> = Box(nil)
     
-    let poseViewOverlay: Box<PoseOverlay?> = Box(nil)
+    let poseViewOverlay: Box<PoseViewOverlay?> = Box(nil)
     
     private var isUsingFrontCamera = false
     
@@ -230,10 +235,9 @@ extension PoseDetectViewModel {
     
     func stopRecording(completion: @escaping (() -> Void)) {
         videoRecordManager.stopRecording { url in
-            self.videoURL = url
+            self.videoURL.value = url
             completion()
         } failure: {
-            self.videoURL = nil
             completion()
         }
     }
@@ -242,9 +246,12 @@ extension PoseDetectViewModel {
         videoRecordManager.userTapBack()
     }
     
-    func isUserRejectRecord() {
+    func setupVideoRecord() {
         videoRecordManager.userRejectRecord = { [weak self] in
             self?.recordStatus = .userReject
+        }
+        videoRecordManager.getVideoRecordUrl = { [weak self] url in
+            self?.videoURL.value = url
         }
     }
 }
@@ -282,9 +289,10 @@ extension PoseDetectViewModel: VideoCaptureDelegate {
             guard let self = self else {
                 return
             }
-            self.updateViewFrame.value = didCaptureVideoFrame
+            self.updateViewFrame.value = UpdateViewFrame(viewFrame: didCaptureVideoFrame,
+                                                         isUsingFrontCamera: videoCapture.isUsingFrontCamera)
         }
-        self.poseViewOverlay.value = PoseOverlay(poses: poseViewModels.value,
+        self.poseViewOverlay.value = PoseViewOverlay(poses: poseViewModels.value,
                                                  width: imageWidth,
                                                  height: imageHeight,
                                                  previewLayer: previewLayer)
