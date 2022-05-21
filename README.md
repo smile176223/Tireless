@@ -59,3 +59,6 @@ Explore the community that moves together here.
 Liam Hsu</br>
 
 - email: <smile176223@gmail.com>
+
+## License
+Tireless is released under the MIT license. [See LICENSE](https://github.com/smile176223/Tireless/blob/feature/refactor/LICENSE) for details.
