@@ -23,16 +23,21 @@ Help you develop exercise habits by using the camera with the effect of motion r
 Explore the community that moves together here.  
 
 ## Features
+
 - Project Architecture Using MVVM.
-- Use firebase to store data when creating a plan.
+- Customized collectionview with compositional layouts.
+- Use Firebase to store data when creating a plan.
+- Use AVFoundation to preview camera footage.
 - Pose detect by using Google MLKit.
 - Use recognition results to determine motion.
 - When exercising, record the screen through ReplayKit.
-- Upload videos using firebase storage.
+- Upload videos using Firebase Storage.
 - Explore the video wall to read videos.
 - Use video caching when downloading videos to reduce the cost burden.
+- Managed basic synchronous and asynchronous execution with GCD operation.
+- Manage users with Firebase Authentication.
 
-## Third Party Library
+## Libraries
 - SwiftLint
 - Lottie
 - Google MLKit
@@ -45,3 +50,8 @@ Explore the community that moves together here.
 - Xcode 12+</br>
 - iOS 14.0+</br>
 - Swift 5
+
+## Contact
+Liam Hsu</br>
+
+- email: <smile176223@gmail.com>
