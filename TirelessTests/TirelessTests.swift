@@ -30,7 +30,7 @@ class TirelessTests: XCTestCase {
         
         bool = sut.checkBaseline(posePoint, baseline)
         
-        XCTAssertEqual(bool, true, "wtf")
+        XCTAssertEqual(bool, true, "wrong")
     }
 
     func testPerformanceExample() throws {
