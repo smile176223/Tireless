@@ -230,7 +230,8 @@ extension ProfileViewController: UICollectionViewDataSource {
         }
         
         headerView.isSetListButtonTab = { [weak self] in
-            self?.userSetAlert()
+//            self?.userSetAlert()
+            self?.setUserSettingAlert()
         }
         
         headerView.isBellAlertButtonTap = { [weak self] in
@@ -246,28 +247,19 @@ extension ProfileViewController: UICollectionViewDataSource {
 }
 
 extension ProfileViewController {
-    private func userSetAlert() {
-        let controller = UIAlertController(title: "設定", message: nil, preferredStyle: .actionSheet)
-        let deleteAction = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
-            let alert = UIAlertController(title: "確認是否刪除帳號",
-                                          message: "刪除後資料無法回復，請謹慎使用!",
-                                          preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "確認", style: .destructive) { _ in
+    private func setUserSettingAlert() {
+        let delete = UIAlertAction().addAction(title: "刪除帳號", style: .destructive) { _ in
+            let okAction = UIAlertAction().addAction(title: "確認", style: .destructive) { _ in
                 self.deleteAccount()
             }
-            let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-                self.dismiss(animated: true)
-            }
-            alert.addAction(okAction)
-            alert.addAction(cancelAction)
-            self.present(alert, animated: true)
+            let cancel = UIAlertAction().addAction(title: "取消", style: .default, handler: nil)
+            let actions = [okAction, cancel]
+            self.presentAlert(withTitle: "確認是否刪除帳號", message: "刪除後資料無法回復，請謹慎使用!", style: .alert, actions: actions)
         }
-        controller.addAction(deleteAction)
-        let blockAction = UIAlertAction(title: "黑名單", style: .default) { _ in
+        let block = UIAlertAction().addAction(title: "黑名單", style: .default) { _ in
             self.blockPresent()
         }
-        controller.addAction(blockAction)
-        let logoutAction = UIAlertAction(title: "登出", style: .default) { _ in
+        let logout = UIAlertAction().addAction(title: "登出", style: .default) { _ in
             AuthManager.shared.singOut { [weak self] result in
                 switch result {
                 case .success(let success):
@@ -280,18 +272,56 @@ extension ProfileViewController {
                 }
             }
         }
-        controller.addAction(logoutAction)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        // iPad specific code
-        controller.popoverPresentationController?.sourceView = self.view
-        let xOrigin = self.view.bounds.width / 2
-        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
-        controller.popoverPresentationController?.sourceRect = popoverRect
-        controller.popoverPresentationController?.permittedArrowDirections = .down
-        
-        present(controller, animated: true, completion: nil)
+        let actions = [delete, block, logout]
+        presentAlert(withTitle: "設定", message: nil, style: .actionSheet, actions: actions)
     }
+    
+//    private func userSetAlert() {
+//        let controller = UIAlertController(title: "設定", message: nil, preferredStyle: .actionSheet)
+//        let deleteAction = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
+//            let alert = UIAlertController(title: "確認是否刪除帳號",
+//                                          message: "刪除後資料無法回復，請謹慎使用!",
+//                                          preferredStyle: .alert)
+//            let okAction = UIAlertAction(title: "確認", style: .destructive) { _ in
+//                self.deleteAccount()
+//            }
+//            let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
+//                self.dismiss(animated: true)
+//            }
+//            alert.addAction(okAction)
+//            alert.addAction(cancelAction)
+//            self.present(alert, animated: true)
+//        }
+//        controller.addAction(deleteAction)
+//        let blockAction = UIAlertAction(title: "黑名單", style: .default) { _ in
+//            self.blockPresent()
+//        }
+//        controller.addAction(blockAction)
+//        let logoutAction = UIAlertAction(title: "登出", style: .default) { _ in
+//            AuthManager.shared.singOut { [weak self] result in
+//                switch result {
+//                case .success(let success):
+//                    ProgressHUD.showSuccess(text: "已登出")
+//                    self?.tabBarController?.selectedIndex = 0
+//                    print(success)
+//                case .failure(let error):
+//                    ProgressHUD.showFailure()
+//                    print(error)
+//                }
+//            }
+//        }
+//        controller.addAction(logoutAction)
+//        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+//        controller.addAction(cancelAction)
+//        // iPad specific code
+//        controller.popoverPresentationController?.sourceView = self.view
+//        let xOrigin = self.view.bounds.width / 2
+//        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
+//        controller.popoverPresentationController?.sourceRect = popoverRect
+//        controller.popoverPresentationController?.permittedArrowDirections = .down
+//
+//        present(controller, animated: true, completion: nil)
+//    }
     
     private func deleteAccount() {
         AuthManager.shared.deleteUser { [weak self] result in
@@ -314,28 +344,16 @@ extension ProfileViewController {
             }
         }
     }
-    
     private func setUserInfoAlert() {
-        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let imageChange = UIAlertAction(title: "更換圖片", style: .default) { _ in
+        let imageChange = UIAlertAction().addAction(title: "更換圖片", style: .default) { _ in
             self.selectImage()
         }
-        let nameChange = UIAlertAction(title: "更換姓名", style: .default) { _ in
+        let nameChange = UIAlertAction().addAction(title: "更換姓名", style: .default) { _ in
             self.editProfilePresent()
         }
-        controller.addAction(imageChange)
-        controller.addAction(nameChange)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        
-        // iPad specific code
-        controller.popoverPresentationController?.sourceView = self.view
-        let xOrigin = self.view.bounds.width / 2
-        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
-        controller.popoverPresentationController?.sourceRect = popoverRect
-        controller.popoverPresentationController?.permittedArrowDirections = .down
-        
-        present(controller, animated: true, completion: nil)
+        let cancel = UIAlertAction().addAction(title: "取消", style: .cancel, handler: nil)
+        let actions = [imageChange, nameChange, cancel]
+        presentAlert(withTitle: nil, message: nil, style: .actionSheet, actions: actions)
     }
     
     private func blockPresent() {
