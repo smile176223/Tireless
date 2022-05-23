@@ -19,9 +19,9 @@ Explore the community that moves together here.
 
 ## Features
 #### Hightlights
-- Use AVFoundation to preview camera footage.
+- Used AVFoundation to preview camera footage.
 - Pose detect by using Google MLKit.
-- Use recognition results and algorithm to determine motion.
+- Used recognition results and algorithm to determine motion.
 - Draw a real-time human skeleton on the screen camera preview.
 - When exercising, record the screen through ReplayKit.
 
@@ -29,12 +29,12 @@ Explore the community that moves together here.
 
 - Project Architecture Using MVVM.
 - Customized collectionview with compositional layouts.
-- Use Firebase to store data when creating a plan.
+- Used Firebase to store data when creating a plan.
 - Upload videos using Firebase Storage.
-- Explore the video wall to read videos.
+- Explored the video wall to read videos.
 - Utilized video cache to optimize the transfer of video data on a network to improve performance for users.
 - Managed basic synchronous and asynchronous execution with GCD operation.
-- Manage users with Firebase Authentication.
+- Managed users with Firebase Authentication.
 - Utilized Lottie to display animations.
 
 ## Libraries
