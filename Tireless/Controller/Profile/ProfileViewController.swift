@@ -230,7 +230,6 @@ extension ProfileViewController: UICollectionViewDataSource {
         }
         
         headerView.isSetListButtonTab = { [weak self] in
-//            self?.userSetAlert()
             self?.setUserSettingAlert()
         }
         
@@ -259,88 +258,30 @@ extension ProfileViewController {
         let block = UIAlertAction().addAction(title: "黑名單", style: .default) { _ in
             self.blockPresent()
         }
-        let logout = UIAlertAction().addAction(title: "登出", style: .default) { _ in
-            AuthManager.shared.singOut { [weak self] result in
-                switch result {
-                case .success(let success):
-                    ProgressHUD.showSuccess(text: "已登出")
-                    self?.tabBarController?.selectedIndex = 0
-                    print(success)
-                case .failure(let error):
-                    ProgressHUD.showFailure()
-                    print(error)
-                }
+        let logout = UIAlertAction().addAction(title: "登出", style: .default) { [weak self] _ in
+            self?.viewModel.signOut {
+                self?.tabBarController?.selectedIndex = 0
             }
         }
         let actions = [delete, block, logout]
         presentAlert(withTitle: "設定", message: nil, style: .actionSheet, actions: actions)
     }
     
-//    private func userSetAlert() {
-//        let controller = UIAlertController(title: "設定", message: nil, preferredStyle: .actionSheet)
-//        let deleteAction = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
-//            let alert = UIAlertController(title: "確認是否刪除帳號",
-//                                          message: "刪除後資料無法回復，請謹慎使用!",
-//                                          preferredStyle: .alert)
-//            let okAction = UIAlertAction(title: "確認", style: .destructive) { _ in
-//                self.deleteAccount()
-//            }
-//            let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-//                self.dismiss(animated: true)
-//            }
-//            alert.addAction(okAction)
-//            alert.addAction(cancelAction)
-//            self.present(alert, animated: true)
-//        }
-//        controller.addAction(deleteAction)
-//        let blockAction = UIAlertAction(title: "黑名單", style: .default) { _ in
-//            self.blockPresent()
-//        }
-//        controller.addAction(blockAction)
-//        let logoutAction = UIAlertAction(title: "登出", style: .default) { _ in
-//            AuthManager.shared.singOut { [weak self] result in
-//                switch result {
-//                case .success(let success):
-//                    ProgressHUD.showSuccess(text: "已登出")
-//                    self?.tabBarController?.selectedIndex = 0
-//                    print(success)
-//                case .failure(let error):
-//                    ProgressHUD.showFailure()
-//                    print(error)
-//                }
-//            }
-//        }
-//        controller.addAction(logoutAction)
-//        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-//        controller.addAction(cancelAction)
-//        // iPad specific code
-//        controller.popoverPresentationController?.sourceView = self.view
-//        let xOrigin = self.view.bounds.width / 2
-//        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
-//        controller.popoverPresentationController?.sourceRect = popoverRect
-//        controller.popoverPresentationController?.permittedArrowDirections = .down
-//
-//        present(controller, animated: true, completion: nil)
-//    }
-    
     private func deleteAccount() {
-        AuthManager.shared.deleteUser { [weak self] result in
+        viewModel.deleteAccount { [weak self] result in
             switch result {
             case .success(let string):
-                print(string)
                 self?.tabBarController?.selectedIndex = 0
+                print(string)
             case .failure(let error):
                 print(error)
-                let alert = UIAlertController(title: "錯誤",
-                                              message: "麻煩再次登入才可刪除帳號!",
-                                              preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "ok", style: .default) { _ in
+                let okAction = UIAlertAction().addAction(title: "ok", style: .default) { _ in
                     if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
                         self?.present(authVC, animated: true, completion: nil)
                     }
                 }
-                alert.addAction(okAction)
-                self?.present(alert, animated: true)
+                let actions = [okAction]
+                self?.presentAlert(withTitle: "錯誤", message: "麻煩再次登入才可刪除帳號!", style: .alert, actions: actions)
             }
         }
     }
@@ -413,35 +354,18 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             imagePicker.allowsEditing = true
             imagePicker.sourceType = .photoLibrary
             imagePicker.delegate = self
-            
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo
                                info: [UIImagePickerController.InfoKey: Any]) {
+        
         guard let image: UIImage = info[.editedImage] as? UIImage else { return }
         guard let imageData: Data = image.jpegData(compressionQuality: 0.5) else { return }
         ProgressHUD.show()
-        ShareManager.shared.uploadPicture(imageData: imageData) { result in
-            switch result {
-            case .success(let url):
-                print(url)
-                AuthManager.shared.getCurrentUser { result in
-                    switch result {
-                    case .success(let bool):
-                        print(bool)
-                        ProgressHUD.showSuccess(text: "成功更換")
-                        self.collectionView.reloadData()
-                    case .failure(let error):
-                        ProgressHUD.showFailure(text: "讀取失敗")
-                        print(error)
-                    }
-                }
-            case .failure(let error):
-                ProgressHUD.showFailure(text: "更換失敗")
-                print(error)
-            }
+        viewModel.uploadPicture(imageData: imageData) { [weak self] in
+            self?.collectionView.reloadData()
         }
         dismiss(animated: true, completion: nil)
     }
