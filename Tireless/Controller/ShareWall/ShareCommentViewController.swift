@@ -23,10 +23,8 @@ class ShareCommentViewController: UIViewController {
     }
     
     let maskView = UIView(frame: UIScreen.main.bounds)
-    
-    var shareFile: ShareFiles?
-    
-    let viewModel = ShareCommentViewModel()
+
+    var viewModel: ShareCommentViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +34,7 @@ class ShareCommentViewController: UIViewController {
         tableView.register(UINib(nibName: "\(ShareCommentViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(ShareCommentViewCell.self)")
         
-        viewModel.commentsViewModel.bind { _ in
+        viewModel?.commentsViewModel.bind { _ in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -44,10 +42,7 @@ class ShareCommentViewController: UIViewController {
         
     }
     override func viewWillAppear(_ animated: Bool) {
-        guard let shareFile = shareFile else {
-            return
-        }
-        viewModel.fetchData(uuid: shareFile.uuid)
+        viewModel?.fetchData()
     }
     
     private func setupLayout() {
@@ -74,7 +69,7 @@ class ShareCommentViewController: UIViewController {
             return
         }
         if AuthManager.shared.checkCurrentUser() == true {
-            guard let shareFile = shareFile,
+            guard let shareFile = viewModel?.shareFile,
                   let commentText = commentTextField.text else {
                 return
             }
@@ -129,7 +124,7 @@ class ShareCommentViewController: UIViewController {
 
 extension ShareCommentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.commentsViewModel.value.count
+        viewModel?.commentsViewModel.value.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -138,7 +133,9 @@ extension ShareCommentViewController: UITableViewDelegate, UITableViewDataSource
             return UITableViewCell()
         }
         
-        let cellViewModel = self.viewModel.commentsViewModel.value[indexPath.row]
+        guard let cellViewModel = self.viewModel?.commentsViewModel.value[indexPath.row] else {
+            return cell
+        }
         cell.setup(viewModel: cellViewModel)
         
         cell.isSetButtonTap = { [weak self] in

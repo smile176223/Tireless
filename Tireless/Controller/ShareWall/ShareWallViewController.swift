@@ -84,7 +84,7 @@ class ShareWallViewController: UIViewController {
         else {
             return
         }
-        commentVC.shareFile = shareFile
+        commentVC.viewModel = ShareCommentViewModel(shareFile: shareFile)
         commentVC.modalTransitionStyle = .coverVertical
         commentVC.modalPresentationStyle = .overCurrentContext
         self.tabBarController?.present(commentVC, animated: true)

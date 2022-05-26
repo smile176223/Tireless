@@ -19,23 +19,26 @@ Explore the community that moves together here.
 
 ## Features
 #### Hightlights
-- Used AVFoundation to preview camera footage.
-- Pose detect by using Google MLKit.
-- Used recognition results and algorithm to determine motion.
-- Draw a real-time human skeleton on the screen camera preview.
+- Used AVFoundation to preview the camera footage and record the user's motion.
+- Used Google ML Kit to instantly draw human skeletons on the camera preview while recording user movement.
+- Designed an algorithm to analyze the result of the module identification to determine whether the user followed the corresponding exercise menu.
 - When exercising, record the screen through ReplayKit.
 
 #### Skills
 
-- Project Architecture Using MVVM.
-- Customized collectionview with compositional layouts.
+- Used the MVVM design pattern as core architectural design.
 - Used Firebase to store data when creating a plan.
+- Used Firebase DataSnapshot to create an exercise menu with other users in real-time.
 - Upload videos using Firebase Storage.
 - Explored the video wall to read videos.
 - Utilized video cache to optimize the transfer of video data on a network to improve performance for users.
 - Managed basic synchronous and asynchronous execution with GCD operation.
 - Managed users with Firebase Authentication.
 - Utilized Lottie to display animations.
+- Customized collectionview with compositional layouts.
+
+## Screen Shots
+
 
 ## Libraries
 - SwiftLint
