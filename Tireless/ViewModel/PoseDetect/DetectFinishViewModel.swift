@@ -44,8 +44,7 @@ class DetectFinishViewModel {
             case .success(let uuid):
                 self.updateValue(videoId: uuid)
                 self.uploadStatus.value = true
-            case .failure(let error):
-                print(error)
+            case .failure:
                 self.uploadStatus.value = false
             }
         }

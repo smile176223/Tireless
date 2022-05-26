@@ -247,24 +247,25 @@ extension ProfileViewController: UICollectionViewDataSource {
 
 extension ProfileViewController {
     private func setUserSettingAlert() {
-        let delete = UIAlertAction().addAction(title: "刪除帳號", style: .destructive) { _ in
-            let okAction = UIAlertAction().addAction(title: "確認", style: .destructive) { _ in
+        let delete = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
+            let okAction = UIAlertAction(title: "確認", style: .destructive) { _ in
                 self.deleteAccount()
             }
-            let cancel = UIAlertAction().addAction(title: "取消", style: .default, handler: nil)
+            let cancel = UIAlertAction.cancelAction
             let actions = [okAction, cancel]
             self.presentAlert(withTitle: "確認是否刪除帳號", message: "刪除後資料無法回復，請謹慎使用!", style: .alert, actions: actions)
         }
-        let block = UIAlertAction().addAction(title: "黑名單", style: .default) { _ in
+        let block = UIAlertAction(title: "黑名單", style: .default) { _ in
             self.blockPresent()
         }
-        let logout = UIAlertAction().addAction(title: "登出", style: .default) { [weak self] _ in
+        let logout = UIAlertAction(title: "登出", style: .default) { [weak self] _ in
             self?.viewModel.signOut {
                 self?.tabBarController?.selectedIndex = 0
             }
         }
-        let actions = [delete, block, logout]
-        presentAlert(withTitle: "設定", message: nil, style: .actionSheet, actions: actions)
+        let cancel = UIAlertAction.cancelAction
+        let actions = [delete, block, logout, cancel]
+        presentAlert(withTitle: "設定", style: .actionSheet, actions: actions)
     }
     
     private func deleteAccount() {
@@ -275,26 +276,27 @@ extension ProfileViewController {
                 print(string)
             case .failure(let error):
                 print(error)
-                let okAction = UIAlertAction().addAction(title: "ok", style: .default) { _ in
+                let okAction = UIAlertAction(title: "ok", style: .default) { _ in
                     if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
                         self?.present(authVC, animated: true, completion: nil)
                     }
                 }
+                
                 let actions = [okAction]
                 self?.presentAlert(withTitle: "錯誤", message: "麻煩再次登入才可刪除帳號!", style: .alert, actions: actions)
             }
         }
     }
     private func setUserInfoAlert() {
-        let imageChange = UIAlertAction().addAction(title: "更換圖片", style: .default) { _ in
+        let imageChange = UIAlertAction(title: "更換圖片", style: .default) { _ in
             self.selectImage()
         }
-        let nameChange = UIAlertAction().addAction(title: "更換姓名", style: .default) { _ in
+        let nameChange = UIAlertAction(title: "更換姓名", style: .default) { _ in
             self.editProfilePresent()
         }
-        let cancel = UIAlertAction().addAction(title: "取消", style: .cancel, handler: nil)
+        let cancel = UIAlertAction.cancelAction
         let actions = [imageChange, nameChange, cancel]
-        presentAlert(withTitle: nil, message: nil, style: .actionSheet, actions: actions)
+        presentAlert(style: .actionSheet, actions: actions)
     }
     
     private func blockPresent() {
@@ -363,7 +365,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         
         guard let image: UIImage = info[.editedImage] as? UIImage else { return }
         guard let imageData: Data = image.jpegData(compressionQuality: 0.5) else { return }
-        ProgressHUD.show()
         viewModel.uploadPicture(imageData: imageData) { [weak self] in
             self?.collectionView.reloadData()
         }

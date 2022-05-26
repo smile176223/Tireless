@@ -10,17 +10,13 @@ import UIKit
 
 extension UIViewController {
 
-    func presentAlert(withTitle title: String?,
-                      message: String?,
+    func presentAlert(withTitle title: String? = nil,
+                      message: String? = nil,
                       style: UIAlertController.Style,
                       actions: [UIAlertAction]) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
         
-        for action in actions {
-            
-            alertController.addAction(action)
-            
-        }
+        actions.forEach { alertController.addAction($0) }
         
         // For iPad Setting
         alertController.popoverPresentationController?.sourceView = self.view
@@ -39,10 +35,5 @@ extension UIViewController {
 
 extension UIAlertAction {
     
-    func addAction(title: String, style: UIAlertAction.Style, handler: ((UIAlertAction) -> Void)?) -> UIAlertAction {
-        
-        let alertAction = UIAlertAction(title: title, style: style, handler: handler)
-        
-        return alertAction
-    }
+    static let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
 }

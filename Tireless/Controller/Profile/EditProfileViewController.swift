@@ -65,6 +65,9 @@ class EditProfileViewController: UIViewController {
                 }
                 print(text)
             case .failure(let error):
+//                if let tryerror = error as? TirelessError {
+//                    tryerror.text
+//                }
                 ProgressHUD.showFailure()
                 print(error)
             }
