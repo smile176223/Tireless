@@ -91,19 +91,32 @@ class UserManager {
             }
         }
     }
-    
+    // Delete Account
     func deleteUser(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
-        let joinDB = Firestore.firestore().collection("JoinGroups")
-        let groupPlanDB = Firestore.firestore().collection("GroupPlans")
         deleteUserFriends(userId: userId) { result in
             switch result {
             case .success(let string):
+                print(string)
                 self.userDB.document(userId).delete()
-                completion(.success(string))
+                self.deleteUserShareWall(userId: userId)
+                self.deleteUserDataBase(userId: userId) { result in
+                    switch result {
+                    case .success(let string):
+                        completion(.success(string))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
             case .failure(let error):
                 completion(.failure(error))
             }
         }
+        
+    }
+    
+    private func deleteUserDataBase(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
+        let joinDB = Firestore.firestore().collection("JoinGroups")
+        let groupPlanDB = Firestore.firestore().collection("GroupPlans")
         joinDB.whereField("createdUserId", isEqualTo: userId).getDocuments { querySnapshot, error in
             guard let querySnapshot = querySnapshot else { return }
             if let error = error {
@@ -146,22 +159,43 @@ class UserManager {
         completion(.success("success"))
     }
     
+    private func deleteUserShareWall(userId: String) {
+        let shareWallDB = Firestore.firestore().collection("shareWall")
+        shareWallDB.whereField("userId", isEqualTo: userId).getDocuments { querySnapshot, error in
+            guard let querySnapshot = querySnapshot else { return }
+            if error != nil {
+                return
+            } else {
+                for document in querySnapshot.documents {
+                    document.reference.delete()
+                }
+            }
+        }
+    }
+    
+    // Delete friends
     func deleteUserFriends(userId: String, completion: @escaping (Result<String, Error>) -> Void) {
         let ref = userDB.document(userId).collection("Friends")
         ref.getDocuments { querySnapshot, error in
-            guard let querySnapshot = querySnapshot else { return }
+            guard let querySnapshot = querySnapshot else {
+                return
+            }
             if let error = error {
                 completion(.failure(error))
                 return
             } else {
-                for doucument in querySnapshot.documents {
-                    if let userId = try? doucument.data(as: UserId.self, decoder: Firestore.Decoder()) {
-                        FriendManager.shared.deleteFriend(userId: userId.userId) { result in
-                            switch result {
-                            case .success(let string):
-                                completion(.success(string))
-                            case .failure(let error):
-                                completion(.failure(error))
+                if querySnapshot.documents.count == 0 {
+                    completion(.success("No friends"))
+                } else {
+                    for doucument in querySnapshot.documents {
+                        if let userId = try? doucument.data(as: UserId.self, decoder: Firestore.Decoder()) {
+                            FriendManager.shared.deleteFriend(userId: userId.userId) { result in
+                                switch result {
+                                case .success(let string):
+                                    completion(.success(string))
+                                case .failure(let error):
+                                    completion(.failure(error))
+                                }
                             }
                         }
                     }
@@ -170,6 +204,7 @@ class UserManager {
         }
     }
     
+    // Block User
     func blockUser(blockId: String, completion: @escaping (Result<String, Error>) -> Void) {
         let blockLists = userDB.document(AuthManager.shared.currentUser).collection("BlockLists").document(blockId)
         blockLists.setData(["userId": blockId])

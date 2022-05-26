@@ -6,150 +6,116 @@
 //
 
 import UIKit
-import MLKit
 import AVFoundation
 import Lottie
 
 class PoseDetectViewController: UIViewController {
-    @IBOutlet weak var cameraPreView: UIView!
+    
+    @IBOutlet weak var cameraPreView: PoseDetectView!
     
     @IBOutlet weak var countLabel: UILabel!
     
-    @IBOutlet weak var recordButton: UIButton!
+    @IBOutlet weak var confidenceLabel: UILabel!
     
-    @IBOutlet weak var inFrameLikeLiHoodLabel: UILabel!
-    
-    private enum Constant {
-        static let videoDataOutputQueueLabel = "com.LiamHao.Tireless.VideoDataOutputQueue"
-        static let sessionQueueLabel = "com.LiamHao.Tireless.SessionQueue"
-        static let smallDotRadius: CGFloat = 4.0
-        static let lineWidth: CGFloat = 3.0
-    }
-    
-    private var isUsingFrontCamera = true
-    
-    private var isUserRejectRecording = false
-    
-    private var previewLayer: AVCaptureVideoPreviewLayer?
-    
-    private lazy var captureSession = AVCaptureSession()
-    
-    private lazy var sessionQueue = DispatchQueue(label: Constant.sessionQueueLabel)
-    
-    private var lastFrame: CMSampleBuffer?
-    
-    private let viewModel = PoseDetectViewModel()
-    
-    private let planViewModel = PlanManageViewModel()
-    
-    var planTarget: Int = 0
-    
-    var plan: Plan?
-    
-    private var counter = 0 {
-        didSet {
-            if counter == planTarget {
-                self.lottieDetectDone()
-            }
-        }
-    }
-    
-    private var startFlag = false {
-        didSet {
-            if startFlag == true {
-                lottieCountDownGo()
-            }
-        }
-    }
-    
-    private var drawStart = false
+    var viewModel: PoseDetectViewModel?
+
+    private var drawPose = false
     
     private var lottieView: AnimationView?
     
-    private let videoRecordManager = VideoRecordManager()
-    
-    private var videoUrl: URL?
-
-    private lazy var previewOverlayView: UIImageView = {
-        precondition(isViewLoaded)
-        let previewOverlayView = UIImageView(frame: .zero)
-        previewOverlayView.contentMode = UIView.ContentMode.scaleAspectFill
-        previewOverlayView.translatesAutoresizingMaskIntoConstraints = false
-        return previewOverlayView
-    }()
-    
-    private lazy var annotationOverlayView: UIView = {
-        precondition(isViewLoaded)
-        let annotationOverlayView = UIView(frame: .zero)
-        annotationOverlayView.translatesAutoresizingMaskIntoConstraints = false
-        return annotationOverlayView
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        setUpPreviewOverlayView()
-        setUpAnnotationOverlayView()
-        setUpCaptureSessionOutput()
-        setUpCaptureSessionInput()
-        setupBackButton()
         
+        viewModel?.setupSession()
+        
+        viewModel?.setupVideoRecord()
+
         setupLabel(countLabel)
-        setupLabel(inFrameLikeLiHoodLabel)
-    
-        recordButton.layer.cornerRadius = 25
         
-        videoRecordManager.getVideoRecordUrl = { [weak self] url in
-            self?.videoUrl = url
-        }
+        setupLabel(confidenceLabel)
         
-        videoRecordManager.userRejectRecord = { [weak self] in
-            self?.isUserRejectRecording = true
-        }
-        
-        viewModel.noPoint = { [weak self] in
-            DispatchQueue.main.async {
-                self?.inFrameLikeLiHoodLabel.text = "人體準確度：0%"
-            }
-        }
-        
-        viewModel.inFrameLikeLiHoodRefresh = { [weak self] inFrameLikeLiHood in
-            self?.inFrameLikeLiHoodLabel.text = "人體準確度：\(inFrameLikeLiHood)%"
-        }
+        setupBind()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupCurrentExercise()
-        videoRecordManager.startRecording { [weak self] in
-            self?.startSession()
-            self?.drawStart = true
+        viewModel?.startRecording { [weak self] in
+            self?.viewModel?.startCapture()
+            self?.drawPose = true
         }
-//        startSession()
-//        drawStart = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.stopTimer()
-        stopSession()
+        
+        viewModel?.stopTimer()
+        
+        self.viewModel?.stopCapture()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        previewLayer?.frame = cameraPreView.bounds
+        viewModel?.setupPreviewLayer(view: cameraPreView)
     }
     
-    @IBAction func recordTap(_ sender: UIButton) {
-        counter = planTarget
+    @IBAction func bacKButtonTap(_ sender: UIButton) {
+        viewModel?.userTapBack()
+        self.dismiss(animated: true)
     }
     
-    private func setupCurrentExercise() {
-        viewModel.resetExercise()
-        guard let plan = plan else {
-            return
+    private func setupBind() {
+        viewModel?.noPoint.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.confidenceLabel.text = "人體準確度：0%"
+            }
         }
-        viewModel.setupExercise(with: plan)
+        
+        viewModel?.confidenceRefresh.bind { [weak self] inFrameLikeLiHood in
+            self?.confidenceLabel.text = "人體準確度：\(inFrameLikeLiHood)%"
+        }
+        
+        viewModel?.countRefresh.bind { [weak self] count in
+            if count == -1 {
+                self?.countLabel.text = "請盡量拍到全身"
+            } else {
+                self?.countLabel.text = "\(count)"
+            }
+        }
+        
+        viewModel?.isPoseDetectStart.bind { [weak self] isStart in
+            if isStart {
+                DispatchQueue.main.async {
+                    self?.lottieCountDownGo()
+                }
+            }
+        }
+        
+        viewModel?.finishExercise.bind { [weak self] isFinish in
+            if isFinish {
+                DispatchQueue.main.async {
+                    self?.lottieDetectDone()
+                }
+            }
+        }
+        
+        viewModel?.updateViewFrame.bind { [weak self] updateViewFrame in
+            self?.cameraPreView.updatePreviewOverlayViewWithLastFrame(
+                lastFrame: updateViewFrame?.viewFrame,
+                isUsingFrontCamera: updateViewFrame?.isUsingFrontCamera ?? false)
+            self?.cameraPreView.removeDetectionAnnotations()
+        }
+        
+        viewModel?.poseViewOverlay.bind { poseOverlay in
+            guard let poseOverlay = poseOverlay else {
+                return
+            }
+            if self.drawPose == true {
+                self.cameraPreView.drawPoseOverlay(poses: poseOverlay.poses,
+                                                   width: poseOverlay.width,
+                                                   height: poseOverlay.height,
+                                                   previewLayer: poseOverlay.previewLayer)
+            }
+        }
     }
     
     private func setupLabel(_ label: UILabel) {
@@ -160,262 +126,77 @@ class PoseDetectViewController: UIViewController {
         label.layer.masksToBounds = false
     }
     
-    func blurEffect() {
+    private func blurEffect() {
         let effect = UIBlurEffect(style: .light)
         let effectView = UIVisualEffectView(effect: effect)
         effectView.frame = cameraPreView.bounds
         cameraPreView.addSubview(effectView)
     }
     
-    private func setupBackButton() {
-        self.navigationItem.hidesBackButton = true
-        let customBackButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"),
-                                               style: UIBarButtonItem.Style.plain,
-                                               target: self,
-                                               action: #selector(backTap))
-        customBackButton.tintColor = .black
-        self.navigationItem.leftBarButtonItem = customBackButton
-    }
-    
-    @objc func backTap(_ sender: UIButton) {
-        videoRecordManager.userTapBack()
-        self.navigationController?.popToRootViewController(animated: true)
-    }
-    @IBAction func bacKButtonTap(_ sender: Any) {
-        self.dismiss(animated: true)
-    }
-    
-    func lottieCountDownGo() {
+    private func setupLottie(_ name: String, speed: Double) {
         countLabel.isHidden = true
-        lottieView = .init(name: "CountDownGo")
+        lottieView = .init(name: name)
         lottieView?.frame = view.bounds
         cameraPreView.addSubview(lottieView ?? UIView())
         lottieView?.contentMode = .scaleAspectFit
         lottieView?.loopMode = .playOnce
-        lottieView?.animationSpeed = 1.5
+        lottieView?.animationSpeed = speed
+    }
+    
+    private func lottieCountDownGo() {
+        setupLottie(Lottie.countDownGo.name, speed: 1.5)
         lottieView?.play(completion: { [weak self] _ in
-            guard let self = self else { return }
+            guard let self = self else {
+                return
+            }
             self.lottieView?.removeFromSuperview()
             self.countLabel.isHidden = false
-            self.countLabel.text = "\(0)"
-            self.drawStart = true
+            self.drawPose = true
         })
     }
-    
-    func lottieDetectDone() {
-        countLabel.isHidden = true
-        drawStart = false
-        lottieView = .init(name: "DetectDone")
-        lottieView?.frame = view.bounds
-        cameraPreView.addSubview(lottieView ?? UIView())
-        lottieView?.contentMode = .scaleAspectFit
-        lottieView?.loopMode = .playOnce
-        lottieView?.animationSpeed = 1
+    private func lottieDetectDone() {
+        drawPose = false
+        setupLottie(Lottie.detectDone.name, speed: 1)
         lottieView?.play(completion: { [weak self] _ in
-            guard let self = self else { return }
+            guard let self = self else {
+                return
+            }
             self.lottieView?.removeFromSuperview()
-            self.videoRecordManager.stopRecording { url in
-                self.popupFinish(url)
-            } failure: {
-                self.popupFinish(self.videoUrl)
+            self.viewModel?.stopRecording {
+                self.popupFinish()
             }
         })
     }
     
-    private func setUpCaptureSessionOutput() {
-        sessionQueue.async {
-            self.captureSession.beginConfiguration()
-            self.captureSession.sessionPreset = AVCaptureSession.Preset.vga640x480
-            let output = AVCaptureVideoDataOutput()
-            output.videoSettings = [
-                (kCVPixelBufferPixelFormatTypeKey as String): kCVPixelFormatType_32BGRA
-            ]
-            output.alwaysDiscardsLateVideoFrames = true
-            let outputQueue = DispatchQueue(label: Constant.videoDataOutputQueueLabel)
-            output.setSampleBufferDelegate(self, queue: outputQueue)
-            guard self.captureSession.canAddOutput(output) else {
-                print("Failed to add capture session output.")
-                return
-            }
-            self.captureSession.addOutput(output)
-            self.captureSession.commitConfiguration()
-        }
-    }
-    
-    private func setUpCaptureSessionInput() {
-        sessionQueue.async {
-            let cameraPosition: AVCaptureDevice.Position = self.isUsingFrontCamera ? .front : .back
-            guard let device = self.captureDevice(forPosition: cameraPosition) else {
-                print("Failed to get capture device for camera position: \(cameraPosition)")
-                return
-            }
-            do {
-                self.captureSession.beginConfiguration()
-                let currentInputs = self.captureSession.inputs
-                for input in currentInputs {
-                    self.captureSession.removeInput(input)
-                }
-                let input = try AVCaptureDeviceInput(device: device)
-                guard self.captureSession.canAddInput(input) else {
-                    print("Failed to add capture session input.")
-                    return
-                }
-                self.captureSession.addInput(input)
-                self.captureSession.commitConfiguration()
-            } catch {
-                print("Failed to create capture device input: \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    private func captureDevice(forPosition position: AVCaptureDevice.Position) -> AVCaptureDevice? {
-        let discoverySession = AVCaptureDevice.DiscoverySession(
-            deviceTypes: [.builtInWideAngleCamera],
-            mediaType: .video,
-            position: .unspecified
-        )
-        return discoverySession.devices.first { $0.position == position }
-    }
-    
-    private func startSession() {
-        sessionQueue.async { [weak self] in
-            self?.captureSession.startRunning()
-        }
-    }
-    
-    private func stopSession() {
-        sessionQueue.async { [weak self] in
-            self?.captureSession.stopRunning()
-        }
-    }
-    
-    private func setUpPreviewOverlayView() {
-        cameraPreView.addSubview(previewOverlayView)
-        NSLayoutConstraint.activate([
-            previewOverlayView.centerXAnchor.constraint(equalTo: cameraPreView.centerXAnchor),
-            previewOverlayView.centerYAnchor.constraint(equalTo: cameraPreView.centerYAnchor),
-            previewOverlayView.leadingAnchor.constraint(equalTo: cameraPreView.leadingAnchor),
-            previewOverlayView.trailingAnchor.constraint(equalTo: cameraPreView.trailingAnchor),
-            previewOverlayView.topAnchor.constraint(equalTo: cameraPreView.topAnchor),
-            previewOverlayView.bottomAnchor.constraint(equalTo: cameraPreView.bottomAnchor)
-        ])
-    }
-    
-    private func setUpAnnotationOverlayView() {
-        cameraPreView.addSubview(annotationOverlayView)
-        NSLayoutConstraint.activate([
-            annotationOverlayView.topAnchor.constraint(equalTo: cameraPreView.topAnchor),
-            annotationOverlayView.leadingAnchor.constraint(equalTo: cameraPreView.leadingAnchor),
-            annotationOverlayView.trailingAnchor.constraint(equalTo: cameraPreView.trailingAnchor),
-            annotationOverlayView.bottomAnchor.constraint(equalTo: cameraPreView.bottomAnchor)
-        ])
-    }
-    
-    private func updatePreviewOverlayViewWithLastFrame() {
-        guard let lastFrame = lastFrame, let imageBuffer = CMSampleBufferGetImageBuffer(lastFrame)
-        else {
-            return
-        }
-        self.updatePreviewOverlayViewWithImageBuffer(imageBuffer)
-    }
-    
-    private func updatePreviewOverlayViewWithImageBuffer(_ imageBuffer: CVImageBuffer?) {
-        guard let imageBuffer = imageBuffer else {
-            return
-        }
-        let orientation: UIImage.Orientation = isUsingFrontCamera ? .leftMirrored : .right
-        let image = UIUtilities.createUIImage(from: imageBuffer, orientation: orientation)
-        previewOverlayView.image = image
-    }
-    
-    private func removeDetectionAnnotations() {
-        for annotationView in annotationOverlayView.subviews {
-            annotationView.removeFromSuperview()
-        }
-    }
-    
-    func popupFinish(_ videoURL: URL? = nil) {
-        guard let showAlert = UIStoryboard.home.instantiateViewController(
+    private func popupFinish() {
+        guard let finishVC = UIStoryboard.poseDetect.instantiateViewController(
             withIdentifier: "\(DetectFinishViewController.self)")
                 as? DetectFinishViewController
         else {
             return
         }
-        showAlert.videoURL = videoURL
-        showAlert.plan = plan
-        if isUserRejectRecording == true {
-            showAlert.isUserRejectRecording = true
-        }
-        let navShowVC = UINavigationController(rootViewController: showAlert)
-        navShowVC.modalPresentationStyle = .overCurrentContext
-        navShowVC.modalTransitionStyle = .crossDissolve
-        navShowVC.view.backgroundColor = .clear
-        
-        self.present(navShowVC, animated: true, completion: { [weak self] in
-            self?.blurEffect()
-            self?.stopSession()
-        })
-    }
-}
-
-extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
-    func captureOutput(
-        _ output: AVCaptureOutput,
-        didOutput sampleBuffer: CMSampleBuffer,
-        from connection: AVCaptureConnection
-    ) {
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+        guard let plan = viewModel?.plan else {
             return
         }
-        lastFrame = sampleBuffer
-        let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
-        let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
-        DispatchQueue.main.sync {
-            self.updatePreviewOverlayViewWithLastFrame()
-            self.removeDetectionAnnotations()
+        if let videoURL = viewModel?.videoURL.value {
+            finishVC.viewModel = DetectFinishViewModel(plan: plan,
+                                                       videoURL: videoURL)
+        } else {
+            finishVC.viewModel = DetectFinishViewModel(plan: plan,
+                                                       videoURL: nil)
         }
-        guard let previewLayer = previewLayer else { return }
-        if counter != planTarget {
-            viewModel.detectPose(in: sampleBuffer, width: imageWidth, height: imageHeight, previewLayer: previewLayer)
-            
-            if drawStart == true {
-                viewModel.countRefresh = { [weak self] countNumber in
-                    if self?.startFlag == false {
-                        self?.startFlag = true
-                    }
-                    self?.countLabel.text = "\(countNumber)"
-                    self?.counter = countNumber
-                }
-                // draw pose
-                viewModel.poseViewModels.bind { poses in
-                    DispatchQueue.main.async {
-                        poses.forEach { poses in
-                            let poseOverlayView = UIUtilities.createPoseOverlayView(
-                                forPose: poses,
-                                inViewWithBounds: self.annotationOverlayView.bounds,
-                                lineWidth: Constant.lineWidth,
-                                dotRadius: Constant.smallDotRadius,
-                                positionTransformationClosure: { (position) -> CGPoint in
-                                    return self.normalizedPoint(
-                                        fromVisionPoint: position, width: imageWidth, height: imageHeight)
-                                }
-                            )
-                            self.annotationOverlayView.addSubview(poseOverlayView)
-                        }
-                    }
-                }
-            }
+        if viewModel?.recordStatus == .userReject {
+            finishVC.viewModel?.recordStatus = .userReject
         }
-    }
-    
-    private func normalizedPoint(
-        fromVisionPoint point: VisionPoint,
-        width: CGFloat,
-        height: CGFloat
-    ) -> CGPoint {
-        let cgPoint = CGPoint(x: point.x, y: point.y)
-        var normalizedPoint = CGPoint(x: cgPoint.x / width, y: cgPoint.y / height)
-        normalizedPoint = previewLayer?.layerPointConverted(fromCaptureDevicePoint: normalizedPoint) ?? CGPoint()
-        return normalizedPoint
+        
+        let navFinishVC = UINavigationController(rootViewController: finishVC)
+        navFinishVC.modalPresentationStyle = .overCurrentContext
+        navFinishVC.modalTransitionStyle = .crossDissolve
+        navFinishVC.view.backgroundColor = .clear
+        
+        self.present(navFinishVC, animated: true, completion: { [weak self] in
+            self?.blurEffect()
+            self?.viewModel?.stopCapture()
+        })
     }
 }

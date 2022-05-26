@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -58,104 +57,6 @@
             </objects>
             <point key="canvasLocation" x="471.01449275362324" y="93.75"/>
         </scene>
-        <!--Pose Detect View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController storyboardIdentifier="PoseDetectViewController" id="BYZ-38-t0r" customClass="PoseDetectViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KWo-Ub-40G">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="請盡量拍到全身" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0am-LU-uPW">
-                                <rect key="frame" x="10" y="357" width="394" height="182"/>
-                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="65"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YmP-KB-PVm">
-                                <rect key="frame" x="50" y="124" width="314" height="42"/>
-                                <fontDescription key="fontDescription" name="PingFangTC-Semibold" family="PingFang TC" pointSize="30"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x3I-UH-LHj">
-                                <rect key="frame" x="182" y="762" width="50" height="50"/>
-                                <color key="backgroundColor" name="themeYellow"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="IjT-ud-8HI"/>
-                                    <constraint firstAttribute="width" secondItem="x3I-UH-LHj" secondAttribute="height" id="ccg-sd-Afr"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <connections>
-                                    <action selector="recordTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fc5-2Q-zE6"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXz-2S-P4b">
-                                <rect key="frame" x="20" y="64" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="IA9-XW-0jU"/>
-                                    <constraint firstAttribute="height" constant="50" id="qmk-gf-xev"/>
-                                </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" backgroundImage="Icons_Back"/>
-                                <connections>
-                                    <action selector="bacKButtonTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HZq-Yq-TWf"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="KWo-Ub-40G" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0kZ-iw-83j"/>
-                            <constraint firstItem="0am-LU-uPW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5ly-dH-V15"/>
-                            <constraint firstItem="YmP-KB-PVm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="5uO-nf-SZG"/>
-                            <constraint firstItem="0am-LU-uPW" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="6t9-AM-5q7"/>
-                            <constraint firstItem="QXz-2S-P4b" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="85w-yA-PBC"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="x3I-UH-LHj" secondAttribute="bottom" constant="50" id="Do6-b0-FLr"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0am-LU-uPW" secondAttribute="trailing" constant="10" id="PRa-gZ-g03"/>
-                            <constraint firstAttribute="trailing" secondItem="KWo-Ub-40G" secondAttribute="trailing" id="Uph-iV-67C"/>
-                            <constraint firstAttribute="bottom" secondItem="KWo-Ub-40G" secondAttribute="bottom" id="Wne-fG-WQ4"/>
-                            <constraint firstItem="KWo-Ub-40G" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="r52-sP-T1o"/>
-                            <constraint firstItem="QXz-2S-P4b" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="sfb-yQ-qGy"/>
-                            <constraint firstItem="YmP-KB-PVm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="t49-59-9S7"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YmP-KB-PVm" secondAttribute="trailing" constant="50" id="vtE-67-tmZ"/>
-                            <constraint firstItem="x3I-UH-LHj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zQc-wc-V9T"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="cameraPreView" destination="KWo-Ub-40G" id="lko-HD-8Dn"/>
-                        <outlet property="countLabel" destination="0am-LU-uPW" id="7Gh-nM-yea"/>
-                        <outlet property="inFrameLikeLiHoodLabel" destination="YmP-KB-PVm" id="HzO-CI-Bq3"/>
-                        <outlet property="recordButton" destination="x3I-UH-LHj" id="544-YY-8qT"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1223.1884057971015" y="93.75"/>
-        </scene>
-        <!--Detect Finish View Controller-->
-        <scene sceneID="dwF-KS-zRx">
-            <objects>
-                <viewController storyboardIdentifier="DetectFinishViewController" id="uaN-Ds-TXC" customClass="DetectFinishViewController" customModule="Tireless" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Bbn-Hg-sel" customClass="DetectFinishView" customModule="Tireless" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="1Py-Pq-bCK"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <connections>
-                        <outlet property="detectFinishView" destination="Bbn-Hg-sel" id="wZZ-pA-gGg"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="N2W-Ko-kBr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1971.0144927536232" y="93.75"/>
-        </scene>
         <!--Plan Detail View Controller-->
         <scene sceneID="Tbe-ak-MY7">
             <objects>
@@ -172,7 +73,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r31-JG-Fid" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2784" y="94"/>
+            <point key="canvasLocation" x="1268" y="105"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vcQ-cC-SRz">
@@ -195,7 +96,6 @@
     </scenes>
     <color key="tintColor" name="themeYellow"/>
     <resources>
-        <image name="Icons_Back" width="44" height="44"/>
         <namedColor name="themeYellow">
             <color red="1" green="0.80000000000000004" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

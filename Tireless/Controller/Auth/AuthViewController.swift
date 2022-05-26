@@ -131,16 +131,10 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
                                  didCompleteWithAuthorization authorization: ASAuthorization) {
         hud.show(in: self.view)
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            guard let nonce = currentNonce else {
-                return
-            }
-            guard let appleIDToken = appleIDCredential.identityToken else {
-                return
-            }
-            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                return
-            }
-            guard let appleName = appleIDCredential.fullName else {
+            guard let nonce = currentNonce,
+                  let appleIDToken = appleIDCredential.identityToken,
+                  let idTokenString = String(data: appleIDToken, encoding: .utf8),
+                  let appleName = appleIDCredential.fullName else {
                 return
             }
             let formatter = PersonNameComponentsFormatter()

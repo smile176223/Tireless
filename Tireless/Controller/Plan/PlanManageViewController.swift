@@ -99,14 +99,13 @@ class PlanManageViewController: UIViewController {
     }
     
     private func present(target: String, plan: Plan) {
-        guard let poseVC = UIStoryboard.home.instantiateViewController(
+        guard let poseVC = UIStoryboard.poseDetect.instantiateViewController(
             withIdentifier: "\(PoseDetectViewController.self)")
                 as? PoseDetectViewController
         else {
             return
         }
-        poseVC.planTarget = Int(target) ?? 0
-        poseVC.plan = plan
+        poseVC.viewModel = PoseDetectViewModel(plan: plan)
         poseVC.modalPresentationStyle = .fullScreen
         self.present(poseVC, animated: true)
     }

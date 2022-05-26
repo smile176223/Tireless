@@ -84,57 +84,37 @@ class ShareWallViewController: UIViewController {
         else {
             return
         }
-        commentVC.shareFile = shareFile
+        commentVC.viewModel = ShareCommentViewModel(shareFile: shareFile)
         commentVC.modalTransitionStyle = .coverVertical
         commentVC.modalPresentationStyle = .overCurrentContext
         self.tabBarController?.present(commentVC, animated: true)
     }
     
     private func setButtonAlert(userId: String) {
-        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
             UserManager.shared.blockUser(blockId: userId) { result in
                 switch result {
-                case .success(let text):
+                case .success:
                     ProgressHUD.showSuccess(text: "已封鎖")
                     self.viewModel.fetchData()
                     self.dismiss(animated: true)
-                    print(text)
-                case .failure(let error):
-                    print(error)
+                case .failure:
                     ProgressHUD.showFailure()
                 }
             }
         }
-        controller.addAction(banAction)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        // iPad specific code
-        controller.popoverPresentationController?.sourceView = self.view
-        let xOrigin = self.view.bounds.width / 2
-        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
-        controller.popoverPresentationController?.sourceRect = popoverRect
-        controller.popoverPresentationController?.permittedArrowDirections = .down
-        
-        present(controller, animated: true, completion: nil)
+        let cancelAction = UIAlertAction.cancelAction
+        let actions = [banAction, cancelAction]
+        presentAlert(style: .actionSheet, actions: actions)
     }
     
     private func setMeButtonAlert(uuid: String) {
-        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
             self.viewModel.deleteVideo(uuid: uuid)
         }
-        controller.addAction(deleteAction)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        // iPad specific code
-        controller.popoverPresentationController?.sourceView = self.view
-        let xOrigin = self.view.bounds.width / 2
-        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
-        controller.popoverPresentationController?.sourceRect = popoverRect
-        controller.popoverPresentationController?.permittedArrowDirections = .down
-        
-        present(controller, animated: true, completion: nil)
+        let cancelAction = UIAlertAction.cancelAction
+        let actions = [deleteAction, cancelAction]
+        presentAlert(style: .actionSheet, actions: actions)
     }
 }
 
@@ -187,7 +167,7 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let videoCell = cell as? AutoPlayVideoLayerContainer, let _ = videoCell.videoURL {
+        if let videoCell = cell as? AutoPlayVideoLayerContainer, videoCell.videoURL != nil {
             VideoPlayerController.sharedVideoPlayer.removeLayerFor(cell: videoCell)
         }
     }
