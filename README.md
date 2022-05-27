@@ -67,13 +67,19 @@ Explore the community that moves together here.
 - JGProgressHUD
 - Crashlytics
 
-## Version
-- 1.0.1
-
 ## Requirements
 - Xcode 12 or later</br>
 - iOS 14.0 or later</br>
 - Swift 5
+
+## Version
+- 1.0.1
+
+## Release Notes
+| Version | Notes |
+| :-----: | ----- |
+| 1.0.1   | 1. Add reminder </br> 2. Add record statistics </br> 3. Fix bugs|
+| 1.0.0   | Submitted to the App Store |
 
 ## Contact
 Liam Hsu</br>
