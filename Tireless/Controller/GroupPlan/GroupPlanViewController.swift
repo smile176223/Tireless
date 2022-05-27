@@ -9,40 +9,37 @@ import UIKit
 
 class GroupPlanViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
         }
     }
-    @IBOutlet weak var groupPlanImageView: UIImageView!
+    @IBOutlet private weak var groupPlanImageView: UIImageView!
     
-    @IBOutlet weak var planLeaveButton: UIButton!
+    @IBOutlet private weak var planLeaveButton: UIButton!
     
-    @IBOutlet weak var planJoinButton: UIButton!
+    @IBOutlet private weak var planJoinButton: UIButton!
     
     var joinGroup: JoinGroup?
     
-    var joinUsers: [User]? {
-        didSet {
-            for index in 0..<(joinUsers?.count ?? 0) {
-                if joinUsers?[index].userId == AuthManager.shared.currentUser {
-                    planJoinButton.isEnabled = false
-                    planJoinButton.setTitle("已加入", for: .normal)
-                    planLeaveButton.isHidden = false
-                }
-            }
-        }
-    }
-    
-    let viewModel = JoinGroupViewModel()
+    var joinUsers: [User]?
+
+    var viewModel: JoinGroupViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
         configureCollectionView()
         
-        viewModel.joinUsersViewModel.bind { [weak self] _ in
+        viewModel?.joinUsersViewModel.bind { [weak self] users in
+            if users.contains(where: { $0.user.userId == AuthManager.shared.currentUser }) {
+                DispatchQueue.main.async {
+                    self?.planJoinButton.isEnabled = false
+                    self?.planJoinButton.setTitle("已加入", for: .normal)
+                    self?.planLeaveButton.isHidden = false
+                }
+            }
             DispatchQueue.main.async {
                 self?.collectionView.reloadData()
             }
@@ -50,16 +47,13 @@ class GroupPlanViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let joinGroup = joinGroup else { return }
-        viewModel.fetchJoinUsers(uuid: joinGroup.uuid) { [weak self] result in
-            switch result {
-            case .success(let joinUsers):
-                self?.joinUsers = joinUsers
-            case .failure(let error):
-                print(error)
-            }
+        guard let viewModel = viewModel else {
+            return
         }
-        if joinGroup.createdUserId == AuthManager.shared.currentUser {
+        
+        viewModel.fetchJoinUsers()
+        
+        if viewModel.checkGroupOwner() {
             planJoinButton.setTitle("開始計畫", for: .normal)
             planLeaveButton.isHidden = false
             planLeaveButton.setTitle("放棄計畫", for: .normal)
@@ -70,21 +64,36 @@ class GroupPlanViewController: UIViewController {
         self.dismiss(animated: true)
     }
     @IBAction func joinButtonTap(_ sender: UIButton) {
+        guard let viewModel = viewModel else {
+            return
+        }
+//        if !viewModel.checkGroupOwner() {
+//            self.viewModel?.joinGroup(success: {
+//                self.dismiss(animated: true)
+//            }, failure: { _ in
+//                return
+//            })
+//
+//        } else {
+//
+//        }
+
         guard let joinGroup = joinGroup else { return }
         if joinGroup.createdUserId != AuthManager.shared.currentUser {
-            self.viewModel.joinGroup(uuid: joinGroup.uuid) {
+            self.viewModel?.joinGroup {
                 self.dismiss(animated: true)
             } failure: { error in
                 print(error)
             }
         } else {
             var joinUsersId = [AuthManager.shared.currentUser]
+            // TODO: use update
             self.joinUsers?.forEach({joinUsersId.append($0.userId)})
-            self.viewModel.setGroupPlan(name: joinGroup.planName,
+            self.viewModel?.setGroupPlan(name: joinGroup.planName,
                                          times: joinGroup.planTimes,
                                          days: joinGroup.planDays,
                                          uuid: joinGroup.uuid)
-            self.viewModel.createGroupPlan(uuid: joinGroup.uuid, joinUsers: joinUsersId, completion: { result in
+            self.viewModel?.createGroupPlan(uuid: joinGroup.uuid, joinUsers: joinUsersId, completion: { result in
                 switch result {
                 case .success(let string):
                     print(string)
@@ -101,7 +110,7 @@ class GroupPlanViewController: UIViewController {
     @IBAction func leaveButtonTap(_ sender: UIButton) {
         guard let joinGroup = joinGroup else { return }
         if joinGroup.createdUserId == AuthManager.shared.currentUser {
-            self.viewModel.deleteJoinGroup(uuid: joinGroup.uuid) { result in
+            self.viewModel?.deleteJoinGroup(uuid: joinGroup.uuid) { result in
                 switch result {
                 case .success(let string):
                     print(string)
@@ -111,7 +120,7 @@ class GroupPlanViewController: UIViewController {
                 }
             }
         } else {
-            self.viewModel.leaveJoinGroup(uuid: joinGroup.uuid,
+            self.viewModel?.leaveJoinGroup(uuid: joinGroup.uuid,
                                            userId: AuthManager.shared.currentUser,
                                            completion: { result in
                 switch result {
@@ -189,7 +198,7 @@ extension GroupPlanViewController: UICollectionViewDelegate, UICollectionViewDat
         1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.joinUsersViewModel.value.count
+        viewModel?.joinUsersViewModel.value.count ?? 0
     }
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -198,7 +207,9 @@ extension GroupPlanViewController: UICollectionViewDelegate, UICollectionViewDat
             for: indexPath) as? GroupPlanViewCell else {
             return UICollectionViewCell()
         }
-        let cellViewModel = self.viewModel.joinUsersViewModel.value[indexPath.row]
+        guard let cellViewModel = self.viewModel?.joinUsersViewModel.value[indexPath.row] else {
+            return UICollectionViewCell()
+        }
         cell.setup(viewModel: cellViewModel)
         return cell
     }

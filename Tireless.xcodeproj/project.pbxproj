@@ -59,7 +59,6 @@
 		FF308E6F2806822B00265863 /* ShareFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E6E2806822B00265863 /* ShareFiles.swift */; };
 		FF308E752807A47F00265863 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E742807A47F00265863 /* Date+Extension.swift */; };
 		FF308E772807A4F400265863 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E762807A4F400265863 /* User.swift */; };
-		FF308E7A2807D4A000265863 /* PublishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E792807D4A000265863 /* PublishViewModel.swift */; };
 		FF308E7F28080E5B00265863 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E7E28080E5B00265863 /* TabBarController.swift */; };
 		FF308E8128080FB800265863 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF308E8028080FB800265863 /* Main.storyboard */; };
 		FF308E832808106500265863 /* ShareWall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF308E822808106500265863 /* ShareWall.storyboard */; };
@@ -241,7 +240,6 @@
 		FF308E6E2806822B00265863 /* ShareFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareFiles.swift; sourceTree = "<group>"; };
 		FF308E742807A47F00265863 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		FF308E762807A4F400265863 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		FF308E792807D4A000265863 /* PublishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishViewModel.swift; sourceTree = "<group>"; };
 		FF308E7E28080E5B00265863 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		FF308E8028080FB800265863 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FF308E822808106500265863 /* ShareWall.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShareWall.storyboard; sourceTree = "<group>"; };
@@ -486,7 +484,6 @@
 				FFC7B9FA281FFC600080A31E /* GroupPlan */,
 				FF3FBE632811BE6E00E6B5DC /* Home */,
 				FF308E8B2809176D00265863 /* ShareWall */,
-				FF308E782807D41500265863 /* Publish */,
 				FF1444AD2801836E0027F560 /* PoseDetect */,
 			);
 			path = ViewModel;
@@ -676,14 +673,6 @@
 				FF023506283AA09B001647B9 /* UIViewController+Extension.swift */,
 			);
 			path = Helper;
-			sourceTree = "<group>";
-		};
-		FF308E782807D41500265863 /* Publish */ = {
-			isa = PBXGroup;
-			children = (
-				FF308E792807D4A000265863 /* PublishViewModel.swift */,
-			);
-			path = Publish;
 			sourceTree = "<group>";
 		};
 		FF308E7D28080E4D00265863 /* TabBar */ = {
@@ -1395,7 +1384,6 @@
 				FF0234E92835C4D7001647B9 /* DetectFinishViewModel.swift in Sources */,
 				FF3F7819281E769A00D8360A /* DefaultPlansViewModel.swift in Sources */,
 				FF3FBEA92815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift in Sources */,
-				FF308E7A2807D4A000265863 /* PublishViewModel.swift in Sources */,
 				FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */,
 				FF308E7F28080E5B00265863 /* TabBarController.swift in Sources */,
 				FF308E6D28066E0D00265863 /* ShareManager.swift in Sources */,
