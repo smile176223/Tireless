@@ -262,8 +262,8 @@ extension HomeViewController: UICollectionViewDelegate {
             else {
                 return
             }
-            groupVC.joinGroup = viewModel.joinGroupsViewModel.value[indexPath.row].joinGroup
-            groupVC.viewModel = JoinGroupViewModel(joinGroup: viewModel.joinGroupsViewModel.value[indexPath.row].joinGroup)
+            groupVC.viewModel = JoinGroupViewModel(joinGroup:
+                                                    viewModel.joinGroupsViewModel.value[indexPath.row].joinGroup)
             groupVC.modalPresentationStyle = .fullScreen
             self.present(groupVC, animated: true)
         }

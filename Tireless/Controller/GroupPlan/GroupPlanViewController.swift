@@ -20,8 +20,6 @@ class GroupPlanViewController: UIViewController {
     @IBOutlet private weak var planLeaveButton: UIButton!
     
     @IBOutlet private weak var planJoinButton: UIButton!
-    
-    var joinGroup: JoinGroup?
 
     var viewModel: JoinGroupViewModel?
     
@@ -128,7 +126,7 @@ class GroupPlanViewController: UIViewController {
         collectionView.layer.cornerRadius = 25
         planJoinButton.layer.cornerRadius = 15
         planLeaveButton.layer.cornerRadius = 15
-        guard let joinGroup = joinGroup else { return }
+        guard let joinGroup = viewModel?.joinGroup else { return }
         switch joinGroup.planName {
         case PlanExercise.squat.rawValue:
             groupPlanImageView.image = UIImage.groupSquat
