@@ -90,7 +90,6 @@
 		FF3F780F281D088600D8360A /* ShareCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3F780E281D088600D8360A /* ShareCommentViewCell.xib */; };
 		FF3F7811281D1E3B00D8360A /* CommentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7810281D1E3B00D8360A /* CommentManager.swift */; };
 		FF3F7813281D407000D8360A /* ShareCommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7812281D407000D8360A /* ShareCommentViewModel.swift */; };
-		FF3F7815281D40A200D8360A /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7814281D40A200D8360A /* CommentsViewModel.swift */; };
 		FF3F7817281E3BA900D8360A /* HistoryPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7816281E3BA900D8360A /* HistoryPlanViewModel.swift */; };
 		FF3F7819281E769A00D8360A /* DefaultPlansViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7818281E769A00D8360A /* DefaultPlansViewModel.swift */; };
 		FF3FBE4C280FA83900E6B5DC /* HomeDailyViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */; };
@@ -273,7 +272,6 @@
 		FF3F780E281D088600D8360A /* ShareCommentViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareCommentViewCell.xib; sourceTree = "<group>"; };
 		FF3F7810281D1E3B00D8360A /* CommentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentManager.swift; sourceTree = "<group>"; };
 		FF3F7812281D407000D8360A /* ShareCommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCommentViewModel.swift; sourceTree = "<group>"; };
-		FF3F7814281D40A200D8360A /* CommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewModel.swift; sourceTree = "<group>"; };
 		FF3F7816281E3BA900D8360A /* HistoryPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPlanViewModel.swift; sourceTree = "<group>"; };
 		FF3F7818281E769A00D8360A /* DefaultPlansViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPlansViewModel.swift; sourceTree = "<group>"; };
 		FF3FBE4B280FA83900E6B5DC /* HomeDailyViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDailyViewCell.xib; sourceTree = "<group>"; };
@@ -713,7 +711,6 @@
 				FF308E8C2809177F00265863 /* ShareWallViewModel.swift */,
 				FF3F7812281D407000D8360A /* ShareCommentViewModel.swift */,
 				FF308E8E28095B6200265863 /* ShareFilesViewModel.swift */,
-				FF3F7814281D40A200D8360A /* CommentsViewModel.swift */,
 			);
 			path = ShareWall;
 			sourceTree = "<group>";
@@ -1359,7 +1356,6 @@
 				FF308E852808110100265863 /* UIStoryboard+Extension.swift in Sources */,
 				FF3FBE9B28150FB000E6B5DC /* ProfileViewModel.swift in Sources */,
 				FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */,
-				FF3F7815281D40A200D8360A /* CommentsViewModel.swift in Sources */,
 				FF3F7811281D1E3B00D8360A /* CommentManager.swift in Sources */,
 				FFCFCAF1282A105E00FE6E83 /* VideoLayerObject.swift in Sources */,
 				FF3FBE6C281238FE00E6B5DC /* Plan.swift in Sources */,

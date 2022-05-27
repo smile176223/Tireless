@@ -9,13 +9,13 @@ import UIKit
 
 class ShareCommentViewController: UIViewController {
     
-    @IBOutlet weak var commentView: UIView!
+    @IBOutlet private weak var commentView: UIView!
     
-    @IBOutlet weak var commentLineView: UIView!
+    @IBOutlet private weak var commentLineView: UIView!
     
-    @IBOutlet weak var commentTextField: UITextField!
+    @IBOutlet private weak var commentTextField: UITextField!
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
@@ -34,7 +34,7 @@ class ShareCommentViewController: UIViewController {
         tableView.register(UINib(nibName: "\(ShareCommentViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(ShareCommentViewCell.self)")
         
-        viewModel?.commentsViewModel.bind { _ in
+        viewModel?.comments.bind { _ in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -51,7 +51,7 @@ class ShareCommentViewController: UIViewController {
         commentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         commentLineView.layer.cornerRadius = 5
         commentTextField.attributedPlaceholder = NSAttributedString(string: "加入評論...",
-                                                                  attributes: [.foregroundColor: UIColor.white])
+                                                                  attributes: [.foregroundColor: UIColor.lightGray])
         self.tableView.backgroundColor = .themeBG
     }
     
@@ -68,29 +68,16 @@ class ShareCommentViewController: UIViewController {
         if commentTextField.text?.isEmpty == true {
             return
         }
-        if AuthManager.shared.checkCurrentUser() == true {
-            guard let shareFile = viewModel?.shareFile,
-                  let commentText = commentTextField.text else {
-                return
-            }
-            CommentManager.shared.postComment(uuid: shareFile.uuid,
-                                              comment: Comment(userId: AuthManager.shared.currentUser,
-                                                               content: commentText,
-                                                               createdTime: Date().millisecondsSince1970)) { result in
-                switch result {
-                case .success(let text):
-                    print(text)
-                case .failure(let error):
-                    print(error)
-                }
-            }
-            commentTextField.text = ""
-        } else {
-            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-                maskView.removeFromSuperview()
-                present(authVC, animated: true, completion: nil)
-            }
+        guard let commentText = commentTextField.text else {
+            return
         }
+        viewModel?.sendComment(comment: commentText, needLogin: {
+            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
+                self.maskView.removeFromSuperview()
+                self.present(authVC, animated: true, completion: nil)
+            }
+        })
+        commentTextField.text = ""
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -101,30 +88,18 @@ class ShareCommentViewController: UIViewController {
     }
     
     private func setButtonAlert(userId: String) {
-        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let banAction = UIAlertAction(title: "封鎖", style: .destructive) { _ in
-            UserManager.shared.blockUser(blockId: userId) { result in
-                switch result {
-                case .success(let text):
-                    print(text)
-                    ProgressHUD.showSuccess(text: "封鎖成功")
-                case .failure(let error):
-                    print(error)
-                    ProgressHUD.showFailure(text: "封鎖失敗")
-                    
-                }
-            }
+            self.viewModel?.blockUser(userId: userId)
         }
-        controller.addAction(banAction)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        present(controller, animated: true, completion: nil)
+        let cancelAction = UIAlertAction.cancelAction
+        let actions = [banAction, cancelAction]
+        presentAlert(style: .actionSheet, actions: actions)
     }
 }
 
 extension ShareCommentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel?.commentsViewModel.value.count ?? 0
+        viewModel?.comments.value.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -132,14 +107,14 @@ extension ShareCommentViewController: UITableViewDelegate, UITableViewDataSource
             withIdentifier: "\(ShareCommentViewCell.self)", for: indexPath) as? ShareCommentViewCell else {
             return UITableViewCell()
         }
-        
-        guard let cellViewModel = self.viewModel?.commentsViewModel.value[indexPath.row] else {
+        guard let cellViewModel = self.viewModel?.comments.value[indexPath.row] else {
             return cell
         }
+        
         cell.setup(viewModel: cellViewModel)
         
         cell.isSetButtonTap = { [weak self] in
-            self?.setButtonAlert(userId: cellViewModel.comment.userId)
+            self?.setButtonAlert(userId: cellViewModel.userId)
         }
         
         return cell
