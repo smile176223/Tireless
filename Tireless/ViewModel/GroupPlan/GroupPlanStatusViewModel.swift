@@ -11,7 +11,13 @@ class GroupPlanStatusViewModel {
     
     let groupPlanStatusViewModels = Box([PlanViewModel]())
     
-    func fetchGroupPlanStatus(plan: Plan) {
+    var plan: Plan
+
+    init(plan: Plan) {
+        self.plan = plan
+    }
+    
+    func fetchGroupPlanStatus() {
         PlanManager.shared.checkGroupUsersStatus(plan: plan) { result in
             switch result {
             case .success(let plans):

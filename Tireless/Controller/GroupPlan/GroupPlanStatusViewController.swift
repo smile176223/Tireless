@@ -9,17 +9,15 @@ import UIKit
 
 class GroupPlanStatusViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
             tableView.backgroundColor = .themeBG
         }
     }
-    
-    var plan: Plan?
-    
-    let viewModel = GroupPlanStatusViewModel()
+
+    var viewModel: GroupPlanStatusViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +29,7 @@ class GroupPlanStatusViewController: UIViewController {
         tableView.register(UINib(nibName: "\(GroupPlanStatusViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(GroupPlanStatusViewCell.self)")
         
-        viewModel.groupPlanStatusViewModels.bind { [weak self] _ in
+        viewModel?.groupPlanStatusViewModels.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -43,16 +41,13 @@ class GroupPlanStatusViewController: UIViewController {
     }
     
     private func checkStatus() {
-        guard let plan = plan else {
-            return
-        }
-        viewModel.fetchGroupPlanStatus(plan: plan)
+        viewModel?.fetchGroupPlanStatus()
     }
 }
 
 extension GroupPlanStatusViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.groupPlanStatusViewModels.value.count
+        viewModel?.groupPlanStatusViewModels.value.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,7 +56,9 @@ extension GroupPlanStatusViewController: UITableViewDelegate, UITableViewDataSou
             return UITableViewCell()
         }
         
-        let cellViewModel = viewModel.groupPlanStatusViewModels.value[indexPath.row]
+        guard let cellViewModel = viewModel?.groupPlanStatusViewModels.value[indexPath.row] else {
+            return UITableViewCell()
+        }
         cell.setup(viewModel: cellViewModel)
         
         return cell

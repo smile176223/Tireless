@@ -117,7 +117,8 @@ class PlanManageViewController: UIViewController {
         else {
             return
         }
-        groupVC.plan = plan
+//        groupVC.plan = plan
+        groupVC.viewModel = GroupPlanStatusViewModel(plan: plan)
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(groupVC, animated: true)
     }
