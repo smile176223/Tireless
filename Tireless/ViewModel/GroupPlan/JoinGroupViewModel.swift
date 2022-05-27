@@ -20,6 +20,8 @@ class JoinGroupViewModel {
     
     let joinUsersViewModel = Box([JoinUsersViewModel]())
     
+    let joinUsers = Box([User]())
+    
     var joinGroup: JoinGroup
     
     init(joinGroup: JoinGroup) {
@@ -57,6 +59,7 @@ class JoinGroupViewModel {
             switch result {
             case .success(let users):
                 self.setJoinUsers(users)
+                self.joinUsers.value = users
             case .failure:
                 ProgressHUD.showFailure()
             }
@@ -89,17 +92,6 @@ class JoinGroupViewModel {
         })
     }
     
-//    func startJoinGroup(uuid: String, completion: @escaping (Result<String, Error>) -> Void) {
-//        JoinGroupManager.shared.startJoinGroup(uuid: uuid, groupPlan: groupPlan) { result in
-//            switch result {
-//            case .success(let success):
-//                completion(.success(success))
-//            case .failure(let error):
-//                completion(.failure(error))
-//            }
-//        }
-//    }
-    
     func createGroupPlan(uuid: String, joinUsers: [String], completion: @escaping (Result<String, Error>) -> Void) {
         JoinGroupManager.shared.createGroupPlan(uuid: uuid, plan: plan, joinUsers: joinUsers) { result in
             switch result {
@@ -111,7 +103,7 @@ class JoinGroupViewModel {
         }
     }
     
-    func startGroup(successJoin: (() -> Void)?) {
+    func startGroup(successJoin: (() -> Void)?, createDone: (() -> Void)?) {
         if !checkGroupOwner() {
             joinGroup {
                 successJoin?()
@@ -120,7 +112,44 @@ class JoinGroupViewModel {
             }
         } else {
             var joinUsersId = [AuthManager.shared.currentUser]
-            
+            joinUsers.value.forEach {joinUsersId.append($0.userId)}
+            setGroupPlan(name: joinGroup.planName,
+                         times: joinGroup.planTimes,
+                         days: joinGroup.planDays,
+                         uuid: joinGroup.uuid)
+            createGroupPlan(uuid: joinGroup.uuid,
+                            joinUsers: joinUsersId) { result in
+                switch result {
+                case .success(let string):
+                    print(string)
+                case .failure:
+                    ProgressHUD.showFailure()
+                }
+                createDone?()
+            }
+        }
+    }
+    
+    func stopGroup(stopDone: (() -> Void)?) {
+        if checkGroupOwner() {
+            deleteJoinGroup(uuid: joinGroup.uuid) { result in
+                switch result {
+                case .success:
+                    stopDone?()
+                case .failure:
+                    ProgressHUD.showFailure()
+                }
+            }
+        } else {
+            leaveJoinGroup(uuid: joinGroup.uuid,
+                           userId: AuthManager.shared.currentUser) { result in
+                switch result {
+                case .success:
+                    stopDone?()
+                case .failure:
+                    ProgressHUD.showFailure()
+                }
+            }
         }
     }
     

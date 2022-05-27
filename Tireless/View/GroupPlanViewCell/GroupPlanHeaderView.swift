@@ -21,12 +21,33 @@ class GroupPlanHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var planJoinUserLabel: UILabel!
     
+    var viewModel: JoinGroup?
+    
     override func awakeFromNib() {
         setupLayout()
     }
     
     private func setupLayout() {
         planCreatedUserIamgeView.layer.cornerRadius = planCreatedUserIamgeView.frame.height / 2
+    }
+    
+    func setup(viewModel: JoinGroup) {
+        self.viewModel = viewModel
+        layoutHeader()
+    }
+    
+    func layoutHeader() {
+        guard let viewModel = viewModel else {
+            return
+        }
+        if viewModel.createdUser?.picture == "" {
+            planCreatedUserIamgeView.image = UIImage.placeHolder
+        } else {
+            planCreatedUserIamgeView.loadImage(viewModel.createdUser?.picture)
+        }
+        planCreatedNameLabel.text = viewModel.createdUser?.name
+        planTimesLabel.text = "\(viewModel.planTimes)次/秒，持續\(viewModel.planDays)天"
+        planTitleLabel.text = viewModel.planName
     }
     
 }

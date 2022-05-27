@@ -22,8 +22,6 @@ class GroupPlanViewController: UIViewController {
     @IBOutlet private weak var planJoinButton: UIButton!
     
     var joinGroup: JoinGroup?
-    
-    var joinUsers: [User]?
 
     var viewModel: JoinGroupViewModel?
     
@@ -67,40 +65,9 @@ class GroupPlanViewController: UIViewController {
         guard let viewModel = viewModel else {
             return
         }
-//        if !viewModel.checkGroupOwner() {
-//            self.viewModel?.joinGroup(success: {
-//                self.dismiss(animated: true)
-//            }, failure: { _ in
-//                return
-//            })
-//
-//        } else {
-//
-//        }
-
-        guard let joinGroup = joinGroup else { return }
-        if joinGroup.createdUserId != AuthManager.shared.currentUser {
-            self.viewModel?.joinGroup {
-                self.dismiss(animated: true)
-            } failure: { error in
-                print(error)
-            }
-        } else {
-            var joinUsersId = [AuthManager.shared.currentUser]
-            // TODO: use update
-            self.joinUsers?.forEach({joinUsersId.append($0.userId)})
-            self.viewModel?.setGroupPlan(name: joinGroup.planName,
-                                         times: joinGroup.planTimes,
-                                         days: joinGroup.planDays,
-                                         uuid: joinGroup.uuid)
-            self.viewModel?.createGroupPlan(uuid: joinGroup.uuid, joinUsers: joinUsersId, completion: { result in
-                switch result {
-                case .success(let string):
-                    print(string)
-                case .failure(let error):
-                    print(error)
-                }
-            })
+        viewModel.startGroup {
+            self.dismiss(animated: true)
+        } createDone: {
             self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
             if let tabBarController = self.presentingViewController as? UITabBarController {
                 tabBarController.selectedIndex = 1
@@ -108,29 +75,11 @@ class GroupPlanViewController: UIViewController {
         }
     }
     @IBAction func leaveButtonTap(_ sender: UIButton) {
-        guard let joinGroup = joinGroup else { return }
-        if joinGroup.createdUserId == AuthManager.shared.currentUser {
-            self.viewModel?.deleteJoinGroup(uuid: joinGroup.uuid) { result in
-                switch result {
-                case .success(let string):
-                    print(string)
-                    self.dismiss(animated: true)
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        } else {
-            self.viewModel?.leaveJoinGroup(uuid: joinGroup.uuid,
-                                           userId: AuthManager.shared.currentUser,
-                                           completion: { result in
-                switch result {
-                case .success(let string):
-                    print(string)
-                    self.dismiss(animated: true)
-                case .failure(let error):
-                    print(error)
-                }
-            })
+        guard let viewModel = viewModel else {
+            return
+        }
+        viewModel.stopGroup {
+            self.dismiss(animated: true)
         }
     }
     
@@ -222,14 +171,10 @@ extension GroupPlanViewController: UICollectionViewDelegate, UICollectionViewDat
             for: indexPath) as? GroupPlanHeaderView else {
             return UICollectionReusableView()
         }
-        if joinGroup?.createdUser?.picture == "" {
-            headerView.planCreatedUserIamgeView.image = UIImage.placeHolder
-        } else {
-            headerView.planCreatedUserIamgeView.loadImage(joinGroup?.createdUser?.picture)
+        guard let headerViewModel = self.viewModel?.joinGroup else {
+            return UICollectionReusableView()
         }
-        headerView.planCreatedNameLabel.text = joinGroup?.createdUser?.name
-        headerView.planTimesLabel.text = "\(joinGroup?.planTimes ?? "")次/秒，持續\(joinGroup?.planDays ?? "")天"
-        headerView.planTitleLabel.text = joinGroup?.planName
+        headerView.setup(viewModel: headerViewModel)
 
         return headerView
     }
