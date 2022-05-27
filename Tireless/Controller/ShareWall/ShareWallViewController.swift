@@ -11,9 +11,9 @@ import Lottie
 
 class ShareWallViewController: UIViewController {
     
-    var lottieView: AnimationView?
+    private var lottieView: AnimationView?
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
@@ -57,7 +57,7 @@ class ShareWallViewController: UIViewController {
         onlyStopVideo() 
     }
     
-    func setupBind() {
+    private func setupBind() {
         viewModel.shareFilesViewModel.bind { [weak self] files in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
@@ -68,7 +68,7 @@ class ShareWallViewController: UIViewController {
         }
     }
     
-    func lottieLoading() {
+    private func lottieLoading() {
         lottieView = .init(name: "Loading")
         lottieView?.frame = view.bounds
         lottieView?.contentMode = .scaleAspectFit

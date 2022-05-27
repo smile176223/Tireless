@@ -22,7 +22,7 @@ class ShareCommentViewController: UIViewController {
         }
     }
     
-    let maskView = UIView(frame: UIScreen.main.bounds)
+    private let maskView = UIView(frame: UIScreen.main.bounds)
 
     var viewModel: ShareCommentViewModel?
     
