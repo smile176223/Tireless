@@ -97,4 +97,54 @@ class ProfileViewModel {
     func setHistoryPlan(_ plans: [Plan]) {
         historyPlanViewModels.value = convertPlansToViewModels(from: plans)
     }
+    
+    func signOut(success: (() -> Void)?) {
+        AuthManager.shared.singOut { result in
+            switch result {
+            case .success(let text):
+                ProgressHUD.showSuccess(text: text)
+                success?()
+            case .failure(let error):
+                print(error)
+                ProgressHUD.showFailure()
+            }
+        }
+    }
+    
+    func deleteAccount(completion: @escaping (Result<String, Error>) -> Void) {
+        AuthManager.shared.deleteUser { result in
+            switch result {
+            case .success(let string):
+                ProgressHUD.showSuccess(text: "已刪除")
+                completion(.success(string))
+            case .failure(let error):
+                ProgressHUD.showFailure()
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func uploadPicture(imageData: Data, success: (() -> Void)?) {
+        ProgressHUD.show()
+        ShareManager.shared.uploadPicture(imageData: imageData) { result in
+            switch result {
+            case .success(let url):
+                print(url)
+                AuthManager.shared.getCurrentUser { result in
+                    switch result {
+                    case .success(let bool):
+                        print(bool)
+                        ProgressHUD.showSuccess(text: "成功更換")
+                        success?()
+                    case .failure(let error):
+                        ProgressHUD.showFailure(text: "讀取失敗")
+                        print(error)
+                    }
+                }
+            case .failure(let error):
+                ProgressHUD.showFailure(text: "更換失敗")
+                print(error)
+            }
+        }
+    }
 }

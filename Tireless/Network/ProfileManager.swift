@@ -25,7 +25,7 @@ class ProfileManager {
             try ref.setData(from: userData)
             completion(.success("Success"))
         } catch {
-            completion(.failure(error))
+            completion(.failure(TirelessError.firebaseError))
         }
     }
 }

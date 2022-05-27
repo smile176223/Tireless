@@ -47,7 +47,6 @@ class PlanReviewViewCell: UITableViewCell {
         let finishDate = Date(milliseconds: viewModel.finishTime.time)
         finishTimeLabel.text = "\(Date.dateFormatter.string(from: finishDate))"
         if viewModel.finishTime.videoId == "" {
-//            thumbnailImageView.image = UIImage.noVideo
             thumbnailImageView.contentMode = .center
             thumbnailImageView.alpha = 1
             playButton.isHidden = true

@@ -97,7 +97,7 @@ class SquatManager {
         return true
     }
     
-    private func checkBaseline(_ point: PosePoint, _ base: CGFloat) -> Bool {
+    func checkBaseline(_ point: PosePoint, _ base: CGFloat) -> Bool {
         return point.position.x > base
     }
 }

@@ -76,7 +76,7 @@ class AuthManager {
     func singOut(completion: @escaping (Result<String, Error>) -> Void) {
         do {
             try Auth.auth().signOut()
-            completion(.success("Success sign out"))
+            completion(.success("已登出"))
         } catch {
             completion(.failure(error))
         }

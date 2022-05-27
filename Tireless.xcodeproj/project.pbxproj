@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		850A41B3C4710C925420BDDF /* Pods_TirelessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442A73EE7DC1C03B80A2A26E /* Pods_TirelessTests.framework */; };
 		A2EC4823DFDFB7062A4D7718 /* Pods_Tireless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745C2223D0E016BB19811AAA /* Pods_Tireless.framework */; };
 		FF0234C2282CE65E001647B9 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */; };
 		FF0234C4282CEC23001647B9 /* FriendListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */; };
@@ -17,11 +18,19 @@
 		FF0234D2282D8335001647B9 /* StatisticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234D1282D8335001647B9 /* StatisticsManager.swift */; };
 		FF0234D4282DE43D001647B9 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234D3282DE43D001647B9 /* Statistics.swift */; };
 		FF0234D62830B57C001647B9 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234D52830B57C001647B9 /* EditProfileViewController.swift */; };
+		FF0234D828340264001647B9 /* VideoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234D728340264001647B9 /* VideoCapture.swift */; };
+		FF0234DF2834A5F7001647B9 /* PoseDetectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234DE2834A5F7001647B9 /* PoseDetectView.swift */; };
+		FF0234E12834A624001647B9 /* PoseDetectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF0234E02834A624001647B9 /* PoseDetectView.xib */; };
+		FF0234E328353DB0001647B9 /* Lottie+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234E228353DB0001647B9 /* Lottie+Extension.swift */; };
+		FF0234E728355640001647B9 /* PoseDetect.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF0234E628355640001647B9 /* PoseDetect.storyboard */; };
+		FF0234E92835C4D7001647B9 /* DetectFinishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234E82835C4D7001647B9 /* DetectFinishViewModel.swift */; };
+		FF0234FE2836678E001647B9 /* TirelessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234FD2836678E001647B9 /* TirelessTests.swift */; };
+		FF023507283AA09B001647B9 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF023506283AA09B001647B9 /* UIViewController+Extension.swift */; };
+		FF023509283DB724001647B9 /* TirelessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF023508283DB724001647B9 /* TirelessError.swift */; };
 		FF14449428009C010027F560 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF14449328009C010027F560 /* Box.swift */; };
 		FF1444A6280156700027F560 /* UIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A5280156700027F560 /* UIUtilities.swift */; };
 		FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */; };
 		FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A92801623E0027F560 /* PosePoint.swift */; };
-		FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444AB280163330027F560 /* PosePointViewModel.swift */; };
 		FF1444AF280183920027F560 /* SquatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444AE280183920027F560 /* SquatManager.swift */; };
 		FF1444B12801A6760027F560 /* StartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444B02801A6760027F560 /* StartManager.swift */; };
 		FF1444C9280411A50027F560 /* CountDownGo.json in Resources */ = {isa = PBXBuildFile; fileRef = FF1444C8280411A50027F560 /* CountDownGo.json */; };
@@ -59,10 +68,6 @@
 		FF308E8A2808296400265863 /* ShareWallViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E892808296400265863 /* ShareWallViewCell.xib */; };
 		FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E8C2809177F00265863 /* ShareWallViewModel.swift */; };
 		FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E8E28095B6200265863 /* ShareFilesViewModel.swift */; };
-		FF308E94280C67FD00265863 /* SharePictureViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF308E93280C67FD00265863 /* SharePictureViewCell.xib */; };
-		FF308E96280C680F00265863 /* SharePictureViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E95280C680F00265863 /* SharePictureViewCell.swift */; };
-		FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E97280C6AC800265863 /* PictureWallViewController.swift */; };
-		FF308E9A280C6B0A00265863 /* PictureWall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF308E99280C6B0A00265863 /* PictureWall.storyboard */; };
 		FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF308E9C280C717A00265863 /* KingFisherWrapper.swift */; };
 		FF3F77E228185D4C00D8360A /* CryptoKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77E128185D4C00D8360A /* CryptoKitHelper.swift */; };
 		FF3F77E428185E6C00D8360A /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77E328185E6C00D8360A /* AuthManager.swift */; };
@@ -169,10 +174,23 @@
 		FFCFCAF1282A105E00FE6E83 /* VideoLayerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCFCAF0282A105E00FE6E83 /* VideoLayerObject.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		FF0234FF2836678E001647B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FFC0C14928008F640041A937 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FFC0C15028008F640041A937;
+			remoteInfo = Tireless;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.debug.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.debug.xcconfig"; sourceTree = "<group>"; };
+		442A73EE7DC1C03B80A2A26E /* Pods_TirelessTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TirelessTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		52858477750540DE88E92C77 /* Pods-TirelessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TirelessTests.debug.xcconfig"; path = "Target Support Files/Pods-TirelessTests/Pods-TirelessTests.debug.xcconfig"; sourceTree = "<group>"; };
 		745C2223D0E016BB19811AAA /* Pods_Tireless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tireless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.release.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.release.xcconfig"; sourceTree = "<group>"; };
+		D521D30FA07EDA2E106421DA /* Pods-TirelessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TirelessTests.release.xcconfig"; path = "Target Support Files/Pods-TirelessTests/Pods-TirelessTests.release.xcconfig"; sourceTree = "<group>"; };
 		FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
 		FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListHeaderView.swift; sourceTree = "<group>"; };
 		FF0234C5282CEC2E001647B9 /* FriendListHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendListHeaderView.xib; sourceTree = "<group>"; };
@@ -182,11 +200,20 @@
 		FF0234D1282D8335001647B9 /* StatisticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsManager.swift; sourceTree = "<group>"; };
 		FF0234D3282DE43D001647B9 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		FF0234D52830B57C001647B9 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		FF0234D728340264001647B9 /* VideoCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCapture.swift; sourceTree = "<group>"; };
+		FF0234DE2834A5F7001647B9 /* PoseDetectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectView.swift; sourceTree = "<group>"; };
+		FF0234E02834A624001647B9 /* PoseDetectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PoseDetectView.xib; sourceTree = "<group>"; };
+		FF0234E228353DB0001647B9 /* Lottie+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Lottie+Extension.swift"; sourceTree = "<group>"; };
+		FF0234E628355640001647B9 /* PoseDetect.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PoseDetect.storyboard; sourceTree = "<group>"; };
+		FF0234E82835C4D7001647B9 /* DetectFinishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishViewModel.swift; sourceTree = "<group>"; };
+		FF0234FB2836678E001647B9 /* TirelessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TirelessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF0234FD2836678E001647B9 /* TirelessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TirelessTests.swift; sourceTree = "<group>"; };
+		FF023506283AA09B001647B9 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		FF023508283DB724001647B9 /* TirelessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TirelessError.swift; sourceTree = "<group>"; };
 		FF14449328009C010027F560 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		FF1444A5280156700027F560 /* UIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtilities.swift; sourceTree = "<group>"; };
 		FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectViewModel.swift; sourceTree = "<group>"; };
 		FF1444A92801623E0027F560 /* PosePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePoint.swift; sourceTree = "<group>"; };
-		FF1444AB280163330027F560 /* PosePointViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePointViewModel.swift; sourceTree = "<group>"; };
 		FF1444AE280183920027F560 /* SquatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquatManager.swift; sourceTree = "<group>"; };
 		FF1444B02801A6760027F560 /* StartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartManager.swift; sourceTree = "<group>"; };
 		FF1444C8280411A50027F560 /* CountDownGo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountDownGo.json; sourceTree = "<group>"; };
@@ -224,10 +251,6 @@
 		FF308E892808296400265863 /* ShareWallViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareWallViewCell.xib; sourceTree = "<group>"; };
 		FF308E8C2809177F00265863 /* ShareWallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareWallViewModel.swift; sourceTree = "<group>"; };
 		FF308E8E28095B6200265863 /* ShareFilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareFilesViewModel.swift; sourceTree = "<group>"; };
-		FF308E93280C67FD00265863 /* SharePictureViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SharePictureViewCell.xib; sourceTree = "<group>"; };
-		FF308E95280C680F00265863 /* SharePictureViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePictureViewCell.swift; sourceTree = "<group>"; };
-		FF308E97280C6AC800265863 /* PictureWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureWallViewController.swift; sourceTree = "<group>"; };
-		FF308E99280C6B0A00265863 /* PictureWall.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PictureWall.storyboard; sourceTree = "<group>"; };
 		FF308E9C280C717A00265863 /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
 		FF3F77E128185D4C00D8360A /* CryptoKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKitHelper.swift; sourceTree = "<group>"; };
 		FF3F77E328185E6C00D8360A /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -338,6 +361,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FF0234F82836678E001647B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				850A41B3C4710C925420BDDF /* Pods_TirelessTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FFC0C14E28008F640041A937 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -354,6 +385,8 @@
 			children = (
 				05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */,
 				902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */,
+				52858477750540DE88E92C77 /* Pods-TirelessTests.debug.xcconfig */,
+				D521D30FA07EDA2E106421DA /* Pods-TirelessTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -362,6 +395,7 @@
 			isa = PBXGroup;
 			children = (
 				745C2223D0E016BB19811AAA /* Pods_Tireless.framework */,
+				442A73EE7DC1C03B80A2A26E /* Pods_TirelessTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -375,6 +409,31 @@
 			path = StatisticsViewCell;
 			sourceTree = "<group>";
 		};
+		FF0234DD2834A5D2001647B9 /* PoseDetectView */ = {
+			isa = PBXGroup;
+			children = (
+				FF0234DE2834A5F7001647B9 /* PoseDetectView.swift */,
+				FF0234E02834A624001647B9 /* PoseDetectView.xib */,
+			);
+			path = PoseDetectView;
+			sourceTree = "<group>";
+		};
+		FF0234E5283553A2001647B9 /* VideoCapture */ = {
+			isa = PBXGroup;
+			children = (
+				FF0234D728340264001647B9 /* VideoCapture.swift */,
+			);
+			path = VideoCapture;
+			sourceTree = "<group>";
+		};
+		FF0234FC2836678E001647B9 /* TirelessTests */ = {
+			isa = PBXGroup;
+			children = (
+				FF0234FD2836678E001647B9 /* TirelessTests.swift */,
+			);
+			path = TirelessTests;
+			sourceTree = "<group>";
+		};
 		FF14448E28009B480027F560 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,17 +445,17 @@
 				FF5E89C728234E7500214A5D /* PlanReviewViewCell */,
 				FFC7B9F9281FFC170080A31E /* GroupPlanViewCell */,
 				FF2FE0EC280ED80500F8890D /* HomeViewCell */,
-				FF308E92280C67DA00265863 /* SharePictureViewCell */,
 				FF308E862808292F00265863 /* ShareWallViewCell */,
+				FF0234DD2834A5D2001647B9 /* PoseDetectView */,
 				FF308E6028055FA100265863 /* DetectFinishView */,
-				FFC0C15A28008F640041A937 /* Home.storyboard */,
 				FF3FBEBB2817925300E6B5DC /* Auth.storyboard */,
+				FFC0C15A28008F640041A937 /* Home.storyboard */,
+				FF0234E628355640001647B9 /* PoseDetect.storyboard */,
 				FF3FBE662811C2E100E6B5DC /* Plan.storyboard */,
 				FF3FBEA428156FF100E6B5DC /* GroupPlan.storyboard */,
-				FF308E8028080FB800265863 /* Main.storyboard */,
 				FF308E822808106500265863 /* ShareWall.storyboard */,
 				FF3FBE8728148C3500E6B5DC /* Profile.storyboard */,
-				FF308E99280C6B0A00265863 /* PictureWall.storyboard */,
+				FF308E8028080FB800265863 /* Main.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -446,6 +505,7 @@
 				FF3FBE9E2815320500E6B5DC /* GroupPlan.swift */,
 				FF3FBEB42816F52C00E6B5DC /* JoinGroup.swift */,
 				FF0234D3282DE43D001647B9 /* Statistics.swift */,
+				FF023508283DB724001647B9 /* TirelessError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -481,7 +541,7 @@
 			isa = PBXGroup;
 			children = (
 				FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */,
-				FF1444AB280163330027F560 /* PosePointViewModel.swift */,
+				FF0234E82835C4D7001647B9 /* DetectFinishViewModel.swift */,
 			);
 			path = PoseDetect;
 			sourceTree = "<group>";
@@ -575,7 +635,6 @@
 			children = (
 				FF308E63280578A700265863 /* ShareWallViewController.swift */,
 				FF3F7806281C47F100D8360A /* ShareCommentViewController.swift */,
-				FF308E97280C6AC800265863 /* PictureWallViewController.swift */,
 			);
 			path = ShareWall;
 			sourceTree = "<group>";
@@ -615,6 +674,8 @@
 				FF5E89BF2822290C00214A5D /* Orientation+Extension.swift */,
 				FF5E89DB2824A3EF00214A5D /* UILabel+Extension.swift */,
 				FF5E89DD2824AA9000214A5D /* UIButton+Extension.swift */,
+				FF0234E228353DB0001647B9 /* Lottie+Extension.swift */,
+				FF023506283AA09B001647B9 /* UIViewController+Extension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -655,15 +716,6 @@
 				FF3F7814281D40A200D8360A /* CommentsViewModel.swift */,
 			);
 			path = ShareWall;
-			sourceTree = "<group>";
-		};
-		FF308E92280C67DA00265863 /* SharePictureViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				FF308E95280C680F00265863 /* SharePictureViewCell.swift */,
-				FF308E93280C67FD00265863 /* SharePictureViewCell.xib */,
-			);
-			path = SharePictureViewCell;
 			sourceTree = "<group>";
 		};
 		FF308E9B280C716000265863 /* Third Party Wrapper */ = {
@@ -707,8 +759,8 @@
 		FF3FBE682811C2FE00E6B5DC /* Plan */ = {
 			isa = PBXGroup;
 			children = (
-				FF3FBE692811C33B00E6B5DC /* PlanManageViewController.swift */,
 				FF3FBE4F280FD15400E6B5DC /* PlanDetailViewController.swift */,
+				FF3FBE692811C33B00E6B5DC /* PlanManageViewController.swift */,
 				FF5E89E12826F50F00214A5D /* PlanModifyViewController.swift */,
 			);
 			path = Plan;
@@ -845,6 +897,7 @@
 			isa = PBXGroup;
 			children = (
 				FFC0C15328008F640041A937 /* Tireless */,
+				FF0234FC2836678E001647B9 /* TirelessTests */,
 				FFC0C15228008F640041A937 /* Products */,
 				8F4A639777C772A20A212B98 /* Pods */,
 				F088B6317C172ACEDE2B5A23 /* Frameworks */,
@@ -855,6 +908,7 @@
 			isa = PBXGroup;
 			children = (
 				FFC0C15128008F640041A937 /* Tireless.app */,
+				FF0234FB2836678E001647B9 /* TirelessTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -867,6 +921,7 @@
 				FF1444C12803AEA50027F560 /* Exercise */,
 				FF1444BB280336170027F560 /* VideoRecord */,
 				FF2D8DDD28293CFD0093DA78 /* VideoPlayer */,
+				FF0234E5283553A2001647B9 /* VideoCapture */,
 				FF1444A2280156480027F560 /* Extenesions */,
 				FF14448E28009B480027F560 /* View */,
 				FF14449228009B740027F560 /* Util */,
@@ -931,6 +986,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		FF0234FA2836678E001647B9 /* TirelessTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF0235032836678E001647B9 /* Build configuration list for PBXNativeTarget "TirelessTests" */;
+			buildPhases = (
+				5256A89C0B7BDB8CF321483B /* [CP] Check Pods Manifest.lock */,
+				FF0234F72836678E001647B9 /* Sources */,
+				FF0234F82836678E001647B9 /* Frameworks */,
+				FF0234F92836678E001647B9 /* Resources */,
+				7E5396C713796FEAF1582C84 /* [CP] Embed Pods Frameworks */,
+				89C0636EFC55881480720025 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FF0235002836678E001647B9 /* PBXTargetDependency */,
+			);
+			name = TirelessTests;
+			productName = TirelessTests;
+			productReference = FF0234FB2836678E001647B9 /* TirelessTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FFC0C15028008F640041A937 /* Tireless */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFC0C16528008F650041A937 /* Build configuration list for PBXNativeTarget "Tireless" */;
@@ -963,6 +1039,10 @@
 				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
+					FF0234FA2836678E001647B9 = {
+						CreatedOnToolsVersion = 13.3;
+						TestTargetID = FFC0C15028008F640041A937;
+					};
 					FFC0C15028008F640041A937 = {
 						CreatedOnToolsVersion = 13.3;
 					};
@@ -982,16 +1062,23 @@
 			projectRoot = "";
 			targets = (
 				FFC0C15028008F640041A937 /* Tireless */,
+				FF0234FA2836678E001647B9 /* TirelessTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FF0234F92836678E001647B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FFC0C14F28008F640041A937 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF308E9A280C6B0A00265863 /* PictureWall.storyboard in Resources */,
 				FF3F77EA281A1A5000D8360A /* SearchFriendHeaderView.xib in Resources */,
 				FFC7B9F5281FCBB70080A31E /* ProgressBar.json in Resources */,
 				FFC7B9EF281FB1CB0080A31E /* GroupPlanStatusViewCell.xib in Resources */,
@@ -1001,10 +1088,11 @@
 				FF0234C6282CEC2E001647B9 /* FriendListHeaderView.xib in Resources */,
 				FF2EF6EF28203A63008418A0 /* GroupPlanViewCell.xib in Resources */,
 				FF0234D0282D1DBA001647B9 /* StatisticsViewCell.xib in Resources */,
+				FF0234E728355640001647B9 /* PoseDetect.storyboard in Resources */,
 				FFC0C16128008F650041A937 /* LaunchScreen.storyboard in Resources */,
 				FF3FBE622811B5EC00E6B5DC /* Squat.json in Resources */,
-				FF308E94280C67FD00265863 /* SharePictureViewCell.xib in Resources */,
 				FF3FBE7228125E5800E6B5DC /* PlanManageViewCell.xib in Resources */,
+				FF0234E12834A624001647B9 /* PoseDetectView.xib in Resources */,
 				FF308E5D28055F9700265863 /* DetectFinishView.xib in Resources */,
 				FF3F77EE281A1EB500D8360A /* SearchFriendViewCell.xib in Resources */,
 				FF5E89DA2823BCCC00214A5D /* PlanReviewHeaderView.xib in Resources */,
@@ -1053,6 +1141,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tireless/Pods-Tireless-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		5256A89C0B7BDB8CF321483B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TirelessTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6E41D0217CD08F4B2A7C49A7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1090,6 +1200,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tireless/Pods-Tireless-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7E5396C713796FEAF1582C84 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		89C0636EFC55881480720025 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FF14448D280094800027F560 /* SwiftLint  */ = {
@@ -1133,22 +1277,31 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FF0234F72836678E001647B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF0234FE2836678E001647B9 /* TirelessTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FFC0C14D28008F640041A937 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				FFC7B9F1281FB61B0080A31E /* GroupPlanStatusViewModel.swift in Sources */,
 				FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */,
-				FF308E96280C680F00265863 /* SharePictureViewCell.swift in Sources */,
 				FF3FBE7C281299DE00E6B5DC /* PlanViewModel.swift in Sources */,
 				FF0234C2282CE65E001647B9 /* FriendsListViewController.swift in Sources */,
 				FF3FBE9D28151FF000E6B5DC /* Friend.swift in Sources */,
 				FF3FBEBF2817927000E6B5DC /* AuthViewController.swift in Sources */,
 				FF5E89C428227FF200214A5D /* BlockListViewModel.swift in Sources */,
 				FF0234D62830B57C001647B9 /* EditProfileViewController.swift in Sources */,
+				FF023509283DB724001647B9 /* TirelessError.swift in Sources */,
 				FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */,
 				FF3FBE742812835300E6B5DC /* PlanManager.swift in Sources */,
 				FFCFCAED282A102500FE6E83 /* VideoContainer.swift in Sources */,
+				FF0234D828340264001647B9 /* VideoCapture.swift in Sources */,
 				FF3FBE9F2815320500E6B5DC /* GroupPlan.swift in Sources */,
 				FF3FBEB32815E29E00E6B5DC /* JoinGroupViewModel.swift in Sources */,
 				FF3FBE7828128C2700E6B5DC /* PlanDetailViewModel.swift in Sources */,
@@ -1163,6 +1316,7 @@
 				FF3F77FC281AE50100D8360A /* InviteFriendViewModel.swift in Sources */,
 				FFC7B9E8281E90F20080A31E /* JoinGroupsViewModel.swift in Sources */,
 				FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */,
+				FF023507283AA09B001647B9 /* UIViewController+Extension.swift in Sources */,
 				FF2EF6F528204CA9008418A0 /* JoinUsersViewModel.swift in Sources */,
 				FF5E89DC2824A3EF00214A5D /* UILabel+Extension.swift in Sources */,
 				FF3FBE6A2811C33B00E6B5DC /* PlanManageViewController.swift in Sources */,
@@ -1179,10 +1333,9 @@
 				FFCFCAEF282A103C00FE6E83 /* VideoPlayerController.swift in Sources */,
 				FF3F780D281D088000D8360A /* ShareCommentViewCell.swift in Sources */,
 				FF0234CD282D1DB0001647B9 /* StatisticsViewCell.swift in Sources */,
-				FF308E98280C6AC800265863 /* PictureWallViewController.swift in Sources */,
 				FF3F7813281D407000D8360A /* ShareCommentViewModel.swift in Sources */,
 				FF2FE0F0280EDB7900F8890D /* HomeHeaderView.swift in Sources */,
-				FF1444AC280163330027F560 /* PosePointViewModel.swift in Sources */,
+				FF0234DF2834A5F7001647B9 /* PoseDetectView.swift in Sources */,
 				FF2EF6F7282111B2008418A0 /* PushupManager.swift in Sources */,
 				FF3FBE6E28123A0800E6B5DC /* DefaultPlanViewModel.swift in Sources */,
 				FF3FBE9828150DEC00E6B5DC /* UserManager.swift in Sources */,
@@ -1200,6 +1353,7 @@
 				FF3FBE7A2812972100E6B5DC /* PlanManageViewModel.swift in Sources */,
 				FF3FBE652811BE7A00E6B5DC /* HomeViewModel.swift in Sources */,
 				FF2EF6ED28203A58008418A0 /* GroupPlanViewCell.swift in Sources */,
+				FF0234E328353DB0001647B9 /* Lottie+Extension.swift in Sources */,
 				FF3FBEA7281570B000E6B5DC /* SetGroupPlanViewController.swift in Sources */,
 				FF308E6F2806822B00265863 /* ShareFiles.swift in Sources */,
 				FF308E852808110100265863 /* UIStoryboard+Extension.swift in Sources */,
@@ -1242,6 +1396,7 @@
 				FFC7B9FE28201D7D0080A31E /* HistoryPlanViewCell.swift in Sources */,
 				FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */,
 				FF3FBEA1281546F700E6B5DC /* JoinGroupManager.swift in Sources */,
+				FF0234E92835C4D7001647B9 /* DetectFinishViewModel.swift in Sources */,
 				FF3F7819281E769A00D8360A /* DefaultPlansViewModel.swift in Sources */,
 				FF3FBEA92815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift in Sources */,
 				FF308E7A2807D4A000265863 /* PublishViewModel.swift in Sources */,
@@ -1261,6 +1416,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FF0235002836678E001647B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FFC0C15028008F640041A937 /* Tireless */;
+			targetProxy = FF0234FF2836678E001647B9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		FFC0C15A28008F640041A937 /* Home.storyboard */ = {
@@ -1282,6 +1445,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		FF0235012836678E001647B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52858477750540DE88E92C77 /* Pods-TirelessTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3F3N8USCH4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiamHao.TirelessTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tireless.app/Tireless";
+			};
+			name = Debug;
+		};
+		FF0235022836678E001647B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D521D30FA07EDA2E106421DA /* Pods-TirelessTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3F3N8USCH4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiamHao.TirelessTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tireless.app/Tireless";
+			};
+			name = Release;
+		};
 		FFC0C16328008F650041A937 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1471,6 +1674,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FF0235032836678E001647B9 /* Build configuration list for PBXNativeTarget "TirelessTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF0235012836678E001647B9 /* Debug */,
+				FF0235022836678E001647B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FFC0C14C28008F640041A937 /* Build configuration list for PBXProject "Tireless" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

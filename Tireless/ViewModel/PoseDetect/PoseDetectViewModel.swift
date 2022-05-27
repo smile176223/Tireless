@@ -5,9 +5,9 @@
 //  Created by Hao on 2022/4/9.
 //
 
-import Foundation
 import MLKit
 import AVFoundation
+import UIKit
 
 class PoseDetectViewModel {
     
@@ -21,7 +21,42 @@ class PoseDetectViewModel {
         case plank
     }
     
+    struct PoseViewOverlay {
+        let poses: [Pose]
+        let width: CGFloat
+        let height: CGFloat
+        let previewLayer: AVCaptureVideoPreviewLayer
+    }
+    
+    struct UpdateViewFrame {
+        let viewFrame: CMSampleBuffer
+        let isUsingFrontCamera: Bool
+    }
+    
+    var plan: Plan
+
+    init(plan: Plan) {
+        self.plan = plan
+        self.setupExercise(with: plan)
+    }
+    
+    let videoURL: Box<URL?> = Box(nil)
+    
     let poseViewModels = Box([Pose]())
+    
+    let confidenceRefresh = Box(String())
+    
+    let countRefresh = Box(Int(-1))
+    
+    let isPoseDetectStart = Box(Bool())
+    
+    let finishExercise = Box(false)
+    
+    let noPoint = Box(Void())
+    
+    let updateViewFrame: Box<UpdateViewFrame?> = Box(nil)
+    
+    let poseViewOverlay: Box<PoseViewOverlay?> = Box(nil)
     
     private var isUsingFrontCamera = false
     
@@ -41,16 +76,16 @@ class PoseDetectViewModel {
     
     private var currentExercise: Exercise = .squat
     
-    var countRefresh: ((Int) -> Void)?
+    private let videoRecordManager = VideoRecordManager()
     
-    var inFrameLikeLiHoodRefresh: ((String) -> Void)?
+    private let videoCapture = VideoCapture()
     
-    var noPoint: (() -> Void)?
+    var recordStatus: RecordStatus = .userAgree
     
-    func detectPose(in sampleBuffer: CMSampleBuffer,
-                    width: CGFloat,                    
-                    height: CGFloat,
-                    previewLayer: AVCaptureVideoPreviewLayer) {
+    private func detectPose(in sampleBuffer: CMSampleBuffer,
+                            width: CGFloat,
+                            height: CGFloat,
+                            previewLayer: AVCaptureVideoPreviewLayer) {
         let visionImage = VisionImage(buffer: sampleBuffer)
         let orientation = UIUtilities.imageOrientation(fromDevicePosition: isUsingFrontCamera ? .front : .back)
         visionImage.orientation = orientation
@@ -61,12 +96,11 @@ class PoseDetectViewModel {
             var poses: [Pose]
             do {
                 poses = try poseDetector.results(in: visionImage)
-            } catch let error {
-                print("Failed to detect poses with error: \(error.localizedDescription).")
+            } catch {
                 return
             }
             guard !poses.isEmpty else {
-                self.noPoint?()
+                self.noPoint.value = ()
                 return
             }
             DispatchQueue.main.sync { [weak self] in
@@ -81,23 +115,26 @@ class PoseDetectViewModel {
                                                        inFrameLikelihood: $0.inFrameLikelihood,
                                                        type: $0.type.rawValue))
                 }
-                self?.inFrameLikeLiHoodRefresh?(getInFrameLikeLiHoodAverage(with: posePoint))
-    
-                if StartManager.shared.checkStart(posePoint) == true {
-                    switch currentExercise {
-                    case .squat:
-                        self?.countRefresh?(SquatManager.shared.squatWork(posePoint))
-                    case .pushup:
-                        self?.countRefresh?(PushupManager.shared.pushupWork(posePoint))
-                    case .plank:
-                        self?.isPlank = PlankManager.shared.plankWork(posePoint)
-                        self?.countRefresh?(plankCountTime)
-                    }
-                } else {
-                    SquatManager.shared.resetIfOut()
-                    PushupManager.shared.resetIfOut()
-                }
+                self?.confidenceRefresh.value = getConfidenceAverage(with: posePoint)
+                startExercise(with: posePoint)
             }
+        }
+    }
+    
+    func poseDetect(with sampleBuffer: CMSampleBuffer, show previewLayer: AVCaptureVideoPreviewLayer) {
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer),
+              let target = Int(plan.planTimes) else {
+            return
+        }
+        let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
+        let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
+        if countRefresh.value < target {
+            detectPose(in: sampleBuffer,
+                       width: imageWidth,
+                       height: imageHeight,
+                       previewLayer: previewLayer)
+        } else if countRefresh.value == target, finishExercise.value == false {
+            finishExercise.value = true
         }
     }
     
@@ -119,13 +156,14 @@ class PoseDetectViewModel {
         self.lastDetector = activeDetector
     }
     
-    func resetExercise() {
+    private func resetExercise() {
         SquatManager.shared.resetCount()
         PushupManager.shared.resetCount()
         plankCountTime = 0
     }
     
-    func setupExercise(with plan: Plan) {
+    private func setupExercise(with plan: Plan) {
+        resetExercise() 
         switch plan.planName {
         case PlanExercise.squat.rawValue:
             currentExercise = .squat
@@ -139,7 +177,27 @@ class PoseDetectViewModel {
         }
     }
     
-    func getInFrameLikeLiHoodAverage(with posePoints: [PosePoint]) -> String {
+    private func startExercise(with posePoint: [PosePoint]) {
+        if StartManager.shared.checkStart(posePoint) == true {
+            switch currentExercise {
+            case .squat:
+                countRefresh.value = SquatManager.shared.squatWork(posePoint)
+            case .pushup:
+                countRefresh.value = PushupManager.shared.pushupWork(posePoint)
+            case .plank:
+                isPlank = PlankManager.shared.plankWork(posePoint)
+                countRefresh.value = plankCountTime
+            }
+            if self.isPoseDetectStart.value == false {
+                self.isPoseDetectStart.value = true
+            }
+        } else {
+            SquatManager.shared.resetIfOut()
+            PushupManager.shared.resetIfOut()
+        }
+    }
+    
+    private func getConfidenceAverage(with posePoints: [PosePoint]) -> String {
         var average: Float = 0
         for posePoint in posePoints {
             average += posePoint.inFrameLikelihood
@@ -165,5 +223,78 @@ class PoseDetectViewModel {
     
     func stopTimer() {
         timer.invalidate()
+    }
+}
+
+extension PoseDetectViewModel {
+    func startRecording(completion: @escaping (() -> Void)) {
+        videoRecordManager.startRecording {
+            completion()
+        }
+    }
+    
+    func stopRecording(completion: @escaping (() -> Void)) {
+        videoRecordManager.stopRecording { url in
+            self.videoURL.value = url
+            completion()
+        } failure: {
+            completion()
+        }
+    }
+    
+    func userTapBack() {
+        videoRecordManager.userTapBack()
+    }
+    
+    func setupVideoRecord() {
+        videoRecordManager.userRejectRecord = { [weak self] in
+            self?.recordStatus = .userReject
+        }
+        videoRecordManager.getVideoRecordUrl = { [weak self] url in
+            self?.videoURL.value = url
+        }
+    }
+}
+
+extension PoseDetectViewModel: VideoCaptureDelegate {
+    func setupSession() {
+        videoCapture.delegate = self
+        videoCapture.setupCaptureSession()
+    }
+    
+    func startCapture() {
+        videoCapture.startSession()
+    }
+    
+    func stopCapture() {
+        videoCapture.stopSession()
+    }
+    
+    func setupPreviewLayer(view: UIView) {
+        videoCapture.previewLayer?.frame = view.bounds
+    }
+    
+    func videoCapture(_ capture: VideoCapture, didCaptureVideoFrame: CMSampleBuffer) {
+        guard let previewLayer = videoCapture.previewLayer else {
+            return
+        }
+        poseDetect(with: didCaptureVideoFrame, show: previewLayer)
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(didCaptureVideoFrame) else {
+            return
+        }
+        let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
+        let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
+
+        DispatchQueue.main.sync { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.updateViewFrame.value = UpdateViewFrame(viewFrame: didCaptureVideoFrame,
+                                                         isUsingFrontCamera: videoCapture.isUsingFrontCamera)
+            self.poseViewOverlay.value = PoseViewOverlay(poses: poseViewModels.value,
+                                                     width: imageWidth,
+                                                     height: imageHeight,
+                                                     previewLayer: previewLayer)
+        }
     }
 }

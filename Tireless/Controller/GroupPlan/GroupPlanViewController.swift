@@ -143,10 +143,6 @@ class GroupPlanViewController: UIViewController {
                                               heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-//        let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize,
-//                                                       subitems: [item])
-//        let section = NSCollectionLayoutSection(group: group)
-        
         item.contentInsets =  NSDirectionalEdgeInsets(top: 5, leading: 25, bottom: 5, trailing: 25)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),

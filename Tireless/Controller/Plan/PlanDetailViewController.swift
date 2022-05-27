@@ -11,22 +11,25 @@ class PlanDetailViewController: UIViewController {
     
     @IBOutlet var planDetailView: PlanDetailView!
     
-    var plan: DefaultPlans?
-    
-    let viewModel = PlanDetailViewModel()
+    var viewModel: PlanDetailViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         isBackButtonTap()
+        
         isCreateButtonTap()
+        
         setupLayout()
+        
+        setupBind()
     }
     
     func setupLayout() {
-        guard let plan = plan else {
+        guard let viewModel = viewModel else {
             return
         }
-        planDetailView.setupLayout(plan: plan)
+        planDetailView.setupLayout(plan: viewModel.defaultPlans)
     }
     
     func isBackButtonTap() {
@@ -35,30 +38,31 @@ class PlanDetailViewController: UIViewController {
         }
     }
     
-    func isCreateButtonTap() {
-        guard let plan = plan else {
-            return
+    func setupBind() {
+        viewModel?.isCreatePlan.bind { [weak self] isCreate in
+            guard let isCreate = isCreate else {
+                return
+            }
+            if isCreate {
+                self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                if let tabBarController = self?.presentingViewController as? UITabBarController {
+                    tabBarController.selectedIndex = 1
+                }
+            }
         }
-        planDetailView.isCreateButtonTap = { [weak self] days, times in
-            if AuthManager.shared.checkCurrentUser() == true {
-                self?.viewModel.setPlanData(name: plan.planName,
-                                      times: times,
-                                      days: days,
-                                      createdTime: Date().millisecondsSince1970,
-                                      planGroup: false)
-                self?.viewModel.createPlan(
-                    success: {
-                        self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-                        if let tabBarController = self?.presentingViewController as? UITabBarController {
-                            tabBarController.selectedIndex = 1
-                        }
-                    }, failure: { error in
-                        print(error)
-                    })
-            } else {
+        viewModel?.isUserLogin.bind { [weak self] isUserLogin in
+            guard let isUserLogin = isUserLogin else {
+                return
+            }
+            if isUserLogin {
                 self?.authPresent()
             }
-            
+        }
+    }
+    
+    func isCreateButtonTap() {
+        planDetailView.isCreateButtonTap = { [weak self] days, times in
+            self?.viewModel?.createPlan(times: times, days: days)
         }
     }
     

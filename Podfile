@@ -18,6 +18,15 @@ target 'Tireless' do
   pod 'Kingfisher'
   pod 'IQKeyboardManagerSwift', '6.3.0'
   pod 'JGProgressHUD'
+  
+  target 'TirelessTests' do
+    inherit! :search_paths
+    pod 'Firebase/Auth'
+    pod 'Firebase/Firestore'
+    pod 'Firebase/Storage'
+    pod 'Firebase/Crashlytics'
+    pod 'GoogleMLKit/PoseDetection'
+  end
 
 end
 
