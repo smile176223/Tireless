@@ -94,18 +94,14 @@ extension BlockListViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension BlockListViewController {
     private func presentRemoveAlert(userId: String) {
-        let alert = UIAlertController(title: "確認是否將該使用者移除黑名單",
-                                      message: "移除黑名單後，您將再次看到該使用者的資訊",
-                                      preferredStyle: .alert)
         let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
             self.viewModel.removeBlockUser(userId: userId)
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-            self.dismiss(animated: true)
-        }
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
-        self.present(alert, animated: true)
+        let cancel = UIAlertAction.cancelAction
+        let actions = [okAction, cancel]
+        presentAlert(withTitle: "確認是否將該使用者移除黑名單",
+                     message: "移除黑名單後，您將再次看到該使用者的資訊",
+                     style: .alert,
+                     actions: actions)
     }
-  
 }
