@@ -48,19 +48,19 @@ class SignUpViewController: UIViewController {
               let checkText = checkPasswordTextField.text else {
             return
         }
-        if nameText.isEmpty == true {
+        if nameText.isEmpty {
             makeAlert(show: "姓名不能為空")
             return
         }
-        if emailText.isEmpty == true {
+        if emailText.isEmpty {
             makeAlert(show: "信箱不能為空")
             return
         }
-        if passwordText.isEmpty == true {
+        if passwordText.isEmpty {
             makeAlert(show: "密碼不能為空")
             return
         }
-        if checkText.isEmpty == true {
+        if checkText.isEmpty {
             makeAlert(show: "確認密碼不能為空")
             return
         }
@@ -69,21 +69,16 @@ class SignUpViewController: UIViewController {
             return
         }
         hud.show(in: self.view)
-        AuthManager.shared.signUpWithFirebase(email: emailText,
-                                              password: passwordText) { [weak self] authResult in
-            self?.viewModel.getUser(email: authResult.user.email ?? "",
-                                    userId: authResult.user.uid,
-                                    name: nameText,
-                                    picture: "")
-            self?.viewModel.createUser()
+        
+        viewModel.signUpWithFirebase(email: emailText, password: passwordText, name: nameText) { [weak self] in
             self?.finishPresent()
-            ProgressHUD.showSuccess(text: "註冊成功")
         } failure: { errorText in
             self.hud.textLabel.text = errorText
             self.hud.indicatorView = JGProgressHUDErrorIndicatorView()
             self.hud.show(in: self.view)
             self.hud.dismiss(afterDelay: 1.0)
         }
+
     }
     
     func finishPresent() {
@@ -94,12 +89,8 @@ class SignUpViewController: UIViewController {
     }
     
     func makeAlert(show: String) {
-        let alertController = UIAlertController(title: "錯誤", message: show, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "ok", style: .default) { _ in
-            alertController.dismiss(animated: true)
-        }
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true)
+        let okAction = UIAlertAction(title: "ok", style: .cancel)
+        presentAlert(withTitle: "錯誤", message: show, style: .alert, actions: [okAction])
     }
 
 }

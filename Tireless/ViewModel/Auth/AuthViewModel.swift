@@ -40,4 +40,22 @@ class AuthViewModel {
             print(error)
         }
     }
+    
+    func signUpWithFirebase(email: String,
+                            password: String,
+                            name: String,
+                            success: (() -> Void)?,
+                            failure: ((String) -> Void)?) {
+        AuthManager.shared.signUpWithFirebase(email: email,
+                                              password: password) { authResult in
+            self.getUser(email: authResult.user.email ?? "",
+                         userId: authResult.user.uid,
+                         name: name,
+                         picture: "")
+            self.createUser()
+            success?()
+        } failure: { errorText in
+            failure?(errorText)
+        }
+    }
 }
