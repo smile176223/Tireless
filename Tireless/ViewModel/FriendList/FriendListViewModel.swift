@@ -26,8 +26,8 @@ class FriendListViewModel {
         }
     }
     
-    func fetchFriends(userId: String) {
-        UserManager.shared.fetchFriends(userId: userId) { [weak self] result in
+    func fetchFriends() {
+        UserManager.shared.fetchFriends(userId: AuthManager.shared.currentUser) { [weak self] result in
             switch result {
             case .success(let friends):
                 self?.setFriends(friends)
