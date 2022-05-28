@@ -130,7 +130,7 @@ class PlanManageViewController: UIViewController {
         else {
             return
         }
-        reviewVC.plan = plan
+        reviewVC.viewModel = PlanReviewViewModel(plan: plan)
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(reviewVC, animated: true)
     }
