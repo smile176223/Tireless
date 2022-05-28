@@ -18,8 +18,8 @@ class PlanManageViewModel {
             switch result {
             case .success(let plan):
                 self.setPlans(plan)
-            case .failure(let error):
-                print(error)
+            case .failure:
+                ProgressHUD.showFailure()
             }
         }
     }
@@ -27,10 +27,10 @@ class PlanManageViewModel {
     func deletePlan(plan: Plan) {
         PlanManager.shared.deletePlan(userId: AuthManager.shared.currentUser, plan: plan) { result in
             switch result {
-            case .success(let uuid):
-                print(uuid)
-            case .failure(let error):
-                print(error)
+            case .success:
+                ProgressHUD.showSuccess(text: "刪除計畫成功")
+            case .failure:
+                ProgressHUD.showFailure()
             }
         }
     }
@@ -38,14 +38,12 @@ class PlanManageViewModel {
     func updatePlan(plan: Plan) {
         PlanManager.shared.updatePlan(userId: AuthManager.shared.currentUser, plan: plan) { result in
             switch result {
-            case .success(let success):
+            case .success:
                 if plan.progress == 1 {
                     self.deletePlan(plan: plan)
                 }
-                print(success)
-                
-            case .failure(let error):
-                print(error)
+            case .failure:
+                ProgressHUD.showFailure()
             }
         }
     }
@@ -55,8 +53,8 @@ class PlanManageViewModel {
             switch result {
             case .success(let success):
                 print(success)
-            case .failure(let error):
-                print(error)
+            case .failure:
+                ProgressHUD.showFailure()
             }
         }
     }

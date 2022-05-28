@@ -117,7 +117,6 @@ class PlanManageViewController: UIViewController {
         else {
             return
         }
-//        groupVC.plan = plan
         groupVC.viewModel = GroupPlanStatusViewModel(plan: plan)
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(groupVC, animated: true)
@@ -227,59 +226,29 @@ extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDa
 
 extension PlanManageViewController {
     private func showDeleteAlert(plan: Plan) {
-        let alertController = UIAlertController(title: "確認刪除!",
-                                                message: "刪除的計畫無法再度復原!",
-                                                preferredStyle: .alert)
         let okAction = UIAlertAction(title: "確定", style: .destructive) { _ in
-            PlanManager.shared.deletePlan(userId: AuthManager.shared.currentUser, plan: plan) { result in
-                switch result {
-                case .success(let text):
-                    ProgressHUD.showSuccess(text: "刪除計畫成功")
-                    print(text)
-                case .failure(let error):
-                    ProgressHUD.showFailure()
-                    print(error)
-                }
-            }
-            alertController.dismiss(animated: true)
+            self.viewModel.deletePlan(plan: plan)
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .default) { _ in
-            alertController.dismiss(animated: true)
-        }
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        // iPad specific code
-        alertController.popoverPresentationController?.sourceView = self.view
-        let xOrigin = self.view.bounds.width / 2
-        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
-        alertController.popoverPresentationController?.sourceRect = popoverRect
-        alertController.popoverPresentationController?.permittedArrowDirections = .down
+        let cancel = UIAlertAction.cancelAction
+        let actions = [okAction, cancel]
+        presentAlert(withTitle: "確認刪除!", message: "刪除的計畫無法再度復原!", style: .alert, actions: actions)
         
-        self.present(alertController, animated: true)
     }
     
     private func setUserAlert(plan: Plan) {
-        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let adjust = UIAlertAction(title: "修改計畫次數", style: .default) { _ in
             self.planModifyPresent(plan: plan)
         }
         let delete = UIAlertAction(title: "刪除計畫", style: .destructive) { _ in
             self.showDeleteAlert(plan: plan)
         }
-        if plan.planGroup == false {
-            controller.addAction(adjust)
+        let cancel = UIAlertAction.cancelAction
+        var actions = [UIAlertAction]()
+        if plan.planGroup {
+            actions = [delete, cancel]
+        } else {
+            actions = [adjust, delete, cancel]
         }
-        controller.addAction(delete)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cancelAction)
-        
-        // iPad specific code
-        controller.popoverPresentationController?.sourceView = self.view
-        let xOrigin = self.view.bounds.width / 2
-        let popoverRect = CGRect(x: xOrigin, y: self.view.bounds.height, width: 1, height: 1)
-        controller.popoverPresentationController?.sourceRect = popoverRect
-        controller.popoverPresentationController?.permittedArrowDirections = .down
-        
-        present(controller, animated: true, completion: nil)
+        presentAlert(style: .actionSheet, actions: actions)
     }
 }
