@@ -15,8 +15,8 @@ class InviteFriendViewModel {
             switch result {
             case .success(let users):
                 self?.setFriends(users)
-            case .failure(let error):
-                print(error)
+            case .failure:
+                ProgressHUD.showFailure()
             }
         }
     }

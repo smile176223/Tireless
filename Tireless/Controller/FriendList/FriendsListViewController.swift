@@ -61,7 +61,7 @@ class FriendsListViewController: UIViewController {
         else {
             return
         }
-        searchVC.friendsList = self.viewModel.friends.value
+        searchVC.viewModel = SearchFriendViewModel(friendsList: self.viewModel.friends.value)
         self.navigationItem.backButtonTitle = ""
         self.navigationController?.pushViewController(searchVC, animated: true)
     }
