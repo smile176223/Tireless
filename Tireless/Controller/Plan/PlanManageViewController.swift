@@ -142,7 +142,7 @@ class PlanManageViewController: UIViewController {
         else {
             return
         }
-        modifyVC.plan = plan
+        modifyVC.viewModel = PlanModifyViewModel(plan: plan)
         modifyVC.modalPresentationStyle = .overCurrentContext
         modifyVC.modalTransitionStyle = .crossDissolve
         present(modifyVC, animated: true)

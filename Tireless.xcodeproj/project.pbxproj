@@ -27,6 +27,7 @@
 		FF0234FE2836678E001647B9 /* TirelessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234FD2836678E001647B9 /* TirelessTests.swift */; };
 		FF023507283AA09B001647B9 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF023506283AA09B001647B9 /* UIViewController+Extension.swift */; };
 		FF023509283DB724001647B9 /* TirelessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF023508283DB724001647B9 /* TirelessError.swift */; };
+		FF02352D2842762C001647B9 /* PlanModifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF02352C2842762C001647B9 /* PlanModifyViewModel.swift */; };
 		FF14449428009C010027F560 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF14449328009C010027F560 /* Box.swift */; };
 		FF1444A6280156700027F560 /* UIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A5280156700027F560 /* UIUtilities.swift */; };
 		FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */; };
@@ -208,6 +209,7 @@
 		FF0234FD2836678E001647B9 /* TirelessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TirelessTests.swift; sourceTree = "<group>"; };
 		FF023506283AA09B001647B9 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		FF023508283DB724001647B9 /* TirelessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TirelessError.swift; sourceTree = "<group>"; };
+		FF02352C2842762C001647B9 /* PlanModifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanModifyViewModel.swift; sourceTree = "<group>"; };
 		FF14449328009C010027F560 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		FF1444A5280156700027F560 /* UIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtilities.swift; sourceTree = "<group>"; };
 		FF1444A728015BDE0027F560 /* PoseDetectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectViewModel.swift; sourceTree = "<group>"; };
@@ -757,6 +759,7 @@
 			children = (
 				FF3FBE7728128C2700E6B5DC /* PlanDetailViewModel.swift */,
 				FF3FBE792812972100E6B5DC /* PlanManageViewModel.swift */,
+				FF02352C2842762C001647B9 /* PlanModifyViewModel.swift */,
 				FF3FBE7B281299DE00E6B5DC /* PlanViewModel.swift */,
 				FF3FBE6D28123A0800E6B5DC /* DefaultPlanViewModel.swift */,
 			);
@@ -1296,6 +1299,7 @@
 				FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */,
 				FF5E89D42823A3DF00214A5D /* PlanReviewViewModel.swift in Sources */,
 				FF3FBE8B28148CAC00E6B5DC /* ProfileViewController.swift in Sources */,
+				FF02352D2842762C001647B9 /* PlanModifyViewModel.swift in Sources */,
 				FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */,
 				FFC7B9F7281FD0140080A31E /* JGProgressHUDWrapper.swift in Sources */,
 				FF3FBE5A2811538500E6B5DC /* UIFont+Extension.swift in Sources */,
