@@ -216,7 +216,9 @@ extension HomeViewController: UICollectionViewDataSource {
             else {
                 return
             }
-            setGroupPlanVC.plans = self?.viewModel.plans
+            if let self = self {
+                setGroupPlanVC.viewModel = SetGroupPlanViewModel(defaultPlans: self.viewModel.plans)
+            }
             self?.present(setGroupPlanVC, animated: true)
         }
 
