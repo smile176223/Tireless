@@ -16,8 +16,8 @@ class ShareWallViewModel {
             switch result {
             case .success(let videos):
                 self?.setVideos(videos)
-            case .failure(let error):
-                print("fetchData.failure: \(error)")
+            case .failure:
+                ProgressHUD.showFailure()
             }
         }
     }
@@ -25,13 +25,11 @@ class ShareWallViewModel {
     func deleteVideo(uuid: String) {
         ShareManager.shared.deleteVideo(uuid: uuid) { result in
             switch result {
-            case .success(let text):
+            case .success:
                 ProgressHUD.showSuccess(text: "已刪除")
                 self.fetchData()
-                print(text)
-            case .failure(let error):
+            case .failure:
                 ProgressHUD.showFailure(text: "請重試")
-                print(error)
             }
         }
     }

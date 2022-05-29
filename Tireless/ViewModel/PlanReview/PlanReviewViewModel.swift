@@ -8,7 +8,14 @@
 import Foundation
 
 class PlanReviewViewModel {
+    
     let finishTimeViewModels = Box([FinishTimeViewModel]())
+    
+    var plan: Plan
+    
+    init(plan: Plan) {
+        self.plan = plan
+    }
     
     func fetchPlanReview(finishTime: [FinishTime]) {
         PlanManager.shared.fetchPlanReviewVideo(finishTime: finishTime) { result in

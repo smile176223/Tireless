@@ -19,6 +19,8 @@ class EditProfileViewController: UIViewController {
     
     var isCheckbuttonTap: (() -> Void)?
     
+    let viewModel = EditProfileViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setMaskView()
@@ -45,33 +47,17 @@ class EditProfileViewController: UIViewController {
     private func setupLayout() {
         self.editView.layer.cornerRadius = 15
         self.checkButton.layer.cornerRadius = 15
-        self.nameTextField.text = AuthManager.shared.currentUserData?.name
+        self.nameTextField.text = viewModel.userName
     }
     
     @IBAction func checkButtonTap(_ sender: UIButton) {
-        guard let name = nameTextField.text else { return }
-        ProfileManager.shared.changeUserName(name: name) { result in
-            switch result {
-            case .success(let text):
-                AuthManager.shared.getCurrentUser { result in
-                    switch result {
-                    case .success(let bool):
-                        print(bool)
-                        self.isCheckbuttonTap?()
-                        ProgressHUD.showSuccess(text: "修改成功")
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-                print(text)
-            case .failure(let error):
-//                if let tryerror = error as? TirelessError {
-//                    tryerror.text
-//                }
-                ProgressHUD.showFailure()
-                print(error)
-            }
+        guard let name = nameTextField.text else {
+            return
         }
+        viewModel.changeUserName(name: name) {
+            self.isCheckbuttonTap?()
+        }
+        
         maskView.removeFromSuperview()
         self.dismiss(animated: true, completion: nil)
     }

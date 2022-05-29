@@ -9,7 +9,7 @@ import Foundation
 
 class ShareCommentViewModel {
     
-    let commentsViewModel = Box([CommentsViewModel]())
+    let comments = Box([Comment]())
     
     var shareFile: ShareFiles
 
@@ -21,24 +21,40 @@ class ShareCommentViewModel {
         CommentManager.shared.fetchComments(uuid: shareFile.uuid) { [weak self] result in
             switch result {
             case .success(let comments):
-                self?.setComments(comments)
-            case .failure(let error):
-                print("fetchData.failure: \(error)")
+                self?.comments.value = comments
+            case .failure:
+                ProgressHUD.showFailure()
             }
         }
     }
     
-    func convertCommentsToViewModels(from comments: [Comment]) -> [CommentsViewModel] {
-        var viewModels = [CommentsViewModel]()
-        for comment in comments {
-            let viewModel = CommentsViewModel(model: comment)
-            viewModels.append(viewModel)
+    func sendComment(comment: String, needLogin: (() -> Void)?) {
+        if AuthManager.shared.checkCurrentUser() {
+            let commentText = Comment(userId: AuthManager.shared.currentUser,
+                                      content: comment,
+                                      createdTime: Date().millisecondsSince1970)
+            CommentManager.shared.postComment(uuid: shareFile.uuid,
+                                              comment: commentText) { result in
+                switch result {
+                case .success:
+                    return
+                case .failure:
+                    ProgressHUD.showFailure()
+                }
+            }
+        } else {
+            needLogin?()
         }
-        return viewModels
     }
     
-    func setComments(_ comments: [Comment]) {
-        commentsViewModel.value = convertCommentsToViewModels(from: comments)
+    func blockUser(userId: String) {
+        UserManager.shared.blockUser(blockId: userId) { result in
+            switch result {
+            case .success:
+                ProgressHUD.showSuccess(text: "封鎖成功")
+            case .failure:
+                ProgressHUD.showFailure(text: "封鎖失敗")
+            }
+        }
     }
-    
 }

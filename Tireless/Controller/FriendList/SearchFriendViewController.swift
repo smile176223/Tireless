@@ -18,12 +18,8 @@ class SearchFriendViewController: UIViewController {
     
     private var searchEmptyView = UIImageView()
     
-    let viewModel = SearchFriendViewModel()
-    
-    var checkList = [AuthManager.shared.currentUser]
-    
-    var friendsList: [User]?
-    
+    var viewModel: SearchFriendViewModel?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,7 +40,7 @@ class SearchFriendViewController: UIViewController {
         tableView.register(UINib(nibName: "\(SearchFriendViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(SearchFriendViewCell.self)")
         
-        viewModel.friendViewModels.bind { [weak self] user in
+        viewModel?.friendViewModels.bind { [weak self] user in
             DispatchQueue.main.async {
                 if user.count == 0 {
                     self?.setSearchEmptyView()
@@ -59,12 +55,7 @@ class SearchFriendViewController: UIViewController {
         
     }
     private func makeCheckList() {
-        guard let friendsList = friendsList else {
-            return
-        }
-        for friend in friendsList {
-            self.checkList.append(friend.userId)
-        }
+        viewModel?.checkFriendsList()
     }
     
     private func setSearchEmptyView() {
@@ -85,7 +76,7 @@ class SearchFriendViewController: UIViewController {
 
 extension SearchFriendViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.friendViewModels.value.count
+        return viewModel?.friendViewModels.value.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -94,16 +85,20 @@ extension SearchFriendViewController: UITableViewDelegate, UITableViewDataSource
             return UITableViewCell()
         }
         
-        let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
+        guard let cellViewModel = self.viewModel?.friendViewModels.value[indexPath.row],
+              let viewModel = viewModel else {
+            return UITableViewCell()
+        }
         cell.setup(viewModel: cellViewModel)
-        
-        if checkList.contains(cellViewModel.user.userId) == true {
+
+        if viewModel.checkSearch(userId: cellViewModel.user.userId) {
             cell.cellAddButon.isHidden = true
         } else {
             cell.cellAddButon.isHidden = false
         }
+        
         cell.isAddButtonTap = {
-            FriendManager.shared.inviteFriend(userId: cellViewModel.user.userId)
+            viewModel.inviteFriend(userId: cellViewModel.user.userId)
             ProgressHUD.showSuccess(text: "發送邀請")
             cell.cellAddButon.isHidden = true
         }
@@ -135,7 +130,7 @@ extension SearchFriendViewController: UISearchBarDelegate {
         guard let text = searchBar.text else {
             return
         }
-        viewModel.searchFriend(name: text)
+        viewModel?.searchFriend(name: text)
         searchBar.resignFirstResponder()
     }
     

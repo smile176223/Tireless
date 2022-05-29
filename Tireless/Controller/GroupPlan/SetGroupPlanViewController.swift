@@ -16,17 +16,7 @@ class SetGroupPlanViewController: UIViewController {
         }
     }
     
-    var plans: [DefaultPlans]?
-    
-    var selectPlan: DefaultPlans? {
-        didSet {
-            DispatchQueue.main.async {
-                self.collectionView.reloadItems(at: [IndexPath(row: 0, section: 1)])
-            }
-        }
-    }
-    
-    let viewModel = SetGroupPlanViewModel()
+    var viewModel: SetGroupPlanViewModel?
     
     let homeViewModel = HomeViewModel()
     
@@ -52,6 +42,12 @@ class SetGroupPlanViewController: UIViewController {
         homeViewModel.defaultPlansViewModel.bind { [weak self] _ in
             DispatchQueue.main.async {
                 self?.collectionView.reloadData()
+            }
+        }
+        
+        viewModel?.selectPlan.bind { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadItems(at: [IndexPath(row: 0, section: 1)])
             }
         }
     }
@@ -161,27 +157,22 @@ extension SetGroupPlanViewController: UICollectionViewDataSource {
             cell.textLabel.font = .bold(size: 20)
             return cell
         } else {
-            detailCell.groupPlanDetailLabel.text = selectPlan?.planDetail
-            detailCell.groupCreatedUserLabel.text = "發起人：\(AuthManager.shared.currentUserData?.name ?? "User")"
-            detailCell.isCreateButtonTap = { [weak self] days, times in
-                if AuthManager.shared.checkCurrentUser() == true {
-                    if let selectPlan = self?.selectPlan {
-                        self?.viewModel.getPlanData(name: selectPlan.planName,
-                                                   times: times,
-                                                   days: days,
-                                                   createdName: AuthManager.shared.currentUserData?.name ?? "User",
-                                                   createdUserId: AuthManager.shared.currentUser)
-                        self?.viewModel.createPlan(
-                            success: {
-                                self?.dismiss(animated: true)
-                            }, failure: { error in
-                                print(error)
-                            })
-                    }
-                } else {
-                    self?.authPresent()
-                }
+            if let selectPlan = viewModel?.selectPlan.value {
+                detailCell.groupPlanDetailLabel.text = selectPlan.planDetail
+            } else {
+                detailCell.groupPlanDetailLabel.text = ""
             }
+            detailCell.groupCreatedUserLabel.text = "發起人：\(viewModel?.getCurrentUserName() ?? "")"
+            detailCell.isCreateButtonTap = { [weak self] days, times in
+                self?.viewModel?.createPlan(times: times,
+                                            days: days,
+                                            success: {
+                    self?.dismiss(animated: true)
+                }, needLogin: {
+                    self?.authPresent()
+                })
+            }
+            
             return detailCell
             
         }
@@ -212,7 +203,7 @@ extension SetGroupPlanViewController: UICollectionViewDelegate {
                 cell?.layer.borderWidth = 5.0
                 let color = UIColor.themeYellow
                 cell?.layer.borderColor = color?.cgColor
-                self.selectPlan = self.plans?[indexPath.row]
+                self.viewModel?.userSelectPlan(index: indexPath)
             }
         }
     }
