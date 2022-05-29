@@ -12,6 +12,13 @@ Cultivate, Exercise, Tireless
 	<a href="https://apps.apple.com/tw/app/tireless/id1619740150"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"></a>
 </p>
 
+<p align="center">
+    <img src="https://img.shields.io/badge/platform-iOS-lightgray">
+    <img src="https://img.shields.io/badge/license-MIT-informational">
+    <img src="https://img.shields.io/badge/release-v1.0.1-green">
+    <img src="https://img.shields.io/badge/Swift-5.0-orange.svg?style=flat">
+</p>
+
 ## About Tireless
 Tireless is an iOS app for exercise habits.</br>
 Help you develop exercise habits by using the camera with the effect of motion recognition.</br>
@@ -85,6 +92,7 @@ Explore the community that moves together here.
 Liam Hsu</br>
 
 - email: <smile176223@gmail.com>
+- <a href="https://www.linkedin.com/in/liamhsu0602/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
 
 ## License
 Tireless is released under the MIT license. [See LICENSE](https://github.com/smile176223/Tireless/blob/feature/refactor/LICENSE) for details.
