@@ -9,9 +9,9 @@ import UIKit
 
 class DetectFinishViewController: UIViewController {
     
-    @IBOutlet var detectFinishView: DetectFinishView!
+    @IBOutlet private var detectFinishView: DetectFinishView!
     
-    let videoManager = ShareManager()
+    private let videoManager = ShareManager()
     
     var viewModel: DetectFinishViewModel?
     

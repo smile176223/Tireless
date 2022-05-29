@@ -7,9 +7,9 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class HomeViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
@@ -131,6 +131,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 }
 extension HomeViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int { 3 }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return Section.daily.columnCount
@@ -215,7 +216,9 @@ extension HomeViewController: UICollectionViewDataSource {
             else {
                 return
             }
-            setGroupPlanVC.plans = self?.viewModel.plans
+            if let self = self {
+                setGroupPlanVC.viewModel = SetGroupPlanViewModel(defaultPlans: self.viewModel.plans)
+            }
             self?.present(setGroupPlanVC, animated: true)
         }
 
@@ -261,7 +264,8 @@ extension HomeViewController: UICollectionViewDelegate {
             else {
                 return
             }
-            groupVC.joinGroup = viewModel.joinGroupsViewModel.value[indexPath.row].joinGroup
+            groupVC.viewModel = JoinGroupViewModel(joinGroup:
+                                                    viewModel.joinGroupsViewModel.value[indexPath.row].joinGroup)
             groupVC.modalPresentationStyle = .fullScreen
             self.present(groupVC, animated: true)
         }

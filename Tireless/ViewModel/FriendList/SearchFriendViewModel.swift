@@ -13,6 +13,24 @@ class SearchFriendViewModel {
     
     let friendViewModels = Box([FriendsViewModel]())
     
+    var checkList = [AuthManager.shared.currentUser]
+    
+    var friendsList: [User]
+    
+    init(friendsList: [User]) {
+        self.friendsList = friendsList
+    }
+    
+    func checkFriendsList() {
+        for friend in friendsList {
+            self.checkList.append(friend.userId)
+        }
+    }
+    
+    func checkSearch(userId: String) -> Bool {
+        return checkList.contains(userId)
+    }
+    
     func searchFriend(name: String) {
         FriendManager.shared.searchFriend(name: name) { [weak self] result in
             switch result {
@@ -34,6 +52,10 @@ class SearchFriendViewModel {
                 print(error)
             }
         }
+    }
+    
+    func inviteFriend(userId: String) {
+        FriendManager.shared.inviteFriend(userId: userId)
     }
     
     func convertFriendsToViewModels(from friends: [User]) -> [FriendsViewModel] {

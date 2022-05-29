@@ -20,20 +20,20 @@ class FriendListViewModel {
             switch result {
             case .success(let user):
                 self?.userInfo.value = [user]
-            case .failure(let error):
-                print(error)
+            case .failure:
+                ProgressHUD.showFailure()
             }
         }
     }
     
-    func fetchFriends(userId: String) {
-        UserManager.shared.fetchFriends(userId: userId) { [weak self] result in
+    func fetchFriends() {
+        UserManager.shared.fetchFriends(userId: AuthManager.shared.currentUser) { [weak self] result in
             switch result {
             case .success(let friends):
                 self?.setFriends(friends)
                 self?.friends.value = friends
-            case .failure(let error):
-                print(error)
+            case .failure:
+                ProgressHUD.showFailure()
             }
         }
     }
@@ -41,11 +41,9 @@ class FriendListViewModel {
     func deleteFriend(userId: String) {
         FriendManager.shared.deleteFriend(userId: userId) { result in
             switch result {
-            case .success(let text):
-                print(text)
+            case .success:
                 ProgressHUD.showSuccess(text: "已刪除")
-            case .failure(let error):
-                print(error)
+            case .failure:
                 ProgressHUD.showFailure()
             }
         }
@@ -54,11 +52,9 @@ class FriendListViewModel {
     func blockUser(blockId: String) {
         UserManager.shared.blockUser(blockId: blockId) { result in
             switch result {
-            case .success(let text):
+            case .success:
                 ProgressHUD.showSuccess(text: "已封鎖")
-                print(text)
-            case .failure(let error):
-                print(error)
+            case .failure:
                 ProgressHUD.showFailure()
             }
         }

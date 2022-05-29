@@ -19,7 +19,7 @@ class PlanModifyViewController: UIViewController {
     
     @IBOutlet weak var planCheckButton: UIButton!
     
-    var plan: Plan?
+    var viewModel: PlanModifyViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,7 @@ class PlanModifyViewController: UIViewController {
     }
     
     private func setupLayout() {
-        guard let plan = plan,
+        guard let plan = viewModel?.plan,
               let times = Int(plan.planTimes) else {
             return
         }
@@ -49,7 +49,7 @@ class PlanModifyViewController: UIViewController {
     }
     
     private func setupPlan() {
-        guard let plan = plan else {
+        guard let plan = viewModel?.plan else {
             return
         }
         planImageView.image = UIImage(named: plan.planName)
@@ -61,20 +61,9 @@ class PlanModifyViewController: UIViewController {
     }
     
     @IBAction func planCheckButtonTap(_ sender: UIButton) {
-        guard let plan = plan else {
-            return
-        }
-        PlanManager.shared.modifyPlan(planUid: plan.uuid,
-                                      times: planCounter.getInputField()) { result in
-            switch result {
-            case .success(let text):
-                self.dismiss(animated: true)
-                ProgressHUD.showSuccess(text: "修改計畫成功")
-                print(text)
-            case .failure(let error):
-                ProgressHUD.showFailure()
-                print(error)
-            }
-        }
+        viewModel?.modifyPlan(times: planCounter.getInputField(),
+                              success: {
+            self.dismiss(animated: true)
+        })
     }
 }

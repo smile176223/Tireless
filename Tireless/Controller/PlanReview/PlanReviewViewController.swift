@@ -18,12 +18,10 @@ class PlanReviewViewController: UIViewController {
         }
     }
     
-    var plan: Plan?
-    
     var player: AVPlayer?
     var playerViewController: AVPlayerViewController?
     
-    let viewModel = PlanReviewViewModel()
+    var viewModel: PlanReviewViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +39,7 @@ class PlanReviewViewController: UIViewController {
 
         fetchPlanReview()
         
-        viewModel.finishTimeViewModels.bind { _ in
+        viewModel?.finishTimeViewModels.bind { _ in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -49,10 +47,10 @@ class PlanReviewViewController: UIViewController {
     }
     
     func fetchPlanReview() {
-        guard let finishTime = plan?.finishTime else {
+        guard let finishTime = viewModel?.plan.finishTime else {
             return
         }
-        viewModel.fetchPlanReview(finishTime: finishTime)
+        viewModel?.fetchPlanReview(finishTime: finishTime)
     }
     
     func playVideo(videoURL: String) {
@@ -70,20 +68,16 @@ class PlanReviewViewController: UIViewController {
     }
     
     private func showAlert() {
-        let alertController = UIAlertController(title: "無影片",
-                                                message: "使用者未上傳影片!",
-                                                preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "確定", style: .default) { _ in
-            alertController.dismiss(animated: true)
-        }
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true)
+        let okAction = UIAlertAction(title: "確定", style: .cancel)
+        let actions = [okAction]
+        presentAlert(withTitle: "無影片", message: "使用者未上傳影片!", style: .alert, actions: actions)
+        
     }
 }
 
 extension PlanReviewViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.finishTimeViewModels.value.count
+        viewModel?.finishTimeViewModels.value.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -91,7 +85,9 @@ extension PlanReviewViewController: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: "\(PlanReviewViewCell.self)", for: indexPath) as? PlanReviewViewCell else {
             return UITableViewCell()
         }
-        let cellViewModel = self.viewModel.finishTimeViewModels.value[indexPath.row]
+        guard let cellViewModel = self.viewModel?.finishTimeViewModels.value[indexPath.row] else {
+            return UITableViewCell()
+        }
         cell.setup(viewModel: cellViewModel)
 
         cell.isPlayButtonTap = { [weak self] in
@@ -112,7 +108,7 @@ extension PlanReviewViewController: UITableViewDelegate, UITableViewDataSource {
                 as? PlanReviewHeaderView else {
             return UIView()
         }
-        if let plan = plan {
+        if let plan = viewModel?.plan {
             header.planImageView.image = UIImage(named: plan.planName)
             header.planNameLabel.text = plan.planName
             header.planTImesLabel.text = "每天\(plan.planTimes)秒/次，持續\(plan.planDays)天"

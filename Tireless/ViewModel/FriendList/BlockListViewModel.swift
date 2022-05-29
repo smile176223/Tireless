@@ -22,8 +22,7 @@ class BlockListViewModel {
                         switch result {
                         case .success(let user):
                             blockUsers.append(user)
-                        case .failure(let error):
-                            print(error)
+                        case .failure:
                             ProgressHUD.showFailure()
                         }
                         semaphore.signal()
@@ -38,19 +37,17 @@ class BlockListViewModel {
     func removeBlockUser(userId: String) {
         FriendManager.shared.removeBlockUser(userId: userId) { result in
             switch result {
-            case .success(let text):
-                print(text)
+            case .success:
                 AuthManager.shared.getCurrentUser { result in
                     switch result {
-                    case .success(let bool):
-                        print(bool)
+                    case .success:
                         self.fetchBlocks()
-                    case .failure(let error):
-                        print(error)
+                    case .failure:
+                        ProgressHUD.showFailure()
                     }
                 }
-            case .failure(let error):
-                print(error)
+            case .failure:
+                ProgressHUD.showFailure()
             }
         }
     }
