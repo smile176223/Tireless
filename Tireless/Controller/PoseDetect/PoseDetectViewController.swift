@@ -43,6 +43,8 @@ class PoseDetectViewController: UIViewController {
             self?.viewModel?.startCapture()
             self?.drawPose = true
         }
+//        self.viewModel?.startCapture()
+//        self.drawPose = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -25,7 +25,6 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
     private var videoURL: String?
     private var observingURLs = [String: Bool]()
     private var videoCache = NSCache<NSString, VideoContainer>()
-    private var videoLayers = VideoLayers()
     private var currentLayer: AVPlayerLayer?
     
     override init() {

@@ -35,12 +35,13 @@ class HomeViewModel {
                           WeeklyDays(days: "\(countDaily(1))", weekDays: countWeekDay(1)),
                           WeeklyDays(days: "\(countDaily(2))", weekDays: countWeekDay(2))]
     
+    let formatter = DateFormatter()
+    
     func setDefault() {
         setDefaultPlans(plans)
     }
     
     func setupDay() -> String {
-        let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
         return formatter.string(from: Date())
