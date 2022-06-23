@@ -18,19 +18,34 @@ class HomeViewController: UIViewController {
     
     let viewModel = HomeViewModel()
     
-    enum Section: Int, CaseIterable {
+    private enum Section: Int, CaseIterable {
         case daily
         case personalPlan
         case joinGroup
-
-        var columnCount: Int {
+        
+        var groupHeight: NSCollectionLayoutDimension {
+            switch self {
+            case .daily:
+                return NSCollectionLayoutDimension.absolute(90)
+            case .personalPlan:
+                return NSCollectionLayoutDimension.absolute(400)
+            case .joinGroup:
+                return NSCollectionLayoutDimension.absolute(150)
+            }
+        }
+        
+        func columnCount(isJoinGroupsEmpty: Bool) -> Int {
             switch self {
             case .daily:
                 return 5
             case .personalPlan:
                 return 3
             case .joinGroup:
-                return 3
+                if isJoinGroupsEmpty {
+                    return 1
+                } else {
+                    return 3
+                }
             }
         }
     }
@@ -84,28 +99,18 @@ class HomeViewController: UIViewController {
     private func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout {(sectionIndex, _) -> NSCollectionLayoutSection? in
             guard let sectionType = Section(rawValue: sectionIndex) else { return nil }
-            var columns = sectionType.columnCount
+            
+            let isJoinGroupsEmpty: Bool = self.viewModel.joinGroupsViewModel.value.count == 0
+            let columns = sectionType.columnCount(isJoinGroupsEmpty: isJoinGroupsEmpty)
+            let groupHeight = sectionType.groupHeight
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(1.0))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-            var groupHeight = NSCollectionLayoutDimension.absolute(1)
-            if sectionIndex == 0 {
-                groupHeight = NSCollectionLayoutDimension.absolute(90)
-            } else if sectionIndex == 1 {
-                groupHeight = NSCollectionLayoutDimension.absolute(400)
-            } else {
-                groupHeight = NSCollectionLayoutDimension.absolute(150)
-            }
+
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                    heightDimension: .fractionalHeight(1.0))
-            if sectionIndex == 2 {
-                if self.viewModel.joinGroupsViewModel.value.count != 0 {
-                    columns = 3
-                } else {
-                    columns = 1
-                }
-            }
+            
             let innergroup = sectionIndex == 1 ?
             NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: columns) :
             NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
