@@ -54,11 +54,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .themeBG
-
         navigationController?.navigationBar.isHidden = true
-        
         configureCollectionView()
-        
         viewModel.joinGroupsViewModel.bind { [weak self] _ in
             DispatchQueue.main.async {
                 guard let self = self else {
@@ -67,9 +64,7 @@ class HomeViewController: UIViewController {
                 self.collectionView.reloadData()
             }
         }
-
         viewModel.getCurrentUser()
-        
         viewModel.checkCurrentUser()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -80,7 +75,6 @@ class HomeViewController: UIViewController {
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
         collectionView.backgroundColor = .themeBG
-        
         collectionView.register(HomeDailyHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: "\(HomeDailyHeaderView.self)")
@@ -99,7 +93,6 @@ class HomeViewController: UIViewController {
     private func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout {(sectionIndex, _) -> NSCollectionLayoutSection? in
             guard let sectionType = Section(rawValue: sectionIndex) else { return nil }
-            
             let isJoinGroupsEmpty: Bool = self.viewModel.joinGroupsViewModel.value.count == 0
             let columns = sectionType.columnCount(isJoinGroupsEmpty: isJoinGroupsEmpty)
             let groupHeight = sectionType.groupHeight
@@ -107,10 +100,8 @@ class HomeViewController: UIViewController {
                                                   heightDimension: .fractionalHeight(1.0))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                    heightDimension: .fractionalHeight(1.0))
-            
             let innergroup = sectionIndex == 1 ?
             NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: columns) :
             NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
@@ -135,7 +126,9 @@ class HomeViewController: UIViewController {
     
 }
 extension HomeViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int { 3 }
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        3
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let isJoinGroupsEmpty: Bool = self.viewModel.joinGroupsViewModel.value.count == 0
@@ -195,7 +188,6 @@ extension HomeViewController: UICollectionViewDataSource {
                 groupCell.groupTitleLabel.isHidden = true
                 groupCell.isUserInteractionEnabled = false
             }
-            
             return groupCell
         }
         
