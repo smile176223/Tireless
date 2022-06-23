@@ -51,7 +51,7 @@ class HomeViewController: UIViewController {
     }
     
     private let sections: [Section] = [.daily, .personalPlan, .joinGroup]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -171,20 +171,11 @@ extension HomeViewController: UICollectionViewDataSource {
             cell.setup(viewModel: cellViewModel)
             return cell
         } else {
-            if viewModel.joinGroupsViewModel.value.count != 0 {
+            if viewModel.joinGroupsViewModel.value.count == 0 {
+                groupCell.layoutNoneCell()
+            } else {
                 let cellViewModel = self.viewModel.joinGroupsViewModel.value[indexPath.row]
                 groupCell.setup(viewModel: cellViewModel)
-                groupCell.groupUserImageView.isHidden = false
-                groupCell.groupUserNameLabel.isHidden = false
-                groupCell.groupTitleLabel.isHidden = false
-                groupCell.isUserInteractionEnabled = true
-            } else {
-                groupCell.groupImageView.image = UIImage(named: "tireless_nogroup")
-                groupCell.groupImageView.alpha = 1
-                groupCell.groupUserImageView.isHidden = true
-                groupCell.groupUserNameLabel.isHidden = true
-                groupCell.groupTitleLabel.isHidden = true
-                groupCell.isUserInteractionEnabled = false
             }
             return groupCell
         }
@@ -201,7 +192,7 @@ extension HomeViewController: UICollectionViewDataSource {
             ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: "\(HomeDailyHeaderView.self)",
             for: indexPath) as? HomeDailyHeaderView else { return UICollectionReusableView() }
-
+        
         headerView.isCreateButtonTap = { [weak self] in
             guard let setGroupPlanVC = UIStoryboard.groupPlan.instantiateViewController(
                 withIdentifier: "\(SetGroupPlanViewController.self)")
@@ -214,10 +205,9 @@ extension HomeViewController: UICollectionViewDataSource {
             }
             self?.present(setGroupPlanVC, animated: true)
         }
-
+        
         if indexPath.section == 0 {
             headerDailyView.isHidden = false
-            headerDailyView.titleLabel.text = "每日運動計畫"
             headerDailyView.dateLabel.text = viewModel.setupDay()
             return headerDailyView
         } else if indexPath.section == 1 {
@@ -245,7 +235,7 @@ extension HomeViewController: UICollectionViewDelegate {
                 return
             }
             let defaultPlan = viewModel.defaultPlansViewModel.value[indexPath.row].defaultPlans
-
+            
             detailVC.viewModel = PlanDetailViewModel(defaultPlans: defaultPlan)
             
             detailVC.modalPresentationStyle = .fullScreen

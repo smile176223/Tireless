@@ -53,5 +53,18 @@ class HomeGroupPlanViewCell: UICollectionViewCell {
         default:
             groupImageView.image = UIImage.placeHolder
         }
+        groupUserImageView.isHidden = false
+        groupUserNameLabel.isHidden = false
+        groupTitleLabel.isHidden = false
+        isUserInteractionEnabled = true
+    }
+    
+    func layoutNoneCell() {
+        groupImageView.image = UIImage(named: "tireless_nogroup")
+        groupImageView.alpha = 1
+        groupUserImageView.isHidden = true
+        groupUserNameLabel.isHidden = true
+        groupTitleLabel.isHidden = true
+        isUserInteractionEnabled = false
     }
 }
