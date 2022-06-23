@@ -163,13 +163,8 @@ extension HomeViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         if indexPath.section == 0 {
-            if indexPath.section == 0, indexPath.row == 2 {
-                dailyCell.contentView.backgroundColor = .themeYellow
-            } else {
-                dailyCell.contentView.backgroundColor = .white
-            }
-            dailyCell.dailyWeekDayLabel.text = viewModel.weeklyDay[indexPath.row].weekDays
-            dailyCell.dailyDayLabel.text = viewModel.weeklyDay[indexPath.row].days
+            let weekDays = self.viewModel.weeklyDay[indexPath.row]
+            dailyCell.setup(weekDays: weekDays, index: indexPath)
             return dailyCell
         } else if indexPath.section == 1 {
             let cellViewModel = self.viewModel.defaultPlansViewModel.value[indexPath.row]
