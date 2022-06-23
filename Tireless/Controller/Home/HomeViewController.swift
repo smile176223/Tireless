@@ -138,16 +138,14 @@ extension HomeViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int { 3 }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let isJoinGroupsEmpty: Bool = self.viewModel.joinGroupsViewModel.value.count == 0
+    
         if section == 0 {
-            return Section.daily.columnCount
+            return Section.daily.columnCount(isJoinGroupsEmpty: isJoinGroupsEmpty)
         } else if section == 1 {
-            return Section.personalPlan.columnCount
+            return Section.personalPlan.columnCount(isJoinGroupsEmpty: isJoinGroupsEmpty)
         } else {
-            if viewModel.joinGroupsViewModel.value.count == 0 {
-                return 1
-            } else {
-                return viewModel.joinGroupsViewModel.value.count
-            }
+            return Section.joinGroup.columnCount(isJoinGroupsEmpty: isJoinGroupsEmpty)
         }
     }
     
