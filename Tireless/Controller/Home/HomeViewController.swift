@@ -49,6 +49,8 @@ class HomeViewController: UIViewController {
             }
         }
     }
+    
+    private let sections: [Section] = [.daily, .personalPlan, .joinGroup]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,18 +129,19 @@ class HomeViewController: UIViewController {
 }
 extension HomeViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        3
+        return sections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let isJoinGroupsEmpty: Bool = self.viewModel.joinGroupsViewModel.value.count == 0
-    
-        if section == 0 {
-            return Section.daily.columnCount(isJoinGroupsEmpty: isJoinGroupsEmpty)
-        } else if section == 1 {
-            return Section.personalPlan.columnCount(isJoinGroupsEmpty: isJoinGroupsEmpty)
+        if sections[section] == .joinGroup {
+            if isJoinGroupsEmpty {
+                return 1
+            } else {
+                return viewModel.joinGroupsViewModel.value.count
+            }
         } else {
-            return Section.joinGroup.columnCount(isJoinGroupsEmpty: isJoinGroupsEmpty)
+            return sections[section].columnCount(isJoinGroupsEmpty: isJoinGroupsEmpty)
         }
     }
     
