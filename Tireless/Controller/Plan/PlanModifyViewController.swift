@@ -9,15 +9,15 @@ import UIKit
 
 class PlanModifyViewController: UIViewController {
     
-    @IBOutlet weak var planAlertView: UIView!
+    @IBOutlet private weak var planAlertView: UIView!
     
-    @IBOutlet weak var planImageView: UIImageView!
+    @IBOutlet private weak var planImageView: UIImageView!
     
-    @IBOutlet weak var planDetailLabel: UILabel!
+    @IBOutlet private weak var planDetailLabel: UILabel!
     
-    @IBOutlet weak var planCounter: CounterView!
+    @IBOutlet private weak var planCounter: CounterView!
     
-    @IBOutlet weak var planCheckButton: UIButton!
+    @IBOutlet private weak var planCheckButton: UIButton!
     
     var viewModel: PlanModifyViewModel?
     

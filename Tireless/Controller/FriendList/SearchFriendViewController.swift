@@ -9,7 +9,7 @@ import UIKit
 
 class SearchFriendViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self

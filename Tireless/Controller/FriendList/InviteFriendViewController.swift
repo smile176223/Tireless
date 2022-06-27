@@ -9,14 +9,14 @@ import UIKit
 
 class InviteFriendViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
         }
     }
     
-    var emptyView = UIImageView()
+    private var emptyView = UIImageView()
     
     let viewModel = InviteFriendViewModel()
     

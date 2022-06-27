@@ -10,22 +10,22 @@ import UIKit
 
 class HomeGroupPlanViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var groupImageView: UIImageView!
+    @IBOutlet private weak var groupImageView: UIImageView!
     
-    @IBOutlet weak var groupTitleLabel: UILabel!
+    @IBOutlet private weak var groupTitleLabel: UILabel!
 
-    @IBOutlet weak var groupUserImageView: UIImageView!
+    @IBOutlet private weak var groupUserImageView: UIImageView!
     
-    @IBOutlet weak var groupUserNameLabel: UILabel!
+    @IBOutlet private weak var groupUserNameLabel: UILabel!
     
-    var viewModel: JoinGroupsViewModel?
+    private var viewModel: JoinGroupsViewModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLayout()
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         self.layer.cornerRadius = 15
         groupUserImageView.layer.cornerRadius = 15
     }
@@ -35,7 +35,7 @@ class HomeGroupPlanViewCell: UICollectionViewCell {
         layoutCell()
     }
     
-    func layoutCell() {
+    private func layoutCell() {
         groupTitleLabel.text = viewModel?.joinGroup.planName
         groupUserNameLabel.text = viewModel?.joinGroup.createdUser?.name
         if viewModel?.joinGroup.createdUser?.picture != "" {

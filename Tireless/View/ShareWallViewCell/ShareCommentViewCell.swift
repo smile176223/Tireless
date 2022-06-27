@@ -9,15 +9,15 @@ import UIKit
 
 class ShareCommentViewCell: UITableViewCell {
     
-    @IBOutlet weak var commentImageView: UIImageView!
+    @IBOutlet private weak var commentImageView: UIImageView!
     
-    @IBOutlet weak var commentNameLabel: UILabel!
+    @IBOutlet private weak var commentNameLabel: UILabel!
     
-    @IBOutlet weak var commentTextLabel: UILabel!
+    @IBOutlet private weak var commentTextLabel: UILabel!
     
-    @IBOutlet weak var setButton: UIButton!
+    @IBOutlet private weak var setButton: UIButton!
     
-    var comment: Comment?
+    private var comment: Comment?
     
     var setButtonTapped: (() -> Void)?
     
@@ -31,7 +31,7 @@ class ShareCommentViewCell: UITableViewCell {
         layoutCell()
     }
     
-    func layoutCell() {
+    private func layoutCell() {
         if comment?.user?.picture == "" {
             commentImageView.image = UIImage.placeHolder
         } else {

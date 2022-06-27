@@ -10,23 +10,23 @@ import AVFoundation
 
 class PlanReviewViewCell: UITableViewCell {
     
-    @IBOutlet weak var thumbnailImageView: UIImageView!
+    @IBOutlet private weak var thumbnailImageView: UIImageView!
     
-    @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet private weak var dayLabel: UILabel!
     
     @IBOutlet weak var planTimeLabel: UILabel!
     
-    @IBOutlet weak var finishTimeLabel: UILabel!
+    @IBOutlet private weak var finishTimeLabel: UILabel!
     
-    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet private weak var playButton: UIButton!
     
-    @IBOutlet weak var noVideoButton: UIButton!
+    @IBOutlet private weak var noVideoButton: UIButton!
     
     var playButtonTapped: (() -> Void)?
     
     var noVideoButtonTapped: (() -> Void)?
     
-    var viewModel: FinishTimeViewModel?
+    private var viewModel: FinishTimeViewModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()

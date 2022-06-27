@@ -9,9 +9,9 @@ import UIKit
 
 class GroupPlanViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var groupPlanImageView: UIImageView!
+    @IBOutlet private weak var groupPlanImageView: UIImageView!
     
-    @IBOutlet weak var groupPlanUserName: UILabel!
+    @IBOutlet private weak var groupPlanUserName: UILabel!
     
     var viewModel: JoinUsersViewModel?
     

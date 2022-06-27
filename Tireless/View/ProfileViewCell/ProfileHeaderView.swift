@@ -13,11 +13,11 @@ class ProfileHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var userNameLabel: UILabel!
     
-    @IBOutlet weak var headerLineView: UIView!
+    @IBOutlet private weak var headerLineView: UIView!
 
-    @IBOutlet weak var indicatorView: UIView!
+    @IBOutlet private weak var indicatorView: UIView!
     
-    @IBOutlet weak var indicatorCenterX: NSLayoutConstraint!
+    @IBOutlet private weak var indicatorCenterX: NSLayoutConstraint!
     
     var userImageTapped: (() -> Void)?
     

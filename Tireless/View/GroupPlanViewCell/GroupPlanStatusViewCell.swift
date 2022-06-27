@@ -9,15 +9,15 @@ import UIKit
 
 class GroupPlanStatusViewCell: UITableViewCell {
     
-    @IBOutlet weak var groupPlanImageView: UIImageView!
+    @IBOutlet private weak var groupPlanImageView: UIImageView!
     
-    @IBOutlet weak var groupPlanNameLabel: UILabel!
+    @IBOutlet private weak var groupPlanNameLabel: UILabel!
     
-    @IBOutlet weak var groupPlanProgressLabel: UILabel!
+    @IBOutlet private weak var groupPlanProgressLabel: UILabel!
     
-    @IBOutlet weak var groupPlanProgressView: UIProgressView!
+    @IBOutlet private weak var groupPlanProgressView: UIProgressView!
     
-    var viewModel: PlanViewModel?
+    private var viewModel: PlanViewModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()

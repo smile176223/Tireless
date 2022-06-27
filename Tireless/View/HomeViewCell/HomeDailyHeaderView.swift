@@ -17,7 +17,7 @@ class HomeDailyHeaderView: UICollectionReusableView {
         return label
     }()
     
-    var titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .white

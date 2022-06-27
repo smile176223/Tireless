@@ -9,23 +9,23 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
         }
     }
     
-    var emptyView = UIImageView()
+    private var emptyView = UIImageView()
     
     let viewModel = ProfileViewModel()
     
-    enum ProfileTab {
+    private enum ProfileTab {
         case statistics
         case historyPlan
     }
     
-    var currentTab: ProfileTab = .statistics {
+    private var currentTab: ProfileTab = .statistics {
         didSet {
             collectionView.collectionViewLayout = createLayout()
             collectionView.reloadData()
@@ -335,7 +335,7 @@ extension ProfileViewController {
         else {
             return
         }
-        editVC.isCheckbuttonTap = { [weak self] in
+        editVC.checkbuttonTapped = { [weak self] in
             self?.collectionView.reloadData()
         }
         editVC.modalPresentationStyle = .overCurrentContext

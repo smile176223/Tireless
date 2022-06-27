@@ -11,16 +11,16 @@ import AVKit
 
 class PlanReviewViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
         }
     }
     
-    var player: AVPlayer?
+    private var player: AVPlayer?
     
-    var playerViewController: AVPlayerViewController?
+    private var playerViewController: AVPlayerViewController?
     
     var viewModel: PlanReviewViewModel?
     
@@ -47,14 +47,14 @@ class PlanReviewViewController: UIViewController {
         }
     }
     
-    func fetchPlanReview() {
+    private func fetchPlanReview() {
         guard let finishTime = viewModel?.plan.finishTime else {
             return
         }
         viewModel?.fetchPlanReview(finishTime: finishTime)
     }
     
-    func playVideo(videoURL: String) {
+    private func playVideo(videoURL: String) {
         if let videoURL = URL(string: videoURL) {
             self.player = AVPlayer(url: videoURL)
         }

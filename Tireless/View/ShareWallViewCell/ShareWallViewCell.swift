@@ -12,19 +12,19 @@ import Lottie
 
 class ShareWallViewCell: UITableViewCell, AutoPlayVideoLayerContainer {
     
-    @IBOutlet weak var videoView: UIView!
+    @IBOutlet private weak var videoView: UIView!
     
-    @IBOutlet weak var videoTitleText: UILabel!
+    @IBOutlet private weak var videoTitleText: UILabel!
     
-    @IBOutlet weak var videoContentText: UILabel!
+    @IBOutlet private weak var videoContentText: UILabel!
     
-    @IBOutlet weak var setButton: CustomButton!
+    @IBOutlet private weak var setButton: CustomButton!
     
-    @IBOutlet weak var commentButton: UIButton!
+    @IBOutlet private weak var commentButton: UIButton!
     
-    @IBOutlet weak var videoUserImageVeiw: UIImageView!
+    @IBOutlet private weak var videoUserImageVeiw: UIImageView!
     
-    var viewModel: ShareFilesViewModel?
+    private var viewModel: ShareFilesViewModel?
     
     var commentButtonTapped: (() -> Void)?
     
@@ -83,7 +83,7 @@ class ShareWallViewCell: UITableViewCell, AutoPlayVideoLayerContainer {
         self.videoURL = videoUrl.absoluteString
     }
     
-    func layoutCell() {
+    private func layoutCell() {
         videoTitleText.text = viewModel?.shareFile.user?.name
         let date = Date.dateFormatter.string(
             from: Date.init(milliseconds: viewModel?.shareFile.createdTime ?? 0))
@@ -95,7 +95,7 @@ class ShareWallViewCell: UITableViewCell, AutoPlayVideoLayerContainer {
         }
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         setButton.touchEdgeInsets = UIEdgeInsets(top: -15, left: -10, bottom: -15, right: -10)
         videoUserImageVeiw.layer.cornerRadius = videoUserImageVeiw.frame.height / 2
     }

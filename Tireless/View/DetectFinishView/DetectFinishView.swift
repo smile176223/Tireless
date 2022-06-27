@@ -10,17 +10,17 @@ import Lottie
 
 class DetectFinishView: UIView {
     
-    @IBOutlet weak var alertView: UIView!
+    @IBOutlet private weak var alertView: UIView!
     
     @IBOutlet weak var downButton: UIButton!
     
     @IBOutlet weak var shareButton: UIButton!
     
-    @IBOutlet weak var lineView: UIView!
+    @IBOutlet private weak var lineView: UIView!
     
-    @IBOutlet weak var lottieView: AnimationView!
+    @IBOutlet private weak var lottieView: AnimationView!
     
-    @IBOutlet weak var lottieUploadView: AnimationView!
+    @IBOutlet private weak var lottieUploadView: AnimationView!
     
     var shareButtonTapped: (() -> Void)?
     

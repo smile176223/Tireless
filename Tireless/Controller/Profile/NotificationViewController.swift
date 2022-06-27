@@ -10,13 +10,13 @@ import UserNotifications
 
 class NotificationViewController: UIViewController {
     
-    @IBOutlet weak var notifyView: UIView!
+    @IBOutlet private weak var notifyView: UIView!
     
-    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet private weak var datePicker: UIDatePicker!
     
-    @IBOutlet weak var checkButton: UIButton!
+    @IBOutlet private weak var checkButton: UIButton!
     
-    let maskView = UIView(frame: UIScreen.main.bounds)
+    private let maskView = UIView(frame: UIScreen.main.bounds)
     
     override func viewDidLoad() {
         super.viewDidLoad()

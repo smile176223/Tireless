@@ -11,11 +11,11 @@ import Lottie
 
 class PoseDetectViewController: UIViewController {
     
-    @IBOutlet weak var cameraPreView: PoseDetectView!
+    @IBOutlet private weak var cameraPreView: PoseDetectView!
     
-    @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet private weak var countLabel: UILabel!
     
-    @IBOutlet weak var confidenceLabel: UILabel!
+    @IBOutlet private weak var confidenceLabel: UILabel!
     
     var viewModel: PoseDetectViewModel?
 

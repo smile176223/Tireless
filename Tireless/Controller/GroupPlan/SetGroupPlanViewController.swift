@@ -9,7 +9,7 @@ import UIKit
 
 class SetGroupPlanViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
             collectionView.dataSource = self

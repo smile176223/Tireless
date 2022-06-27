@@ -9,11 +9,11 @@ import UIKit
 
 class FriendListViewCell: UITableViewCell {
     
-    @IBOutlet weak var friendImageView: UIImageView!
+    @IBOutlet private weak var friendImageView: UIImageView!
     
-    @IBOutlet weak var friendNameLabel: UILabel!
+    @IBOutlet private weak var friendNameLabel: UILabel!
     
-    @IBOutlet weak var friendSetButton: UIView!
+    @IBOutlet private weak var friendSetButton: UIView!
     
     var viewModel: FriendsViewModel?
     

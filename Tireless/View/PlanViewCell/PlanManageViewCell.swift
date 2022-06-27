@@ -14,19 +14,19 @@ class PlanManageViewCell: UICollectionViewCell {
     
     var deleteButtonTapped: (() -> Void)?
     
-    @IBOutlet weak var planImageView: UIImageView!
+    @IBOutlet private weak var planImageView: UIImageView!
 
-    @IBOutlet weak var planTitleLabel: UILabel!
+    @IBOutlet private weak var planTitleLabel: UILabel!
     
-    @IBOutlet weak var planProgressView: UIProgressView!
+    @IBOutlet private weak var planProgressView: UIProgressView!
     
-    @IBOutlet weak var planStartButton: UIButton!
+    @IBOutlet private weak var planStartButton: UIButton!
 
-    @IBOutlet weak var planDeleteButton: UIButton!
+    @IBOutlet private weak var planDeleteButton: UIButton!
     
-    @IBOutlet weak var planTimesLabel: UILabel!
+    @IBOutlet private weak var planTimesLabel: UILabel!
     
-    @IBOutlet weak var planTodayCheckView: UIImageView!
+    @IBOutlet private weak var planTodayCheckView: UIImageView!
     
     var viewModel: PlanViewModel?
     

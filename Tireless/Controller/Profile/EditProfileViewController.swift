@@ -9,15 +9,15 @@ import UIKit
 
 class EditProfileViewController: UIViewController {
     
-    @IBOutlet weak var editView: UIView!
+    @IBOutlet private weak var editView: UIView!
     
-    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet private weak var nameTextField: UITextField!
     
-    @IBOutlet weak var checkButton: UIButton!
+    @IBOutlet private weak var checkButton: UIButton!
     
-    let maskView = UIView(frame: UIScreen.main.bounds)
+    private let maskView = UIView(frame: UIScreen.main.bounds)
     
-    var isCheckbuttonTap: (() -> Void)?
+    var checkbuttonTapped: (() -> Void)?
     
     let viewModel = EditProfileViewModel()
 
@@ -56,9 +56,8 @@ class EditProfileViewController: UIViewController {
             return
         }
         viewModel.changeUserName(name: name) {
-            self.isCheckbuttonTap?()
+            self.checkbuttonTapped?()
         }
-        
         maskView.removeFromSuperview()
         self.dismiss(animated: true, completion: nil)
     }

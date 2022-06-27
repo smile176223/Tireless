@@ -11,21 +11,21 @@ import JGProgressHUD
 
 class AuthViewController: UIViewController {
     
-    @IBOutlet weak var authView: UIView!
+    @IBOutlet private weak var authView: UIView!
     
-    @IBOutlet weak var appleView: UIView!
+    @IBOutlet private weak var appleView: UIView!
     
-    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet private weak var emailTextField: UITextField!
     
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
     
-    @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet private weak var signInButton: UIButton!
     
-    var currentNonce: String?
+    private var currentNonce: String?
     
     let viewModel = AuthViewModel()
     
-    let hud = JGProgressHUD(style: .dark)
+    private let hud = JGProgressHUD(style: .dark)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +34,7 @@ class AuthViewController: UIViewController {
         makeSigninWithAppleButton()
     
     }
+    
     @IBAction func signInButtonTap(_ sender: UIButton) {
         guard let emailText = emailTextField.text,
               let passwordText = passwordTextField.text else {
@@ -184,7 +185,7 @@ extension AuthViewController: ASAuthorizationControllerDelegate {
         print("didCompleteWithError: \(error.localizedDescription)")
     }
     
-    func finishPresent() {
+    private func finishPresent() {
         self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
         if let tabBarController = self.presentingViewController as? UITabBarController {
             tabBarController.selectedIndex = 3

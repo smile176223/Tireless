@@ -9,9 +9,9 @@ import UIKit
 
 class FriendListHeaderView: UITableViewHeaderFooterView {
     
-    @IBOutlet weak var findFriendsButton: UIButton!
+    @IBOutlet private weak var findFriendsButton: UIButton!
     
-    @IBOutlet weak var receiveInviteButton: UIButton!
+    @IBOutlet private weak var receiveInviteButton: UIButton!
     
     var findButtonTapped: (() -> Void)?
     
