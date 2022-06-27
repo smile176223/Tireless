@@ -11,11 +11,11 @@ import Lottie
 
 class PoseDetectViewController: UIViewController {
     
-    @IBOutlet weak var cameraPreView: PoseDetectView!
+    @IBOutlet private weak var cameraPreView: PoseDetectView!
     
-    @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet private weak var countLabel: UILabel!
     
-    @IBOutlet weak var confidenceLabel: UILabel!
+    @IBOutlet private weak var confidenceLabel: UILabel!
     
     var viewModel: PoseDetectViewModel?
 
@@ -25,7 +25,6 @@ class PoseDetectViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         viewModel?.setupSession()
         
         viewModel?.setupVideoRecord()
@@ -43,11 +42,12 @@ class PoseDetectViewController: UIViewController {
             self?.viewModel?.startCapture()
             self?.drawPose = true
         }
+//        self.viewModel?.startCapture()
+//        self.drawPose = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         viewModel?.stopTimer()
         
         self.viewModel?.stopCapture()
@@ -84,24 +84,23 @@ class PoseDetectViewController: UIViewController {
         
         viewModel?.isPoseDetectStart.bind { [weak self] isStart in
             if isStart {
-                DispatchQueue.main.async {
-                    self?.lottieCountDownGo()
-                }
+                self?.lottieCountDownGo()
             }
         }
         
         viewModel?.finishExercise.bind { [weak self] isFinish in
             if isFinish {
-                DispatchQueue.main.async {
-                    self?.lottieDetectDone()
-                }
+                self?.lottieDetectDone()
             }
         }
         
         viewModel?.updateViewFrame.bind { [weak self] updateViewFrame in
+            guard let updateViewFrame = updateViewFrame else {
+                return
+            }
             self?.cameraPreView.updatePreviewOverlayViewWithLastFrame(
-                lastFrame: updateViewFrame?.viewFrame,
-                isUsingFrontCamera: updateViewFrame?.isUsingFrontCamera ?? false)
+                lastFrame: updateViewFrame.viewFrame,
+                isUsingFrontCamera: updateViewFrame.isUsingFrontCamera)
             self?.cameraPreView.removeDetectionAnnotations()
         }
         

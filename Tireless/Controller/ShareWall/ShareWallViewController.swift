@@ -24,15 +24,18 @@ class ShareWallViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .themeBG
         
         navigationItem.hidesBackButton = true
         
         tableView.backgroundColor = .themeBG
+        
         tableView.isPagingEnabled = true
+        
         tableView.showsVerticalScrollIndicator = false
+        
         tableView.separatorStyle = .none
+        
         tableView.contentInsetAdjustmentBehavior = .never
 
         tableView.register(UINib(nibName: "\(ShareWallViewCell.self)", bundle: nil),
@@ -43,12 +46,14 @@ class ShareWallViewController: UIViewController {
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
         
         setupBind()
+        
         lottieLoading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
+        
         viewModel.fetchData()
     }
     
@@ -59,11 +64,9 @@ class ShareWallViewController: UIViewController {
     
     private func setupBind() {
         viewModel.shareFilesViewModel.bind { [weak self] files in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-                if files.count != 0 {
-                    self?.pausePlayeVideos()
-                }
+            self?.tableView.reloadData()
+            if files.count != 0 {
+                self?.pausePlayeVideos()
             }
         }
     }
@@ -140,15 +143,15 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cellViewModel = self.viewModel.shareFilesViewModel.value[indexPath.row]
             cell.setup(viewModel: cellViewModel)
-            cell.isCommentButtonTap = {
+            cell.commentButtonTapped = {
                 self.commentPresent(shareFile: cellViewModel.shareFile)
             }
             if cellViewModel.shareFile.userId == AuthManager.shared.currentUser {
-                cell.isSetButtonTap = {
+                cell.setButtonTapped = {
                     self.setMeButtonAlert(uuid: cellViewModel.shareFile.uuid)
                 }
             } else {
-                cell.isSetButtonTap = {
+                cell.setButtonTapped = {
                     if AuthManager.shared.checkCurrentUser() == true {
                         self.setButtonAlert(userId: cellViewModel.shareFile.userId)
                     } else {

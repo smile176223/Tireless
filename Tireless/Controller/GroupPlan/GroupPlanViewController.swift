@@ -26,23 +26,21 @@ class GroupPlanViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        
         configureCollectionView()
         
         viewModel?.joinUsersViewModel.bind { [weak self] users in
             if users.contains(where: { $0.user.userId == AuthManager.shared.currentUser }) {
-                DispatchQueue.main.async {
-                    self?.planJoinButton.isEnabled = false
-                    self?.planJoinButton.setTitle("已加入", for: .normal)
-                    self?.planLeaveButton.isHidden = false
-                }
+                self?.planJoinButton.isEnabled = false
+                self?.planJoinButton.setTitle("已加入", for: .normal)
+                self?.planLeaveButton.isHidden = false
             }
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         guard let viewModel = viewModel else {
             return
         }
@@ -84,7 +82,6 @@ class GroupPlanViewController: UIViewController {
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
         collectionView.backgroundColor = .themeBG
-        
         collectionView.register(UINib(nibName: "\(GroupPlanViewCell.self)", bundle: nil),
                                 forCellWithReuseIdentifier: "\(GroupPlanViewCell.self)")
         
@@ -94,16 +91,12 @@ class GroupPlanViewController: UIViewController {
     }
     
     private func createLayout() -> UICollectionViewLayout {
-        
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
         item.contentInsets =  NSDirectionalEdgeInsets(top: 5, leading: 25, bottom: 5, trailing: 25)
-        
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                heightDimension: .fractionalHeight(1.0))
-        
         let innergroup =
         NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 1)
         let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
@@ -144,9 +137,11 @@ extension GroupPlanViewController: UICollectionViewDelegate, UICollectionViewDat
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         1
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel?.joinUsersViewModel.value.count ?? 0
     }
+    
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
@@ -160,6 +155,7 @@ extension GroupPlanViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.setup(viewModel: cellViewModel)
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {

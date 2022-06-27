@@ -9,17 +9,11 @@ import Foundation
 
 enum Lottie {
     case countDownGo
-
     case progressBar
-
     case detectDone
-
     case loading
-
     case squat
-
     case plank
-
     case pushup
     
     var name: String {

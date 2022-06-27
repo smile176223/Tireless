@@ -30,13 +30,12 @@ class GroupPlanStatusViewController: UIViewController {
                            forCellReuseIdentifier: "\(GroupPlanStatusViewCell.self)")
         
         viewModel?.groupPlanStatusViewModels.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
+            self?.tableView.reloadData()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         checkStatus()
     }
     

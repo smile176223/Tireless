@@ -9,7 +9,7 @@ import UIKit
 
 class SetGroupPlanViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
@@ -20,7 +20,7 @@ class SetGroupPlanViewController: UIViewController {
     
     let homeViewModel = HomeViewModel()
     
-    enum Section: Int, CaseIterable {
+    private enum Section: Int, CaseIterable {
         case plan
         case detail
         
@@ -34,21 +34,19 @@ class SetGroupPlanViewController: UIViewController {
         }
     }
     
+    private let sections: [Section] = [.plan, .detail]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureCollectionView()
         
         homeViewModel.defaultPlansViewModel.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
         
         viewModel?.selectPlan.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadItems(at: [IndexPath(row: 0, section: 1)])
-            }
+            self?.collectionView.reloadItems(at: [IndexPath(row: 0, section: 1)])
         }
     }
     
@@ -58,6 +56,7 @@ class SetGroupPlanViewController: UIViewController {
     
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
+        
         collectionView.backgroundColor = .themeBG
         
         collectionView.register(UINib(nibName: "\(SetGroupPlanDetailViewCell.self)", bundle: nil),
@@ -74,16 +73,11 @@ class SetGroupPlanViewController: UIViewController {
             guard let sectionType = Section(rawValue: sectionIndex) else {
                 return nil
             }
-
             let columns = sectionType.columnCount
-
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(1.0))
-
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-
             let groupHeight = sectionIndex == 1 ?
             NSCollectionLayoutDimension.fractionalHeight(0.6) : NSCollectionLayoutDimension.fractionalHeight(0.2)
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
@@ -93,14 +87,12 @@ class SetGroupPlanViewController: UIViewController {
                                                count: columns) :
             NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item,
                                                count: columns)
-
             let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9),
                                                          heightDimension: groupHeight)
             let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innergroup])
 
             let section = NSCollectionLayoutSection(group: nestedGroup)
             section.orthogonalScrollingBehavior = .groupPagingCentered
-
             let headerSize = sectionIndex == 0 ?
             NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100)) :
             NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(60))
@@ -108,16 +100,11 @@ class SetGroupPlanViewController: UIViewController {
                                                                      elementKind:
                                                                         UICollectionView.elementKindSectionHeader,
                                                                      alignment: .top)
-
             section.boundarySupplementaryItems = [header]
-
             section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 15)
-
             return section
         }
-
         return layout
-   
     }
     
     func authPresent() {
@@ -129,8 +116,9 @@ class SetGroupPlanViewController: UIViewController {
 
 extension SetGroupPlanViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+        sections.count
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return homeViewModel.defaultPlansViewModel.value.count
@@ -138,6 +126,7 @@ extension SetGroupPlanViewController: UICollectionViewDataSource {
             return 1
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
@@ -163,7 +152,7 @@ extension SetGroupPlanViewController: UICollectionViewDataSource {
                 detailCell.groupPlanDetailLabel.text = ""
             }
             detailCell.groupCreatedUserLabel.text = "發起人：\(viewModel?.getCurrentUserName() ?? "")"
-            detailCell.isCreateButtonTap = { [weak self] days, times in
+            detailCell.createButtonTapped = { [weak self] days, times in
                 self?.viewModel?.createPlan(times: times,
                                             days: days,
                                             success: {
@@ -172,11 +161,10 @@ extension SetGroupPlanViewController: UICollectionViewDataSource {
                     self?.authPresent()
                 })
             }
-            
             return detailCell
-            
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {

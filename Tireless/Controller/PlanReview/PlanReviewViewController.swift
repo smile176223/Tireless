@@ -11,24 +11,27 @@ import AVKit
 
 class PlanReviewViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
         }
     }
     
-    var player: AVPlayer?
-    var playerViewController: AVPlayerViewController?
+    private var player: AVPlayer?
+    
+    private var playerViewController: AVPlayerViewController?
     
     var viewModel: PlanReviewViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.title = "計畫進度"
+        
         self.navigationController?.navigationBar.backgroundColor = .themeBG
+        
         self.view.backgroundColor = .themeBG
+        
         self.tableView.backgroundColor = .themeBG
         
         tableView.register(UINib(nibName: "\(PlanReviewHeaderView.self)", bundle: nil),
@@ -40,20 +43,18 @@ class PlanReviewViewController: UIViewController {
         fetchPlanReview()
         
         viewModel?.finishTimeViewModels.bind { _ in
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
     }
     
-    func fetchPlanReview() {
+    private func fetchPlanReview() {
         guard let finishTime = viewModel?.plan.finishTime else {
             return
         }
         viewModel?.fetchPlanReview(finishTime: finishTime)
     }
     
-    func playVideo(videoURL: String) {
+    private func playVideo(videoURL: String) {
         if let videoURL = URL(string: videoURL) {
             self.player = AVPlayer(url: videoURL)
         }
@@ -90,15 +91,13 @@ extension PlanReviewViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.setup(viewModel: cellViewModel)
 
-        cell.isPlayButtonTap = { [weak self] in
+        cell.playButtonTapped = { [weak self] in
             guard let url = cellViewModel.finishTime.videoURL else { return }
             self?.playVideo(videoURL: url)
         }
-        
-        cell.isNoVideoButtonTap = { [weak self] in
+        cell.noVideoButtonTapped = { [weak self] in
             self?.showAlert()
         }
-        
         return cell
     }
     

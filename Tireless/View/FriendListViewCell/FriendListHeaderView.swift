@@ -9,20 +9,20 @@ import UIKit
 
 class FriendListHeaderView: UITableViewHeaderFooterView {
     
-    @IBOutlet weak var findFriendsButton: UIButton!
+    @IBOutlet private weak var findFriendsButton: UIButton!
     
-    @IBOutlet weak var receiveInviteButton: UIButton!
+    @IBOutlet private weak var receiveInviteButton: UIButton!
     
-    var isFindButtonTap: (() -> Void)?
+    var findButtonTapped: (() -> Void)?
     
-    var isReceiveButtonTap: (() -> Void)?
+    var receiveButtonTapped: (() -> Void)?
     
     @IBAction func findButtonTap(_ sender: UIButton) {
-        isFindButtonTap?()
+        findButtonTapped?()
     }
     
     @IBAction func receiveButtonTap(_ sender: UIButton) {
-        isReceiveButtonTap?()
+        receiveButtonTapped?()
     }
     
 }

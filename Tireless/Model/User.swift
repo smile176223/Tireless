@@ -23,16 +23,6 @@ struct User: Codable {
     }
 }
 
-extension User: Hashable {
-    static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.userId == rhs.userId
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(userId)
-    }
-}
-
 struct UserId: Codable {
     let userId: String
     

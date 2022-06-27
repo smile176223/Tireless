@@ -10,23 +10,22 @@ import JGProgressHUD
 
 class SignUpViewController: UIViewController {
     
-    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet private weak var nameTextField: UITextField!
     
-    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet private weak var emailTextField: UITextField!
     
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
     
-    @IBOutlet weak var checkPasswordTextField: UITextField!
+    @IBOutlet private weak var checkPasswordTextField: UITextField!
     
-    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet private weak var signUpButton: UIButton!
     
     let viewModel = AuthViewModel()
     
-    let hud = JGProgressHUD(style: .dark)
+    private let hud = JGProgressHUD(style: .dark)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupLayout()
     }
     
@@ -69,7 +68,6 @@ class SignUpViewController: UIViewController {
             return
         }
         hud.show(in: self.view)
-        
         viewModel.signUpWithFirebase(email: emailText, password: passwordText, name: nameText) { [weak self] in
             self?.finishPresent()
         } failure: { errorText in
@@ -81,14 +79,14 @@ class SignUpViewController: UIViewController {
 
     }
     
-    func finishPresent() {
+    private func finishPresent() {
         self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
         if let tabBarController = self.presentingViewController as? UITabBarController {
             tabBarController.selectedIndex = 3
         }
     }
     
-    func makeAlert(show: String) {
+    private func makeAlert(show: String) {
         let okAction = UIAlertAction(title: "ok", style: .cancel)
         presentAlert(withTitle: "錯誤", message: show, style: .alert, actions: [okAction])
     }

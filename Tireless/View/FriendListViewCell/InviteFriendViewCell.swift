@@ -9,23 +9,23 @@ import UIKit
 
 class InviteFriendViewCell: UITableViewCell {
     
-    @IBOutlet weak var cellView: UIView!
+    @IBOutlet private weak var cellView: UIView!
     
-    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet private weak var userImageView: UIImageView!
     
-    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet private weak var userNameLabel: UILabel!
     
-    @IBOutlet weak var agreeButton: UIButton!
+    @IBOutlet private weak var agreeButton: UIButton!
     
-    @IBOutlet weak var rejectButton: UIButton!
+    @IBOutlet private weak var rejectButton: UIButton!
     
     var viewModel: FriendsViewModel?
     
     var blocksViewModel: BlocksViewModel?
     
-    var isAgreeButtonTap: (() -> Void)?
+    var agreeButtonTapped: (() -> Void)?
     
-    var isRejectButtonTap: (() -> Void)?
+    var rejectButtonTapped: (() -> Void)?
     
     override func awakeFromNib() {
         setupLayout()
@@ -69,11 +69,11 @@ class InviteFriendViewCell: UITableViewCell {
     }
     
     @IBAction func agreeButtonTap(_ sender: UIButton) {
-        isAgreeButtonTap?()
+        agreeButtonTapped?()
     }
     
     @IBAction func rejectButtonTap(_ sender: UIButton) {
-        isRejectButtonTap?()
+        rejectButtonTapped?()
     }
     
 }

@@ -9,7 +9,7 @@ import Foundation
 
 class FriendListViewModel {
     
-    var userInfo = Box([User]())
+    private(set) var userInfo = Box([User]())
     
     var friends = Box([User]())
     

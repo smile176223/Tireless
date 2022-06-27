@@ -9,23 +9,23 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
         }
     }
     
-    var emptyView = UIImageView()
+    private var emptyView = UIImageView()
     
     let viewModel = ProfileViewModel()
     
-    enum ProfileTab {
+    private enum ProfileTab {
         case statistics
         case historyPlan
     }
     
-    var currentTab: ProfileTab = .statistics {
+    private var currentTab: ProfileTab = .statistics {
         didSet {
             collectionView.collectionViewLayout = createLayout()
             collectionView.reloadData()
@@ -34,22 +34,18 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setEmptyView()
         
         view.backgroundColor = .themeBG
+        
         configureCollectionView()
-
+        
         viewModel.historyPlanViewModels.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
         
         viewModel.statisticsViewModels.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
     }
     
@@ -216,28 +212,28 @@ extension ProfileViewController: UICollectionViewDataSource {
         }
         headerView.userNameLabel.text = AuthManager.shared.currentUserData?.name
 
-        headerView.isUserImageTap = { [weak self] in
+        headerView.userImageTapped = { [weak self] in
             self?.setUserInfoAlert()
         }
         
-        headerView.isCountTab = { [weak self] in
+        headerView.countTapped = { [weak self] in
             self?.currentTab = .statistics
         }
         
-        headerView.isHistoryTab = { [weak self] in
+        headerView.historyTapped = { [weak self] in
             self?.currentTab = .historyPlan
             self?.viewModel.fetchHistoryPlan()
         }
         
-        headerView.isSetListButtonTab = { [weak self] in
+        headerView.setListButtonTapped = { [weak self] in
             self?.setUserSettingAlert()
         }
         
-        headerView.isBellAlertButtonTap = { [weak self] in
+        headerView.bellAlertButtonTapped = { [weak self] in
             self?.notificationPresent()
         }
         
-        headerView.isFriendsButtonTap = { [weak self] in
+        headerView.friendsButtonTapped = { [weak self] in
             self?.friendsListPresent()
         }
         
@@ -339,7 +335,7 @@ extension ProfileViewController {
         else {
             return
         }
-        editVC.isCheckbuttonTap = { [weak self] in
+        editVC.checkbuttonTapped = { [weak self] in
             self?.collectionView.reloadData()
         }
         editVC.modalPresentationStyle = .overCurrentContext

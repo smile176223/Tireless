@@ -10,6 +10,7 @@ import AVFoundation
 
 class VideoContainer {
     var url: String
+    
     var playOn: Bool {
         didSet {
             player.isMuted = VideoPlayerController.sharedVideoPlayer.mute
@@ -23,6 +24,7 @@ class VideoContainer {
     }
     
     let player: AVPlayer
+    
     let playerItem: AVPlayerItem
     
     init(player: AVPlayer, item: AVPlayerItem, url: String) {

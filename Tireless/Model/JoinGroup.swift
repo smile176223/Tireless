@@ -28,13 +28,3 @@ struct JoinGroup: Codable {
         case uuid
     }
 }
-
-extension JoinGroup: Hashable {
-    static func == (lhs: JoinGroup, rhs: JoinGroup) -> Bool {
-        return lhs.uuid == rhs.uuid
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(uuid)
-    }
-}

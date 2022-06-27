@@ -9,15 +9,15 @@ import UIKit
 
 class HistoryPlanViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var historyImageView: UIImageView!
+    @IBOutlet private weak var historyImageView: UIImageView!
     
-    @IBOutlet weak var historyPlanNameLabel: UILabel!
+    @IBOutlet private weak var historyPlanNameLabel: UILabel!
     
-    @IBOutlet weak var historyPlanTimesLabel: UILabel!
+    @IBOutlet private weak var historyPlanTimesLabel: UILabel!
     
-    @IBOutlet weak var historyFinishTimeLabel: UILabel!
+    @IBOutlet private weak var historyFinishTimeLabel: UILabel!
     
-    var viewModel: HistoryPlanViewModel?
+    private var viewModel: HistoryPlanViewModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()

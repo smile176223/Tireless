@@ -9,7 +9,7 @@ import UIKit
 
 class SetGroupPlanDetailViewCell: UICollectionViewCell {
     
-    var isCreateButtonTap: ((String, String) -> Void)?
+    var createButtonTapped: ((String, String) -> Void)?
     
     @IBOutlet weak var groupCreatedUserLabel: UILabel!
     
@@ -41,6 +41,6 @@ class SetGroupPlanDetailViewCell: UICollectionViewCell {
     }
     
     @IBAction func createPlanButton(_ sender: UIButton) {
-        isCreateButtonTap?(groupDaysCounterView.getInputField(), groupTimesCounterView.getInputField())
+        createButtonTapped?(groupDaysCounterView.getInputField(), groupTimesCounterView.getInputField())
     }
 }

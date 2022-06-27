@@ -18,41 +18,52 @@ class HomeViewController: UIViewController {
     
     let viewModel = HomeViewModel()
     
-    enum Section: Int, CaseIterable {
+    private enum Section: Int, CaseIterable {
         case daily
         case personalPlan
         case joinGroup
-
-        var columnCount: Int {
+        
+        var groupHeight: NSCollectionLayoutDimension {
+            switch self {
+            case .daily:
+                return NSCollectionLayoutDimension.absolute(90)
+            case .personalPlan:
+                return NSCollectionLayoutDimension.absolute(400)
+            case .joinGroup:
+                return NSCollectionLayoutDimension.absolute(150)
+            }
+        }
+        
+        func columnCount(isJoinGroupsEmpty: Bool) -> Int {
             switch self {
             case .daily:
                 return 5
             case .personalPlan:
                 return 3
             case .joinGroup:
-                return 3
+                if isJoinGroupsEmpty {
+                    return 1
+                } else {
+                    return 3
+                }
             }
         }
     }
-
+    
+    private let sections: [Section] = [.daily, .personalPlan, .joinGroup]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .themeBG
-
+        
         navigationController?.navigationBar.isHidden = true
         
         configureCollectionView()
         
         viewModel.joinGroupsViewModel.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                guard let self = self else {
-                    return
-                }
-                self.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
-
+        
         viewModel.getCurrentUser()
         
         viewModel.checkCurrentUser()
@@ -65,11 +76,9 @@ class HomeViewController: UIViewController {
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
         collectionView.backgroundColor = .themeBG
-        
         collectionView.register(HomeDailyHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: "\(HomeDailyHeaderView.self)")
-        
         collectionView.register(HomeHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: "\(HomeHeaderView.self)")
@@ -84,28 +93,15 @@ class HomeViewController: UIViewController {
     private func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout {(sectionIndex, _) -> NSCollectionLayoutSection? in
             guard let sectionType = Section(rawValue: sectionIndex) else { return nil }
-            var columns = sectionType.columnCount
+            let isJoinGroupsEmpty: Bool = self.viewModel.joinGroupsViewModel.value.count == 0
+            let columns = sectionType.columnCount(isJoinGroupsEmpty: isJoinGroupsEmpty)
+            let groupHeight = sectionType.groupHeight
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                   heightDimension: .fractionalHeight(1.0))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-            var groupHeight = NSCollectionLayoutDimension.absolute(1)
-            if sectionIndex == 0 {
-                groupHeight = NSCollectionLayoutDimension.absolute(90)
-            } else if sectionIndex == 1 {
-                groupHeight = NSCollectionLayoutDimension.absolute(400)
-            } else {
-                groupHeight = NSCollectionLayoutDimension.absolute(150)
-            }
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                    heightDimension: .fractionalHeight(1.0))
-            if sectionIndex == 2 {
-                if self.viewModel.joinGroupsViewModel.value.count != 0 {
-                    columns = 3
-                } else {
-                    columns = 1
-                }
-            }
             let innergroup = sectionIndex == 1 ?
             NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: columns) :
             NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
@@ -130,19 +126,20 @@ class HomeViewController: UIViewController {
     
 }
 extension HomeViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int { 3 }
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sections.count
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {
-            return Section.daily.columnCount
-        } else if section == 1 {
-            return Section.personalPlan.columnCount
-        } else {
-            if viewModel.joinGroupsViewModel.value.count == 0 {
+        let isJoinGroupsEmpty: Bool = self.viewModel.joinGroupsViewModel.value.count == 0
+        if sections[section] == .joinGroup {
+            if isJoinGroupsEmpty {
                 return 1
             } else {
                 return viewModel.joinGroupsViewModel.value.count
             }
+        } else {
+            return sections[section].columnCount(isJoinGroupsEmpty: isJoinGroupsEmpty)
         }
     }
     
@@ -164,35 +161,20 @@ extension HomeViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         if indexPath.section == 0 {
-            if indexPath.section == 0, indexPath.row == 2 {
-                dailyCell.contentView.backgroundColor = .themeYellow
-            } else {
-                dailyCell.contentView.backgroundColor = .white
-            }
-            dailyCell.dailyWeekDayLabel.text = viewModel.weeklyDay[indexPath.row].weekDays
-            dailyCell.dailyDayLabel.text = viewModel.weeklyDay[indexPath.row].days
+            let weekDays = self.viewModel.weeklyDay[indexPath.row]
+            dailyCell.setup(weekDays: weekDays, index: indexPath)
             return dailyCell
         } else if indexPath.section == 1 {
             let cellViewModel = self.viewModel.defaultPlansViewModel.value[indexPath.row]
             cell.setup(viewModel: cellViewModel)
             return cell
         } else {
-            if viewModel.joinGroupsViewModel.value.count != 0 {
+            if viewModel.joinGroupsViewModel.value.count == 0 {
+                groupCell.layoutNoneCell()
+            } else {
                 let cellViewModel = self.viewModel.joinGroupsViewModel.value[indexPath.row]
                 groupCell.setup(viewModel: cellViewModel)
-                groupCell.groupUserImageView.isHidden = false
-                groupCell.groupUserNameLabel.isHidden = false
-                groupCell.groupTitleLabel.isHidden = false
-                groupCell.isUserInteractionEnabled = true
-            } else {
-                groupCell.groupImageView.image = UIImage(named: "tireless_nogroup")
-                groupCell.groupImageView.alpha = 1
-                groupCell.groupUserImageView.isHidden = true
-                groupCell.groupUserNameLabel.isHidden = true
-                groupCell.groupTitleLabel.isHidden = true
-                groupCell.isUserInteractionEnabled = false
             }
-            
             return groupCell
         }
         
@@ -208,7 +190,7 @@ extension HomeViewController: UICollectionViewDataSource {
             ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: "\(HomeDailyHeaderView.self)",
             for: indexPath) as? HomeDailyHeaderView else { return UICollectionReusableView() }
-
+        
         headerView.isCreateButtonTap = { [weak self] in
             guard let setGroupPlanVC = UIStoryboard.groupPlan.instantiateViewController(
                 withIdentifier: "\(SetGroupPlanViewController.self)")
@@ -221,10 +203,9 @@ extension HomeViewController: UICollectionViewDataSource {
             }
             self?.present(setGroupPlanVC, animated: true)
         }
-
+        
         if indexPath.section == 0 {
             headerDailyView.isHidden = false
-            headerDailyView.titleLabel.text = "每日運動計畫"
             headerDailyView.dateLabel.text = viewModel.setupDay()
             return headerDailyView
         } else if indexPath.section == 1 {
@@ -252,7 +233,7 @@ extension HomeViewController: UICollectionViewDelegate {
                 return
             }
             let defaultPlan = viewModel.defaultPlansViewModel.value[indexPath.row].defaultPlans
-
+            
             detailVC.viewModel = PlanDetailViewModel(defaultPlans: defaultPlan)
             
             detailVC.modalPresentationStyle = .fullScreen

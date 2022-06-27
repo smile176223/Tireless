@@ -15,7 +15,7 @@ protocol VideoCaptureDelegate: AnyObject {
 class VideoCapture: NSObject {
     
     // only for test mode
-    var isUsingFrontCamera = false
+    var isUsingFrontCamera = true
     
     weak var delegate: VideoCaptureDelegate?
     

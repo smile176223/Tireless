@@ -10,9 +10,9 @@ import Lottie
 
 class PlanDetailView: UIView {
     
-    var isBackButtonTap: (() -> Void)?
+    var backButtonTapped: (() -> Void)?
     
-    var isCreateButtonTap: ((String, String) -> Void)?
+    var createButtonTapped: ((String, String) -> Void)?
 
     private var imageView: UIImageView = {
         let image = UIImageView()
@@ -106,11 +106,11 @@ class PlanDetailView: UIView {
     }
     
     @objc private func backButtonTap() {
-        isBackButtonTap?()
+        backButtonTapped?()
     }
     
     @objc private func createButtonTap() {
-        isCreateButtonTap?(daysCounter.getInputField(), timesCounter.getInputField())
+        createButtonTapped?(daysCounter.getInputField(), timesCounter.getInputField())
     }
     
     func setupLayout(plan: DefaultPlans) {

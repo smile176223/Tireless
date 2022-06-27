@@ -9,24 +9,27 @@ import UIKit
 
 class BlockListViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
         }
     }
     
-    var emptyView = UIImageView()
+    private var emptyView = UIImageView()
     
     let viewModel = BlockListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationItem.title = "黑名單"
+        
         self.navigationController?.navigationBar.backgroundColor = .themeBG
+        
         self.navigationController?.navigationBar.barTintColor = .themeBG
+        
         self.view.backgroundColor = .themeBG
+        
         self.tableView.backgroundColor = .themeBG
         
         setEmptyView()
@@ -35,16 +38,9 @@ class BlockListViewController: UIViewController {
                            forCellReuseIdentifier: "\(InviteFriendViewCell.self)")
         
         viewModel.blocksViewModels.bind { [weak self] blocks in
-            DispatchQueue.main.async {
-                if blocks.count == 0 {
-                    self?.tableView.isHidden = true
-                    self?.emptyView.isHidden = false
-                } else {
-                    self?.tableView.isHidden = false
-                    self?.emptyView.isHidden = true
-                }
-                self?.tableView.reloadData()
-            }
+            self?.tableView.isHidden = blocks.isEmpty
+            self?.emptyView.isHidden = !blocks.isEmpty
+            self?.tableView.reloadData()
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -80,7 +76,7 @@ extension BlockListViewController: UITableViewDelegate, UITableViewDataSource {
         let cellViewModel = self.viewModel.blocksViewModels.value[indexPath.row]
         cell.setupBlock(viewModel: cellViewModel)
         
-        cell.isRejectButtonTap = { [weak self] in
+        cell.rejectButtonTapped = { [weak self] in
             self?.presentRemoveAlert(userId: cellViewModel.user.userId)
         }
         
