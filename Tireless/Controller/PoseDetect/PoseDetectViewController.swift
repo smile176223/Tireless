@@ -95,9 +95,12 @@ class PoseDetectViewController: UIViewController {
         }
         
         viewModel?.updateViewFrame.bind { [weak self] updateViewFrame in
+            guard let updateViewFrame = updateViewFrame else {
+                return
+            }
             self?.cameraPreView.updatePreviewOverlayViewWithLastFrame(
-                lastFrame: updateViewFrame?.viewFrame,
-                isUsingFrontCamera: updateViewFrame?.isUsingFrontCamera ?? false)
+                lastFrame: updateViewFrame.viewFrame,
+                isUsingFrontCamera: updateViewFrame.isUsingFrontCamera)
             self?.cameraPreView.removeDetectionAnnotations()
         }
         
