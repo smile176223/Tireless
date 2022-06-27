@@ -17,7 +17,7 @@ class ShareCommentViewCell: UITableViewCell {
     
     @IBOutlet weak var setButton: UIButton!
     
-    var viewModel: Comment?
+    var comment: Comment?
     
     var setButtonTapped: (() -> Void)?
     
@@ -26,20 +26,20 @@ class ShareCommentViewCell: UITableViewCell {
         setupLayout()
     }
     
-    func setup(viewModel: Comment) {
-        self.viewModel = viewModel
+    func setup(comment: Comment) {
+        self.comment = comment
         layoutCell()
     }
     
     func layoutCell() {
-        if viewModel?.user?.picture == "" {
+        if comment?.user?.picture == "" {
             commentImageView.image = UIImage.placeHolder
         } else {
-            commentImageView.loadImage(viewModel?.user?.picture)
+            commentImageView.loadImage(comment?.user?.picture)
         }
-        commentNameLabel.text = viewModel?.user?.name
-        commentTextLabel.text = viewModel?.content
-        if viewModel?.userId == AuthManager.shared.currentUser {
+        commentNameLabel.text = comment?.user?.name
+        commentTextLabel.text = comment?.content
+        if comment?.userId == AuthManager.shared.currentUser {
             setButton.isHidden = true
         } else {
             setButton.isHidden = false

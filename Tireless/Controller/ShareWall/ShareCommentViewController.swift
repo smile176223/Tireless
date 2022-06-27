@@ -105,14 +105,14 @@ extension ShareCommentViewController: UITableViewDelegate, UITableViewDataSource
             withIdentifier: "\(ShareCommentViewCell.self)", for: indexPath) as? ShareCommentViewCell else {
             return UITableViewCell()
         }
-        guard let cellViewModel = self.viewModel?.comments.value[indexPath.row] else {
+        guard let cellComment = self.viewModel?.comments.value[indexPath.row] else {
             return cell
         }
         
-        cell.setup(viewModel: cellViewModel)
+        cell.setup(comment: cellComment)
         
         cell.setButtonTapped = { [weak self] in
-            self?.setButtonAlert(userId: cellViewModel.userId)
+            self?.setButtonAlert(userId: cellComment.userId)
         }
         
         return cell
