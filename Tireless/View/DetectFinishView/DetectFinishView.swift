@@ -22,9 +22,9 @@ class DetectFinishView: UIView {
     
     @IBOutlet weak var lottieUploadView: AnimationView!
     
-    var isShareButtonTap: (() -> Void)?
+    var shareButtonTapped: (() -> Void)?
     
-    var isFinishButtonTap: (() -> Void)?
+    var finishButtonTapped: (() -> Void)?
     
     var startFrame: CGFloat = 0
     
@@ -86,11 +86,11 @@ class DetectFinishView: UIView {
     }
     
     @IBAction func shareButtonTap(_ sender: UIButton) {
-        isShareButtonTap?()
+        shareButtonTapped?()
     }
     
     @IBAction func finishButtonTap(_ sender: UIButton) {
-        isFinishButtonTap?()
+        finishButtonTapped?()
     }
     
 }

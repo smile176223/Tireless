@@ -90,12 +90,12 @@ extension PlanReviewViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.setup(viewModel: cellViewModel)
 
-        cell.isPlayButtonTap = { [weak self] in
+        cell.playButtonTapped = { [weak self] in
             guard let url = cellViewModel.finishTime.videoURL else { return }
             self?.playVideo(videoURL: url)
         }
         
-        cell.isNoVideoButtonTap = { [weak self] in
+        cell.noVideoButtonTapped = { [weak self] in
             self?.showAlert()
         }
         

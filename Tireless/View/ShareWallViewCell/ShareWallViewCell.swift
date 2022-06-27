@@ -26,9 +26,9 @@ class ShareWallViewCell: UITableViewCell, AutoPlayVideoLayerContainer {
     
     var viewModel: ShareFilesViewModel?
     
-    var isCommentButtonTap: (() -> Void)?
+    var commentButtonTapped: (() -> Void)?
     
-    var isSetButtonTap: (() -> Void)?
+    var setButtonTapped: (() -> Void)?
     
     var playerController: VideoPlayerController?
     
@@ -109,10 +109,10 @@ class ShareWallViewCell: UITableViewCell, AutoPlayVideoLayerContainer {
     }
     
     @IBAction func commentButtonTap(_ sender: UIButton) {
-        isCommentButtonTap?()
+        commentButtonTapped?()
     }
     @IBAction func setButtonTqp(_ sender: UIButton) {
-        isSetButtonTap?()
+        setButtonTapped?()
     }
     
     func visibleVideoHeight() -> CGFloat {

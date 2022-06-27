@@ -19,19 +19,19 @@ class ProfileHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var indicatorCenterX: NSLayoutConstraint!
     
-    var isUserImageTap: (() -> Void)?
+    var userImageTapped: (() -> Void)?
     
-    var isCountTab: (() -> Void)?
+    var countTapped: (() -> Void)?
     
-    var isHistoryTab: (() -> Void)?
+    var historyTapped: (() -> Void)?
     
-    var isAwardTab: (() -> Void)?
+    var awardTapped: (() -> Void)?
     
-    var isSetListButtonTab: (() -> Void)?
+    var setListButtonTapped: (() -> Void)?
     
-    var isBellAlertButtonTap: (() -> Void)?
+    var bellAlertButtonTapped: (() -> Void)?
     
-    var isFriendsButtonTap: (() -> Void)?
+    var friendsButtonTapped: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,34 +47,34 @@ class ProfileHeaderView: UICollectionReusableView {
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-        isUserImageTap?()
+        userImageTapped?()
     }
     
     @IBAction func countTabButtonTap(_ sender: UIButton) {
         indicatorAnimate(sender)
-        isCountTab?()
+        countTapped?()
     }
     
     @IBAction func historyabButtonTap(_ sender: UIButton) {
         indicatorAnimate(sender)
-        isHistoryTab?()
+        historyTapped?()
     }
     
     @IBAction func awardButtonTap(_ sender: UIButton) {
         indicatorAnimate(sender)
-        isAwardTab?()
+        awardTapped?()
     }
     
     @IBAction func blockListButtonTap(_ sender: UIButton) {
-        isSetListButtonTab?()
+        setListButtonTapped?()
     }
     
     @IBAction func bellAlertButtonTap(_ sender: UIButton) {
-        isBellAlertButtonTap?()
+        bellAlertButtonTapped?()
     }
     
     @IBAction func friendsButtonTap(_ sender: UIButton) {
-        isFriendsButtonTap?()
+        friendsButtonTapped?()
     }
     
     private func setupLayout() {

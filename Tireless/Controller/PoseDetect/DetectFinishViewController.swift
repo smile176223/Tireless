@@ -36,7 +36,7 @@ class DetectFinishViewController: UIViewController {
     }
 
     private func shareButtonTap() {
-        detectFinishView.isShareButtonTap = { [weak self] in
+        detectFinishView.shareButtonTapped = { [weak self] in
             self?.changeButtonStatus(status: false)
             self?.viewModel?.uploadVideo()
         }
@@ -69,7 +69,7 @@ class DetectFinishViewController: UIViewController {
     }
     
     private func finishButtonTap() {
-        detectFinishView.isFinishButtonTap = { [weak self] in
+        detectFinishView.finishButtonTapped = { [weak self] in
             self?.viewModel?.updateValue(videoId: "")
             self?.finishPresent()
         }

@@ -22,9 +22,9 @@ class PlanReviewViewCell: UITableViewCell {
     
     @IBOutlet weak var noVideoButton: UIButton!
     
-    var isPlayButtonTap: (() -> Void)?
+    var playButtonTapped: (() -> Void)?
     
-    var isNoVideoButtonTap: (() -> Void)?
+    var noVideoButtonTapped: (() -> Void)?
     
     var viewModel: FinishTimeViewModel?
     
@@ -86,9 +86,9 @@ class PlanReviewViewCell: UITableViewCell {
     }
 
     @IBAction func playButtonTap(_ sender: UIButton) {
-        isPlayButtonTap?()
+        playButtonTapped?()
     }
     @IBAction func noVideoButtonTap(_ sender: UIButton) {
-        isNoVideoButtonTap?()
+        noVideoButtonTapped?()
     }
 }

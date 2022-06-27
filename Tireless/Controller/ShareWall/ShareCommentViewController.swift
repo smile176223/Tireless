@@ -113,7 +113,7 @@ extension ShareCommentViewController: UITableViewDelegate, UITableViewDataSource
         
         cell.setup(viewModel: cellViewModel)
         
-        cell.isSetButtonTap = { [weak self] in
+        cell.setButtonTapped = { [weak self] in
             self?.setButtonAlert(userId: cellViewModel.userId)
         }
         

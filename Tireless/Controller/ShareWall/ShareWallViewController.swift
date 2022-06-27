@@ -140,15 +140,15 @@ extension ShareWallViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cellViewModel = self.viewModel.shareFilesViewModel.value[indexPath.row]
             cell.setup(viewModel: cellViewModel)
-            cell.isCommentButtonTap = {
+            cell.commentButtonTapped = {
                 self.commentPresent(shareFile: cellViewModel.shareFile)
             }
             if cellViewModel.shareFile.userId == AuthManager.shared.currentUser {
-                cell.isSetButtonTap = {
+                cell.setButtonTapped = {
                     self.setMeButtonAlert(uuid: cellViewModel.shareFile.uuid)
                 }
             } else {
-                cell.isSetButtonTap = {
+                cell.setButtonTapped = {
                     if AuthManager.shared.checkCurrentUser() == true {
                         self.setButtonAlert(userId: cellViewModel.shareFile.userId)
                     } else {

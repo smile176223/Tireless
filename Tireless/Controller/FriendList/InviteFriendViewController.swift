@@ -76,12 +76,12 @@ extension InviteFriendViewController: UITableViewDelegate, UITableViewDataSource
         let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
         
-        cell.isAgreeButtonTap = {
+        cell.agreeButtonTapped = {
             FriendManager.shared.addFriend(userId: cellViewModel.user.userId)
             ProgressHUD.showSuccess(text: "已加入")
         }
         
-        cell.isRejectButtonTap = {
+        cell.rejectButtonTapped = {
             FriendManager.shared.rejectInvite(userId: cellViewModel.user.userId)
             ProgressHUD.showSuccess(text: "已拒絕")
         }

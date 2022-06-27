@@ -90,7 +90,7 @@ extension FriendsListViewController: UITableViewDelegate, UITableViewDataSource 
         let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
         
-        cell.isSetButtonTap = { [weak self] in
+        cell.setButtonTapped = { [weak self] in
             self?.setButtonAlert(userId: cellViewModel.user.userId)
         }
 
@@ -103,11 +103,11 @@ extension FriendsListViewController: UITableViewDelegate, UITableViewDataSource 
                 as? FriendListHeaderView else {
             return UIView()
         }
-        header.isFindButtonTap = { [weak self] in
+        header.findButtonTapped = { [weak self] in
             self?.searchFriendPresent()
         }
         
-        header.isReceiveButtonTap = { [weak self] in
+        header.receiveButtonTapped = { [weak self] in
             self?.invitePresent()
         }
         

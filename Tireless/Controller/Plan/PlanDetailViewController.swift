@@ -33,7 +33,7 @@ class PlanDetailViewController: UIViewController {
     }
     
     func isBackButtonTap() {
-        planDetailView?.isBackButtonTap = { [weak self] in
+        planDetailView?.backButtonTapped = { [weak self] in
             self?.dismiss(animated: true)
         }
     }
@@ -61,7 +61,7 @@ class PlanDetailViewController: UIViewController {
     }
     
     func isCreateButtonTap() {
-        planDetailView.isCreateButtonTap = { [weak self] days, times in
+        planDetailView.createButtonTapped = { [weak self] days, times in
             self?.viewModel?.createPlan(times: times, days: days)
         }
     }

@@ -176,19 +176,19 @@ extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDa
         if indexPath.section == 0 {
             let cellViewModel = self.viewModel.planViewModels.value[indexPath.row]
             cell.setup(viewModel: cellViewModel)
-            cell.isDeleteButtonTap = {
+            cell.deleteButtonTapped = {
                 self.setUserAlert(plan: cellViewModel.plan)
             }
-            cell.isStartButtonTap = {
+            cell.startButtonTapped = {
                 self.present(target: cellViewModel.plan.planTimes, plan: cellViewModel.plan)
             }
         } else {
             let cellViewModel = self.viewModel.groupPlanViewModels.value[indexPath.row]
             cell.setup(viewModel: cellViewModel)
-            cell.isStartButtonTap = {
+            cell.startButtonTapped = {
                 self.present(target: cellViewModel.plan.planTimes, plan: cellViewModel.plan)
             }
-            cell.isDeleteButtonTap = {
+            cell.deleteButtonTapped = {
                 self.setUserAlert(plan: cellViewModel.plan)
             }
         }

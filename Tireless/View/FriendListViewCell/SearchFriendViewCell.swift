@@ -19,7 +19,7 @@ class SearchFriendViewCell: UITableViewCell {
     
     var viewModel: FriendsViewModel?
     
-    var isAddButtonTap: (() -> Void)?
+    var addButtonTapped: (() -> Void)?
     
     override func awakeFromNib() {
         setupLayout()
@@ -30,7 +30,7 @@ class SearchFriendViewCell: UITableViewCell {
         layoutCell()
     }
     @IBAction func addButtonTap(_ sender: UIButton) {
-        isAddButtonTap?()
+        addButtonTapped?()
     }
     
     func setupLayout() {

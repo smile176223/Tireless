@@ -80,7 +80,7 @@ extension BlockListViewController: UITableViewDelegate, UITableViewDataSource {
         let cellViewModel = self.viewModel.blocksViewModels.value[indexPath.row]
         cell.setupBlock(viewModel: cellViewModel)
         
-        cell.isRejectButtonTap = { [weak self] in
+        cell.rejectButtonTapped = { [weak self] in
             self?.presentRemoveAlert(userId: cellViewModel.user.userId)
         }
         

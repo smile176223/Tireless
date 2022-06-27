@@ -19,7 +19,7 @@ class ShareCommentViewCell: UITableViewCell {
     
     var viewModel: Comment?
     
-    var isSetButtonTap: (() -> Void)?
+    var setButtonTapped: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -50,6 +50,6 @@ class ShareCommentViewCell: UITableViewCell {
         commentImageView.layer.cornerRadius = commentImageView.frame.height / 2
     }
     @IBAction func setButtonTap(_ sender: UIButton) {
-        isSetButtonTap?()
+        setButtonTapped?()
     }
 }

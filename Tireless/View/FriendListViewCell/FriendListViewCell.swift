@@ -17,7 +17,7 @@ class FriendListViewCell: UITableViewCell {
     
     var viewModel: FriendsViewModel?
     
-    var isSetButtonTap: (() -> Void)?
+    var setButtonTapped: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,7 +44,7 @@ class FriendListViewCell: UITableViewCell {
     }
     
     @IBAction func setButtonTap(_ sender: UIButton) {
-        isSetButtonTap?()
+        setButtonTapped?()
     }
     
 }

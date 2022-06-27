@@ -163,7 +163,7 @@ extension SetGroupPlanViewController: UICollectionViewDataSource {
                 detailCell.groupPlanDetailLabel.text = ""
             }
             detailCell.groupCreatedUserLabel.text = "發起人：\(viewModel?.getCurrentUserName() ?? "")"
-            detailCell.isCreateButtonTap = { [weak self] days, times in
+            detailCell.createButtonTapped = { [weak self] days, times in
                 self?.viewModel?.createPlan(times: times,
                                             days: days,
                                             success: {

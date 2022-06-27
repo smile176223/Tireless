@@ -23,9 +23,9 @@ class InviteFriendViewCell: UITableViewCell {
     
     var blocksViewModel: BlocksViewModel?
     
-    var isAgreeButtonTap: (() -> Void)?
+    var agreeButtonTapped: (() -> Void)?
     
-    var isRejectButtonTap: (() -> Void)?
+    var rejectButtonTapped: (() -> Void)?
     
     override func awakeFromNib() {
         setupLayout()
@@ -69,11 +69,11 @@ class InviteFriendViewCell: UITableViewCell {
     }
     
     @IBAction func agreeButtonTap(_ sender: UIButton) {
-        isAgreeButtonTap?()
+        agreeButtonTapped?()
     }
     
     @IBAction func rejectButtonTap(_ sender: UIButton) {
-        isRejectButtonTap?()
+        rejectButtonTapped?()
     }
     
 }

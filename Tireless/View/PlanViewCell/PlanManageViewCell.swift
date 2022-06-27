@@ -10,9 +10,9 @@ import UIKit
 
 class PlanManageViewCell: UICollectionViewCell {
     
-    var isStartButtonTap: (() -> Void)?
+    var startButtonTapped: (() -> Void)?
     
-    var isDeleteButtonTap: (() -> Void)?
+    var deleteButtonTapped: (() -> Void)?
     
     @IBOutlet weak var planImageView: UIImageView!
 
@@ -87,11 +87,11 @@ class PlanManageViewCell: UICollectionViewCell {
     }
     
     @IBAction func startButtonTap(_ sender: UIButton) {
-        isStartButtonTap?()
+        startButtonTapped?()
     }
     
     @IBAction func deleteButtonTap(_ sender: UIButton) {
-        isDeleteButtonTap?()
+        deleteButtonTapped?()
     }
     
     private func setupLayout() {

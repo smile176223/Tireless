@@ -216,28 +216,28 @@ extension ProfileViewController: UICollectionViewDataSource {
         }
         headerView.userNameLabel.text = AuthManager.shared.currentUserData?.name
 
-        headerView.isUserImageTap = { [weak self] in
+        headerView.userImageTapped = { [weak self] in
             self?.setUserInfoAlert()
         }
         
-        headerView.isCountTab = { [weak self] in
+        headerView.countTapped = { [weak self] in
             self?.currentTab = .statistics
         }
         
-        headerView.isHistoryTab = { [weak self] in
+        headerView.historyTapped = { [weak self] in
             self?.currentTab = .historyPlan
             self?.viewModel.fetchHistoryPlan()
         }
         
-        headerView.isSetListButtonTab = { [weak self] in
+        headerView.setListButtonTapped = { [weak self] in
             self?.setUserSettingAlert()
         }
         
-        headerView.isBellAlertButtonTap = { [weak self] in
+        headerView.bellAlertButtonTapped = { [weak self] in
             self?.notificationPresent()
         }
         
-        headerView.isFriendsButtonTap = { [weak self] in
+        headerView.friendsButtonTapped = { [weak self] in
             self?.friendsListPresent()
         }
         
