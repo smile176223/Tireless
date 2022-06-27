@@ -23,12 +23,14 @@ class PlanManageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setPlanEmptyView()
+        
         self.view.backgroundColor = .themeBG
         
         planEmptyView.isHidden = true
         
         self.navigationController?.navigationBar.titleTextAttributes =
         [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
         self.navigationController?.navigationBar.barTintColor = .themeBG
         
         configureCollectionView()
@@ -43,6 +45,7 @@ class PlanManageViewController: UIViewController {
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if AuthManager.shared.currentUser != "" {
             self.viewModel.fetchPlan()
         } else {

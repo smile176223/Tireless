@@ -20,11 +20,14 @@ class FriendsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         self.navigationController?.navigationBar.barTintColor = .themeBG
+        
         self.navigationController?.navigationBar.backgroundColor = .themeBG
+        
         self.view.backgroundColor = .themeBG
+        
         self.tableView.backgroundColor = .themeBG
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "person.fill.badge.plus"),
             style: .plain,

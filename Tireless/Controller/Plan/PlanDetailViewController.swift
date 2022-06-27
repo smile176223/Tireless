@@ -15,7 +15,6 @@ class PlanDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         isBackButtonTap()
         
         isCreateButtonTap()

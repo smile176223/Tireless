@@ -25,19 +25,16 @@ class CryptoKitHelper {
                 }
                 return random
             }
-            
             randoms.forEach { random in
                 if remainingLength == 0 {
                     return
                 }
-                
                 if random < charset.count {
                     result.append(charset[Int(random)])
                     remainingLength -= 1
                 }
             }
         }
-        
         return result
     }
     
@@ -47,7 +44,6 @@ class CryptoKitHelper {
         let hashString = hashedData.compactMap {
             return String(format: "%02x", $0)
         }.joined()
-        
         return hashString
     }
 }

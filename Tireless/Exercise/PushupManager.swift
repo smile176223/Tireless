@@ -11,6 +11,8 @@ import MLKit
 class PushupManager {
     static let shared = PushupManager()
     
+    private init() {}
+    
     private var pushupCount = 0
     
     private var checkPointA = false

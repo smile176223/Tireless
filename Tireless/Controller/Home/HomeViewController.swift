@@ -54,14 +54,18 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .themeBG
+        
         navigationController?.navigationBar.isHidden = true
+        
         configureCollectionView()
+        
         viewModel.joinGroupsViewModel.bind { [weak self] _ in
             self?.collectionView.reloadData()
         }
+        
         viewModel.getCurrentUser()
+        
         viewModel.checkCurrentUser()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -75,7 +79,6 @@ class HomeViewController: UIViewController {
         collectionView.register(HomeDailyHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: "\(HomeDailyHeaderView.self)")
-        
         collectionView.register(HomeHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: "\(HomeHeaderView.self)")

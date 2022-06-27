@@ -24,15 +24,18 @@ class ShareWallViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .themeBG
         
         navigationItem.hidesBackButton = true
         
         tableView.backgroundColor = .themeBG
+        
         tableView.isPagingEnabled = true
+        
         tableView.showsVerticalScrollIndicator = false
+        
         tableView.separatorStyle = .none
+        
         tableView.contentInsetAdjustmentBehavior = .never
 
         tableView.register(UINib(nibName: "\(ShareWallViewCell.self)", bundle: nil),
@@ -43,12 +46,14 @@ class ShareWallViewController: UIViewController {
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
         
         setupBind()
+        
         lottieLoading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
+        
         viewModel.fetchData()
     }
     

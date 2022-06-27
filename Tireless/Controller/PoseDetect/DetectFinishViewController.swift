@@ -17,7 +17,6 @@ class DetectFinishViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         shareButtonTap()
         
         finishButtonTap()

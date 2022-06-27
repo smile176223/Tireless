@@ -11,6 +11,8 @@ import MLKit
 class SquatManager {
     static let shared = SquatManager()
     
+    private init() {}
+    
     private var squatCount = 0
     
     private var checkCount = 0

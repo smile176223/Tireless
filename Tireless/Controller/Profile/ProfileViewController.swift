@@ -34,10 +34,10 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setEmptyView()
         
         view.backgroundColor = .themeBG
+        
         configureCollectionView()
         
         viewModel.historyPlanViewModels.bind { [weak self] _ in

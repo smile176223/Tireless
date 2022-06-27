@@ -18,13 +18,21 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
     // swiftlint:disable block_based_kvo
     // swiftlint:disable switch_case_alignment
     var minimumLayerHeightToPlay: CGFloat = 60
+    
     var mute = false
+    
     var preferredPeakBitRate: Double = 1000000
+    
     static private var playerViewControllerKVOContext = 0
+    
     static let sharedVideoPlayer = VideoPlayerController()
+    
     private var videoURL: String?
+    
     private var observingURLs = [String: Bool]()
+    
     private var videoCache = NSCache<NSString, VideoContainer>()
+    
     private var currentLayer: AVPlayerLayer?
     
     override init() {
@@ -70,6 +78,7 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
             }
         }
     }
+    
     func playVideo(withLayer layer: AVPlayerLayer, url: String) {
         videoURL = url
         currentLayer = layer
@@ -235,7 +244,4 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
         }
     }
     
-    deinit {
-        
-    }
 }

@@ -25,7 +25,6 @@ class PoseDetectViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         viewModel?.setupSession()
         
         viewModel?.setupVideoRecord()
@@ -49,7 +48,6 @@ class PoseDetectViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         viewModel?.stopTimer()
         
         self.viewModel?.stopCapture()

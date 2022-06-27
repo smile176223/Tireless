@@ -22,10 +22,12 @@ class InviteFriendViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationItem.title = "好友邀請"
+        
         self.navigationController?.navigationBar.backgroundColor = .themeBG
+        
         self.view.backgroundColor = .themeBG
+        
         self.tableView.backgroundColor = .themeBG
         
         tableView.register(UINib(nibName: "\(InviteFriendViewCell.self)", bundle: nil),

@@ -19,16 +19,19 @@ class PlanReviewViewController: UIViewController {
     }
     
     var player: AVPlayer?
+    
     var playerViewController: AVPlayerViewController?
     
     var viewModel: PlanReviewViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.title = "計畫進度"
+        
         self.navigationController?.navigationBar.backgroundColor = .themeBG
+        
         self.view.backgroundColor = .themeBG
+        
         self.tableView.backgroundColor = .themeBG
         
         tableView.register(UINib(nibName: "\(PlanReviewHeaderView.self)", bundle: nil),
@@ -92,11 +95,9 @@ extension PlanReviewViewController: UITableViewDelegate, UITableViewDataSource {
             guard let url = cellViewModel.finishTime.videoURL else { return }
             self?.playVideo(videoURL: url)
         }
-        
         cell.noVideoButtonTapped = { [weak self] in
             self?.showAlert()
         }
-        
         return cell
     }
     

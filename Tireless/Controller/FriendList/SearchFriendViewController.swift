@@ -22,9 +22,10 @@ class SearchFriendViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationController?.navigationBar.backgroundColor = .themeBG
+        
         self.view.backgroundColor = .themeBG
+        
         self.tableView.backgroundColor = .themeBG
         
         if #available(iOS 15.0, *) {

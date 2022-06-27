@@ -26,7 +26,6 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupLayout()
     }
     
@@ -69,7 +68,6 @@ class SignUpViewController: UIViewController {
             return
         }
         hud.show(in: self.view)
-        
         viewModel.signUpWithFirebase(email: emailText, password: passwordText, name: nameText) { [weak self] in
             self?.finishPresent()
         } failure: { errorText in

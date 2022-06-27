@@ -22,11 +22,14 @@ class BlockListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationItem.title = "黑名單"
+        
         self.navigationController?.navigationBar.backgroundColor = .themeBG
+        
         self.navigationController?.navigationBar.barTintColor = .themeBG
+        
         self.view.backgroundColor = .themeBG
+        
         self.tableView.backgroundColor = .themeBG
         
         setEmptyView()
