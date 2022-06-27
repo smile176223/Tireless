@@ -43,10 +43,6 @@ class FriendManager {
         userRef.setData(["userId": userId])
     }
     
-    func checkInvite() {
-        
-    }
-    
     func checkReceive(completion: @escaping (Result<[User], Error>) -> Void) {
         let ref = userDB.document(AuthManager.shared.currentUser).collection("ReceiveInvite")
         ref.addSnapshotListener { querySnapshot, error in

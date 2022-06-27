@@ -9,9 +9,7 @@ import UIKit
 
 enum PlanExercise: String {
     case squat = "深蹲"
-    
     case plank = "棒式"
-    
     case pushup = "伏地挺身"
 }
 

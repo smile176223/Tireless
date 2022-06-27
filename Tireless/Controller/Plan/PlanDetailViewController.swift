@@ -9,13 +9,12 @@ import UIKit
 
 class PlanDetailViewController: UIViewController {
     
-    @IBOutlet var planDetailView: PlanDetailView!
+    @IBOutlet private var planDetailView: PlanDetailView!
     
     var viewModel: PlanDetailViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         isBackButtonTap()
         
         isCreateButtonTap()
@@ -25,20 +24,20 @@ class PlanDetailViewController: UIViewController {
         setupBind()
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         guard let viewModel = viewModel else {
             return
         }
         planDetailView.setupLayout(plan: viewModel.defaultPlans)
     }
     
-    func isBackButtonTap() {
-        planDetailView?.isBackButtonTap = { [weak self] in
+    private func isBackButtonTap() {
+        planDetailView?.backButtonTapped = { [weak self] in
             self?.dismiss(animated: true)
         }
     }
     
-    func setupBind() {
+    private func setupBind() {
         viewModel?.isCreatePlan.bind { [weak self] isCreate in
             guard let isCreate = isCreate else {
                 return
@@ -60,13 +59,13 @@ class PlanDetailViewController: UIViewController {
         }
     }
     
-    func isCreateButtonTap() {
-        planDetailView.isCreateButtonTap = { [weak self] days, times in
+    private func isCreateButtonTap() {
+        planDetailView.createButtonTapped = { [weak self] days, times in
             self?.viewModel?.createPlan(times: times, days: days)
         }
     }
     
-    func authPresent() {
+    private func authPresent() {
         if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
             present(authVC, animated: true, completion: nil)
         }

@@ -9,7 +9,7 @@ import UIKit
 
 class PlanManageViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
@@ -23,30 +23,29 @@ class PlanManageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setPlanEmptyView()
+        
         self.view.backgroundColor = .themeBG
         
         planEmptyView.isHidden = true
         
         self.navigationController?.navigationBar.titleTextAttributes =
         [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
         self.navigationController?.navigationBar.barTintColor = .themeBG
         
         configureCollectionView()
         
         viewModel.planViewModels.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
         
         viewModel.groupPlanViewModels.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if AuthManager.shared.currentUser != "" {
             self.viewModel.fetchPlan()
         } else {
@@ -176,19 +175,19 @@ extension PlanManageViewController: UICollectionViewDelegate, UICollectionViewDa
         if indexPath.section == 0 {
             let cellViewModel = self.viewModel.planViewModels.value[indexPath.row]
             cell.setup(viewModel: cellViewModel)
-            cell.isDeleteButtonTap = {
+            cell.deleteButtonTapped = {
                 self.setUserAlert(plan: cellViewModel.plan)
             }
-            cell.isStartButtonTap = {
+            cell.startButtonTapped = {
                 self.present(target: cellViewModel.plan.planTimes, plan: cellViewModel.plan)
             }
         } else {
             let cellViewModel = self.viewModel.groupPlanViewModels.value[indexPath.row]
             cell.setup(viewModel: cellViewModel)
-            cell.isStartButtonTap = {
+            cell.startButtonTapped = {
                 self.present(target: cellViewModel.plan.planTimes, plan: cellViewModel.plan)
             }
-            cell.isDeleteButtonTap = {
+            cell.deleteButtonTapped = {
                 self.setUserAlert(plan: cellViewModel.plan)
             }
         }

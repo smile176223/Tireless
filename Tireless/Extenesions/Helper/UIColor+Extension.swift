@@ -8,13 +8,9 @@
 import UIKit
 
 private enum TirelessColor: String {
-
     case themeBG
-    
     case themeBGSecond
-    
     case themeYellow
-    
 }
 
 extension UIColor {
@@ -26,7 +22,6 @@ extension UIColor {
     static let themeYellow = tirelessColor(.themeYellow)
     
     private static func tirelessColor(_ color: TirelessColor) -> UIColor? {
-
         return UIColor(named: color.rawValue)
     }
 }

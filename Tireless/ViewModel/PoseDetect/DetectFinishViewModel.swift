@@ -19,8 +19,6 @@ class DetectFinishViewModel {
     
     var recordStatus: RecordStatus = .userAgree
     
-    let shareManager = ShareManager()
-    
     let planViewModel = PlanManageViewModel()
 
     init(plan: Plan, videoURL: URL?) {
@@ -39,7 +37,7 @@ class DetectFinishViewModel {
                                      content: "\(plan.planName)每日\(plan.planTimes)次/秒 挑戰!",
                                      uuid: "")
         
-        self.shareManager.uploadVideo(shareFile: uploadVideo) { result in
+        ShareManager.shared.uploadVideo(shareFile: uploadVideo) { result in
             switch result {
             case .success(let uuid):
                 self.updateValue(videoId: uuid)
@@ -75,7 +73,7 @@ class DetectFinishViewModel {
     }
     
     func uploadProgress() {
-        shareManager.uploadProgress = { [weak self] progress in
+        ShareManager.shared.uploadProgress = { [weak self] progress in
             self?.progress.value = progress
         }
     }

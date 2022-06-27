@@ -11,11 +11,8 @@ enum TirelessError: Error {
     case firebaseError
     
     var text: String {
-        
         switch self {
-            
         case .firebaseError: return "錯誤"
-            
         }
     }
 }

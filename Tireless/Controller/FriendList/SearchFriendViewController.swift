@@ -9,7 +9,7 @@ import UIKit
 
 class SearchFriendViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
@@ -22,9 +22,10 @@ class SearchFriendViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationController?.navigationBar.backgroundColor = .themeBG
+        
         self.view.backgroundColor = .themeBG
+        
         self.tableView.backgroundColor = .themeBG
         
         if #available(iOS 15.0, *) {
@@ -41,14 +42,12 @@ class SearchFriendViewController: UIViewController {
                            forCellReuseIdentifier: "\(SearchFriendViewCell.self)")
         
         viewModel?.friendViewModels.bind { [weak self] user in
-            DispatchQueue.main.async {
-                if user.count == 0 {
-                    self?.setSearchEmptyView()
-                } else {
-                    self?.searchEmptyView.removeFromSuperview()
-                }
-                self?.tableView.reloadData()
+            if user.isEmpty {
+                self?.setSearchEmptyView()
+            } else {
+                self?.searchEmptyView.removeFromSuperview()
             }
+            self?.tableView.reloadData()
         }
         
         makeCheckList()
@@ -97,7 +96,7 @@ extension SearchFriendViewController: UITableViewDelegate, UITableViewDataSource
             cell.cellAddButon.isHidden = false
         }
         
-        cell.isAddButtonTap = {
+        cell.addButtonTapped = {
             viewModel.inviteFriend(userId: cellViewModel.user.userId)
             ProgressHUD.showSuccess(text: "發送邀請")
             cell.cellAddButon.isHidden = true

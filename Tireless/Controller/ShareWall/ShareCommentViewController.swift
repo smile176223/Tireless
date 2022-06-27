@@ -29,15 +29,14 @@ class ShareCommentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setMaskView()
+        
         setupLayout()
         
         tableView.register(UINib(nibName: "\(ShareCommentViewCell.self)", bundle: nil),
                            forCellReuseIdentifier: "\(ShareCommentViewCell.self)")
         
         viewModel?.comments.bind { _ in
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
         
     }
@@ -64,6 +63,7 @@ class ShareCommentViewController: UIViewController {
             self.maskView.alpha = 0.5
         }
     }
+    
     @IBAction func sendCommentTap(_ sender: UIButton) {
         if commentTextField.text?.isEmpty == true {
             return
@@ -107,16 +107,13 @@ extension ShareCommentViewController: UITableViewDelegate, UITableViewDataSource
             withIdentifier: "\(ShareCommentViewCell.self)", for: indexPath) as? ShareCommentViewCell else {
             return UITableViewCell()
         }
-        guard let cellViewModel = self.viewModel?.comments.value[indexPath.row] else {
+        guard let cellComment = self.viewModel?.comments.value[indexPath.row] else {
             return cell
         }
-        
-        cell.setup(viewModel: cellViewModel)
-        
-        cell.isSetButtonTap = { [weak self] in
-            self?.setButtonAlert(userId: cellViewModel.userId)
+        cell.setup(comment: cellComment)
+        cell.setButtonTapped = { [weak self] in
+            self?.setButtonAlert(userId: cellComment.userId)
         }
-        
         return cell
     }
     

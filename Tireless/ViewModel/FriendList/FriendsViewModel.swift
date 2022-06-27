@@ -14,13 +14,3 @@ class FriendsViewModel {
         self.user = user
     }
 }
-
-extension FriendsViewModel: Hashable {
-    static func == (lhs: FriendsViewModel, rhs: FriendsViewModel) -> Bool {
-        return lhs.user.userId == rhs.user.userId
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(user.userId)
-    }
-}

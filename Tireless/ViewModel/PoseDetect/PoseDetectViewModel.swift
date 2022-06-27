@@ -58,8 +58,6 @@ class PoseDetectViewModel {
     
     let poseViewOverlay: Box<PoseViewOverlay?> = Box(nil)
     
-    private var isUsingFrontCamera = false
-    
     private var isPlank = false
     
     private var timer = Timer()
@@ -87,7 +85,8 @@ class PoseDetectViewModel {
                             height: CGFloat,
                             previewLayer: AVCaptureVideoPreviewLayer) {
         let visionImage = VisionImage(buffer: sampleBuffer)
-        let orientation = UIUtilities.imageOrientation(fromDevicePosition: isUsingFrontCamera ? .front : .back)
+        let orientation = UIUtilities.imageOrientation(
+            fromDevicePosition: videoCapture.isUsingFrontCamera ? .front : .back)
         visionImage.orientation = orientation
         let activeDetector = self.currentDetector
         resetManagedLifecycleDetectors(activeDetector: activeDetector)
@@ -103,21 +102,20 @@ class PoseDetectViewModel {
                 self.noPoint.value = ()
                 return
             }
-            DispatchQueue.main.sync { [weak self] in
-                self?.poseViewModels.value = poses
-                poses[0].landmarks.forEach {
-                    var normalizedPoint = CGPoint(x: $0.position.x / width,
-                                                  y: $0.position.y / height)
-                    normalizedPoint = previewLayer.layerPointConverted(fromCaptureDevicePoint: normalizedPoint)
-                    posePoint.append(PosePoint(position: CGPoint(x: normalizedPoint.x / UIScreen.main.bounds.width,
-                                                                 y: normalizedPoint.y / UIScreen.main.bounds.height),
-                                                       zPoint: $0.position.z,
-                                                       inFrameLikelihood: $0.inFrameLikelihood,
-                                                       type: $0.type.rawValue))
-                }
-                self?.confidenceRefresh.value = getConfidenceAverage(with: posePoint)
-                startExercise(with: posePoint)
+            poseViewModels.value = poses
+            poses[0].landmarks.forEach {
+                var normalizedPoint = CGPoint(x: $0.position.x / width,
+                                              y: $0.position.y / height)
+                normalizedPoint = previewLayer.layerPointConverted(fromCaptureDevicePoint: normalizedPoint)
+                posePoint.append(PosePoint(position: CGPoint(x: normalizedPoint.x / UIScreen.main.bounds.width,
+                                                             y: normalizedPoint.y / UIScreen.main.bounds.height),
+                                           zPoint: $0.position.z,
+                                           inFrameLikelihood: $0.inFrameLikelihood,
+                                           type: $0.type.rawValue))
             }
+            confidenceRefresh.value = getConfidenceAverage(with: posePoint)
+            startExercise(with: posePoint)
+            
         }
     }
     
@@ -284,17 +282,11 @@ extension PoseDetectViewModel: VideoCaptureDelegate {
         }
         let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
         let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
-
-        DispatchQueue.main.sync { [weak self] in
-            guard let self = self else {
-                return
-            }
-            self.updateViewFrame.value = UpdateViewFrame(viewFrame: didCaptureVideoFrame,
-                                                         isUsingFrontCamera: videoCapture.isUsingFrontCamera)
-            self.poseViewOverlay.value = PoseViewOverlay(poses: poseViewModels.value,
-                                                     width: imageWidth,
-                                                     height: imageHeight,
-                                                     previewLayer: previewLayer)
-        }
+        self.updateViewFrame.value = UpdateViewFrame(viewFrame: didCaptureVideoFrame,
+                                                     isUsingFrontCamera: videoCapture.isUsingFrontCamera)
+        self.poseViewOverlay.value = PoseViewOverlay(poses: poseViewModels.value,
+                                                 width: imageWidth,
+                                                 height: imageHeight,
+                                                 previewLayer: previewLayer)
     }
 }

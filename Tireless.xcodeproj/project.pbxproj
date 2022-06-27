@@ -171,7 +171,7 @@
 		FFC7BA0028201D840080A31E /* HistoryPlanViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFC7B9FF28201D840080A31E /* HistoryPlanViewCell.xib */; };
 		FFCFCAED282A102500FE6E83 /* VideoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCFCAEC282A102500FE6E83 /* VideoContainer.swift */; };
 		FFCFCAEF282A103C00FE6E83 /* VideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCFCAEE282A103C00FE6E83 /* VideoPlayerController.swift */; };
-		FFCFCAF1282A105E00FE6E83 /* VideoLayerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCFCAF0282A105E00FE6E83 /* VideoLayerObject.swift */; };
+		FFDFB1B42856E47C0068C37D /* HomeVMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDFB1B32856E47C0068C37D /* HomeVMTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -357,7 +357,7 @@
 		FFC7B9FF28201D840080A31E /* HistoryPlanViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryPlanViewCell.xib; sourceTree = "<group>"; };
 		FFCFCAEC282A102500FE6E83 /* VideoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContainer.swift; sourceTree = "<group>"; };
 		FFCFCAEE282A103C00FE6E83 /* VideoPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerController.swift; sourceTree = "<group>"; };
-		FFCFCAF0282A105E00FE6E83 /* VideoLayerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoLayerObject.swift; sourceTree = "<group>"; };
+		FFDFB1B32856E47C0068C37D /* HomeVMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVMTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				FF0234FD2836678E001647B9 /* TirelessTests.swift */,
+				FFDFB1B32856E47C0068C37D /* HomeVMTests.swift */,
 			);
 			path = TirelessTests;
 			sourceTree = "<group>";
@@ -592,7 +593,6 @@
 			children = (
 				FFCFCAEC282A102500FE6E83 /* VideoContainer.swift */,
 				FFCFCAEE282A103C00FE6E83 /* VideoPlayerController.swift */,
-				FFCFCAF0282A105E00FE6E83 /* VideoLayerObject.swift */,
 			);
 			path = VideoPlayer;
 			sourceTree = "<group>";
@@ -1274,6 +1274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF0234FE2836678E001647B9 /* TirelessTests.swift in Sources */,
+				FFDFB1B42856E47C0068C37D /* HomeVMTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1353,7 +1354,6 @@
 				FF3FBE9B28150FB000E6B5DC /* ProfileViewModel.swift in Sources */,
 				FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */,
 				FF3F7811281D1E3B00D8360A /* CommentManager.swift in Sources */,
-				FFCFCAF1282A105E00FE6E83 /* VideoLayerObject.swift in Sources */,
 				FF3FBE6C281238FE00E6B5DC /* Plan.swift in Sources */,
 				FF3FBE562810648000E6B5DC /* PlanDetailView.swift in Sources */,
 				FFC7B9EA281EB54D0080A31E /* UIImage+Extension.swift in Sources */,

@@ -27,7 +27,7 @@ class HomeViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    var viewModel: DefaultPlansViewModel?
+    private var viewModel: DefaultPlansViewModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,7 +44,7 @@ class HomeViewCell: UICollectionViewCell {
         layoutCell()
     }
     
-    func layoutCell() {
+    private func layoutCell() {
         textLabel.text = viewModel?.defaultPlans.planName
         imageView.image = UIImage(named: viewModel?.defaultPlans.planName ?? "")
     }
@@ -54,7 +54,7 @@ class HomeViewCell: UICollectionViewCell {
         layoutGroupCell()
     }
     
-    func layoutGroupCell() {
+    private func layoutGroupCell() {
         textLabel.text = viewModel?.defaultPlans.planName
         switch viewModel?.defaultPlans.planName {
         case PlanExercise.squat.rawValue:

@@ -9,7 +9,7 @@ import UIKit
 
 class FriendsListViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
@@ -20,11 +20,14 @@ class FriendsListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         self.navigationController?.navigationBar.barTintColor = .themeBG
+        
         self.navigationController?.navigationBar.backgroundColor = .themeBG
+        
         self.view.backgroundColor = .themeBG
+        
         self.tableView.backgroundColor = .themeBG
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "person.fill.badge.plus"),
             style: .plain,
@@ -39,9 +42,7 @@ class FriendsListViewController: UIViewController {
                            forCellReuseIdentifier: "\(FriendListViewCell.self)")
         
         viewModel.friendViewModels.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
+            self?.tableView.reloadData()
         }
         
         if #available(iOS 15.0, *) {
@@ -90,7 +91,7 @@ extension FriendsListViewController: UITableViewDelegate, UITableViewDataSource 
         let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
         
-        cell.isSetButtonTap = { [weak self] in
+        cell.setButtonTapped = { [weak self] in
             self?.setButtonAlert(userId: cellViewModel.user.userId)
         }
 
@@ -103,11 +104,11 @@ extension FriendsListViewController: UITableViewDelegate, UITableViewDataSource 
                 as? FriendListHeaderView else {
             return UIView()
         }
-        header.isFindButtonTap = { [weak self] in
+        header.findButtonTapped = { [weak self] in
             self?.searchFriendPresent()
         }
         
-        header.isReceiveButtonTap = { [weak self] in
+        header.receiveButtonTapped = { [weak self] in
             self?.invitePresent()
         }
         

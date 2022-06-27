@@ -17,11 +17,12 @@ class HomeDailyHeaderView: UICollectionReusableView {
         return label
     }()
     
-    var titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .white
         label.font = .bold(size: 35)
+        label.text = "每日運動計畫"
         return label
     }()
     

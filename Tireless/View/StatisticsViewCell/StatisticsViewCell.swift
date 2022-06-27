@@ -9,15 +9,15 @@ import UIKit
 
 class StatisticsViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var squatCountLabel: UILabel!
+    @IBOutlet private weak var squatCountLabel: UILabel!
     
-    @IBOutlet weak var pushupCountLabel: UILabel!
+    @IBOutlet private weak var pushupCountLabel: UILabel!
     
-    @IBOutlet weak var plankCountLabel: UILabel!
+    @IBOutlet private weak var plankCountLabel: UILabel!
     
-    @IBOutlet weak var completeLabel: UILabel!
+    @IBOutlet private weak var completeLabel: UILabel!
     
-    var viewModel: Statistics?
+    private var viewModel: Statistics?
     
     override func awakeFromNib() {
         super.awakeFromNib()

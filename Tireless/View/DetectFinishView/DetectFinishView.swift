@@ -10,21 +10,21 @@ import Lottie
 
 class DetectFinishView: UIView {
     
-    @IBOutlet weak var alertView: UIView!
+    @IBOutlet private weak var alertView: UIView!
     
     @IBOutlet weak var downButton: UIButton!
     
     @IBOutlet weak var shareButton: UIButton!
     
-    @IBOutlet weak var lineView: UIView!
+    @IBOutlet private weak var lineView: UIView!
     
-    @IBOutlet weak var lottieView: AnimationView!
+    @IBOutlet private weak var lottieView: AnimationView!
     
-    @IBOutlet weak var lottieUploadView: AnimationView!
+    @IBOutlet private weak var lottieUploadView: AnimationView!
     
-    var isShareButtonTap: (() -> Void)?
+    var shareButtonTapped: (() -> Void)?
     
-    var isFinishButtonTap: (() -> Void)?
+    var finishButtonTapped: (() -> Void)?
     
     var startFrame: CGFloat = 0
     
@@ -86,11 +86,11 @@ class DetectFinishView: UIView {
     }
     
     @IBAction func shareButtonTap(_ sender: UIButton) {
-        isShareButtonTap?()
+        shareButtonTapped?()
     }
     
     @IBAction func finishButtonTap(_ sender: UIButton) {
-        isFinishButtonTap?()
+        finishButtonTapped?()
     }
     
 }

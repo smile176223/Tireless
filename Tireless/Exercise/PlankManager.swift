@@ -10,6 +10,8 @@ import MLKit
 
 class PlankManager {
     static let shared = PlankManager()
+    
+    private init() {}
 
     private var isPlank = false
     

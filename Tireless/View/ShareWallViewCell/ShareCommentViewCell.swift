@@ -9,37 +9,37 @@ import UIKit
 
 class ShareCommentViewCell: UITableViewCell {
     
-    @IBOutlet weak var commentImageView: UIImageView!
+    @IBOutlet private weak var commentImageView: UIImageView!
     
-    @IBOutlet weak var commentNameLabel: UILabel!
+    @IBOutlet private weak var commentNameLabel: UILabel!
     
-    @IBOutlet weak var commentTextLabel: UILabel!
+    @IBOutlet private weak var commentTextLabel: UILabel!
     
-    @IBOutlet weak var setButton: UIButton!
+    @IBOutlet private weak var setButton: UIButton!
     
-    var viewModel: Comment?
+    private var comment: Comment?
     
-    var isSetButtonTap: (() -> Void)?
+    var setButtonTapped: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLayout()
     }
     
-    func setup(viewModel: Comment) {
-        self.viewModel = viewModel
+    func setup(comment: Comment) {
+        self.comment = comment
         layoutCell()
     }
     
-    func layoutCell() {
-        if viewModel?.user?.picture == "" {
+    private func layoutCell() {
+        if comment?.user?.picture == "" {
             commentImageView.image = UIImage.placeHolder
         } else {
-            commentImageView.loadImage(viewModel?.user?.picture)
+            commentImageView.loadImage(comment?.user?.picture)
         }
-        commentNameLabel.text = viewModel?.user?.name
-        commentTextLabel.text = viewModel?.content
-        if viewModel?.userId == AuthManager.shared.currentUser {
+        commentNameLabel.text = comment?.user?.name
+        commentTextLabel.text = comment?.content
+        if comment?.userId == AuthManager.shared.currentUser {
             setButton.isHidden = true
         } else {
             setButton.isHidden = false
@@ -50,6 +50,6 @@ class ShareCommentViewCell: UITableViewCell {
         commentImageView.layer.cornerRadius = commentImageView.frame.height / 2
     }
     @IBAction func setButtonTap(_ sender: UIButton) {
-        isSetButtonTap?()
+        setButtonTapped?()
     }
 }

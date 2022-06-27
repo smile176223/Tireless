@@ -14,7 +14,9 @@ final class Box<T> {
     
     var value: T {
         didSet {
-            listener?(value)
+            DispatchQueue.main.async {
+                self.listener?(self.value)
+            }
         }
     }
     

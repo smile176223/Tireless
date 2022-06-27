@@ -10,6 +10,8 @@ import Foundation
 class StartManager {
     static let shared = StartManager()
     
+    private init() {}
+    
     func checkStart(_ posePoint: [PosePoint]) -> Bool {
         if posePoint.allSatisfy({ $0.inFrameLikelihood > 0.5 }) &&
             posePoint[3].position.y < 1.0 &&

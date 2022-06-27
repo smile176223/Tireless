@@ -9,23 +9,25 @@ import UIKit
 
 class InviteFriendViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
         }
     }
     
-    var emptyView = UIImageView()
+    private var emptyView = UIImageView()
     
     let viewModel = InviteFriendViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationItem.title = "好友邀請"
+        
         self.navigationController?.navigationBar.backgroundColor = .themeBG
+        
         self.view.backgroundColor = .themeBG
+        
         self.tableView.backgroundColor = .themeBG
         
         tableView.register(UINib(nibName: "\(InviteFriendViewCell.self)", bundle: nil),
@@ -34,17 +36,10 @@ class InviteFriendViewController: UIViewController {
         
         viewModel.getReceiveInvite()
         
-        viewModel.friendViewModels.bind { [weak self] firends in
-            if firends.count == 0 {
-                self?.tableView.isHidden = true
-                self?.emptyView.isHidden = false
-            } else {
-                self?.tableView.isHidden = false
-                self?.emptyView.isHidden = true
-            }
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
+        viewModel.friendViewModels.bind { [weak self] friends in
+            self?.tableView.isHidden = friends.isEmpty
+            self?.emptyView.isHidden = !friends.isEmpty
+            self?.tableView.reloadData()
         }
     }
     
@@ -76,12 +71,12 @@ extension InviteFriendViewController: UITableViewDelegate, UITableViewDataSource
         let cellViewModel = self.viewModel.friendViewModels.value[indexPath.row]
         cell.setup(viewModel: cellViewModel)
         
-        cell.isAgreeButtonTap = {
+        cell.agreeButtonTapped = {
             FriendManager.shared.addFriend(userId: cellViewModel.user.userId)
             ProgressHUD.showSuccess(text: "已加入")
         }
         
-        cell.isRejectButtonTap = {
+        cell.rejectButtonTapped = {
             FriendManager.shared.rejectInvite(userId: cellViewModel.user.userId)
             ProgressHUD.showSuccess(text: "已拒絕")
         }

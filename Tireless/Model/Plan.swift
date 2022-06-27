@@ -45,16 +45,6 @@ struct Plan: Codable {
     }
 }
 
-extension Plan: Hashable {
-    static func == (lhs: Plan, rhs: Plan) -> Bool {
-        return lhs.uuid == rhs.uuid
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(uuid)
-    }
-}
-
 struct FinishTime: Codable {
     let day: Int
     let time: Int64

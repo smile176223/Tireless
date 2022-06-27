@@ -10,23 +10,23 @@ import UIKit
 
 class PlanManageViewCell: UICollectionViewCell {
     
-    var isStartButtonTap: (() -> Void)?
+    var startButtonTapped: (() -> Void)?
     
-    var isDeleteButtonTap: (() -> Void)?
+    var deleteButtonTapped: (() -> Void)?
     
-    @IBOutlet weak var planImageView: UIImageView!
+    @IBOutlet private weak var planImageView: UIImageView!
 
-    @IBOutlet weak var planTitleLabel: UILabel!
+    @IBOutlet private weak var planTitleLabel: UILabel!
     
-    @IBOutlet weak var planProgressView: UIProgressView!
+    @IBOutlet private weak var planProgressView: UIProgressView!
     
-    @IBOutlet weak var planStartButton: UIButton!
+    @IBOutlet private weak var planStartButton: UIButton!
 
-    @IBOutlet weak var planDeleteButton: UIButton!
+    @IBOutlet private weak var planDeleteButton: UIButton!
     
-    @IBOutlet weak var planTimesLabel: UILabel!
+    @IBOutlet private weak var planTimesLabel: UILabel!
     
-    @IBOutlet weak var planTodayCheckView: UIImageView!
+    @IBOutlet private weak var planTodayCheckView: UIImageView!
     
     var viewModel: PlanViewModel?
     
@@ -87,11 +87,11 @@ class PlanManageViewCell: UICollectionViewCell {
     }
     
     @IBAction func startButtonTap(_ sender: UIButton) {
-        isStartButtonTap?()
+        startButtonTapped?()
     }
     
     @IBAction func deleteButtonTap(_ sender: UIButton) {
-        isDeleteButtonTap?()
+        deleteButtonTapped?()
     }
     
     private func setupLayout() {

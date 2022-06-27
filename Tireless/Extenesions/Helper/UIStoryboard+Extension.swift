@@ -44,7 +44,6 @@ extension UIStoryboard {
     static var profile: UIStoryboard { return tlStoryboard(name: StoryboardCategory.profile)}
     
     private static func tlStoryboard(name: String) -> UIStoryboard {
-        
         return UIStoryboard(name: name, bundle: nil)
     }
 }

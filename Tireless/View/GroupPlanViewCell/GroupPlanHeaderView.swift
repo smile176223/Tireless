@@ -9,19 +9,19 @@ import UIKit
 
 class GroupPlanHeaderView: UICollectionReusableView {
     
-    @IBOutlet weak var planTitleLabel: UILabel!
+    @IBOutlet private weak var planTitleLabel: UILabel!
     
-    @IBOutlet weak var planTimesLabel: UILabel!
+    @IBOutlet private weak var planTimesLabel: UILabel!
     
-    @IBOutlet weak var planCreatedUserLabel: UILabel!
+    @IBOutlet private weak var planCreatedUserLabel: UILabel!
     
-    @IBOutlet weak var planCreatedUserIamgeView: UIImageView!
+    @IBOutlet private weak var planCreatedUserIamgeView: UIImageView!
     
-    @IBOutlet weak var planCreatedNameLabel: UILabel!
+    @IBOutlet private weak var planCreatedNameLabel: UILabel!
     
-    @IBOutlet weak var planJoinUserLabel: UILabel!
+    @IBOutlet private weak var planJoinUserLabel: UILabel!
     
-    var viewModel: JoinGroup?
+    private var viewModel: JoinGroup?
     
     override func awakeFromNib() {
         setupLayout()
@@ -36,7 +36,7 @@ class GroupPlanHeaderView: UICollectionReusableView {
         layoutHeader()
     }
     
-    func layoutHeader() {
+    private func layoutHeader() {
         guard let viewModel = viewModel else {
             return
         }
