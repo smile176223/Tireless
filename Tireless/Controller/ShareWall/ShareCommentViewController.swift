@@ -35,9 +35,7 @@ class ShareCommentViewController: UIViewController {
                            forCellReuseIdentifier: "\(ShareCommentViewCell.self)")
         
         viewModel?.comments.bind { _ in
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
         
     }

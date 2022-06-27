@@ -59,11 +59,9 @@ class ShareWallViewController: UIViewController {
     
     private func setupBind() {
         viewModel.shareFilesViewModel.bind { [weak self] files in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-                if files.count != 0 {
-                    self?.pausePlayeVideos()
-                }
+            self?.tableView.reloadData()
+            if files.count != 0 {
+                self?.pausePlayeVideos()
             }
         }
     }

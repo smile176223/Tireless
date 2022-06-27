@@ -37,9 +37,7 @@ class InviteFriendViewController: UIViewController {
         viewModel.friendViewModels.bind { [weak self] friends in
             self?.tableView.isHidden = friends.isEmpty
             self?.emptyView.isHidden = !friends.isEmpty
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
+            self?.tableView.reloadData()
         }
     }
     

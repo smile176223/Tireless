@@ -40,9 +40,7 @@ class PlanReviewViewController: UIViewController {
         fetchPlanReview()
         
         viewModel?.finishTimeViewModels.bind { _ in
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
     }
     

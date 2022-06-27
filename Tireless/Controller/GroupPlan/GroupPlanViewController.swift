@@ -30,15 +30,11 @@ class GroupPlanViewController: UIViewController {
         
         viewModel?.joinUsersViewModel.bind { [weak self] users in
             if users.contains(where: { $0.user.userId == AuthManager.shared.currentUser }) {
-                DispatchQueue.main.async {
-                    self?.planJoinButton.isEnabled = false
-                    self?.planJoinButton.setTitle("已加入", for: .normal)
-                    self?.planLeaveButton.isHidden = false
-                }
+                self?.planJoinButton.isEnabled = false
+                self?.planJoinButton.setTitle("已加入", for: .normal)
+                self?.planLeaveButton.isHidden = false
             }
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
     }
     

@@ -41,14 +41,12 @@ class SearchFriendViewController: UIViewController {
                            forCellReuseIdentifier: "\(SearchFriendViewCell.self)")
         
         viewModel?.friendViewModels.bind { [weak self] user in
-            DispatchQueue.main.async {
-                if user.count == 0 {
-                    self?.setSearchEmptyView()
-                } else {
-                    self?.searchEmptyView.removeFromSuperview()
-                }
-                self?.tableView.reloadData()
+            if user.isEmpty {
+                self?.setSearchEmptyView()
+            } else {
+                self?.searchEmptyView.removeFromSuperview()
             }
+            self?.tableView.reloadData()
         }
         
         makeCheckList()

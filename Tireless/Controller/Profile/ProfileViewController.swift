@@ -39,17 +39,13 @@ class ProfileViewController: UIViewController {
         
         view.backgroundColor = .themeBG
         configureCollectionView()
-
+        
         viewModel.historyPlanViewModels.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
         
         viewModel.statisticsViewModels.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
     }
     

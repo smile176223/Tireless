@@ -35,16 +35,9 @@ class BlockListViewController: UIViewController {
                            forCellReuseIdentifier: "\(InviteFriendViewCell.self)")
         
         viewModel.blocksViewModels.bind { [weak self] blocks in
-            DispatchQueue.main.async {
-                if blocks.count == 0 {
-                    self?.tableView.isHidden = true
-                    self?.emptyView.isHidden = false
-                } else {
-                    self?.tableView.isHidden = false
-                    self?.emptyView.isHidden = true
-                }
-                self?.tableView.reloadData()
-            }
+            self?.tableView.isHidden = blocks.isEmpty
+            self?.emptyView.isHidden = !blocks.isEmpty
+            self?.tableView.reloadData()
         }
     }
     override func viewWillAppear(_ animated: Bool) {

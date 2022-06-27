@@ -59,12 +59,7 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         configureCollectionView()
         viewModel.joinGroupsViewModel.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                guard let self = self else {
-                    return
-                }
-                self.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
         viewModel.getCurrentUser()
         viewModel.checkCurrentUser()

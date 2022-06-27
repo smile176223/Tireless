@@ -86,17 +86,13 @@ class PoseDetectViewController: UIViewController {
         
         viewModel?.isPoseDetectStart.bind { [weak self] isStart in
             if isStart {
-                DispatchQueue.main.async {
-                    self?.lottieCountDownGo()
-                }
+                self?.lottieCountDownGo()
             }
         }
         
         viewModel?.finishExercise.bind { [weak self] isFinish in
             if isFinish {
-                DispatchQueue.main.async {
-                    self?.lottieDetectDone()
-                }
+                self?.lottieDetectDone()
             }
         }
         

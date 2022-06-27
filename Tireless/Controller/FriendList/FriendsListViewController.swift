@@ -39,9 +39,7 @@ class FriendsListViewController: UIViewController {
                            forCellReuseIdentifier: "\(FriendListViewCell.self)")
         
         viewModel.friendViewModels.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
+            self?.tableView.reloadData()
         }
         
         if #available(iOS 15.0, *) {

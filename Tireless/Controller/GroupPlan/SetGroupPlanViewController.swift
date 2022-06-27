@@ -40,15 +40,11 @@ class SetGroupPlanViewController: UIViewController {
         configureCollectionView()
         
         homeViewModel.defaultPlansViewModel.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
         
         viewModel?.selectPlan.bind { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadItems(at: [IndexPath(row: 0, section: 1)])
-            }
+            self?.collectionView.reloadItems(at: [IndexPath(row: 0, section: 1)])
         }
     }
     
