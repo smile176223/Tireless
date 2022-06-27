@@ -11,8 +11,6 @@ class DetectFinishViewController: UIViewController {
     
     @IBOutlet private var detectFinishView: DetectFinishView!
     
-    private let videoManager = ShareManager()
-    
     var viewModel: DetectFinishViewModel?
     
     var recordStatus: RecordStatus = .userAgree

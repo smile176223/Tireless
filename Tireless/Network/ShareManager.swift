@@ -12,6 +12,8 @@ import FirebaseFirestoreSwift
 class ShareManager {
     static let shared = ShareManager()
     
+    private init() {}
+    
     lazy var shareWallDB = Firestore.firestore().collection("shareWall")
     
     lazy var picturesDB = Firestore.firestore().collection("pictures")
