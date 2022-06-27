@@ -14,13 +14,3 @@ struct Friend: Codable {
         case userId
     }
 }
-
-extension Friend: Hashable {
-    static func == (lhs: Friend, rhs: Friend) -> Bool {
-        return lhs.userId == rhs.userId
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(userId)
-    }
-}
