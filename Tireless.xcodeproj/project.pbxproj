@@ -1638,6 +1638,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3F3N8USCH4;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tireless/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Tireless須開啟您的相機，以執行運動辨識及錄影的功能。";
