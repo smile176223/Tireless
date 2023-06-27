@@ -15,7 +15,7 @@ target 'Tireless' do
   pod 'Firebase/Storage'
   pod 'Firebase/Crashlytics'
   pod 'FirebaseFirestoreSwift', '8.14.0-beta'
-  pod 'Kingfisher'
+  pod 'Kingfisher', '~> 7.8.1'
   pod 'IQKeyboardManagerSwift', '6.3.0'
   pod 'JGProgressHUD'
   
@@ -30,3 +30,10 @@ target 'Tireless' do
 
 end
 
+post_install do |pi|
+  pi.pods_project.targets.each do |t|
+    t.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
+    end
+  end
+end

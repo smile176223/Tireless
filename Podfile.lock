@@ -469,7 +469,7 @@ PODS:
   - GTMSessionFetcher/Core (1.7.0)
   - IQKeyboardManagerSwift (6.3.0)
   - JGProgressHUD (2.2)
-  - Kingfisher (7.1.2)
+  - Kingfisher (7.8.1)
   - leveldb-library (1.22.1)
   - lottie-ios (3.3.0)
   - MLImage (1.0.0-beta2)
@@ -517,7 +517,7 @@ DEPENDENCIES:
   - GoogleMLKit/PoseDetection
   - IQKeyboardManagerSwift (= 6.3.0)
   - JGProgressHUD
-  - Kingfisher
+  - Kingfisher (~> 7.8.1)
   - lottie-ios
   - SwiftLint
 
@@ -580,7 +580,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   IQKeyboardManagerSwift: a8228c257614af98743b4cd8584637025f36358f
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
-  Kingfisher: 44ed6a8504763f27bab46163adfac83f5deb240c
+  Kingfisher: 63f677311d36a3473f6b978584f8a3845d023dc5
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
   MLImage: a454f9f8ecfd537783a12f9488f5be1a68820829
@@ -594,6 +594,6 @@ SPEC CHECKSUMS:
   Protobuf: 235750e4696ff59fb07d949a9dbbc92b3c0700fe
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
 
-PODFILE CHECKSUM: 38f5996f78a1efb2c380dbdf882770a3951b9c3c
+PODFILE CHECKSUM: 606c5a758ab2222a347862e08722a409f6afc3b8
 
 COCOAPODS: 1.11.3
