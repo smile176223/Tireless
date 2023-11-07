@@ -11,7 +11,6 @@ import FirebaseAuth
 private enum Tab {
     case home
     case plan
-    case shareWall
     case profile
 
     func controller() -> UIViewController {
@@ -21,8 +20,6 @@ private enum Tab {
             controller = UIStoryboard.home.instantiateInitialViewController() ?? UIViewController()
         case .plan:
             controller = UIStoryboard.plan.instantiateInitialViewController() ?? UIViewController()
-        case .shareWall:
-            controller = UIStoryboard.shareWall.instantiateInitialViewController() ?? UIViewController()
         case .profile:
             controller = UIStoryboard.profile.instantiateInitialViewController() ?? UIViewController()
         }
@@ -45,12 +42,6 @@ private enum Tab {
                 image: UIImage.tabPlan,
                 selectedImage: UIImage.tabPlan
             )
-        case .shareWall:
-            return UITabBarItem(
-                title: "探索",
-                image: UIImage.tabVideo,
-                selectedImage: UIImage.tabVideo
-            )
         case .profile:
             return UITabBarItem(
                 title: "個人",
@@ -63,7 +54,7 @@ private enum Tab {
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
-    private let tabs: [Tab] = [.home, .plan, .shareWall, .profile]
+    private let tabs: [Tab] = [.home, .plan, .profile]
     
     override func viewDidLoad() {
         super.viewDidLoad()
