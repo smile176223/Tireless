@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		850A41B3C4710C925420BDDF /* Pods_TirelessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442A73EE7DC1C03B80A2A26E /* Pods_TirelessTests.framework */; };
 		A2EC4823DFDFB7062A4D7718 /* Pods_Tireless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745C2223D0E016BB19811AAA /* Pods_Tireless.framework */; };
 		FF0234C2282CE65E001647B9 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */; };
 		FF0234C4282CEC23001647B9 /* FriendListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */; };
@@ -186,11 +185,8 @@
 
 /* Begin PBXFileReference section */
 		05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.debug.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.debug.xcconfig"; sourceTree = "<group>"; };
-		442A73EE7DC1C03B80A2A26E /* Pods_TirelessTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TirelessTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		52858477750540DE88E92C77 /* Pods-TirelessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TirelessTests.debug.xcconfig"; path = "Target Support Files/Pods-TirelessTests/Pods-TirelessTests.debug.xcconfig"; sourceTree = "<group>"; };
 		745C2223D0E016BB19811AAA /* Pods_Tireless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tireless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.release.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.release.xcconfig"; sourceTree = "<group>"; };
-		D521D30FA07EDA2E106421DA /* Pods-TirelessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TirelessTests.release.xcconfig"; path = "Target Support Files/Pods-TirelessTests/Pods-TirelessTests.release.xcconfig"; sourceTree = "<group>"; };
 		FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
 		FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListHeaderView.swift; sourceTree = "<group>"; };
 		FF0234C5282CEC2E001647B9 /* FriendListHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendListHeaderView.xib; sourceTree = "<group>"; };
@@ -365,7 +361,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				850A41B3C4710C925420BDDF /* Pods_TirelessTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,8 +492,6 @@
 			children = (
 				05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */,
 				902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */,
-				52858477750540DE88E92C77 /* Pods-TirelessTests.debug.xcconfig */,
-				D521D30FA07EDA2E106421DA /* Pods-TirelessTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -507,7 +500,6 @@
 			isa = PBXGroup;
 			children = (
 				745C2223D0E016BB19811AAA /* Pods_Tireless.framework */,
-				442A73EE7DC1C03B80A2A26E /* Pods_TirelessTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -896,12 +888,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FF0235032836678E001647B9 /* Build configuration list for PBXNativeTarget "TirelessTests" */;
 			buildPhases = (
-				5256A89C0B7BDB8CF321483B /* [CP] Check Pods Manifest.lock */,
 				FF0234F72836678E001647B9 /* Sources */,
 				FF0234F82836678E001647B9 /* Frameworks */,
 				FF0234F92836678E001647B9 /* Resources */,
-				7E5396C713796FEAF1582C84 /* [CP] Embed Pods Frameworks */,
-				89C0636EFC55881480720025 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1047,28 +1036,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tireless/Pods-Tireless-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5256A89C0B7BDB8CF321483B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TirelessTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6E41D0217CD08F4B2A7C49A7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1106,40 +1073,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tireless/Pods-Tireless-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7E5396C713796FEAF1582C84 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		89C0636EFC55881480720025 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TirelessTests/Pods-TirelessTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FF14448D280094800027F560 /* SwiftLint  */ = {
@@ -1353,7 +1286,6 @@
 /* Begin XCBuildConfiguration section */
 		FF0235012836678E001647B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52858477750540DE88E92C77 /* Pods-TirelessTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1373,7 +1305,6 @@
 		};
 		FF0235022836678E001647B9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D521D30FA07EDA2E106421DA /* Pods-TirelessTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1427,7 +1358,6 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
