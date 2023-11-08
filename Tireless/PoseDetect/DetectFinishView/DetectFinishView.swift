@@ -18,9 +18,9 @@ class DetectFinishView: UIView {
     
     @IBOutlet private weak var lineView: UIView!
     
-    @IBOutlet private weak var lottieView: AnimationView!
+    @IBOutlet private weak var lottieView: LottieAnimationView!
     
-    @IBOutlet private weak var lottieUploadView: AnimationView!
+    @IBOutlet private weak var lottieUploadView: LottieAnimationView!
     
     var shareButtonTapped: (() -> Void)?
     

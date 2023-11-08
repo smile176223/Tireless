@@ -21,7 +21,7 @@ class PoseDetectViewController: UIViewController {
 
     private var drawPose = false
     
-    private var lottieView: AnimationView?
+    private var lottieView: LottieAnimationView?
     
     override func viewDidLoad() {
         super.viewDidLoad()

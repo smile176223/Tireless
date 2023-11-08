@@ -34,7 +34,7 @@ class ShareWallViewCell: UITableViewCell, AutoPlayVideoLayerContainer {
     
     var videoLayer: AVPlayerLayer = AVPlayerLayer()
     
-    var lottieView: AnimationView?
+    var lottieView: LottieAnimationView?
     
     var videoURL: String? {
         didSet {

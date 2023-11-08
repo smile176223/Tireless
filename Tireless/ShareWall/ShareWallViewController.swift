@@ -11,7 +11,7 @@ import Lottie
 
 class ShareWallViewController: UIViewController {
     
-    private var lottieView: AnimationView?
+    private var lottieView: LottieAnimationView?
     
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
