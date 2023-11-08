@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C10BD3C2AFB6EE000B9254C /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */; };
 		A2EC4823DFDFB7062A4D7718 /* Pods_Tireless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745C2223D0E016BB19811AAA /* Pods_Tireless.framework */; };
 		FF0234C2282CE65E001647B9 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */; };
 		FF0234C4282CEC23001647B9 /* FriendListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */; };
@@ -185,6 +186,7 @@
 
 /* Begin PBXFileReference section */
 		05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.debug.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.debug.xcconfig"; sourceTree = "<group>"; };
+		0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
 		745C2223D0E016BB19811AAA /* Pods_Tireless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tireless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.release.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.release.xcconfig"; sourceTree = "<group>"; };
 		FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
@@ -670,6 +672,7 @@
 				FF3F7810281D1E3B00D8360A /* CommentManager.swift */,
 				FF5E89DF2825B29400214A5D /* ProfileManager.swift */,
 				FF0234D1282D8335001647B9 /* StatisticsManager.swift */,
+				0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1131,6 +1134,7 @@
 			files = (
 				FFC7B9F1281FB61B0080A31E /* GroupPlanStatusViewModel.swift in Sources */,
 				FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */,
+				0C10BD3C2AFB6EE000B9254C /* FirebaseClient.swift in Sources */,
 				FF3FBE7C281299DE00E6B5DC /* PlanViewModel.swift in Sources */,
 				FF0234C2282CE65E001647B9 /* FriendsListViewController.swift in Sources */,
 				FF3FBE9D28151FF000E6B5DC /* Friend.swift in Sources */,
