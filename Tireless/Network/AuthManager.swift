@@ -9,7 +9,7 @@ import Foundation
 import FirebaseAuth
 
 public protocol FirebaseAuthType {
-    func signInWithApple(credential: OAuthCredential)
+    func signInWithApple(idToken: String, nonce: String, completion: @escaping (Result<Void, Error>) -> Void)
     func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void)
     func signInWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void)
     func signOut() throws
@@ -18,67 +18,52 @@ public protocol FirebaseAuthType {
 public final class FirebaseAuthManager: FirebaseAuthType {
     
     enum AuthError: Error {
-        case wrongPassword
-        case invalidEmail
-        case unknown
         case nonResponse
     }
     
     enum CreateError: Error {
-        case emailAlreadyInUse
-        case invalidEmail
-        case unknown
         case nonResponse
     }
     
     private let auth: Auth
     
-    public init(auth: Auth) {
+    public init(auth: Auth = Auth.auth()) {
         self.auth = auth
     }
     
-    public func signInWithApple(credential: OAuthCredential) {
-        auth.signIn(with: credential)
+    public func signInWithApple(idToken: String, nonce: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idToken, rawNonce: nonce)
+        auth.signIn(with: credential) { result, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let result = result {
+                completion(.success(()))
+            } else {
+                completion(.failure(AuthError.nonResponse))
+            }
+        }
     }
     
     public func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
         auth.createUser(withEmail: email, password: password) { result, error in
-            if let error = error, let errorCode = AuthErrorCode(rawValue: error._code) {
-                switch errorCode {
-                case .emailAlreadyInUse:
-                    completion(.failure(CreateError.emailAlreadyInUse))
-                case .invalidEmail:
-                    completion(.failure(CreateError.invalidEmail))
-                default:
-                    completion(.failure(CreateError.unknown))
-                }
-            } else {
-                guard let result = result else {
-                    completion(.failure(CreateError.nonResponse))
-                    return
-                }
+            if let error = error {
+                completion(.failure(error))
+            } else if let result = result {
                 completion(.success(()))
+            } else {
+                completion(.failure(CreateError.nonResponse))
             }
         }
     }
     
     public func signInWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
         auth.signIn(withEmail: email, password: password) { result, error in
-            if let error = error, let errorCode = AuthErrorCode(rawValue: error._code) {
-                switch errorCode {
-                case .wrongPassword:
-                    completion(.failure(AuthError.wrongPassword))
-                case .invalidEmail:
-                    completion(.failure(AuthError.invalidEmail))
-                default:
-                    completion(.failure(AuthError.unknown))
-                }
-            } else {
-                guard let result = result else {
-                    completion(.failure(AuthError.nonResponse))
-                    return
-                }
+            if let error = error {
+                completion(.failure(error))
+            } else if let result = result {
                 completion(.success(()))
+            } else {
+                completion(.failure(AuthError.nonResponse))
             }
         }
     }
