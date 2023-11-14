@@ -913,7 +913,6 @@
 				FFC0C14D28008F640041A937 /* Sources */,
 				FFC0C14E28008F640041A937 /* Frameworks */,
 				FFC0C14F28008F640041A937 /* Resources */,
-				FF14448D280094800027F560 /* SwiftLint  */,
 				7B1C0B9D45046C9981F6F2A8 /* [CP] Embed Pods Frameworks */,
 				1C5D0B16ADC731FDB07B638C /* [CP] Copy Pods Resources */,
 				FF2D8DDC282907CE0093DA78 /* Crashlytics */,
@@ -1077,24 +1076,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tireless/Pods-Tireless-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		FF14448D280094800027F560 /* SwiftLint  */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "SwiftLint ";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# SwiftLint Pods\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		FF2D8DDC282907CE0093DA78 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;

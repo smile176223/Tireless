@@ -7,7 +7,6 @@ target 'Tireless' do
 
   # Pods for Tireless
 
-  pod 'SwiftLint'
   pod 'GoogleMLKit/PoseDetection', '3.2.0'
   pod 'lottie-ios'
   pod 'Firebase/Auth'

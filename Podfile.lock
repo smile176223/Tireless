@@ -797,7 +797,6 @@ PODS:
   - nanopb/encode (2.30908.0)
   - PromisesObjC (2.3.1)
   - Protobuf (3.25.0)
-  - SwiftLint (0.53.0)
 
 DEPENDENCIES:
   - Firebase/Auth
@@ -810,7 +809,6 @@ DEPENDENCIES:
   - JGProgressHUD
   - Kingfisher (~> 7.7.0)
   - lottie-ios
-  - SwiftLint
 
 SPEC REPOS:
   trunk:
@@ -848,7 +846,6 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - Protobuf
-    - SwiftLint
 
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
@@ -885,8 +882,7 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   Protobuf: 6a4183ec1d51649eb2be7b86ccc286e5c539219c
-  SwiftLint: 5ce4d6a8ff83f1b5fd5ad5dbf30965d35af65e44
 
-PODFILE CHECKSUM: 8137786266052fed808afe6d883a5903847a5068
+PODFILE CHECKSUM: cd8be12dd8bd11315f543e06221edfb77e5eecdd
 
 COCOAPODS: 1.14.2
