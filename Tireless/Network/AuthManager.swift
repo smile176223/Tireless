@@ -8,6 +8,86 @@
 import Foundation
 import FirebaseAuth
 
+public protocol FirebaseAuthType {
+    func signInWithApple(credential: OAuthCredential)
+    func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func signInWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func signOut() throws
+}
+
+public final class FirebaseAuthManager: FirebaseAuthType {
+    
+    enum AuthError: Error {
+        case wrongPassword
+        case invalidEmail
+        case unknown
+        case nonResponse
+    }
+    
+    enum CreateError: Error {
+        case emailAlreadyInUse
+        case invalidEmail
+        case unknown
+        case nonResponse
+    }
+    
+    private let auth: Auth
+    
+    public init(auth: Auth) {
+        self.auth = auth
+    }
+    
+    public func signInWithApple(credential: OAuthCredential) {
+        auth.signIn(with: credential)
+    }
+    
+    public func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        auth.createUser(withEmail: email, password: password) { result, error in
+            if let error = error, let errorCode = AuthErrorCode(rawValue: error._code) {
+                switch errorCode {
+                case .emailAlreadyInUse:
+                    completion(.failure(CreateError.emailAlreadyInUse))
+                case .invalidEmail:
+                    completion(.failure(CreateError.invalidEmail))
+                default:
+                    completion(.failure(CreateError.unknown))
+                }
+            } else {
+                guard let result = result else {
+                    completion(.failure(CreateError.nonResponse))
+                    return
+                }
+                completion(.success(()))
+            }
+        }
+    }
+    
+    public func signInWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        auth.signIn(withEmail: email, password: password) { result, error in
+            if let error = error, let errorCode = AuthErrorCode(rawValue: error._code) {
+                switch errorCode {
+                case .wrongPassword:
+                    completion(.failure(AuthError.wrongPassword))
+                case .invalidEmail:
+                    completion(.failure(AuthError.invalidEmail))
+                default:
+                    completion(.failure(AuthError.unknown))
+                }
+            } else {
+                guard let result = result else {
+                    completion(.failure(AuthError.nonResponse))
+                    return
+                }
+                completion(.success(()))
+            }
+        }
+    }
+    
+    public func signOut() throws {
+        try auth.signOut()
+    }
+}
+
 class AuthManager {
     static let shared = AuthManager()
     
