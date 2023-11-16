@@ -20,7 +20,7 @@ struct LoginView: View {
                         .resizable()
                         .frame(width: 150, height: 150, alignment: .center)
                         .scaledToFill()
-                        .colorMultiply(.black)
+                        .colorMultiply(.brown)
                     
                     Group {
                         Text("Login to your Account")
@@ -65,7 +65,7 @@ struct LoginView: View {
                                 .padding(.bottom, 20)
                                 .frame(minWidth: geometry.size.width * 0.8, maxWidth: .infinity,  minHeight: 44)
                                 .font(Font.title3.bold())
-                                .background(RoundedRectangle(cornerRadius: 12).fill(Color.black))
+                                .background(RoundedRectangle(cornerRadius: 12).fill(.brown))
                                 .foregroundColor(Color.white)
                                 .cornerRadius(8)
                         }
@@ -183,7 +183,6 @@ struct IconButton: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 28, height: 28)
-                    .foregroundColor(.black)
             }
         }
         .buttonStyle(GrowingButton())
