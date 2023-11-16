@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C10BD3C2AFB6EE000B9254C /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */; };
+		0C6DEB702B0462A200FDBDA4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB6F2B0462A200FDBDA4 /* LoginView.swift */; };
 		A2EC4823DFDFB7062A4D7718 /* Pods_Tireless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745C2223D0E016BB19811AAA /* Pods_Tireless.framework */; };
 		FF0234C2282CE65E001647B9 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */; };
 		FF0234C4282CEC23001647B9 /* FriendListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */; };
@@ -187,6 +188,7 @@
 /* Begin PBXFileReference section */
 		05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.debug.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.debug.xcconfig"; sourceTree = "<group>"; };
 		0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
+		0C6DEB6F2B0462A200FDBDA4 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		745C2223D0E016BB19811AAA /* Pods_Tireless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tireless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.release.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.release.xcconfig"; sourceTree = "<group>"; };
 		FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */,
 				FF3F77FD281B006700D8360A /* SignUpViewController.swift */,
 				FF2D8DD82828FDC30093DA78 /* WebkitViewController.swift */,
+				0C6DEB6F2B0462A200FDBDA4 /* LoginView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1151,6 +1154,7 @@
 				FF308E8D2809177F00265863 /* ShareWallViewModel.swift in Sources */,
 				FF5E89D42823A3DF00214A5D /* PlanReviewViewModel.swift in Sources */,
 				FF3FBE8B28148CAC00E6B5DC /* ProfileViewController.swift in Sources */,
+				0C6DEB702B0462A200FDBDA4 /* LoginView.swift in Sources */,
 				FF02352D2842762C001647B9 /* PlanModifyViewModel.swift in Sources */,
 				FF3FBE4E280FA85100E6B5DC /* HomeDailyViewCell.swift in Sources */,
 				FFC7B9F7281FD0140080A31E /* JGProgressHUDWrapper.swift in Sources */,
@@ -1374,7 +1378,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1428,7 +1432,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1461,6 +1465,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1497,6 +1502,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
