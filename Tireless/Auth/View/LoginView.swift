@@ -106,15 +106,12 @@ struct LoginView: View {
                             .font(.system(.body))
                             .foregroundColor(.gray)
                         
-                        Button(action: {
-                            print("Sign up click")
-                        }) {
+                        NavigationLink(destination: SignupView()) {
                             Text("Sign up")
                                 .font(.system(.body))
                                 .bold()
                                 .foregroundColor(.brown)
                         }
-                        .buttonStyle(GrowingButton())
                     }
                 }
                 .padding(.bottom, 20)
@@ -126,6 +123,7 @@ struct LoginView: View {
 }
 
 struct PolicyView: View {
+    @State private var policyIsPresenting = false
     
     var body: some View {
         Text("By continuing you accept our")
@@ -134,26 +132,28 @@ struct PolicyView: View {
         
         HStack {
             Button(action: {
-                print("Tap privacy")
+                self.policyIsPresenting.toggle()
             }) {
                 Text("Privacy Policy")
                     .font(.system(.caption).bold())
                     .foregroundColor(.brown)
             }
             .buttonStyle(GrowingButton())
+            .sheet(isPresented: $policyIsPresenting) { SignupView() }
             
             Text("and")
                 .font(.system(.caption))
                 .foregroundColor(.secondary)
             
             Button(action: {
-                print("Tap term of uses")
+                self.policyIsPresenting.toggle()
             }) {
                 Text("Terms of Use")
                     .font(.system(.caption).bold())
                     .foregroundColor(.brown)
             }
             .buttonStyle(GrowingButton())
+            .sheet(isPresented: $policyIsPresenting) { SignupView() }
         }
     }
 }
