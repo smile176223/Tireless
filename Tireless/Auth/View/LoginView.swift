@@ -72,7 +72,7 @@ struct LoginView: View {
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                     .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
-                    .padding(.bottom, 50)
+                    .padding(.bottom, 40)
                     
                     Text("- Or sign in with -")
                         .font(.system(.body))
@@ -92,13 +92,15 @@ struct LoginView: View {
                             print("tap button 3")
                         }
                     }
+                    .padding(.bottom, 30)
+                    
+                    PolicyView()
                     
                     Spacer()
                     HStack {
                         Text("Don't have an account?")
                             .font(.system(.body))
                             .foregroundColor(.gray)
-                            .padding(.bottom, 20)
                         
                         Button(action: {
                             print("Sign up click")
@@ -107,15 +109,48 @@ struct LoginView: View {
                                 .font(.system(.body))
                                 .bold()
                                 .foregroundColor(.brown)
-                                .padding(.bottom, 20)
                         }
                         .buttonStyle(GrowingButton())
                     }
                 }
+                .padding(.bottom, 20)
             }
         }
         .padding(.leading, 40)
         .padding(.trailing, 40)
+    }
+}
+
+struct PolicyView: View {
+    
+    var body: some View {
+        Text("By continuing you accept our")
+            .font(.system(.caption))
+            .foregroundColor(.secondary)
+        
+        HStack {
+            Button(action: {
+                print("Tap privacy")
+            }) {
+                Text("Privacy Policy")
+                    .font(.system(.caption).bold())
+                    .foregroundColor(.brown)
+            }
+            .buttonStyle(GrowingButton())
+            
+            Text("and")
+                .font(.system(.caption))
+                .foregroundColor(.secondary)
+            
+            Button(action: {
+                print("Tap term of uses")
+            }) {
+                Text("Terms of Use")
+                    .font(.system(.caption).bold())
+                    .foregroundColor(.brown)
+            }
+            .buttonStyle(GrowingButton())
+        }
     }
 }
 
