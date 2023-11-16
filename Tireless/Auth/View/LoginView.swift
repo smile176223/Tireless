@@ -124,6 +124,7 @@ struct LoginView: View {
 
 struct PolicyView: View {
     @State private var policyIsPresenting = false
+    @State private var termsIsPresenting = false
     
     var body: some View {
         Text("By continuing you accept our")
@@ -139,21 +140,25 @@ struct PolicyView: View {
                     .foregroundColor(.brown)
             }
             .buttonStyle(GrowingButton())
-            .sheet(isPresented: $policyIsPresenting) { SignupView() }
+            .sheet(isPresented: $policyIsPresenting) {
+                WebView(url: URL(string: "https://pages.flycricket.io/tireless-1/privacy.html"))
+            }
             
             Text("and")
                 .font(.system(.caption))
                 .foregroundColor(.secondary)
             
             Button(action: {
-                self.policyIsPresenting.toggle()
+                self.termsIsPresenting.toggle()
             }) {
                 Text("Terms of Use")
                     .font(.system(.caption).bold())
                     .foregroundColor(.brown)
             }
             .buttonStyle(GrowingButton())
-            .sheet(isPresented: $policyIsPresenting) { SignupView() }
+            .sheet(isPresented: $termsIsPresenting) {
+                WebView(url: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"))
+            }
         }
     }
 }
