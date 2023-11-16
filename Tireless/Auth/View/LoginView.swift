@@ -32,21 +32,29 @@ struct LoginView: View {
                         .padding(.leading, 5)
                         .padding(.bottom, 10)
                     
-                    TextField("", text: $email, prompt: Text("Email").foregroundColor(.gray).bold())
-                        .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.gray.opacity(0.3), lineWidth: 0.5)
-                        )
-                        .padding(.bottom, 10)
+                    ZStack {
+                        Color.white
+                            .cornerRadius(8)
+                            .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
+                        
+                        TextField("", text: $email, prompt: Text("Email").foregroundColor(.gray).bold())
+                            .lineLimit(1)
+                            .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
+                    }
+                    .frame(width: geometry.size.width, height: 50)
+                    .padding(.bottom, 20)
                     
-                    SecureField("", text: $password, prompt: Text("Password").foregroundColor(.gray).bold())
-                        .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.gray.opacity(0.3), lineWidth: 0.5)
-                        )
-                        .padding(.bottom, 20)
+                    ZStack {
+                        Color.white
+                            .cornerRadius(8)
+                            .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
+                        
+                        SecureField("", text: $password, prompt: Text("Password").foregroundColor(.gray).bold())
+                            .lineLimit(1)
+                            .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
+                    }
+                    .frame(width: geometry.size.width, height: 50)
+                    .padding(.bottom, 20)
                     
                     Button {
                         print("Tap Sign In")
@@ -55,7 +63,7 @@ struct LoginView: View {
                             .padding(.top, 20)
                             .padding(.bottom, 20)
                             .frame(minWidth: geometry.size.width * 0.8, maxWidth: .infinity,  minHeight: 44)
-                            .font(Font.body)
+                            .font(Font.title3.bold())
                             .background(RoundedRectangle(cornerRadius: 12).fill(Color.black))
                             .foregroundColor(Color.white)
                             .cornerRadius(8)
@@ -130,7 +138,7 @@ struct IconButton: View {
                 Color.white
                     .frame(width: size.width, height: size.height)
                     .cornerRadius(8)
-                    .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 2)
+                    .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
                 
                 Image(systemName: iconImage)
                     .resizable()
