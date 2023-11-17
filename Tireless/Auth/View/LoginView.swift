@@ -22,61 +22,38 @@ struct LoginView: View {
                         .scaledToFill()
                         .colorMultiply(.brown)
                     
-                    Group {
-                        Text("Login to your Account")
-                            .font(.system(.title3))
-                            .foregroundColor(.gray)
-                            .bold()
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .lineLimit(1)
-                            .truncationMode(.tail)
-                            .padding(.leading, 5)
-                            .padding(.bottom, 10)
-                        
-                        ThemeTextField($email, width: geometry.size.width, placeholder: "Email")
-                        ThemeTextField($password, width: geometry.size.width, placeholder: "Password", isSecure: true)
-                        
-                        Button {
-                            print("Tap Sign in")
-                        } label: {
-                            Text("Sign in")
-                                .padding(.top, 20)
-                                .padding(.bottom, 20)
-                                .frame(minWidth: geometry.size.width * 0.8, maxWidth: .infinity,  minHeight: 44)
-                                .font(Font.title3.bold())
-                                .background(RoundedRectangle(cornerRadius: 12).fill(.brown))
-                                .foregroundColor(Color.white)
-                                .cornerRadius(8)
-                        }
-                        .buttonStyle(GrowingButton())
-                        .lineLimit(2)
-                        .multilineTextAlignment(.center)
-                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
-                        .padding(.bottom, 40)
-                    }
+                    Text("Login to your Account")
+                        .font(.system(.title3))
+                        .foregroundColor(.gray)
+                        .bold()
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .padding(.leading, 5)
+                        .padding(.bottom, 10)
                     
-                    Group {
-                        Text("- Or sign in with -")
-                            .font(.system(.body))
-                            .foregroundColor(.gray)
+                    ThemeTextField($email, width: geometry.size.width, placeholder: "Email")
+                    ThemeTextField($password, width: geometry.size.width, placeholder: "Password", isSecure: true)
+                    
+                    Button {
+                        print("Tap Sign in")
+                    } label: {
+                        Text("Sign in")
+                            .padding(.top, 20)
                             .padding(.bottom, 20)
-                        
-                        HStack(spacing: 15) {
-                            let buttonWidth = (geometry.size.width - 40) / 3
-                            let buttonHeight = buttonWidth * 0.6
-                            IconButton(iconImage: "star.fill", size: CGSize(width: buttonWidth, height: buttonHeight)) {
-                                print("tap button 1")
-                            }
-                            IconButton(iconImage: "apple.logo", size: CGSize(width: buttonWidth, height: buttonHeight)) {
-                                print("tap button 2")
-                            }
-                            IconButton(iconImage: "star", size: CGSize(width: buttonWidth, height: buttonHeight)) {
-                                print("tap button 3")
-                            }
-                        }
-                        .padding(.bottom, 30)
+                            .frame(minWidth: geometry.size.width * 0.8, maxWidth: .infinity,  minHeight: 44)
+                            .font(Font.title3.bold())
+                            .background(RoundedRectangle(cornerRadius: 12).fill(.brown))
+                            .foregroundColor(Color.white)
+                            .cornerRadius(8)
                     }
+                    .buttonStyle(GrowingButton())
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
+                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
+                    .padding(.bottom, 40)
                     
+                    QuickLoginView(width: geometry.size.width)
                     PolicyView()
                     
                     Spacer()
