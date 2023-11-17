@@ -51,41 +51,9 @@ struct SignupView: View {
                         .padding(.leading, 5)
                         .padding(.bottom, 10)
                     
-                    ZStack {
-                        Color.white
-                            .cornerRadius(8)
-                            .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
-                        
-                        TextField("", text: $email, prompt: Text("Email").foregroundColor(.gray).bold())
-                            .lineLimit(1)
-                            .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
-                    }
-                    .frame(width: width, height: 50)
-                    .padding(.bottom, 20)
-                    
-                    ZStack {
-                        Color.white
-                            .cornerRadius(8)
-                            .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
-                        
-                        SecureField("", text: $password, prompt: Text("Password").foregroundColor(.gray).bold())
-                            .lineLimit(1)
-                            .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
-                    }
-                    .frame(width: width, height: 50)
-                    .padding(.bottom, 20)
-                    
-                    ZStack {
-                        Color.white
-                            .cornerRadius(8)
-                            .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
-                        
-                        SecureField("", text: $confirmPassword, prompt: Text("Confirm Password").foregroundColor(.gray).bold())
-                            .lineLimit(1)
-                            .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
-                    }
-                    .frame(width: width, height: 50)
-                    .padding(.bottom, 20)
+                    ThemeTextField($email, width: width, placeholder: "Email")
+                    ThemeTextField($password, width: width, placeholder: "Password", isSecure: true)
+                    ThemeTextField($confirmPassword, width: width, placeholder: "Confirm Password", isSecure: true)
                     
                     Button {
                         print("Tap Sign up")
@@ -131,6 +99,40 @@ struct SignupView: View {
             .padding(.bottom, 20)
         }
         .frame(width: width)
+    }
+}
+
+struct ThemeTextField: View {
+    @Binding var text: String
+    private let width: CGFloat
+    private let placeholder: String
+    private let isSecure: Bool
+    
+    init(_ text: Binding<String>, width: CGFloat, placeholder: String, isSecure: Bool = false) {
+        self._text = text
+        self.width = width
+        self.placeholder = placeholder
+        self.isSecure = isSecure
+    }
+    
+    var body: some View {
+        ZStack {
+            Color.white
+                .cornerRadius(8)
+                .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
+            
+            if isSecure {
+                SecureField("", text: $text, prompt: Text(placeholder).foregroundColor(.gray).bold())
+                    .lineLimit(1)
+                    .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
+            } else {
+                TextField("", text: $text, prompt: Text(placeholder).foregroundColor(.gray).bold())
+                    .lineLimit(1)
+                    .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
+            }
+        }
+        .frame(width: width, height: 50)
+        .padding(.bottom, 20)
     }
 }
 
