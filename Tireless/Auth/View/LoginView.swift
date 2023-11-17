@@ -33,29 +33,8 @@ struct LoginView: View {
                             .padding(.leading, 5)
                             .padding(.bottom, 10)
                         
-                        ZStack {
-                            Color.white
-                                .cornerRadius(8)
-                                .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
-                            
-                            TextField("", text: $email, prompt: Text("Email").foregroundColor(.gray).bold())
-                                .lineLimit(1)
-                                .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
-                        }
-                        .frame(width: geometry.size.width, height: 50)
-                        .padding(.bottom, 20)
-                        
-                        ZStack {
-                            Color.white
-                                .cornerRadius(8)
-                                .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
-                            
-                            SecureField("", text: $password, prompt: Text("Password").foregroundColor(.gray).bold())
-                                .lineLimit(1)
-                                .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
-                        }
-                        .frame(width: geometry.size.width, height: 50)
-                        .padding(.bottom, 20)
+                        ThemeTextField($email, width: geometry.size.width, placeholder: "Email")
+                        ThemeTextField($password, width: geometry.size.width, placeholder: "Password", isSecure: true)
                         
                         Button {
                             print("Tap Sign in")
