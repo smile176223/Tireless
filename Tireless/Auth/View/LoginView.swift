@@ -58,9 +58,9 @@ struct LoginView: View {
                         .padding(.bottom, 20)
                         
                         Button {
-                            print("Tap Sign In")
+                            print("Tap Sign in")
                         } label: {
-                            Text("Sign In")
+                            Text("Sign in")
                                 .padding(.top, 20)
                                 .padding(.bottom, 20)
                                 .frame(minWidth: geometry.size.width * 0.8, maxWidth: .infinity,  minHeight: 44)
