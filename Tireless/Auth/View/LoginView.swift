@@ -35,23 +35,9 @@ struct LoginView: View {
                     ThemeTextField($email, width: geometry.size.width, placeholder: "Email")
                     ThemeTextField($password, width: geometry.size.width, placeholder: "Password", isSecure: true)
                     
-                    Button {
-                        print("Tap Sign in")
-                    } label: {
-                        Text("Sign in")
-                            .padding(.top, 20)
-                            .padding(.bottom, 20)
-                            .frame(minWidth: geometry.size.width * 0.8, maxWidth: .infinity,  minHeight: 44)
-                            .font(Font.title3.bold())
-                            .background(RoundedRectangle(cornerRadius: 12).fill(.brown))
-                            .foregroundColor(Color.white)
-                            .cornerRadius(8)
+                    ThemeButton(width: geometry.size.width * 0.8, name: "Sign in") {
+                        print("Tap sign in")
                     }
-                    .buttonStyle(GrowingButton())
-                    .lineLimit(2)
-                    .multilineTextAlignment(.center)
-                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
-                    .padding(.bottom, 40)
                     
                     QuickLoginView(width: geometry.size.width)
                     PolicyView()
@@ -79,6 +65,33 @@ struct LoginView: View {
                     .foregroundColor(.brown)
             }
         }
+    }
+}
+
+struct ThemeButton: View {
+    
+    let width: CGFloat
+    let name: String
+    let action: () -> Void
+    
+    var body: some View {
+        Button {
+            action()
+        } label: {
+            Text(name)
+                .padding(.top, 20)
+                .padding(.bottom, 20)
+                .frame(minWidth: width, maxWidth: .infinity,  minHeight: 44)
+                .font(Font.title3.bold())
+                .background(RoundedRectangle(cornerRadius: 12).fill(.brown))
+                .foregroundColor(Color.white)
+                .cornerRadius(8)
+        }
+        .buttonStyle(GrowingButton())
+        .lineLimit(2)
+        .multilineTextAlignment(.center)
+        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
+        .padding(.bottom, 40)
     }
 }
 
