@@ -57,24 +57,28 @@ struct LoginView: View {
                     PolicyView()
                     
                     Spacer()
-                    HStack {
-                        Text("Don't have an account?")
-                            .font(.system(.body))
-                            .foregroundColor(.gray)
-                        
-                        NavigationLink(destination: SignupView()) {
-                            Text("Sign up")
-                                .font(.system(.body))
-                                .bold()
-                                .foregroundColor(.brown)
-                        }
-                    }
+                    noAccountView
                 }
                 .padding(.bottom, 20)
             }
         }
         .padding(.leading, 40)
         .padding(.trailing, 40)
+    }
+    
+    var noAccountView: some View {
+        HStack {
+            Text("Don't have an account?")
+                .font(.system(.body))
+                .foregroundColor(.gray)
+            
+            NavigationLink(destination: SignupView()) {
+                Text("Sign up")
+                    .font(.system(.body))
+                    .bold()
+                    .foregroundColor(.brown)
+            }
+        }
     }
 }
 
