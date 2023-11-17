@@ -54,23 +54,9 @@ struct SignupView: View {
                 ThemeTextField($password, width: width, placeholder: "Password", isSecure: true)
                 ThemeTextField($confirmPassword, width: width, placeholder: "Confirm Password", isSecure: true)
                 
-                Button {
-                    print("Tap Sign up")
-                } label: {
-                    Text("Sign up")
-                        .padding(.top, 20)
-                        .padding(.bottom, 20)
-                        .frame(minWidth: width, maxWidth: .infinity,  minHeight: 44)
-                        .font(Font.title3.bold())
-                        .background(RoundedRectangle(cornerRadius: 12).fill(.brown))
-                        .foregroundColor(Color.white)
-                        .cornerRadius(8)
+                ThemeButton(width: width, name: "Sign up") {
+                    print("Tap sign up")
                 }
-                .buttonStyle(GrowingButton())
-                .lineLimit(2)
-                .multilineTextAlignment(.center)
-                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
-                .padding(.bottom, 40)
                 
                 QuickLoginView(width: width)
             }
