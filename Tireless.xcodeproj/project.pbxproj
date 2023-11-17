@@ -13,6 +13,7 @@
 		0CD81BFA2B06003000CA350E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF92B06003000CA350E /* WebView.swift */; };
 		0CD81BFC2B07604C00CA350E /* ThemeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BFB2B07604C00CA350E /* ThemeTextField.swift */; };
 		0CD81BFE2B0763AD00CA350E /* QuickLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BFD2B0763AD00CA350E /* QuickLoginView.swift */; };
+		0CD81C002B07674000CA350E /* ThemeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BFF2B07674000CA350E /* ThemeButton.swift */; };
 		A2EC4823DFDFB7062A4D7718 /* Pods_Tireless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745C2223D0E016BB19811AAA /* Pods_Tireless.framework */; };
 		FF0234C2282CE65E001647B9 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */; };
 		FF0234C4282CEC23001647B9 /* FriendListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0234C3282CEC23001647B9 /* FriendListHeaderView.swift */; };
@@ -197,6 +198,7 @@
 		0CD81BF92B06003000CA350E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		0CD81BFB2B07604C00CA350E /* ThemeTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTextField.swift; sourceTree = "<group>"; };
 		0CD81BFD2B0763AD00CA350E /* QuickLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLoginView.swift; sourceTree = "<group>"; };
+		0CD81BFF2B07674000CA350E /* ThemeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeButton.swift; sourceTree = "<group>"; };
 		745C2223D0E016BB19811AAA /* Pods_Tireless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tireless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		902475581BC1707FF0D936C1 /* Pods-Tireless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.release.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.release.xcconfig"; sourceTree = "<group>"; };
 		FF0234C1282CE65E001647B9 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				0CD81BF92B06003000CA350E /* WebView.swift */,
 				0CD81BFB2B07604C00CA350E /* ThemeTextField.swift */,
 				0CD81BFD2B0763AD00CA350E /* QuickLoginView.swift */,
+				0CD81BFF2B07674000CA350E /* ThemeButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1242,6 +1245,7 @@
 				FFC7B9E4281E8A8C0080A31E /* HomeGroupPlanViewCell.swift in Sources */,
 				FF2EF6F128203A9C008418A0 /* GroupPlanHeaderView.swift in Sources */,
 				FF3FBE602811A1B600E6B5DC /* CounterView.swift in Sources */,
+				0CD81C002B07674000CA350E /* ThemeButton.swift in Sources */,
 				FF2FE0EB280EA8A200F8890D /* UIColor+Extension.swift in Sources */,
 				FF3F77E82819C3F900D8360A /* SearchFriendViewController.swift in Sources */,
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
