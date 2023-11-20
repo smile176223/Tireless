@@ -20,7 +20,7 @@ struct ThemeButton: View {
             Text(name)
                 .padding(.top, 20)
                 .padding(.bottom, 20)
-                .frame(minWidth: width, maxWidth: .infinity,  minHeight: 44)
+                .frame(minWidth: width,  minHeight: 44)
                 .font(Font.title3.bold())
                 .background(RoundedRectangle(cornerRadius: 12).fill(.brown))
                 .foregroundColor(Color.white)

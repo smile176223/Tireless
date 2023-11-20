@@ -14,57 +14,75 @@ struct LoginView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            HStack {
-                VStack {
-                    Image("TirelessLogoText")
-                        .resizable()
-                        .frame(width: 150, height: 150, alignment: .center)
-                        .scaledToFill()
-                        .colorMultiply(.brown)
-                    
-                    Text("Login to your Account")
-                        .font(.system(.title3))
-                        .foregroundColor(.gray)
-                        .bold()
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                        .padding(.leading, 5)
-                        .padding(.bottom, 10)
-                    
-                    ThemeTextField($email, width: geometry.size.width, placeholder: "Email")
-                    ThemeTextField($password, width: geometry.size.width, placeholder: "Password", isSecure: true)
-                    
-                    ThemeButton(width: geometry.size.width * 0.8, name: "Sign in") {
-                        print("Tap sign in")
-                    }
-                    
-                    QuickLoginView(width: geometry.size.width)
-                    PolicyView()
-                    
+            List {
+                HStack {
                     Spacer()
-                    noAccountView
+                    makeLoginView(geometry)
+                    Spacer()
                 }
-                .padding(.bottom, 20)
+                .listRowSeparator(.hidden)
+            }
+            .listStyle(PlainListStyle())
+            .onAppear() {
+                UIScrollView.appearance().bounces = false
             }
         }
-        .padding(.leading, 40)
-        .padding(.trailing, 40)
+    }
+    
+    private func makeLoginView(_ geometry: GeometryProxy) -> some View {
+        let width = geometry.size.width * 0.8
+        return HStack {
+            VStack {
+                Image("TirelessLogoText")
+                    .resizable()
+                    .frame(width: 150, height: 150, alignment: .center)
+                    .scaledToFill()
+                    .colorMultiply(.brown)
+                
+                Text("Login to your Account")
+                    .font(.system(.title3))
+                    .foregroundColor(.gray)
+                    .bold()
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .padding(.leading, 5)
+                    .padding(.bottom, 10)
+                
+                ThemeTextField($email, width: width, placeholder: "Email")
+                ThemeTextField($password, width: width, placeholder: "Password", isSecure: true)
+                
+                ThemeButton(width: width, name: "Sign in") {
+                    print("Tap sign in")
+                }
+                
+                QuickLoginView(width: width)
+                PolicyView()
+                
+                noAccountView
+                    .padding(.top, 50)
+            }
+            .padding(.bottom, 20)
+        }
+        .frame(width: width)
     }
     
     var noAccountView: some View {
-        HStack {
-            Text("Don't have an account?")
-                .font(.system(.body))
-                .foregroundColor(.gray)
-            
-            NavigationLink(destination: SignupView()) {
-                Text("Sign up")
+        ScrollView {
+            HStack {
+                Text("Don't have an account?")
                     .font(.system(.body))
-                    .bold()
-                    .foregroundColor(.brown)
+                    .foregroundColor(.gray)
+                
+                NavigationLink(destination: SignupView()) {
+                    Text("Sign up")
+                        .font(.system(.body))
+                        .bold()
+                        .foregroundColor(.brown)
+                }
             }
         }
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 
