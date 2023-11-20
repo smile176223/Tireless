@@ -59,7 +59,7 @@ struct SignupView: View {
                     print("Tap sign up")
                 }
                 
-                QuickLoginView(width: width)
+                QuickLoginView(width: width) {}
             }
             .padding(.bottom, 20)
         }

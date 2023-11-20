@@ -10,7 +10,8 @@ import SwiftUI
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
-    private var viewModel = AuthViewModel()
+    var viewModel = AuthViewModel()
+    var dismiss: () -> Void
     
     var body: some View {
         GeometryReader { geometry in
@@ -57,7 +58,7 @@ struct LoginView: View {
                     print("Tap sign in")
                 }
                 
-                QuickLoginView(width: width)
+                QuickLoginView(width: width, dismiss: dismiss)
                 PolicyView()
                 
                 noAccountView
@@ -169,6 +170,6 @@ struct GrowingButton: ButtonStyle {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView() {}
     }
 }

@@ -62,10 +62,12 @@ struct QuickLoginView: View {
     
     @ObservedObject private(set) var viewModel: QuickLoginViewModel
     private let width: CGFloat
+    private let dismiss: () -> Void
     
-    init(width: CGFloat, viewModel: QuickLoginViewModel = QuickLoginViewModel()) {
+    init(width: CGFloat, viewModel: QuickLoginViewModel = QuickLoginViewModel(), dismiss: @escaping () -> Void) {
         self.width = width
         self.viewModel = viewModel
+        self.dismiss = dismiss
     }
     
     var body: some View {
@@ -92,11 +94,16 @@ struct QuickLoginView: View {
             }
             .padding(.bottom, 30)
         }
+        .onReceive(viewModel.$loginResult) { result in
+            if case .success = result {
+                dismiss()
+            }
+        }
     }
 }
 
 struct QuickLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        QuickLoginView(width: 300)
+        QuickLoginView(width: 300) {}
     }
 }
