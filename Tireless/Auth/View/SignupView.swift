@@ -30,9 +30,10 @@ struct SignupView: View {
         }
     }
     
+    @ViewBuilder
     private func makeSignupView(_ geometry: GeometryProxy) -> some View {
         let width = geometry.size.width * 0.8
-        return HStack {
+        HStack {
             VStack {
                 Image("TirelessLogoText")
                     .resizable()
