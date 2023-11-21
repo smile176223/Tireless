@@ -61,14 +61,12 @@ public protocol AuthServices {
     func authenticate()
 }
 
-class AppleSignInController: NSObject, AuthServices {
+class AppleSignInController: NSObject {
     
     enum AuthError: Error {
         case normal
     }
     
-    typealias ControllerFactory = ([ASAuthorizationAppleIDRequest]) -> ASAuthorizationController
-    private let controllerFactory: ControllerFactory
     private var nonceProvider: SecureNonce
     private let authSubject = PassthroughSubject<ASAuthorization, AuthError>()
     
@@ -76,27 +74,13 @@ class AppleSignInController: NSObject, AuthServices {
         authSubject.eraseToAnyPublisher()
     }
     
-    init(controllerFactory: @escaping ControllerFactory = ASAuthorizationController.init, nonceProvider: SecureNonce = NonceProvider()) {
-        self.controllerFactory = controllerFactory
+    init(nonceProvider: SecureNonce = NonceProvider()) {
         self.nonceProvider = nonceProvider
     }
     
     func authenticate(_ controller: ASAuthorizationController) {
-        
-    }
-    
-    func authenticate() {
-        let request = makeRequest()
-        let authController =  controllerFactory([request])
-        authController.delegate = self
-        authController.performRequests()
-    }
-    
-    private func makeRequest() -> ASAuthorizationAppleIDRequest {
-        let request = ASAuthorizationAppleIDProvider().createRequest()
-        request.requestedScopes = [.fullName, .email]
-        request.nonce = nonceProvider.generateNonce().raw
-        return request
+        controller.delegate = self
+        controller.performRequests()
     }
 }
 
@@ -126,20 +110,11 @@ private class ConstantNonceProvider: SecureNonce {
 class AppleSignInControllerTests: XCTestCase {
 
     func test_authenticate_performsProperRequest() {
-        let nonceProvider = ConstantNonceProvider()
-        let nonce = nonceProvider.generateNonce().raw
         let spy = ASAuthorizationController.spy
-        var receivedRequests = [ASAuthorizationAppleIDRequest]()
-        let sut = AppleSignInController(controllerFactory: { requests in
-            receivedRequests += requests
-            return spy
-        }, nonceProvider: nonceProvider)
+        let sut = AppleSignInController()
         
-        sut.authenticate()
+        sut.authenticate(spy)
         
-        XCTAssertEqual(receivedRequests.count, 1)
-        XCTAssertEqual(receivedRequests.first?.requestedScopes, [.fullName, .email])
-        XCTAssertEqual(receivedRequests.first?.nonce, nonce)
         XCTAssertTrue(spy.delegate === sut)
         XCTAssertEqual(spy.performRequestsCallCount, 1)
     }
