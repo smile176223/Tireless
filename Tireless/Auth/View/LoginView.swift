@@ -130,12 +130,17 @@ struct PolicyView: View {
 }
 
 struct IconButton: View {
+    enum ImageName {
+        case custom(String)
+        case system(String)
+    }
+    
     private let action: () -> Void
-    private let iconImage: String
+    private let imageName: ImageName
     private let size: CGSize
 
-    init(iconImage: String, size: CGSize, action: @escaping () -> Void) {
-        self.iconImage = iconImage
+    init(imageName: ImageName, size: CGSize, action: @escaping () -> Void) {
+        self.imageName = imageName
         self.size = size
         self.action = action
     }
@@ -150,10 +155,20 @@ struct IconButton: View {
                     .cornerRadius(8)
                     .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
                 
-                Image(systemName: iconImage)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 28, height: 28)
+                switch imageName {
+                case let .custom(name):
+                    Image(name)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 28, height: 28)
+                    
+                case let .system(name):
+                    Image(systemName: name)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 28, height: 28)
+                }
+                
             }
         }
         .buttonStyle(GrowingButton())

@@ -80,15 +80,15 @@ struct QuickLoginView: View {
             HStack(spacing: 15) {
                 let buttonWidth = (width - 40) / 3
                 let buttonHeight = buttonWidth * 0.6
-                IconButton(iconImage: "star.fill", size: CGSize(width: buttonWidth, height: buttonHeight)) {
+                IconButton(imageName: .custom("google_logo"), size: CGSize(width: buttonWidth, height: buttonHeight)) {
                     print("tap button 1")
                 }
                 IconButton(
-                    iconImage: "apple.logo",
+                    imageName: .system("apple.logo"),
                     size: CGSize(width: buttonWidth, height: buttonHeight),
                     action: viewModel.performAppleSignIn)
                 
-                IconButton(iconImage: "star", size: CGSize(width: buttonWidth, height: buttonHeight)) {
+                IconButton(imageName: .custom("twitter_x_logo"), size: CGSize(width: buttonWidth, height: buttonHeight)) {
                     print("tap button 3")
                 }
             }
