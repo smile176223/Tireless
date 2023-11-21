@@ -8,18 +8,20 @@
 import Foundation
 import CryptoKit
 
-struct Nonce {
-    let raw: String
-    let sha256: String
+public struct Nonce {
+    public let raw: String
+    public let sha256: String
 }
 
-protocol SecureNonce {
+public protocol SecureNonce {
     func generateNonce() -> Nonce
 }
 
-struct NonceProvider: SecureNonce {
+public class NonceProvider: SecureNonce {
     
-    func generateNonce() -> Nonce {
+    public init() {}
+    
+    public func generateNonce() -> Nonce {
         let randomString = randomNonceString()
         return Nonce(raw: randomString, sha256: sha256(randomString))
     }
