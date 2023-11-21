@@ -20,7 +20,7 @@ final class AppleSignInControllerAuthAdapter: AuthServices {
         self.nonceProvider = nonceProvider
     }
     
-    func authenticate() -> AnyPublisher<Auth, AuthError> {
+    func authenticate() -> AnyPublisher<AuthData, AuthError> {
         let nonce = nonceProvider.generateNonce()
         let request = makeRequest(nonce: nonce.sha256)
         let authController = ASAuthorizationController(authorizationRequests: [request])
@@ -91,7 +91,7 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
     
     private class AppleSignInControllerSpy: AppleSignInController {
         var requests = [ASAuthorizationAppleIDRequest]()
-        override func authenticate(_ controller: ASAuthorizationController, nonce: String) -> AnyPublisher<Auth, AuthError> {
+        override func authenticate(_ controller: ASAuthorizationController, nonce: String) -> AnyPublisher<AuthData, AuthError> {
             requests.append(contentsOf: controller.authorizationRequests.compactMap { $0 as? ASAuthorizationAppleIDRequest })
             return Empty().eraseToAnyPublisher()
         }
@@ -129,28 +129,18 @@ private class PublisherSpy<Success, Failure: Error> {
     }
 }
 
-public struct Auth {}
-
-public enum AuthError: Error {
-    case normal
-}
-
-public protocol AuthServices {
-    func authenticate() -> AnyPublisher<Auth, AuthError>
-}
-
 class AppleSignInController: NSObject {
     
     private var nonceProvider: SecureNonce
-    private var authSubject: PassthroughSubject<Auth, AuthError>?
+    private var authSubject: PassthroughSubject<AuthData, AuthError>?
     private var currentNonce: String?
     
     init(nonceProvider: SecureNonce = NonceProvider()) {
         self.nonceProvider = nonceProvider
     }
     
-    func authenticate(_ controller: ASAuthorizationController, nonce: String) -> AnyPublisher<Auth, AuthError> {
-        let subject = PassthroughSubject<Auth, AuthError>()
+    func authenticate(_ controller: ASAuthorizationController, nonce: String) -> AnyPublisher<AuthData, AuthError> {
+        let subject = PassthroughSubject<AuthData, AuthError>()
         authSubject = subject
         controller.delegate = self
         controller.performRequests()
