@@ -18,14 +18,9 @@ public protocol AppleIDCredential {
 extension ASAuthorizationAppleIDCredential: AppleIDCredential {}
 
 public class AppleSignInController: NSObject {
-    
-    private var nonceProvider: SecureNonce
+
     private var authSubject: PassthroughSubject<AuthData, AuthError>?
     private var currentNonce: String?
-    
-    public init(nonceProvider: SecureNonce = NonceProvider()) {
-        self.nonceProvider = nonceProvider
-    }
     
     public func authenticate(_ controller: ASAuthorizationController, nonce: String) -> AnyPublisher<AuthData, AuthError> {
         let subject = PassthroughSubject<AuthData, AuthError>()
