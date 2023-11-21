@@ -40,7 +40,7 @@ final class AppleSignInController: NSObject {
     private func makeRequest() -> ASAuthorizationAppleIDRequest {
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.fullName, .email]
-        request.nonce = nonceProvider.generateNonce().sha256
+        request.nonce = nonceProvider.generateNonce().raw
         return request
     }
 }
@@ -62,17 +62,30 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
     }
 }
 
+private class ConstantNonceProvider: SecureNonce {
+    func generateNonce() -> Nonce {
+        return Nonce(raw: "any nonce", sha256: "any sha256 nonce")
+    }
+}
+
 final class AppleSignInControllerTests: XCTestCase {
 
     func test_authenticate_performsProperRequest() {
+        let nonceProvider = ConstantNonceProvider()
+        let nonce = nonceProvider.generateNonce().raw
         let spy = ASAuthorizationController.spy
+        var receivedRequests = [ASAuthorizationAppleIDRequest]()
         let sut = AppleSignInController(controllerFactory: { requests in
-            spy
-        })
+            receivedRequests += requests
+            return spy
+        }, nonceProvider: nonceProvider)
         
         sut.authenticate()
         
-        XCTAssertTrue(spy.delegate === sut, "sut is delegate")
+        XCTAssertEqual(receivedRequests.count, 1)
+        XCTAssertEqual(receivedRequests.first?.requestedScopes, [.fullName, .email])
+        XCTAssertEqual(receivedRequests.first?.nonce, nonce)
+        XCTAssertTrue(spy.delegate === sut)
         XCTAssertEqual(spy.performRequestsCallCount, 1)
     }
 }

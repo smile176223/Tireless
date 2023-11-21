@@ -11,6 +11,11 @@ import CryptoKit
 public struct Nonce {
     public let raw: String
     public let sha256: String
+    
+    public init(raw: String, sha256: String) {
+        self.raw = raw
+        self.sha256 = sha256
+    }
 }
 
 public protocol SecureNonce {
