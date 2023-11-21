@@ -10,7 +10,58 @@ import Tireless
 import Combine
 import AuthenticationServices
 
-final class AppleSignInController: NSObject {
+final class AppleSignInControllerAuthAdapter: AuthServices {
+    
+    private let controller: AppleSignInController
+    private let nonceProvider: SecureNonce
+    
+    init(controller: AppleSignInController, nonceProvider: SecureNonce) {
+        self.controller = controller
+        self.nonceProvider = nonceProvider
+    }
+    
+    func authenticate() {
+        let request = makeRequest()
+        let authController = ASAuthorizationController(authorizationRequests: [request])
+        controller.authenticate(authController)
+    }
+    
+    private func makeRequest() -> ASAuthorizationAppleIDRequest {
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        request.requestedScopes = [.fullName, .email]
+        request.nonce = nonceProvider.generateNonce().raw
+        return request
+    }
+}
+
+class AppleSignInControllerAuthAdapterTests: XCTestCase {
+    
+    func test_adapter_performsProperRequest() {
+        let nonceProvider = ConstantNonceProvider()
+        let nonce = nonceProvider.generateNonce().raw
+        let controller = AppleSignInControllerSpy()
+        let sut = AppleSignInControllerAuthAdapter(controller: controller, nonceProvider: nonceProvider)
+        
+        sut.authenticate()
+        
+        XCTAssertEqual(controller.requests.count, 1)
+        XCTAssertEqual(controller.requests.first?.requestedScopes, [.fullName, .email])
+        XCTAssertEqual(controller.requests.first?.nonce, nonce)
+    }
+    
+    private class AppleSignInControllerSpy: AppleSignInController {
+        var requests = [ASAuthorizationAppleIDRequest]()
+        override func authenticate(_ controller: ASAuthorizationController) {
+            requests.append(contentsOf: controller.authorizationRequests.compactMap { $0 as? ASAuthorizationAppleIDRequest })
+        }
+    }
+}
+
+public protocol AuthServices {
+    func authenticate()
+}
+
+class AppleSignInController: NSObject, AuthServices {
     
     enum AuthError: Error {
         case normal
@@ -28,6 +79,10 @@ final class AppleSignInController: NSObject {
     init(controllerFactory: @escaping ControllerFactory = ASAuthorizationController.init, nonceProvider: SecureNonce = NonceProvider()) {
         self.controllerFactory = controllerFactory
         self.nonceProvider = nonceProvider
+    }
+    
+    func authenticate(_ controller: ASAuthorizationController) {
+        
     }
     
     func authenticate() {
@@ -68,7 +123,7 @@ private class ConstantNonceProvider: SecureNonce {
     }
 }
 
-final class AppleSignInControllerTests: XCTestCase {
+class AppleSignInControllerTests: XCTestCase {
 
     func test_authenticate_performsProperRequest() {
         let nonceProvider = ConstantNonceProvider()
