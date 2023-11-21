@@ -24,7 +24,7 @@ final class AppleSignInControllerAuthAdapter: AuthServices {
         let nonce = nonceProvider.generateNonce()
         let request = makeRequest(nonce: nonce.sha256)
         let authController = ASAuthorizationController(authorizationRequests: [request])
-        controller.authenticate(authController, nonce: "any nonce")
+        controller.authenticate(authController, nonce: nonce.sha256)
     }
     
     private func makeRequest(nonce: String) -> ASAuthorizationAppleIDRequest {
@@ -48,6 +48,28 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
         XCTAssertEqual(controller.requests.count, 1)
         XCTAssertEqual(controller.requests.first?.requestedScopes, [.fullName, .email])
         XCTAssertEqual(controller.requests.first?.nonce, nonce.sha256)
+    }
+    
+    func test_didCompleteWithError_emitsFailure() {
+        let sut = AppleSignInController()
+        
+        var receivedError: Error?
+        let cancellable = sut.authPublisher.sink { completion in
+            switch completion {
+            case let .failure(error):
+                receivedError = error
+                
+            case .finished:
+                XCTFail("Should have received completion with error")
+            }
+        } receiveValue: { _ in
+            XCTFail("Should have received completion with error")
+        }
+        
+        sut.authorizationController(controller: .spy, didCompleteWithError: NSError(domain: "any", code: 0))
+        
+        XCTAssertNotNil(receivedError)
+        cancellable.cancel()
     }
     
     private class AppleSignInControllerSpy: AppleSignInController {
