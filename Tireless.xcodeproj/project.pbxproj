@@ -414,6 +414,14 @@
 			path = "Apple Sign In";
 			sourceTree = "<group>";
 		};
+		0C2DF92F2B0CAFAB0029AA36 /* Apple Sign In */ = {
+			isa = PBXGroup;
+			children = (
+				0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */,
+			);
+			path = "Apple Sign In";
+			sourceTree = "<group>";
+		};
 		0C3722452B0C405800083980 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -651,7 +659,7 @@
 		FF0234FC2836678E001647B9 /* TirelessTests */ = {
 			isa = PBXGroup;
 			children = (
-				0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */,
+				0C2DF92F2B0CAFAB0029AA36 /* Apple Sign In */,
 			);
 			path = TirelessTests;
 			sourceTree = "<group>";
