@@ -6,34 +6,9 @@
 //
 
 import XCTest
-import Tireless
 import Combine
 import AuthenticationServices
-
-final class AppleSignInControllerAuthAdapter: AuthServices {
-    
-    private let controller: AppleSignInController
-    private let nonceProvider: SecureNonce
-    
-    init(controller: AppleSignInController, nonceProvider: SecureNonce) {
-        self.controller = controller
-        self.nonceProvider = nonceProvider
-    }
-    
-    func authenticate() -> AnyPublisher<AuthData, AuthError> {
-        let nonce = nonceProvider.generateNonce()
-        let request = makeRequest(nonce: nonce.sha256)
-        let authController = ASAuthorizationController(authorizationRequests: [request])
-        return controller.authenticate(authController, nonce: nonce.sha256)
-    }
-    
-    private func makeRequest(nonce: String) -> ASAuthorizationAppleIDRequest {
-        let request = ASAuthorizationAppleIDProvider().createRequest()
-        request.requestedScopes = [.fullName, .email]
-        request.nonce = nonce
-        return request
-    }
-}
+@testable import Tireless
 
 class AppleSignInControllerAuthAdapterTests: XCTestCase {
     
@@ -126,56 +101,6 @@ private class PublisherSpy<Success, Failure: Error> {
         }, receiveValue: { _ in
             self.events.append(.value)
         })
-    }
-}
-
-class AppleSignInController: NSObject {
-    
-    private var nonceProvider: SecureNonce
-    private var authSubject: PassthroughSubject<AuthData, AuthError>?
-    private var currentNonce: String?
-    
-    init(nonceProvider: SecureNonce = NonceProvider()) {
-        self.nonceProvider = nonceProvider
-    }
-    
-    func authenticate(_ controller: ASAuthorizationController, nonce: String) -> AnyPublisher<AuthData, AuthError> {
-        let subject = PassthroughSubject<AuthData, AuthError>()
-        authSubject = subject
-        controller.delegate = self
-        controller.performRequests()
-        currentNonce = nonce
-        return subject.eraseToAnyPublisher()
-    }
-}
-
-protocol AppleIDCredential {
-    var identityToken: Data? { get }
-    var user: String { get }
-    var fullName: PersonNameComponents? { get }
-}
-
-extension ASAuthorizationAppleIDCredential: AppleIDCredential {}
-
-extension AppleSignInController: ASAuthorizationControllerDelegate {
-    func didCompleteWith(credential: AppleIDCredential) {
-        guard let appleIDToken = credential.identityToken,
-              let idTokenString = String(data: appleIDToken, encoding: .utf8),
-              let currentNonce = currentNonce else {
-            authSubject?.send(completion: .failure(.normal))
-            return
-        }
-        
-        // TODO: Firebase login
-    }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        let appleIDCredential = authorization.credential as? AppleIDCredential
-        appleIDCredential.map(didCompleteWith)
-    }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        authSubject?.send(completion: .failure(.normal))
     }
 }
 
