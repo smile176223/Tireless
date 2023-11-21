@@ -402,9 +402,6 @@
 		0C6DEB6D2B04623E00FDBDA4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */,
-				FF3F77FD281B006700D8360A /* SignUpViewController.swift */,
-				FF2D8DD82828FDC30093DA78 /* WebkitViewController.swift */,
 				0C6DEB6F2B0462A200FDBDA4 /* LoginView.swift */,
 				0CD81BF72B05F71500CA350E /* SignupView.swift */,
 				0CD81BF92B06003000CA350E /* WebView.swift */,
@@ -418,8 +415,6 @@
 		0C6DEB6E2B04625A00FDBDA4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */,
-				FF2D8DDA282900720093DA78 /* WebkitViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -442,6 +437,11 @@
 				0C3722452B0C405800083980 /* Helper */,
 				0C6DEB6E2B04625A00FDBDA4 /* ViewModel */,
 				0C6DEB6D2B04623E00FDBDA4 /* View */,
+				FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */,
+				FF2D8DDA282900720093DA78 /* WebkitViewModel.swift */,
+				FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */,
+				FF3F77FD281B006700D8360A /* SignUpViewController.swift */,
+				FF2D8DD82828FDC30093DA78 /* WebkitViewController.swift */,
 				FF3FBEBB2817925300E6B5DC /* Auth.storyboard */,
 			);
 			path = Auth;
