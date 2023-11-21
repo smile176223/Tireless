@@ -796,7 +796,7 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (2.3.1)
-  - Protobuf (3.25.0)
+  - Protobuf (3.25.1)
 
 DEPENDENCIES:
   - Firebase/Auth
@@ -804,6 +804,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Storage
   - FirebaseFirestoreSwift (= 8.14.0-beta)
+  - GoogleMLKit/PoseDetection
   - GoogleMLKit/PoseDetection (= 3.2.0)
   - IQKeyboardManagerSwift (= 6.3.0)
   - JGProgressHUD
@@ -881,8 +882,8 @@ SPEC CHECKSUMS:
   MLKitXenoCommon: 39b7097db51f4716a2a0ff4e4459e002499f5523
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
-  Protobuf: 6a4183ec1d51649eb2be7b86ccc286e5c539219c
+  Protobuf: d94761c33f1239c0a43a0817ca1a5f7f7c900241
 
-PODFILE CHECKSUM: 1a8a7f788cf37e1b0b75b1dfcb51cb28e2ea5ef5
+PODFILE CHECKSUM: eea3b0bb5d34f88b4c9fd892d7882385c5f1a67a
 
 COCOAPODS: 1.14.2

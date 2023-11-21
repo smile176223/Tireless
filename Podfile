@@ -4,7 +4,7 @@ platform :ios, '15.0'
 target 'Tireless' do
   use_frameworks!
 
-  pod 'GoogleMLKit/PoseDetection', '3.2.0'
+  pod 'GoogleMLKit/PoseDetection'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
@@ -32,11 +32,6 @@ post_install do |installer|
       target.build_configurations.each do |config|
         config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
       end
-    end
-  end
-  installer.pods_project.build_configurations.each do |config|
-    if config.name == "Debug"
-      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
     end
   end
 end
