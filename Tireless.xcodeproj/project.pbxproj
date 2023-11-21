@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0C10BD3C2AFB6EE000B9254C /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */; };
 		0C3722472B0C406500083980 /* NonceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3722462B0C406500083980 /* NonceProvider.swift */; };
+		0C3722492B0C423300083980 /* QuickLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3722482B0C423300083980 /* QuickLoginViewModel.swift */; };
 		0C6DEB702B0462A200FDBDA4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB6F2B0462A200FDBDA4 /* LoginView.swift */; };
 		0CD81BF82B05F71500CA350E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF72B05F71500CA350E /* SignupView.swift */; };
 		0CD81BFA2B06003000CA350E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF92B06003000CA350E /* WebView.swift */; };
@@ -195,6 +196,7 @@
 		05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.debug.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.debug.xcconfig"; sourceTree = "<group>"; };
 		0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
 		0C3722462B0C406500083980 /* NonceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonceProvider.swift; sourceTree = "<group>"; };
+		0C3722482B0C423300083980 /* QuickLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLoginViewModel.swift; sourceTree = "<group>"; };
 		0C6DEB6F2B0462A200FDBDA4 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		0CD81BF72B05F71500CA350E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		0CD81BF92B06003000CA350E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 		0C6DEB6E2B04625A00FDBDA4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				0C3722482B0C423300083980 /* QuickLoginViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1260,6 +1263,7 @@
 				0CD81C002B07674000CA350E /* ThemeButton.swift in Sources */,
 				FF2FE0EB280EA8A200F8890D /* UIColor+Extension.swift in Sources */,
 				FF3F77E82819C3F900D8360A /* SearchFriendViewController.swift in Sources */,
+				0C3722492B0C423300083980 /* QuickLoginViewModel.swift in Sources */,
 				FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */,
 				FF0234C4282CEC23001647B9 /* FriendListHeaderView.swift in Sources */,
 				FF3F77F0281A1EBA00D8360A /* SearchFriendViewCell.swift in Sources */,
