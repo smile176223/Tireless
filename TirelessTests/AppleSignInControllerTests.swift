@@ -52,24 +52,11 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
     
     func test_didCompleteWithError_emitsFailure() {
         let sut = AppleSignInController()
-        
-        var receivedError: Error?
-        let cancellable = sut.authPublisher.sink { completion in
-            switch completion {
-            case let .failure(error):
-                receivedError = error
-                
-            case .finished:
-                XCTFail("Should have received completion with error")
-            }
-        } receiveValue: { _ in
-            XCTFail("Should have received completion with error")
-        }
+        let spy = PublisherSpy(sut.authPublisher)
         
         sut.authorizationController(controller: .spy, didCompleteWithError: NSError(domain: "any", code: 0))
         
-        XCTAssertNotNil(receivedError)
-        cancellable.cancel()
+        XCTAssertEqual(spy.events, [.error])
     }
     
     private class AppleSignInControllerSpy: AppleSignInController {
@@ -77,6 +64,31 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
         override func authenticate(_ controller: ASAuthorizationController, nonce: String) {
             requests.append(contentsOf: controller.authorizationRequests.compactMap { $0 as? ASAuthorizationAppleIDRequest })
         }
+    }
+}
+
+private class PublisherSpy<Success, Failure: Error> {
+    private var cancellable: Cancellable? = nil
+    private(set) var events = [Event]()
+    
+    enum Event {
+        case value
+        case finished
+        case error
+    }
+    
+    init(_ publisher: AnyPublisher<Success, Failure>) {
+        cancellable = publisher.sink(receiveCompletion: { completion in
+            switch completion {
+            case .failure:
+                self.events.append(.error)
+                
+            case .finished:
+                self.events.append(.finished)
+            }
+        }, receiveValue: { _ in
+            self.events.append(.value)
+        })
     }
 }
 
