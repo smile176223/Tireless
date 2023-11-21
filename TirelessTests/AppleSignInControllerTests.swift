@@ -21,15 +21,16 @@ final class AppleSignInControllerAuthAdapter: AuthServices {
     }
     
     func authenticate() {
-        let request = makeRequest()
+        let nonce = nonceProvider.generateNonce()
+        let request = makeRequest(nonce: nonce.sha256)
         let authController = ASAuthorizationController(authorizationRequests: [request])
-        controller.authenticate(authController)
+        controller.authenticate(authController, nonce: "any nonce")
     }
     
-    private func makeRequest() -> ASAuthorizationAppleIDRequest {
+    private func makeRequest(nonce: String) -> ASAuthorizationAppleIDRequest {
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.fullName, .email]
-        request.nonce = nonceProvider.generateNonce().raw
+        request.nonce = nonce
         return request
     }
 }
@@ -38,7 +39,7 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
     
     func test_adapter_performsProperRequest() {
         let nonceProvider = ConstantNonceProvider()
-        let nonce = nonceProvider.generateNonce().raw
+        let nonce = nonceProvider.generateNonce()
         let controller = AppleSignInControllerSpy()
         let sut = AppleSignInControllerAuthAdapter(controller: controller, nonceProvider: nonceProvider)
         
@@ -46,12 +47,12 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
         
         XCTAssertEqual(controller.requests.count, 1)
         XCTAssertEqual(controller.requests.first?.requestedScopes, [.fullName, .email])
-        XCTAssertEqual(controller.requests.first?.nonce, nonce)
+        XCTAssertEqual(controller.requests.first?.nonce, nonce.sha256)
     }
     
     private class AppleSignInControllerSpy: AppleSignInController {
         var requests = [ASAuthorizationAppleIDRequest]()
-        override func authenticate(_ controller: ASAuthorizationController) {
+        override func authenticate(_ controller: ASAuthorizationController, nonce: String) {
             requests.append(contentsOf: controller.authorizationRequests.compactMap { $0 as? ASAuthorizationAppleIDRequest })
         }
     }
@@ -69,6 +70,7 @@ class AppleSignInController: NSObject {
     
     private var nonceProvider: SecureNonce
     private let authSubject = PassthroughSubject<ASAuthorization, AuthError>()
+    private var currentNonce: String?
     
     var authPublisher: AnyPublisher<ASAuthorization, AuthError> {
         authSubject.eraseToAnyPublisher()
@@ -78,9 +80,10 @@ class AppleSignInController: NSObject {
         self.nonceProvider = nonceProvider
     }
     
-    func authenticate(_ controller: ASAuthorizationController) {
+    func authenticate(_ controller: ASAuthorizationController, nonce: String) {
         controller.delegate = self
         controller.performRequests()
+        currentNonce = nonce
     }
 }
 
@@ -88,7 +91,8 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
               let appleIDToken = appleIDCredential.identityToken,
-              let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+              let idTokenString = String(data: appleIDToken, encoding: .utf8),
+              let currentNonce = currentNonce else {
             authSubject.send(completion: .failure(.normal))
             return
         }
@@ -113,7 +117,7 @@ class AppleSignInControllerTests: XCTestCase {
         let spy = ASAuthorizationController.spy
         let sut = AppleSignInController()
         
-        sut.authenticate(spy)
+        sut.authenticate(spy, nonce: "any")
         
         XCTAssertTrue(spy.delegate === sut)
         XCTAssertEqual(spy.performRequestsCallCount, 1)
