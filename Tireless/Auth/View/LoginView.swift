@@ -39,7 +39,7 @@ struct LoginView: View {
                     .resizable()
                     .frame(width: 150, height: 150, alignment: .center)
                     .scaledToFill()
-                    .colorMultiply(.brown)
+                    .colorMultiply(.main)
                 
                 Text("Login to your Account")
                     .font(.system(.title3))
@@ -80,7 +80,7 @@ struct LoginView: View {
                     Text("Sign up")
                         .font(.system(.body))
                         .bold()
-                        .foregroundColor(.brown)
+                        .foregroundColor(.main)
                 }
             }
         }
@@ -103,7 +103,7 @@ struct PolicyView: View {
             }) {
                 Text("Privacy Policy")
                     .font(.system(.caption).bold())
-                    .foregroundColor(.brown)
+                    .foregroundColor(.main)
             }
             .buttonStyle(GrowingButton())
             .sheet(isPresented: $policyIsPresenting) {
@@ -119,7 +119,7 @@ struct PolicyView: View {
             }) {
                 Text("Terms of Use")
                     .font(.system(.caption).bold())
-                    .foregroundColor(.brown)
+                    .foregroundColor(.main)
             }
             .buttonStyle(GrowingButton())
             .sheet(isPresented: $termsIsPresenting) {

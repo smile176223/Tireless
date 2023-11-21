@@ -39,7 +39,7 @@ struct SignupView: View {
                     .resizable()
                     .frame(width: 150, height: 150, alignment: .center)
                     .scaledToFill()
-                    .colorMultiply(.brown)
+                    .colorMultiply(.main)
             
                 Text("Create your Account")
                     .font(.system(.title3))

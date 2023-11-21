@@ -22,7 +22,7 @@ struct ThemeButton: View {
                 .padding(.bottom, 20)
                 .frame(minWidth: width,  minHeight: 44)
                 .font(Font.title3.bold())
-                .background(RoundedRectangle(cornerRadius: 12).fill(.brown))
+                .background(RoundedRectangle(cornerRadius: 12).fill(Color.main))
                 .foregroundColor(Color.white)
                 .cornerRadius(8)
         }
@@ -39,4 +39,8 @@ struct ThemeButton_Previews: PreviewProvider {
     static var previews: some View {
         ThemeButton(width: 300, name: "Theme") {}
     }
+}
+
+extension Color {
+    static let main = Color(red: 150.0 / 255.0, green: 219.0 / 255.0, blue: 220.0 / 255.0, opacity: 1)
 }
