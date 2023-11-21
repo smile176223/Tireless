@@ -20,11 +20,11 @@ final class AppleSignInControllerAuthAdapter: AuthServices {
         self.nonceProvider = nonceProvider
     }
     
-    func authenticate() {
+    func authenticate() -> AnyPublisher<Auth, AuthError> {
         let nonce = nonceProvider.generateNonce()
         let request = makeRequest(nonce: nonce.sha256)
         let authController = ASAuthorizationController(authorizationRequests: [request])
-        controller.authenticate(authController, nonce: nonce.sha256)
+        return controller.authenticate(authController, nonce: nonce.sha256)
     }
     
     private func makeRequest(nonce: String) -> ASAuthorizationAppleIDRequest {
@@ -43,7 +43,7 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
         let controller = AppleSignInControllerSpy()
         let sut = AppleSignInControllerAuthAdapter(controller: controller, nonceProvider: nonceProvider)
         
-        sut.authenticate()
+        _ = sut.authenticate()
         
         XCTAssertEqual(controller.requests.count, 1)
         XCTAssertEqual(controller.requests.first?.requestedScopes, [.fullName, .email])
@@ -52,7 +52,9 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
     
     func test_didCompleteWithError_emitsFailure() {
         let sut = AppleSignInController()
-        let spy = PublisherSpy(sut.authPublisher)
+        let spy = PublisherSpy(sut.authenticate(.spy, nonce: "any"))
+        
+        XCTAssertEqual(spy.events, [])
         
         sut.authorizationController(controller: .spy, didCompleteWithError: NSError(domain: "any", code: 0))
         
@@ -61,8 +63,9 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
     
     private class AppleSignInControllerSpy: AppleSignInController {
         var requests = [ASAuthorizationAppleIDRequest]()
-        override func authenticate(_ controller: ASAuthorizationController, nonce: String) {
+        override func authenticate(_ controller: ASAuthorizationController, nonce: String) -> AnyPublisher<Auth, AuthError> {
             requests.append(contentsOf: controller.authorizationRequests.compactMap { $0 as? ASAuthorizationAppleIDRequest })
+            return Empty().eraseToAnyPublisher()
         }
     }
 }
@@ -92,32 +95,33 @@ private class PublisherSpy<Success, Failure: Error> {
     }
 }
 
+public struct Auth {}
+
+public enum AuthError: Error {
+    case normal
+}
+
 public protocol AuthServices {
-    func authenticate()
+    func authenticate() -> AnyPublisher<Auth, AuthError>
 }
 
 class AppleSignInController: NSObject {
     
-    enum AuthError: Error {
-        case normal
-    }
-    
     private var nonceProvider: SecureNonce
-    private let authSubject = PassthroughSubject<ASAuthorization, AuthError>()
+    private var authSubject: PassthroughSubject<Auth, AuthError>?
     private var currentNonce: String?
-    
-    var authPublisher: AnyPublisher<ASAuthorization, AuthError> {
-        authSubject.eraseToAnyPublisher()
-    }
     
     init(nonceProvider: SecureNonce = NonceProvider()) {
         self.nonceProvider = nonceProvider
     }
     
-    func authenticate(_ controller: ASAuthorizationController, nonce: String) {
+    func authenticate(_ controller: ASAuthorizationController, nonce: String) -> AnyPublisher<Auth, AuthError> {
+        let subject = PassthroughSubject<Auth, AuthError>()
+        authSubject = subject
         controller.delegate = self
         controller.performRequests()
         currentNonce = nonce
+        return subject.eraseToAnyPublisher()
     }
 }
 
@@ -127,7 +131,7 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
               let appleIDToken = appleIDCredential.identityToken,
               let idTokenString = String(data: appleIDToken, encoding: .utf8),
               let currentNonce = currentNonce else {
-            authSubject.send(completion: .failure(.normal))
+            authSubject?.send(completion: .failure(.normal))
             return
         }
         
@@ -135,7 +139,7 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        authSubject.send(completion: .failure(.normal))
+        authSubject?.send(completion: .failure(.normal))
     }
 }
 
@@ -151,7 +155,7 @@ class AppleSignInControllerTests: XCTestCase {
         let spy = ASAuthorizationController.spy
         let sut = AppleSignInController()
         
-        sut.authenticate(spy, nonce: "any")
+        _ = sut.authenticate(spy, nonce: "any")
         
         XCTAssertTrue(spy.delegate === sut)
         XCTAssertEqual(spy.performRequestsCallCount, 1)
