@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C10BD3C2AFB6EE000B9254C /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */; };
+		0C3722472B0C406500083980 /* NonceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3722462B0C406500083980 /* NonceProvider.swift */; };
 		0C6DEB702B0462A200FDBDA4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB6F2B0462A200FDBDA4 /* LoginView.swift */; };
 		0CD81BF82B05F71500CA350E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF72B05F71500CA350E /* SignupView.swift */; };
 		0CD81BFA2B06003000CA350E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF92B06003000CA350E /* WebView.swift */; };
@@ -193,6 +194,7 @@
 /* Begin PBXFileReference section */
 		05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.debug.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.debug.xcconfig"; sourceTree = "<group>"; };
 		0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
+		0C3722462B0C406500083980 /* NonceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonceProvider.swift; sourceTree = "<group>"; };
 		0C6DEB6F2B0462A200FDBDA4 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		0CD81BF72B05F71500CA350E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		0CD81BF92B06003000CA350E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -389,6 +391,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C3722452B0C405800083980 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				0C3722462B0C406500083980 /* NonceProvider.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		0C6DEB6D2B04623E00FDBDA4 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -429,6 +439,7 @@
 		0CBFC24A28E5858D00AE6520 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				0C3722452B0C405800083980 /* Helper */,
 				0C6DEB6E2B04625A00FDBDA4 /* ViewModel */,
 				0C6DEB6D2B04623E00FDBDA4 /* View */,
 				FF3FBEBB2817925300E6B5DC /* Auth.storyboard */,
@@ -1224,6 +1235,7 @@
 				FF3FBE9B28150FB000E6B5DC /* ProfileViewModel.swift in Sources */,
 				FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */,
 				FF3F7811281D1E3B00D8360A /* CommentManager.swift in Sources */,
+				0C3722472B0C406500083980 /* NonceProvider.swift in Sources */,
 				FF3FBE6C281238FE00E6B5DC /* Plan.swift in Sources */,
 				FF3FBE562810648000E6B5DC /* PlanDetailView.swift in Sources */,
 				FFC7B9EA281EB54D0080A31E /* UIImage+Extension.swift in Sources */,
