@@ -401,11 +401,34 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		0C6DEB6D2B04623E00FDBDA4 /* View */ = {
+		0C37224A2B0C429E00083980 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				0C6DEB6F2B0462A200FDBDA4 /* LoginView.swift */,
-				0CD81BF72B05F71500CA350E /* SignupView.swift */,
+				0C3722502B0C430F00083980 /* View */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		0C37224B2B0C42AD00083980 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				0C37224F2B0C430900083980 /* View */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
+		0C37224C2B0C42C000083980 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				0C37224E2B0C42FC00083980 /* ViewModel */,
+				0C37224D2B0C42F200083980 /* View */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		0C37224D2B0C42F200083980 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				0CD81BF92B06003000CA350E /* WebView.swift */,
 				0CD81BFB2B07604C00CA350E /* ThemeTextField.swift */,
 				0CD81BFD2B0763AD00CA350E /* QuickLoginView.swift */,
@@ -414,12 +437,28 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		0C6DEB6E2B04625A00FDBDA4 /* ViewModel */ = {
+		0C37224E2B0C42FC00083980 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				0C3722482B0C423300083980 /* QuickLoginViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0C37224F2B0C430900083980 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0CD81BF72B05F71500CA350E /* SignupView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0C3722502B0C430F00083980 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0C6DEB6F2B0462A200FDBDA4 /* LoginView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		0CBFC24928E583B400AE6520 /* Home */ = {
@@ -438,8 +477,9 @@
 			isa = PBXGroup;
 			children = (
 				0C3722452B0C405800083980 /* Helper */,
-				0C6DEB6E2B04625A00FDBDA4 /* ViewModel */,
-				0C6DEB6D2B04623E00FDBDA4 /* View */,
+				0C37224C2B0C42C000083980 /* Shared */,
+				0C37224B2B0C42AD00083980 /* Signup */,
+				0C37224A2B0C429E00083980 /* Login */,
 				FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */,
 				FF2D8DDA282900720093DA78 /* WebkitViewModel.swift */,
 				FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */,
