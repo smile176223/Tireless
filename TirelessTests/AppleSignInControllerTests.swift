@@ -61,6 +61,34 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
         XCTAssertEqual(spy.events, [.error])
     }
     
+    func test_didCompleteWithCredential_withInvalidToken_emitsFailure() {
+        let sut = AppleSignInController()
+        let publisher = sut.authenticate(.spy, nonce: "any")
+        let spy = PublisherSpy(publisher)
+        
+        _ = publisher
+        sut.didCompleteWith(credential: Credential(
+            identityToken: nil,
+            user: "any user",
+            fullName: PersonNameComponents()))
+        
+        XCTAssertEqual(spy.events, [.error])
+    }
+    
+    func test_didCompleteWithCredential_withValidCredential_emitsEmpty() {
+        let sut = AppleSignInController()
+        let publisher = sut.authenticate(.spy, nonce: "any")
+        let spy = PublisherSpy(publisher)
+        
+        _ = publisher
+        sut.didCompleteWith(credential: Credential(
+            identityToken: Data("any token".utf8),
+            user: "any user",
+            fullName: PersonNameComponents()))
+        
+        XCTAssertEqual(spy.events, [])
+    }
+    
     private class AppleSignInControllerSpy: AppleSignInController {
         var requests = [ASAuthorizationAppleIDRequest]()
         override func authenticate(_ controller: ASAuthorizationController, nonce: String) -> AnyPublisher<Auth, AuthError> {
@@ -68,6 +96,12 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
             return Empty().eraseToAnyPublisher()
         }
     }
+}
+
+private struct Credential: AppleIDCredential {
+    var identityToken: Data?
+    var user: String
+    var fullName: PersonNameComponents?
 }
 
 private class PublisherSpy<Success, Failure: Error> {
@@ -125,10 +159,17 @@ class AppleSignInController: NSObject {
     }
 }
 
+protocol AppleIDCredential {
+    var identityToken: Data? { get }
+    var user: String { get }
+    var fullName: PersonNameComponents? { get }
+}
+
+extension ASAuthorizationAppleIDCredential: AppleIDCredential {}
+
 extension AppleSignInController: ASAuthorizationControllerDelegate {
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
-              let appleIDToken = appleIDCredential.identityToken,
+    func didCompleteWith(credential: AppleIDCredential) {
+        guard let appleIDToken = credential.identityToken,
               let idTokenString = String(data: appleIDToken, encoding: .utf8),
               let currentNonce = currentNonce else {
             authSubject?.send(completion: .failure(.normal))
@@ -136,6 +177,11 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
         }
         
         // TODO: Firebase login
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        let appleIDCredential = authorization.credential as? AppleIDCredential
+        appleIDCredential.map(didCompleteWith)
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
