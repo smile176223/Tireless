@@ -4,24 +4,25 @@ platform :ios, '15.0'
 target 'Tireless' do
   use_frameworks!
 
-  pod 'GoogleMLKit/PoseDetection', '3.2.0'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Firestore'
-  pod 'Firebase/Storage'
-  pod 'Firebase/Crashlytics'
-  pod 'FirebaseFirestoreSwift', '8.14.0-beta'
+  pod 'GoogleMLKit/PoseDetection'
+  pod 'FirebaseCore'
+  pod 'FirebaseAuth'
+  pod 'FirebaseFirestore'
+  pod 'FirebaseStorage'
+  pod 'FirebaseCrashlytics'
+  pod 'FirebaseFirestoreSwift'
   pod 'lottie-ios'
-  pod 'Kingfisher', '~> 7.7.0'
-  pod 'IQKeyboardManagerSwift', '6.3.0'
+  pod 'Kingfisher'
+  pod 'IQKeyboardManagerSwift'
   pod 'JGProgressHUD'
   
   target 'TirelessTests' do
-    pod 'GoogleMLKit/PoseDetection', '3.2.0'
-    pod 'Firebase/Auth'
-    pod 'Firebase/Firestore'
-    pod 'Firebase/Storage'
-    pod 'Firebase/Crashlytics'
-    pod 'FirebaseFirestoreSwift', '8.14.0-beta'
+    pod 'GoogleMLKit/PoseDetection'
+    pod 'FirebaseAuth'
+    pod 'FirebaseFirestore'
+    pod 'FirebaseStorage'
+    pod 'FirebaseCrashlytics'
+    pod 'FirebaseFirestoreSwift'
   end
   
 end

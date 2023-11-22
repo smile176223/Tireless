@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseFirestore
 
 public enum FirebaseError: Error {
     case invalidPath
