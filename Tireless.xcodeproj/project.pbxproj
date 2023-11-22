@@ -166,6 +166,7 @@
 		FF5E89DE2824AA9000214A5D /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89DD2824AA9000214A5D /* UIButton+Extension.swift */; };
 		FF5E89E02825B29400214A5D /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89DF2825B29400214A5D /* ProfileManager.swift */; };
 		FF5E89E22826F50F00214A5D /* PlanModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89E12826F50F00214A5D /* PlanModifyViewController.swift */; };
+		FF7449502B0E4F37005D65BD /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF74494F2B0E4F37005D65BD /* ToastView.swift */; };
 		FFB5FCE4282AD3260090AE48 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB5FCE3282AD3260090AE48 /* NotificationViewController.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
@@ -366,6 +367,7 @@
 		FF5E89DD2824AA9000214A5D /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		FF5E89DF2825B29400214A5D /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		FF5E89E12826F50F00214A5D /* PlanModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanModifyViewController.swift; sourceTree = "<group>"; };
+		FF74494F2B0E4F37005D65BD /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		FFB5FCE3282AD3260090AE48 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -954,6 +956,14 @@
 			path = ../Controller/PlanReview;
 			sourceTree = "<group>";
 		};
+		FF74494E2B0E4F21005D65BD /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				FF74494F2B0E4F37005D65BD /* ToastView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		FFC0C14828008F640041A937 = {
 			isa = PBXGroup;
 			children = (
@@ -987,6 +997,7 @@
 				FF14449228009B740027F560 /* Util */,
 				FF308E7D28080E4D00265863 /* TabBar */,
 				0CBFC24928E583B400AE6520 /* Home */,
+				FF74494E2B0E4F21005D65BD /* Shared */,
 				0CBFC24A28E5858D00AE6520 /* Auth */,
 				0CBFC24B28E585C400AE6520 /* Profile */,
 				0CBFC24C28E5860A00AE6520 /* PoseDetect */,
@@ -1446,6 +1457,7 @@
 				FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */,
 				FF02352F28428322001647B9 /* EditProfileViewModel.swift in Sources */,
 				FF308E7F28080E5B00265863 /* TabBarController.swift in Sources */,
+				FF7449502B0E4F37005D65BD /* ToastView.swift in Sources */,
 				FF308E6D28066E0D00265863 /* ShareManager.swift in Sources */,
 				FF5E89C62822804100214A5D /* BlocksViewModel.swift in Sources */,
 				FF3F77F4281A7D7800D8360A /* SearchFriendViewModel.swift in Sources */,
