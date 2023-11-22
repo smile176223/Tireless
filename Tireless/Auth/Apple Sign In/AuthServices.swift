@@ -10,7 +10,9 @@ import Combine
 public struct AuthData {}
 
 public enum AuthError: Error {
-    case normal
+    case appleError(Error)
+    case firebaseError(Error)
+    case unknown
 }
 
 public protocol AuthServices {

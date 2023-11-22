@@ -19,8 +19,15 @@ extension ASAuthorizationAppleIDCredential: AppleIDCredential {}
 
 public class AppleSignInController: NSObject {
 
+    private let firebaseAuth: FirebaseAuth
     private var authSubject: PassthroughSubject<AuthData, AuthError>?
     private var currentNonce: String?
+    
+    init(firebaseAuth: FirebaseAuth = FirebaseAuthManager(), authSubject: PassthroughSubject<AuthData, AuthError>? = nil, currentNonce: String? = nil) {
+        self.firebaseAuth = firebaseAuth
+        self.authSubject = authSubject
+        self.currentNonce = currentNonce
+    }
     
     public func authenticate(_ controller: ASAuthorizationController, nonce: String) -> AnyPublisher<AuthData, AuthError> {
         let subject = PassthroughSubject<AuthData, AuthError>()
@@ -37,11 +44,19 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
         guard let appleIDToken = credential.identityToken,
               let idTokenString = String(data: appleIDToken, encoding: .utf8),
               let currentNonce = currentNonce else {
-            authSubject?.send(completion: .failure(.normal))
+            authSubject?.send(completion: .failure(.unknown))
             return
         }
         
-        // TODO: Firebase login
+        firebaseAuth.signInWithApple(idToken: idTokenString, nonce: currentNonce) { [weak self] result in
+            switch result {
+            case .success:
+                self?.authSubject?.send(AuthData())
+                
+            case let .failure(error):
+                self?.authSubject?.send(completion: .failure(.firebaseError(error)))
+            }
+        }
     }
     
     public func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
@@ -50,6 +65,6 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
     }
     
     public func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        authSubject?.send(completion: .failure(.normal))
+        authSubject?.send(completion: .failure(.appleError(error)))
     }
 }
