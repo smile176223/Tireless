@@ -15,9 +15,8 @@ struct QuickLoginView: View {
     
     init(width: CGFloat,
          viewModel: QuickLoginViewModel = QuickLoginViewModel(
-            authServices: AppleSignInControllerAuthAdapter(
-                controller: AppleSignInController(),
-                nonceProvider: NonceProvider())),
+            appleServices: AppleSignInControllerAuthAdapter(
+                controller: AppleSignInController())),
          dismiss: @escaping () -> Void) {
         self.width = width
         self.viewModel = viewModel

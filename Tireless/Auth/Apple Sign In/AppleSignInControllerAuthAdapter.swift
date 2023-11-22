@@ -14,7 +14,7 @@ public final class AppleSignInControllerAuthAdapter: AuthServices {
     private let controller: AppleSignInController
     private let nonceProvider: SecureNonce
     
-    public init(controller: AppleSignInController, nonceProvider: SecureNonce) {
+    public init(controller: AppleSignInController, nonceProvider: SecureNonce = NonceProvider()) {
         self.controller = controller
         self.nonceProvider = nonceProvider
     }
