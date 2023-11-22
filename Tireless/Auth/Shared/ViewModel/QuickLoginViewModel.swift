@@ -6,54 +6,32 @@
 //
 
 import Foundation
-import AuthenticationServices
+import Combine
 
-final class QuickLoginViewModel: NSObject, ObservableObject {
-    @Published var loginResult: Result<Void, Error>?
-    private var nonce: String?
-    private let firebaseAuth: FirebaseAuth
+final class QuickLoginViewModel: ObservableObject {
+    private let authServices: AuthServices
+    @Published var authError: AuthError?
+    @Published var authData: AuthData?
+    private var cancellables = Set<AnyCancellable>()
     
-    init(nonce: String? = nil, firebaseAuth: FirebaseAuth = FirebaseAuthManager()) {
-        self.nonce = nonce
-        self.firebaseAuth = firebaseAuth
+    init(authServices: AuthServices) {
+        self.authServices = authServices
     }
-}
-
-extension QuickLoginViewModel: ASAuthorizationControllerDelegate {
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            guard let appleIdToken = appleIdCredential.identityToken,
-                  let token = String(data: appleIdToken, encoding: .utf8),
-                  let currentNonce = nonce else {
-                return
-            }
-            
-            firebaseAuth.signInWithApple(idToken: token, nonce: currentNonce) { result in
-                switch result {
-                case .success:
-                    self.loginResult = .success(())
-                    
+    
+    func signInWithApple() {
+        authServices.authenticate()
+            .sink { [weak self] completion in
+                switch completion {
                 case let .failure(error):
-                    self.loginResult = .failure(error)
+                    self?.authError = error
+                    
+                case .finished:
+                    break
                 }
+            } receiveValue: { [weak self] data in
+                self?.authData = data
             }
-        }
-    }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        loginResult = .failure(error)
-    }
-    
-    func performAppleSignIn() {
-        let provider = ASAuthorizationAppleIDProvider()
-        let request = provider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        let randomNonce = CryptoKitHelper.randomNonceString()
-        nonce = randomNonce
-        request.nonce = CryptoKitHelper.sha256(randomNonce)
-        let controller = ASAuthorizationController(authorizationRequests: [request])
-        controller.delegate = self
-        controller.performRequests()
+            .store(in: &cancellables)
     }
 }
 

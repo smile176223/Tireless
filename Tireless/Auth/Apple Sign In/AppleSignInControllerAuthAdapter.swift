@@ -23,7 +23,7 @@ public final class AppleSignInControllerAuthAdapter: AuthServices {
         let nonce = nonceProvider.generateNonce()
         let request = makeRequest(nonce: nonce.sha256)
         let authController = ASAuthorizationController(authorizationRequests: [request])
-        return controller.authenticate(authController, nonce: nonce.sha256)
+        return controller.authenticate(authController, nonce: nonce.raw)
     }
     
     private func makeRequest(nonce: String) -> ASAuthorizationAppleIDRequest {

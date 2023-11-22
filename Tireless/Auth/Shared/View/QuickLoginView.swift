@@ -13,7 +13,12 @@ struct QuickLoginView: View {
     private let width: CGFloat
     private let dismiss: () -> Void
     
-    init(width: CGFloat, viewModel: QuickLoginViewModel = QuickLoginViewModel(), dismiss: @escaping () -> Void) {
+    init(width: CGFloat,
+         viewModel: QuickLoginViewModel = QuickLoginViewModel(
+            authServices: AppleSignInControllerAuthAdapter(
+                controller: AppleSignInController(),
+                nonceProvider: NonceProvider())),
+         dismiss: @escaping () -> Void) {
         self.width = width
         self.viewModel = viewModel
         self.dismiss = dismiss
@@ -35,7 +40,7 @@ struct QuickLoginView: View {
                 IconButton(
                     imageName: .system("apple.logo"),
                     size: CGSize(width: buttonWidth, height: buttonHeight),
-                    action: viewModel.performAppleSignIn)
+                    action: viewModel.signInWithApple)
                 
                 IconButton(imageName: .custom("twitter_x_logo"), size: CGSize(width: buttonWidth, height: buttonHeight)) {
                     print("tap button 3")
@@ -43,10 +48,15 @@ struct QuickLoginView: View {
             }
             .padding(.bottom, 30)
         }
-        .onReceive(viewModel.$loginResult) { result in
-            if case .success = result {
-                dismiss()
-            }
+        .onReceive(viewModel.$authData) { data in
+            guard data != nil else { return }
+            
+            dismiss()
+        }
+        .onReceive(viewModel.$authError) { error in
+            guard let error = error else { return }
+            
+            print(error)
         }
     }
 }
