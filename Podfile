@@ -4,7 +4,7 @@ platform :ios, '15.0'
 target 'Tireless' do
   use_frameworks!
 
-  pod 'GoogleMLKit/PoseDetection'
+  pod 'GoogleMLKit/PoseDetection', '3.2.0'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
