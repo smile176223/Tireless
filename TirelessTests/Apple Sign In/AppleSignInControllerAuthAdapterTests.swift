@@ -26,7 +26,8 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
     }
     
     func test_didCompleteWithError_emitsFailure() {
-        let sut = AppleSignInController()
+        let firebaseSpy = FirebaseAuthManagerSpy()
+        let sut = AppleSignInController(firebaseAuth: firebaseSpy)
         let spy = PublisherSpy(sut.authenticate(.spy, nonce: "any"))
         
         XCTAssertEqual(spy.events, [])
@@ -37,7 +38,8 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
     }
     
     func test_didCompleteWithCredential_withInvalidToken_emitsFailure() {
-        let sut = AppleSignInController()
+        let firebaseSpy = FirebaseAuthManagerSpy()
+        let sut = AppleSignInController(firebaseAuth: firebaseSpy)
         let publisher = sut.authenticate(.spy, nonce: "any")
         let spy = PublisherSpy(publisher)
         
@@ -51,7 +53,8 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
     }
     
     func test_didCompleteWithCredential_withValidCredential_emitsEmpty() {
-        let sut = AppleSignInController()
+        let firebaseSpy = FirebaseAuthManagerSpy()
+        let sut = AppleSignInController(firebaseAuth: firebaseSpy)
         let publisher = sut.authenticate(.spy, nonce: "any")
         let spy = PublisherSpy(publisher)
         
@@ -62,6 +65,46 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
             fullName: PersonNameComponents()))
         
         XCTAssertEqual(spy.events, [])
+    }
+    
+    func test_didCompleteWithCredential_validCredential_invokeFirebaseAuthGetError() {
+        let firebaseSpy = FirebaseAuthManagerSpy()
+        let sut = AppleSignInController(firebaseAuth: firebaseSpy)
+        let nonce = "any"
+        let publisher = sut.authenticate(.spy, nonce: nonce)
+        let spy = PublisherSpy(publisher)
+        
+        _ = publisher
+        
+        sut.didCompleteWith(credential: Credential(
+            identityToken: Data("any token".utf8),
+            user: "any user",
+            fullName: PersonNameComponents()))
+        
+        firebaseSpy.completeSignInWithApple(with: NSError(domain: "any error", code: 0))
+        
+        XCTAssertEqual(firebaseSpy.messages, [.signInWithApple(idToken: "any token", nonce: nonce)])
+        XCTAssertEqual(spy.events, [.error])
+    }
+    
+    func test_didCompleteWithCredential_validCredential_invokeFirebaseAuthSuccessfully() {
+        let firebaseSpy = FirebaseAuthManagerSpy()
+        let sut = AppleSignInController(firebaseAuth: firebaseSpy)
+        let nonce = "any"
+        let publisher = sut.authenticate(.spy, nonce: nonce)
+        let spy = PublisherSpy(publisher)
+        
+        _ = publisher
+        
+        sut.didCompleteWith(credential: Credential(
+            identityToken: Data("any token".utf8),
+            user: "any user",
+            fullName: PersonNameComponents()))
+        
+        firebaseSpy.completeSignInWithAppleSuccessfully()
+        
+        XCTAssertEqual(firebaseSpy.messages, [.signInWithApple(idToken: "any token", nonce: nonce)])
+        XCTAssertEqual(spy.events, [.value])
     }
     
     private class AppleSignInControllerSpy: AppleSignInController {

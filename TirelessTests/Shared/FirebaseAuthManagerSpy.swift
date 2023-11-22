@@ -10,7 +10,7 @@ import Tireless
 
 class FirebaseAuthManagerSpy: FirebaseAuth {
     
-    enum Message {
+    enum Message: Equatable {
         case signInWithApple(idToken: String, nonce: String)
         case signUpWithFirebase(email: String, password: String)
         case signInWithFirebase(email: String, password: String)
@@ -28,11 +28,11 @@ class FirebaseAuthManagerSpy: FirebaseAuth {
         signInWithAppleResult.append(completion)
     }
     
-    func completeSignInWithApple(with error: Error, at index: Int) {
+    func completeSignInWithApple(with error: Error, at index: Int = 0) {
         signInWithAppleResult[index](.failure(error))
     }
     
-    func completeSignInWithAppleSuccessfully(at index: Int) {
+    func completeSignInWithAppleSuccessfully(at index: Int = 0) {
         signInWithAppleResult[index](.success(()))
     }
     
@@ -41,11 +41,11 @@ class FirebaseAuthManagerSpy: FirebaseAuth {
         signUpWithFirebaseResult.append(completion)
     }
     
-    func completeSignUpWithFirebase(with error: Error, at index: Int) {
+    func completeSignUpWithFirebase(with error: Error, at index: Int = 0) {
         signUpWithFirebaseResult[index](.failure(error))
     }
     
-    func completeSignUpWithFirebaseSuccessfully(at index: Int) {
+    func completeSignUpWithFirebaseSuccessfully(at index: Int = 0) {
         signUpWithFirebaseResult[index](.success(()))
     }
     
@@ -54,11 +54,11 @@ class FirebaseAuthManagerSpy: FirebaseAuth {
         signInWithFirebaseResult.append(completion)
     }
     
-    func completeSignInWithFirebase(with error: Error, at index: Int) {
+    func completeSignInWithFirebase(with error: Error, at index: Int = 0) {
         signInWithFirebaseResult[index](.failure(error))
     }
     
-    func completeSignInWithFirebaseSuccessfully(at index: Int) {
+    func completeSignInWithFirebaseSuccessfully(at index: Int = 0) {
         signInWithFirebaseResult[index](.success(()))
     }
     
