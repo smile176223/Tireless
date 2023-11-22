@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
+    
+    @State private var toast: Toast? = nil
     @State private var email = ""
     @State private var password = ""
     var viewModel = AuthViewModel()
@@ -27,6 +29,7 @@ struct LoginView: View {
             .onAppear() {
                 UIScrollView.appearance().bounces = false
             }
+            .toastView(toast: $toast)
         }
     }
     
@@ -58,7 +61,20 @@ struct LoginView: View {
                     print("Tap sign in")
                 }
                 
-                QuickLoginView(width: width, dismiss: dismiss)
+                QuickLoginView(width: width, onSuccess: { _ in
+                    dismiss()
+                }, onFailure: { error in
+                    switch error {
+                    case .unknown:
+                        toast = Toast(style: .error, message: "unknown")
+
+                    case let .appleError(error):
+                        toast = Toast(style: .error, message: "Apple: \(error)")
+                        
+                    case let .firebaseError(error):
+                        toast = Toast(style: .error, message: "Firebase: \(error)")
+                    }
+                })
                 PolicyView()
                 
                 noAccountView

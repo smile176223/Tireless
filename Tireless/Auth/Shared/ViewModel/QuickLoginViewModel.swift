@@ -33,5 +33,9 @@ final class QuickLoginViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+    
+    func getError() {
+        authError = .firebaseError(NSError(domain: "Any error", code: 0))
+    }
 }
 

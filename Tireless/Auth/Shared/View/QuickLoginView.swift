@@ -11,16 +11,19 @@ struct QuickLoginView: View {
     
     @ObservedObject private(set) var viewModel: QuickLoginViewModel
     private let width: CGFloat
-    private let dismiss: () -> Void
+    private let onSuccess: ((AuthData) -> Void)?
+    private let onFailure: ((AuthError) -> Void)?
     
     init(width: CGFloat,
          viewModel: QuickLoginViewModel = QuickLoginViewModel(
             appleServices: AppleSignInControllerAuthAdapter(
                 controller: AppleSignInController())),
-         dismiss: @escaping () -> Void) {
+         onSuccess: ((AuthData) -> Void)? = nil,
+         onFailure: ((AuthError) -> Void)? = nil) {
         self.width = width
         self.viewModel = viewModel
-        self.dismiss = dismiss
+        self.onSuccess = onSuccess
+        self.onFailure = onFailure
     }
     
     var body: some View {
@@ -34,7 +37,8 @@ struct QuickLoginView: View {
                 let buttonWidth = (width - 40) / 3
                 let buttonHeight = buttonWidth * 0.6
                 IconButton(imageName: .custom("google_logo"), size: CGSize(width: buttonWidth, height: buttonHeight)) {
-                    print("tap button 1")
+                    // TODO: - Google Sign in
+                    viewModel.getError()
                 }
                 IconButton(
                     imageName: .system("apple.logo"),
@@ -42,26 +46,27 @@ struct QuickLoginView: View {
                     action: viewModel.signInWithApple)
                 
                 IconButton(imageName: .custom("twitter_x_logo"), size: CGSize(width: buttonWidth, height: buttonHeight)) {
-                    print("tap button 3")
+                    // TODO: - Twitter Sign in
+                    viewModel.getError()
                 }
             }
             .padding(.bottom, 30)
         }
         .onReceive(viewModel.$authData) { data in
-            guard data != nil else { return }
+            guard let data = data else { return }
             
-            dismiss()
+            onSuccess?(data)
         }
         .onReceive(viewModel.$authError) { error in
             guard let error = error else { return }
             
-            print(error)
+            onFailure?(error)
         }
     }
 }
 
 struct QuickLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        QuickLoginView(width: 300) {}
+        QuickLoginView(width: 300)
     }
 }
