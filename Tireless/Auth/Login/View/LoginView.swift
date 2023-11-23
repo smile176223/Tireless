@@ -12,7 +12,7 @@ struct LoginView: View {
     @State private var toast: Toast? = nil
     @State private var email = ""
     @State private var password = ""
-    var viewModel = AuthViewModel()
+    @ObservedObject private(set) var viewModel: LoginViewModel
     var dismiss: () -> Void
     
     var body: some View {
@@ -30,6 +30,16 @@ struct LoginView: View {
                 UIScrollView.appearance().bounces = false
             }
             .toastView(toast: $toast)
+        }
+        .onReceive(viewModel.$authData) { data in
+            guard let data = data else { return }
+            
+            dismiss()
+        }
+        .onReceive(viewModel.$authError) { error in
+            guard let error = error else { return }
+            
+            toast = Toast(style: .error, message: "\(error)")
         }
     }
     
@@ -58,7 +68,7 @@ struct LoginView: View {
                 ThemeTextField($password, width: width, placeholder: "Password", isSecure: true)
                 
                 ThemeButton(width: width, name: "Sign in") {
-                    print("Tap sign in")
+                    viewModel.signInWithFirebase(email: email, password: password)
                 }
                 
                 QuickLoginView($toast ,width: width, onSuccess: { _ in
@@ -191,6 +201,6 @@ struct GrowingButton: ButtonStyle {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView() {}
+        LoginView(viewModel: LoginViewModel()) {}
     }
 }
