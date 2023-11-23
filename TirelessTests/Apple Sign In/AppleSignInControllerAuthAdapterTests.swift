@@ -101,7 +101,7 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
             user: "any user",
             fullName: PersonNameComponents()))
         
-        firebaseSpy.completeSignInWithAppleSuccessfully()
+        firebaseSpy.completeSignInWithAppleSuccessfully(with: AuthData(email: nil, userId: "any id"))
         
         XCTAssertEqual(firebaseSpy.messages, [.signInWithApple(idToken: "any token", nonce: nonce)])
         XCTAssertEqual(spy.events, [.value])

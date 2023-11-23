@@ -18,12 +18,12 @@ class FirebaseAuthManagerSpy: FirebaseAuth {
     }
     
     private(set) var messages = [Message]()
-    private var signInWithAppleResult = [(Result<Void, Error>) -> Void]()
-    private var signUpWithFirebaseResult = [(Result<Void, Error>) -> Void]()
-    private var signInWithFirebaseResult = [(Result<Void, Error>) -> Void]()
+    private var signInWithAppleResult = [(Result<AuthData, Error>) -> Void]()
+    private var signUpWithFirebaseResult = [(Result<AuthData, Error>) -> Void]()
+    private var signInWithFirebaseResult = [(Result<AuthData, Error>) -> Void]()
     private var signOutResult: Result<Void, Error>?
     
-    func signInWithApple(idToken: String, nonce: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func signInWithApple(idToken: String, nonce: String, completion: @escaping (Result<AuthData, Error>) -> Void) {
         messages.append(.signInWithApple(idToken: idToken, nonce: nonce))
         signInWithAppleResult.append(completion)
     }
@@ -32,11 +32,11 @@ class FirebaseAuthManagerSpy: FirebaseAuth {
         signInWithAppleResult[index](.failure(error))
     }
     
-    func completeSignInWithAppleSuccessfully(at index: Int = 0) {
-        signInWithAppleResult[index](.success(()))
+    func completeSignInWithAppleSuccessfully(with data: AuthData, at index: Int = 0) {
+        signInWithAppleResult[index](.success(data))
     }
     
-    func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, Error>) -> Void) {
         messages.append(.signInWithFirebase(email: email, password: password))
         signUpWithFirebaseResult.append(completion)
     }
@@ -45,11 +45,11 @@ class FirebaseAuthManagerSpy: FirebaseAuth {
         signUpWithFirebaseResult[index](.failure(error))
     }
     
-    func completeSignUpWithFirebaseSuccessfully(at index: Int = 0) {
-        signUpWithFirebaseResult[index](.success(()))
+    func completeSignUpWithFirebaseSuccessfully(with data: AuthData, at index: Int = 0) {
+        signUpWithFirebaseResult[index](.success(data))
     }
     
-    func signInWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func signInWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, Error>) -> Void) {
         messages.append(.signUpWithFirebase(email: email, password: password))
         signInWithFirebaseResult.append(completion)
     }
@@ -58,8 +58,8 @@ class FirebaseAuthManagerSpy: FirebaseAuth {
         signInWithFirebaseResult[index](.failure(error))
     }
     
-    func completeSignInWithFirebaseSuccessfully(at index: Int = 0) {
-        signInWithFirebaseResult[index](.success(()))
+    func completeSignInWithFirebaseSuccessfully(with data: AuthData, at index: Int = 0) {
+        signInWithFirebaseResult[index](.success(data))
     }
     
     func signOut() throws {
