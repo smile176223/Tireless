@@ -9,17 +9,20 @@ import SwiftUI
 
 struct QuickLoginView: View {
     
+    @Binding var toast: Toast?
     @ObservedObject private(set) var viewModel: QuickLoginViewModel
     private let width: CGFloat
     private let onSuccess: ((AuthData) -> Void)?
     private let onFailure: ((AuthError) -> Void)?
     
-    init(width: CGFloat,
+    init(_ toast: Binding<Toast?>,
+         width: CGFloat,
          viewModel: QuickLoginViewModel = QuickLoginViewModel(
             appleServices: AppleSignInControllerAuthAdapter(
                 controller: AppleSignInController())),
          onSuccess: ((AuthData) -> Void)? = nil,
          onFailure: ((AuthError) -> Void)? = nil) {
+        self._toast = toast
         self.width = width
         self.viewModel = viewModel
         self.onSuccess = onSuccess
@@ -60,13 +63,26 @@ struct QuickLoginView: View {
         .onReceive(viewModel.$authError) { error in
             guard let error = error else { return }
             
-            onFailure?(error)
+            switch error {
+            case .unknown:
+                toast = Toast(style: .error, message: "unknown")
+
+            case let .appleError(error):
+                toast = Toast(style: .error, message: "Apple: \(error)")
+                
+            case let .firebaseError(error):
+                toast = Toast(style: .error, message: "Firebase: \(error)")
+            }
         }
     }
 }
 
 struct QuickLoginView_Previews: PreviewProvider {
     static var previews: some View {
-        QuickLoginView(width: 300)
+        let toastBinding = Binding<Toast?>(
+            get: { return Toast(style: .success, message: "success") },
+            set: { _ in }
+        )
+        QuickLoginView(toastBinding, width: 300)
     }
 }

@@ -61,20 +61,10 @@ struct LoginView: View {
                     print("Tap sign in")
                 }
                 
-                QuickLoginView(width: width, onSuccess: { _ in
+                QuickLoginView($toast ,width: width, onSuccess: { _ in
                     dismiss()
-                }, onFailure: { error in
-                    switch error {
-                    case .unknown:
-                        toast = Toast(style: .error, message: "unknown")
-
-                    case let .appleError(error):
-                        toast = Toast(style: .error, message: "Apple: \(error)")
-                        
-                    case let .firebaseError(error):
-                        toast = Toast(style: .error, message: "Firebase: \(error)")
-                    }
                 })
+                
                 PolicyView()
                 
                 noAccountView

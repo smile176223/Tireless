@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SignupView: View {
+    
+    @State private var toast: Toast? = nil
     @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""
@@ -59,7 +61,7 @@ struct SignupView: View {
                     print("Tap sign up")
                 }
                 
-                QuickLoginView(width: width)
+                QuickLoginView($toast, width: width)
             }
             .padding(.bottom, 20)
         }
