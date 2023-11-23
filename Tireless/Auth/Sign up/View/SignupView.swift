@@ -73,7 +73,7 @@ struct SignupView: View {
                     viewModel.signUpWithFirebase(email: email, password: password, confirmPassword: confirmPassword)
                 }
                 
-                QuickLoginView($toast, width: width)
+                QuickSignInView($toast, width: width)
             }
             .padding(.bottom, 20)
         }

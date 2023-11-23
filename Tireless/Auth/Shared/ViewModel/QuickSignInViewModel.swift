@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class QuickLoginViewModel: ObservableObject {
+final class QuickSignInViewModel: ObservableObject {
     private let appleServices: AuthServices
     private let firebaseAuth: FirebaseAuth
     @Published var authError: AuthError?

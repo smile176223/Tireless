@@ -1,5 +1,5 @@
 //
-//  LoginViewModel.swift
+//  SignInViewModel.swift
 //  Tireless
 //
 //  Created by Liam on 2023/11/23.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class LoginViewModel: ObservableObject {
+final class SignInViewModel: ObservableObject {
 
     private let firebaseAuth: FirebaseAuth
     @Published var authError: AuthError?

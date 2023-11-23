@@ -1,5 +1,5 @@
 //
-//  LoginView.swift
+//  SignInView.swift
 //  Tireless
 //
 //  Created by Liam on 2023/11/15.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct LoginView: View {
+struct SignInView: View {
     
     @State private var toast: Toast? = nil
     @State private var email = ""
     @State private var password = ""
-    @ObservedObject private(set) var viewModel: LoginViewModel
+    @ObservedObject private(set) var viewModel: SignInViewModel
     var dismiss: () -> Void
     
     var body: some View {
@@ -20,7 +20,7 @@ struct LoginView: View {
             List {
                 HStack {
                     Spacer()
-                    makeLoginView(geometry)
+                    makeSignInView(geometry)
                     Spacer()
                 }
                 .listRowSeparator(.hidden)
@@ -45,7 +45,7 @@ struct LoginView: View {
     }
     
     @ViewBuilder
-    private func makeLoginView(_ geometry: GeometryProxy) -> some View {
+    private func makeSignInView(_ geometry: GeometryProxy) -> some View {
         let width = geometry.size.width * 0.8
         HStack {
             VStack {
@@ -72,7 +72,7 @@ struct LoginView: View {
                     viewModel.signInWithFirebase(email: email, password: password)
                 }
                 
-                QuickLoginView($toast ,width: width, onSuccess: { _ in
+                QuickSignInView($toast ,width: width, onSuccess: { _ in
                     dismiss()
                 })
                 
@@ -200,8 +200,8 @@ struct GrowingButton: ButtonStyle {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
+struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(viewModel: LoginViewModel()) {}
+        SignInView(viewModel: SignInViewModel()) {}
     }
 }

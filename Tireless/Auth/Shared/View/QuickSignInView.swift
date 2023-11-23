@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-struct QuickLoginView: View {
+struct QuickSignInView: View {
     
     @Binding var toast: Toast?
-    @ObservedObject private(set) var viewModel: QuickLoginViewModel
+    @ObservedObject private(set) var viewModel: QuickSignInViewModel
     private let width: CGFloat
     private let onSuccess: ((AuthData) -> Void)?
     private let onFailure: ((AuthError) -> Void)?
     
     init(_ toast: Binding<Toast?>,
          width: CGFloat,
-         viewModel: QuickLoginViewModel = QuickLoginViewModel(
+         viewModel: QuickSignInViewModel = QuickSignInViewModel(
             appleServices: AppleSignInControllerAuthAdapter(
                 controller: AppleSignInController())),
          onSuccess: ((AuthData) -> Void)? = nil,
@@ -74,6 +74,6 @@ struct QuickLoginView_Previews: PreviewProvider {
             get: { return Toast(style: .success, message: "success") },
             set: { _ in }
         )
-        QuickLoginView(toastBinding, width: 300)
+        QuickSignInView(toastBinding, width: 300)
     }
 }
