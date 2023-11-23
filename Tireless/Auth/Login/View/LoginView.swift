@@ -41,6 +41,7 @@ struct LoginView: View {
             
             toast = Toast.showAuthError(error: error)
         }
+        .hideKeyboardOnTap()
     }
     
     @ViewBuilder
