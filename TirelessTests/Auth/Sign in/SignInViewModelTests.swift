@@ -25,6 +25,21 @@ final class SignInViewModelTests: XCTestCase {
         expect(sut.authError, with: error)
     }
     
+    func test_signInWithFirebase_successfullyGetAuthData() {
+        let spy = FirebaseAuthManagerSpy()
+        let sut = SignInViewModel(firebaseAuth: spy)
+        let email = "any email"
+        let password = "any password"
+        let data = AuthData(email: email, userId: password)
+        
+        sut.signInWithFirebase(email: email, password: password)
+        spy.completeSignInWithFirebaseSuccessfully(with: data)
+        
+        XCTAssertEqual(spy.messages, [.signInWithFirebase(email: email, password: password)])
+        XCTAssertNil(sut.authError)
+        XCTAssertEqual(sut.authData, data)
+    }
+    
     // MARK: - Helpers
     
     private func expect(_ receivedAuthError: AuthError?, with expectedAuthError: AuthError, file: StaticString = #filePath, line: UInt = #line) {
