@@ -12,6 +12,7 @@ struct ThemeTextField: View {
     private let width: CGFloat
     private let placeholder: String
     private let isSecure: Bool
+    @FocusState private var focused: Bool
     
     init(_ text: Binding<String>, width: CGFloat, placeholder: String, isSecure: Bool = false) {
         self._text = text
@@ -29,14 +30,30 @@ struct ThemeTextField: View {
             if isSecure {
                 SecureField("", text: $text, prompt: Text(placeholder).foregroundColor(.gray).bold())
                     .lineLimit(1)
-                    .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
+                    .textFieldStyle(TappableTextFieldStyle(edgeInsets: EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)))
+ 
             } else {
                 TextField("", text: $text, prompt: Text(placeholder).foregroundColor(.gray).bold())
                     .lineLimit(1)
-                    .padding(EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20))
+                    .textFieldStyle(TappableTextFieldStyle(edgeInsets: EdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)))
             }
         }
         .frame(width: width, height: 50)
         .padding(.bottom, 20)
+    }
+}
+
+
+struct TappableTextFieldStyle: TextFieldStyle {
+    @FocusState private var textFieldFocused: Bool
+    var edgeInsets: EdgeInsets
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+            .padding(edgeInsets)
+            .background(Color.clear)
+            .focused($textFieldFocused)
+            .onTapGesture {
+                textFieldFocused = true
+            }
     }
 }
