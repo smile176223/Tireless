@@ -32,14 +32,14 @@ struct LoginView: View {
             .toastView(toast: $toast)
         }
         .onReceive(viewModel.$authData) { data in
-            guard let data = data else { return }
+            guard data != nil else { return }
             
             dismiss()
         }
         .onReceive(viewModel.$authError) { error in
             guard let error = error else { return }
             
-            toast = Toast(style: .error, message: "\(error)")
+            toast = Toast.showAuthError(error: error)
         }
     }
     
@@ -92,7 +92,7 @@ struct LoginView: View {
                     .font(.system(.body))
                     .foregroundColor(.gray)
                 
-                NavigationLink(destination: SignupView()) {
+                NavigationLink(destination: SignupView(viewModel: SignupViewModel(), onSuccess: dismiss)) {
                     Text("Sign up")
                         .font(.system(.body))
                         .bold()

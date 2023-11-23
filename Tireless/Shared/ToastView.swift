@@ -14,6 +14,21 @@ struct Toast: Equatable {
     var width: Double = .infinity
 }
 
+extension Toast {
+    static func showAuthError(error: AuthError) -> Toast {
+        switch error {
+        case let .appleError(error):
+            return Toast(style: .error, message: "Apple Sign In Error: \(error)")
+        case let .firebaseError(error):
+            return Toast(style: .error, message: "Firebase Error: \(error)")
+        case let .customError(message):
+            return Toast(style: .error, message: message)
+        case .unknown:
+            return Toast(style: .error, message: "Something Error :(")
+        }
+    }
+}
+
 enum ToastStyle {
     case error
     case warning

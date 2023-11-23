@@ -12,6 +12,7 @@ public struct AuthData {}
 public enum AuthError: Error {
     case appleError(Error)
     case firebaseError(Error)
+    case customError(String)
     case unknown
 }
 

@@ -17,6 +17,7 @@
 		0C3722472B0C406500083980 /* NonceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3722462B0C406500083980 /* NonceProvider.swift */; };
 		0C3722492B0C423300083980 /* QuickLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3722482B0C423300083980 /* QuickLoginViewModel.swift */; };
 		0C5DB20B2B0EEF1500439826 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5DB20A2B0EEF1500439826 /* LoginViewModel.swift */; };
+		0C5DB2492B0F005100439826 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5DB2482B0F005100439826 /* SignupViewModel.swift */; };
 		0C6DEB702B0462A200FDBDA4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB6F2B0462A200FDBDA4 /* LoginView.swift */; };
 		0CADFB852B0C493D005E7611 /* AppleSignInControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */; };
 		0CD81BF82B05F71500CA350E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF72B05F71500CA350E /* SignupView.swift */; };
@@ -212,6 +213,7 @@
 		0C3722462B0C406500083980 /* NonceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonceProvider.swift; sourceTree = "<group>"; };
 		0C3722482B0C423300083980 /* QuickLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLoginViewModel.swift; sourceTree = "<group>"; };
 		0C5DB20A2B0EEF1500439826 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		0C5DB2482B0F005100439826 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		0C6DEB6F2B0462A200FDBDA4 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInControllerTests.swift; sourceTree = "<group>"; };
 		0CD81BF72B05F71500CA350E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
@@ -469,6 +471,7 @@
 		0C37224B2B0C42AD00083980 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
+				0C5DB2472B0F003F00439826 /* ViewModel */,
 				0C37224F2B0C430900083980 /* View */,
 			);
 			path = Signup;
@@ -522,6 +525,14 @@
 			isa = PBXGroup;
 			children = (
 				0C5DB20A2B0EEF1500439826 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0C5DB2472B0F003F00439826 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0C5DB2482B0F005100439826 /* SignupViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1458,6 +1469,7 @@
 				FF5E89DE2824AA9000214A5D /* UIButton+Extension.swift in Sources */,
 				FF308E752807A47F00265863 /* Date+Extension.swift in Sources */,
 				FF0234D4282DE43D001647B9 /* Statistics.swift in Sources */,
+				0C5DB2492B0F005100439826 /* SignupViewModel.swift in Sources */,
 				FF3F7807281C47F100D8360A /* ShareCommentViewController.swift in Sources */,
 				FF3F77E228185D4C00D8360A /* CryptoKitHelper.swift in Sources */,
 				FFC7B9FE28201D7D0080A31E /* HistoryPlanViewCell.swift in Sources */,

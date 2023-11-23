@@ -13,7 +13,8 @@ struct SignupView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""
-    private var viewModel = AuthViewModel()
+    @ObservedObject private(set) var viewModel: SignupViewModel
+    var onSuccess: () -> Void
     
     var body: some View {
         GeometryReader { geometry in
@@ -29,6 +30,17 @@ struct SignupView: View {
             .onAppear() {
                 UIScrollView.appearance().bounces = false
             }
+        }
+        .toastView(toast: $toast)
+        .onReceive(viewModel.$authData) { data in
+            guard data != nil else { return }
+            
+            onSuccess()
+        }
+        .onReceive(viewModel.$authError) { error in
+            guard let error = error else { return }
+            
+            toast = Toast.showAuthError(error: error)
         }
     }
     
@@ -58,7 +70,7 @@ struct SignupView: View {
                 ThemeTextField($confirmPassword, width: width, placeholder: "Confirm Password", isSecure: true)
                 
                 ThemeButton(width: width, name: "Sign up") {
-                    print("Tap sign up")
+                    viewModel.signUpWithFirebase(email: email, password: password, confirmPassword: confirmPassword)
                 }
                 
                 QuickLoginView($toast, width: width)
@@ -71,6 +83,6 @@ struct SignupView: View {
 
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
-        SignupView()
+        SignupView(viewModel: SignupViewModel()) {}
     }
 }
