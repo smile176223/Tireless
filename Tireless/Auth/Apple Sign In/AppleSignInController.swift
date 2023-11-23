@@ -50,8 +50,8 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
         
         firebaseAuth.signInWithApple(idToken: idTokenString, nonce: currentNonce) { [weak self] result in
             switch result {
-            case .success:
-                self?.authSubject?.send(AuthData())
+            case let .success(data):
+                self?.authSubject?.send(data)
                 
             case let .failure(error):
                 self?.authSubject?.send(completion: .failure(.firebaseError(error)))

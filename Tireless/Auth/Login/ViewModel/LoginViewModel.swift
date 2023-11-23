@@ -21,8 +21,8 @@ final class LoginViewModel: ObservableObject {
     func signInWithFirebase(email: String, password: String) {
         firebaseAuth.signInWithFirebase(email: email, password: password) { [weak self] result in
             switch result {
-            case .success:
-                self?.authData = AuthData()
+            case let .success(data):
+                self?.authData = data
 
             case let .failure(error):
                 self?.authError = .firebaseError(error)

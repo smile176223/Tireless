@@ -7,7 +7,10 @@
 
 import Combine
 
-public struct AuthData {}
+public struct AuthData {
+    let email: String?
+    let userId: String
+}
 
 public enum AuthError: Error {
     case appleError(Error)

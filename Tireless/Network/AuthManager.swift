@@ -9,9 +9,9 @@ import Foundation
 import FirebaseAuth
 
 public protocol FirebaseAuth {
-    func signInWithApple(idToken: String, nonce: String, completion: @escaping (Result<Void, Error>) -> Void)
-    func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void)
-    func signInWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func signInWithApple(idToken: String, nonce: String, completion: @escaping (Result<AuthData, Error>) -> Void)
+    func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, Error>) -> Void)
+    func signInWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, Error>) -> Void)
     func signOut() throws
 }
 
@@ -31,37 +31,37 @@ public final class FirebaseAuthManager: FirebaseAuth {
         self.auth = auth
     }
     
-    public func signInWithApple(idToken: String, nonce: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func signInWithApple(idToken: String, nonce: String, completion: @escaping (Result<AuthData, Error>) -> Void) {
         let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idToken, rawNonce: nonce)
         auth.signIn(with: credential) { result, error in
             if let error = error {
                 completion(.failure(error))
             } else if let result = result {
-                completion(.success(()))
+                completion(.success(AuthData(email: result.user.email, userId: result.user.uid)))
             } else {
                 completion(.failure(AuthError.nonResponse))
             }
         }
     }
     
-    public func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, Error>) -> Void) {
         auth.createUser(withEmail: email, password: password) { result, error in
             if let error = error {
                 completion(.failure(error))
             } else if let result = result {
-                completion(.success(()))
+                completion(.success(AuthData(email: result.user.email, userId: result.user.uid)))
             } else {
                 completion(.failure(CreateError.nonResponse))
             }
         }
     }
     
-    public func signInWithFirebase(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func signInWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, Error>) -> Void) {
         auth.signIn(withEmail: email, password: password) { result, error in
             if let error = error {
                 completion(.failure(error))
             } else if let result = result {
-                completion(.success(()))
+                completion(.success(AuthData(email: result.user.email, userId: result.user.uid)))
             } else {
                 completion(.failure(AuthError.nonResponse))
             }
