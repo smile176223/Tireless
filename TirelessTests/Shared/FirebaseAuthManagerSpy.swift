@@ -50,7 +50,7 @@ class FirebaseAuthManagerSpy: FirebaseAuth {
     }
     
     func signInWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
-        messages.append(.signUpWithFirebase(email: email, password: password))
+        messages.append(.signInWithFirebase(email: email, password: password))
         signInWithFirebaseResult.append(completion)
     }
     

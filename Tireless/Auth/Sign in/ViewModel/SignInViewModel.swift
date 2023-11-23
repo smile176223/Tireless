@@ -8,24 +8,24 @@
 import Foundation
 import Combine
 
-final class SignInViewModel: ObservableObject {
+public final class SignInViewModel: ObservableObject {
 
     private let firebaseAuth: FirebaseAuth
-    @Published var authError: AuthError?
-    @Published var authData: AuthData?
+    @Published public var authError: AuthError?
+    @Published public var authData: AuthData?
     
-    init(firebaseAuth: FirebaseAuth = FirebaseAuthManager()) {
+    public init(firebaseAuth: FirebaseAuth = FirebaseAuthManager()) {
         self.firebaseAuth = firebaseAuth
     }
     
-    func signInWithFirebase(email: String, password: String) {
+    public func signInWithFirebase(email: String, password: String) {
         firebaseAuth.signInWithFirebase(email: email, password: password) { [weak self] result in
             switch result {
             case let .success(data):
                 self?.authData = data
 
             case let .failure(error):
-                self?.authError = .firebaseError(error)
+                self?.authError = error
             }
         }
     }

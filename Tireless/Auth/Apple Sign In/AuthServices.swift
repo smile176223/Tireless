@@ -7,9 +7,14 @@
 
 import Combine
 
-public struct AuthData {
-    let email: String?
-    let userId: String
+public struct AuthData: Equatable {
+    public let email: String?
+    public let userId: String
+    
+    public init(email: String?, userId: String) {
+        self.email = email
+        self.userId = userId
+    }
 }
 
 public enum AuthError: Error {

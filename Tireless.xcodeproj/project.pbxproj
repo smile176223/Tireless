@@ -170,6 +170,7 @@
 		FF5E89E02825B29400214A5D /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89DF2825B29400214A5D /* ProfileManager.swift */; };
 		FF5E89E22826F50F00214A5D /* PlanModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89E12826F50F00214A5D /* PlanModifyViewController.swift */; };
 		FF7449502B0E4F37005D65BD /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF74494F2B0E4F37005D65BD /* ToastView.swift */; };
+		FF9CB8192B0FA618009EB8AA /* SignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9CB8182B0FA618009EB8AA /* SignInViewModelTests.swift */; };
 		FFB5FCE4282AD3260090AE48 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB5FCE3282AD3260090AE48 /* NotificationViewController.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
@@ -374,6 +375,7 @@
 		FF5E89DF2825B29400214A5D /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		FF5E89E12826F50F00214A5D /* PlanModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanModifyViewController.swift; sourceTree = "<group>"; };
 		FF74494F2B0E4F37005D65BD /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		FF9CB8182B0FA618009EB8AA /* SignInViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelTests.swift; sourceTree = "<group>"; };
 		FFB5FCE3282AD3260090AE48 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -992,6 +994,7 @@
 		FF7449512B0FA47B005D65BD /* Sign in */ = {
 			isa = PBXGroup;
 			children = (
+				FF9CB8182B0FA618009EB8AA /* SignInViewModelTests.swift */,
 			);
 			path = "Sign in";
 			sourceTree = "<group>";
@@ -1365,6 +1368,7 @@
 			files = (
 				0C2DF9322B0CAFE10029AA36 /* Publisher+TestHelpers.swift in Sources */,
 				0C2DF9372B0D987F0029AA36 /* FirebaseAuthManagerSpy.swift in Sources */,
+				FF9CB8192B0FA618009EB8AA /* SignInViewModelTests.swift in Sources */,
 				0CADFB852B0C493D005E7611 /* AppleSignInControllerTests.swift in Sources */,
 				0C2DF9342B0CB0270029AA36 /* AppleSignInControllerAuthAdapterTests.swift in Sources */,
 			);
