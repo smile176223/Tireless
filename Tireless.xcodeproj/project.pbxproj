@@ -710,7 +710,7 @@
 			children = (
 				0C2DF9352B0D986A0029AA36 /* Shared */,
 				0C2DF9302B0CAFCB0029AA36 /* Helpers */,
-				0C2DF92F2B0CAFAB0029AA36 /* Apple Sign In */,
+				FF7449522B0FA48D005D65BD /* Auth */,
 			);
 			path = TirelessTests;
 			sourceTree = "<group>";
@@ -987,6 +987,22 @@
 				0C5DB24A2B0F4AFF00439826 /* View+Extension.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		FF7449512B0FA47B005D65BD /* Sign in */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Sign in";
+			sourceTree = "<group>";
+		};
+		FF7449522B0FA48D005D65BD /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				0C2DF92F2B0CAFAB0029AA36 /* Apple Sign In */,
+				FF7449512B0FA47B005D65BD /* Sign in */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		FFC0C14828008F640041A937 = {
