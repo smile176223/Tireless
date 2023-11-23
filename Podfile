@@ -7,7 +7,7 @@ target 'Tireless' do
   pod 'GoogleMLKit/PoseDetection'
   pod 'FirebaseCore'
   pod 'FirebaseAuth'
-  pod 'FirebaseFirestore'
+  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '10.18.0'
   pod 'FirebaseStorage'
   pod 'FirebaseCrashlytics'
   pod 'FirebaseFirestoreSwift'
@@ -18,13 +18,13 @@ target 'Tireless' do
   
   target 'TirelessTests' do
     pod 'GoogleMLKit/PoseDetection'
-    pod 'FirebaseAuth'
-    pod 'FirebaseFirestore'
-    pod 'FirebaseStorage'
-    pod 'FirebaseCrashlytics'
-    pod 'FirebaseFirestoreSwift'
+    pod 'FirebaseCore'
   end
   
+end
+
+pre_install do |installer|
+  Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
 end
 
 post_install do |installer|
