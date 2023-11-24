@@ -20,7 +20,7 @@ public struct AuthData: Equatable {
 
 public enum AuthError: Error {
     case appleError(String)
-    case firebaseError(Error)
+    case firebaseError(String)
     case customError(String)
     case unknown
 }

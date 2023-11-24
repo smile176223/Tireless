@@ -54,7 +54,7 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
                 self?.authSubject?.send(data)
                 
             case let .failure(error):
-                self?.authSubject?.send(completion: .failure(.firebaseError(error)))
+                self?.authSubject?.send(completion: .failure(error))
             }
         }
     }

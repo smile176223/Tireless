@@ -30,7 +30,7 @@ final class SignupViewModel: ObservableObject {
                 self?.authData = data
 
             case let .failure(error):
-                self?.authError = .firebaseError(error)
+                self?.authError = error
             }
         }
     }

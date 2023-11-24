@@ -29,9 +29,20 @@ public final class FirebaseAuthManager: AuthServices {
         auth.createUser(withEmail: email, password: password) { completion(Self.mapAuthResult(result: $0, error: $1)) }
     }
     
+    public func signOut(completion: @escaping (Result<Void, AuthError>) -> Void) {
+        do {
+            try auth.signOut()
+            completion(.success(()))
+        } catch {
+            completion(.failure(.firebaseError("Sign out error")))
+        }
+    }
+}
+
+extension FirebaseAuthManager {
     private static func mapAuthResult(result: AuthDataResult?, error: Error?) -> Result<AuthData, AuthError> {
         if let error = error {
-            return .failure(.firebaseError(error))
+            return .failure(.firebaseError(mapFirebaseError(error)))
         } else if let result = result {
             return .success(AuthData(email: result.user.email, userId: result.user.uid))
         } else {
@@ -39,12 +50,32 @@ public final class FirebaseAuthManager: AuthServices {
         }
     }
     
-    public func signOut(completion: @escaping (Result<Void, AuthError>) -> Void) {
-        do {
-            try auth.signOut()
-            completion(.success(()))
-        } catch {
-            completion(.failure(.firebaseError(error)))
+    private static func mapFirebaseError(_ error: Error) -> String {
+        if let errorCode = AuthErrorCode.Code(rawValue: error._code) {
+            switch errorCode {
+            case .userNotFound:
+                return "User not found"
+            case .networkError:
+                return "Network error"
+            case .tooManyRequests:
+                return "Too many requests. Please Try again later."
+            case .invalidEmail:
+                return "Invalid email address"
+            case .userDisabled:
+                return "User disabled"
+            case .wrongPassword:
+                return "Wrong password"
+            case .invalidCredential:
+                return "Invalid credential"
+            case .emailAlreadyInUse:
+                return "Email address already in use"
+            case .weakPassword:
+                return "Weak password"
+            default:
+                return "Unknown error"
+            }
+        } else {
+            return "Unknown error"
         }
     }
 }

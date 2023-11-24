@@ -35,7 +35,7 @@ final class QuickSignInViewModel: ObservableObject {
     }
     
     func getError() {
-        authError = .firebaseError(NSError(domain: "Any error", code: 0))
+        authError = .firebaseError("Any error")
     }
 }
 
