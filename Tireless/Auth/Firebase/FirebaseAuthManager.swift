@@ -16,8 +16,8 @@ public final class FirebaseAuthManager: AuthServices {
         self.auth = auth
     }
     
-    public func signInWithApple(idToken: String, nonce: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
-        let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idToken, rawNonce: nonce)
+    public func signIn(from source: AuthSource, idToken: String, nonce: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
+        let credential = OAuthProvider.credential(withProviderID: source.provider, idToken: idToken, rawNonce: nonce)
         auth.signIn(with: credential) { completion(Self.mapAuthResult(result: $0, error: $1)) }
     }
     

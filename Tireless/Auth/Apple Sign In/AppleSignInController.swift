@@ -48,7 +48,7 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
             return
         }
         
-        authServices.signInWithApple(idToken: idTokenString, nonce: currentNonce) { [weak self] result in
+        authServices.signIn(from: .apple, idToken: idTokenString, nonce: currentNonce) { [weak self] result in
             switch result {
             case let .success(data):
                 self?.authSubject?.send(data)

@@ -11,7 +11,7 @@ import Tireless
 class FirebaseAuthManagerSpy: AuthServices {
     
     enum Message: Equatable {
-        case signInWithApple(idToken: String, nonce: String)
+        case signIn(source: AuthSource, idToken: String, nonce: String)
         case signUpWithFirebase(email: String, password: String)
         case signInWithFirebase(email: String, password: String)
         case signOut
@@ -23,16 +23,16 @@ class FirebaseAuthManagerSpy: AuthServices {
     private var signInWithFirebaseResult = [(Result<AuthData, AuthError>) -> Void]()
     private var signOutResult: Result<Void, Error>?
     
-    func signInWithApple(idToken: String, nonce: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
-        messages.append(.signInWithApple(idToken: idToken, nonce: nonce))
+    func signIn(from source: AuthSource, idToken: String, nonce: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
+        messages.append(.signIn(source: source, idToken: idToken, nonce: nonce))
         signInWithAppleResult.append(completion)
     }
     
-    func completeSignInWithApple(with error: AuthError, at index: Int = 0) {
+    func completeSignInFromSource(with error: AuthError, at index: Int = 0) {
         signInWithAppleResult[index](.failure(error))
     }
     
-    func completeSignInWithAppleSuccessfully(with data: AuthData, at index: Int = 0) {
+    func completeSignInFromSourceSuccessfully(with data: AuthData, at index: Int = 0) {
         signInWithAppleResult[index](.success(data))
     }
     

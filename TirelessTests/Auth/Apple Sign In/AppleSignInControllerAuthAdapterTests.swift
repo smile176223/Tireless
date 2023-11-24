@@ -81,9 +81,9 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
             user: "any user",
             fullName: PersonNameComponents()))
         
-        firebaseSpy.completeSignInWithApple(with: .firebaseError(NSError(domain: "any error", code: 0)))
+        firebaseSpy.completeSignInFromSource(with: .firebaseError(NSError(domain: "any error", code: 0)))
         
-        XCTAssertEqual(firebaseSpy.messages, [.signInWithApple(idToken: "any token", nonce: nonce)])
+        XCTAssertEqual(firebaseSpy.messages, [.signIn(source: .apple, idToken: "any token", nonce: nonce)])
         XCTAssertEqual(spy.events, [.error])
     }
     
@@ -101,9 +101,9 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
             user: "any user",
             fullName: PersonNameComponents()))
         
-        firebaseSpy.completeSignInWithAppleSuccessfully(with: AuthData(email: nil, userId: "any id"))
+        firebaseSpy.completeSignInFromSourceSuccessfully(with: AuthData(email: nil, userId: "any id"))
         
-        XCTAssertEqual(firebaseSpy.messages, [.signInWithApple(idToken: "any token", nonce: nonce)])
+        XCTAssertEqual(firebaseSpy.messages, [.signIn(source: .apple, idToken: "any token", nonce: nonce)])
         XCTAssertEqual(spy.events, [.value])
     }
     
