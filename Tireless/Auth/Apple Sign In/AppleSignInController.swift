@@ -65,6 +65,21 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
     }
     
     public func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        authSubject?.send(completion: .failure(.appleError(error)))
+        let errorMessage: String
+        switch (error as? ASAuthorizationError)?.code {
+        case .canceled:
+            errorMessage = "The user canceled the authorization attempt."
+        case .invalidResponse:
+            errorMessage = "The authorization request received an invalid response."
+        case .notHandled:
+            errorMessage = "The authorization request wasn’t handled."
+        case .failed:
+            errorMessage = "The authorization attempt failed."
+        case .notInteractive:
+            errorMessage = "The authorization request isn’t interactive."
+        default:
+            errorMessage = "Unknown error"
+        }
+        authSubject?.send(completion: .failure(.appleError(errorMessage)))
     }
 }

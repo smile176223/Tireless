@@ -18,13 +18,13 @@ extension Toast {
     static func showAuthError(error: AuthError) -> Toast {
         switch error {
         case let .appleError(error):
-            return Toast(style: .error, message: "Apple Sign In Error: \(error)")
+            return Toast(style: .error, message: "Apple Error\n\(error)")
         case let .firebaseError(error):
-            return Toast(style: .error, message: "Firebase Error: \(error)")
+            return Toast(style: .error, message: "Firebase Error\n\(error)")
         case let .customError(message):
             return Toast(style: .error, message: message)
         case .unknown:
-            return Toast(style: .error, message: "Something Error :(")
+            return Toast(style: .error, message: "Something Wrong :(")
         }
     }
 }
