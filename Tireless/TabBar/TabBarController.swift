@@ -83,9 +83,17 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         }
 
         guard Auth.auth().currentUser != nil else {
-            if let authVC = UIStoryboard.auth.instantiateInitialViewController() {
-                present(authVC, animated: true, completion: nil)
+            let signInView = NavigationView {
+                SignInView(viewModel: SignInViewModel()) {
+                    self.presentedViewController?.dismiss(animated: true)
+                }
+                .navigationBarTitleDisplayMode(.inline)
             }
+            
+            let hostingVC = UIHostingController(rootView: signInView)
+            hostingVC.modalPresentationStyle = .fullScreen
+            
+            present(hostingVC, animated: true)
             return false
         }
         return true
