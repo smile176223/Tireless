@@ -14,6 +14,7 @@
 		0C2DF9322B0CAFE10029AA36 /* Publisher+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2DF9312B0CAFE10029AA36 /* Publisher+TestHelpers.swift */; };
 		0C2DF9342B0CB0270029AA36 /* AppleSignInControllerAuthAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2DF9332B0CB0270029AA36 /* AppleSignInControllerAuthAdapterTests.swift */; };
 		0C2DF9372B0D987F0029AA36 /* FirebaseAuthManagerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2DF9362B0D987F0029AA36 /* FirebaseAuthManagerSpy.swift */; };
+		0C3657BB2B106F16004E8E13 /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3657BA2B106F16004E8E13 /* FirebaseAuthManager.swift */; };
 		0C3722472B0C406500083980 /* NonceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3722462B0C406500083980 /* NonceProvider.swift */; };
 		0C3722492B0C423300083980 /* QuickSignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3722482B0C423300083980 /* QuickSignInViewModel.swift */; };
 		0C5DB20B2B0EEF1500439826 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5DB20A2B0EEF1500439826 /* SignInViewModel.swift */; };
@@ -214,6 +215,7 @@
 		0C2DF9312B0CAFE10029AA36 /* Publisher+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+TestHelpers.swift"; sourceTree = "<group>"; };
 		0C2DF9332B0CB0270029AA36 /* AppleSignInControllerAuthAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInControllerAuthAdapterTests.swift; sourceTree = "<group>"; };
 		0C2DF9362B0D987F0029AA36 /* FirebaseAuthManagerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManagerSpy.swift; sourceTree = "<group>"; };
+		0C3657BA2B106F16004E8E13 /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		0C3722462B0C406500083980 /* NonceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonceProvider.swift; sourceTree = "<group>"; };
 		0C3722482B0C423300083980 /* QuickSignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSignInViewModel.swift; sourceTree = "<group>"; };
 		0C5DB20A2B0EEF1500439826 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 			isa = PBXGroup;
 			children = (
 				0C7B7F8D2B102E6A00C52CC0 /* AuthServices.swift */,
+				0C3657BA2B106F16004E8E13 /* FirebaseAuthManager.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -1527,6 +1530,7 @@
 				FF3F77F4281A7D7800D8360A /* SearchFriendViewModel.swift in Sources */,
 				FF5E89C928234EA000214A5D /* PlanReviewViewCell.swift in Sources */,
 				FF5E89D82823BCB000214A5D /* PlanReviewHeaderView.swift in Sources */,
+				0C3657BB2B106F16004E8E13 /* FirebaseAuthManager.swift in Sources */,
 				FF3F77E62819AEEE00D8360A /* FriendsViewModel.swift in Sources */,
 				FF3FBE922814FE6100E6B5DC /* ProfileHeaderView.swift in Sources */,
 				FF308E772807A4F400265863 /* User.swift in Sources */,
