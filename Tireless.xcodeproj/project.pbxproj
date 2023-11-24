@@ -21,6 +21,7 @@
 		0C5DB24B2B0F4AFF00439826 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5DB24A2B0F4AFF00439826 /* View+Extension.swift */; };
 		0C6DEB702B0462A200FDBDA4 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB6F2B0462A200FDBDA4 /* SignInView.swift */; };
 		0C7B7F8E2B102E6A00C52CC0 /* AuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7B7F8D2B102E6A00C52CC0 /* AuthServices.swift */; };
+		0C7B7F932B1043F300C52CC0 /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7B7F922B1043F300C52CC0 /* XCTestCase+Helpers.swift */; };
 		0CADFB852B0C493D005E7611 /* AppleSignInControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */; };
 		0CD81BF82B05F71500CA350E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF72B05F71500CA350E /* SignupView.swift */; };
 		0CD81BFA2B06003000CA350E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF92B06003000CA350E /* WebView.swift */; };
@@ -220,6 +221,7 @@
 		0C5DB24A2B0F4AFF00439826 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		0C6DEB6F2B0462A200FDBDA4 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		0C7B7F8D2B102E6A00C52CC0 /* AuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServices.swift; sourceTree = "<group>"; };
+		0C7B7F922B1043F300C52CC0 /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
 		0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInControllerTests.swift; sourceTree = "<group>"; };
 		0CD81BF72B05F71500CA350E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		0CD81BF92B06003000CA350E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 			isa = PBXGroup;
 			children = (
 				0C2DF9312B0CAFE10029AA36 /* Publisher+TestHelpers.swift */,
+				0C7B7F922B1043F300C52CC0 /* XCTestCase+Helpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1381,6 +1384,7 @@
 				0C2DF9372B0D987F0029AA36 /* FirebaseAuthManagerSpy.swift in Sources */,
 				FF9CB8192B0FA618009EB8AA /* SignInViewModelTests.swift in Sources */,
 				0CADFB852B0C493D005E7611 /* AppleSignInControllerTests.swift in Sources */,
+				0C7B7F932B1043F300C52CC0 /* XCTestCase+Helpers.swift in Sources */,
 				0C2DF9342B0CB0270029AA36 /* AppleSignInControllerAuthAdapterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
