@@ -10,16 +10,16 @@ import Combine
 
 public final class SignInViewModel: ObservableObject {
 
-    private let firebaseAuth: FirebaseAuth
+    private let authServices: AuthServices
     @Published public var authError: AuthError?
     @Published public var authData: AuthData?
     
-    public init(firebaseAuth: FirebaseAuth = FirebaseAuthManager()) {
-        self.firebaseAuth = firebaseAuth
+    public init(authServices: AuthServices = FirebaseAuthManager()) {
+        self.authServices = authServices
     }
     
     public func signInWithFirebase(email: String, password: String) {
-        firebaseAuth.signInWithFirebase(email: email, password: password) { [weak self] result in
+        authServices.signInWithFirebase(email: email, password: password) { [weak self] result in
             switch result {
             case let .success(data):
                 self?.authData = data

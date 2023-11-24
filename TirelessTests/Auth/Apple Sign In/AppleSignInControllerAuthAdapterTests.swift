@@ -27,7 +27,7 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
     
     func test_didCompleteWithError_emitsFailure() {
         let firebaseSpy = FirebaseAuthManagerSpy()
-        let sut = AppleSignInController(firebaseAuth: firebaseSpy)
+        let sut = AppleSignInController(authServices: firebaseSpy)
         let spy = PublisherSpy(sut.authenticate(.spy, nonce: "any"))
         
         XCTAssertEqual(spy.events, [])
@@ -39,7 +39,7 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
     
     func test_didCompleteWithCredential_withInvalidToken_emitsFailure() {
         let firebaseSpy = FirebaseAuthManagerSpy()
-        let sut = AppleSignInController(firebaseAuth: firebaseSpy)
+        let sut = AppleSignInController(authServices: firebaseSpy)
         let publisher = sut.authenticate(.spy, nonce: "any")
         let spy = PublisherSpy(publisher)
         
@@ -54,7 +54,7 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
     
     func test_didCompleteWithCredential_withValidCredential_emitsEmpty() {
         let firebaseSpy = FirebaseAuthManagerSpy()
-        let sut = AppleSignInController(firebaseAuth: firebaseSpy)
+        let sut = AppleSignInController(authServices: firebaseSpy)
         let publisher = sut.authenticate(.spy, nonce: "any")
         let spy = PublisherSpy(publisher)
         
@@ -69,7 +69,7 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
     
     func test_didCompleteWithCredential_validCredential_invokeFirebaseAuthGetError() {
         let firebaseSpy = FirebaseAuthManagerSpy()
-        let sut = AppleSignInController(firebaseAuth: firebaseSpy)
+        let sut = AppleSignInController(authServices: firebaseSpy)
         let nonce = "any"
         let publisher = sut.authenticate(.spy, nonce: nonce)
         let spy = PublisherSpy(publisher)
@@ -89,7 +89,7 @@ class AppleSignInControllerAuthAdapterTests: XCTestCase {
     
     func test_didCompleteWithCredential_validCredential_invokeFirebaseAuthSuccessfully() {
         let firebaseSpy = FirebaseAuthManagerSpy()
-        let sut = AppleSignInController(firebaseAuth: firebaseSpy)
+        let sut = AppleSignInController(authServices: firebaseSpy)
         let nonce = "any"
         let publisher = sut.authenticate(.spy, nonce: nonce)
         let spy = PublisherSpy(publisher)

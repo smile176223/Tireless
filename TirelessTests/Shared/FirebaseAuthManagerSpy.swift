@@ -8,7 +8,7 @@
 import Foundation
 import Tireless
 
-class FirebaseAuthManagerSpy: FirebaseAuth {
+class FirebaseAuthManagerSpy: AuthServices {
     
     enum Message: Equatable {
         case signInWithApple(idToken: String, nonce: String)

@@ -10,12 +10,12 @@ import Combine
 
 final class SignupViewModel: ObservableObject {
 
-    private let firebaseAuth: FirebaseAuth
+    private let authServices: AuthServices
     @Published var authError: AuthError?
     @Published var authData: AuthData?
     
-    init(firebaseAuth: FirebaseAuth = FirebaseAuthManager()) {
-        self.firebaseAuth = firebaseAuth
+    init(authServices: AuthServices = FirebaseAuthManager()) {
+        self.authServices = authServices
     }
     
     func signUpWithFirebase(email: String, password: String, confirmPassword: String) {
@@ -24,7 +24,7 @@ final class SignupViewModel: ObservableObject {
             return
         }
         
-        firebaseAuth.signUpWithFirebase(email: email, password: password) { [weak self] result in
+        authServices.signUpWithFirebase(email: email, password: password) { [weak self] result in
             switch result {
             case let .success(data):
                 self?.authData = data

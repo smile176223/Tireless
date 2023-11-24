@@ -8,14 +8,14 @@
 import Foundation
 import FirebaseAuth
 
-public protocol FirebaseAuth {
+public protocol AuthServices {
     func signInWithApple(idToken: String, nonce: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
     func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
     func signInWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
     func signOut() throws
 }
 
-public final class FirebaseAuthManager: FirebaseAuth {
+public final class FirebaseAuthManager: AuthServices {
     
     private let auth: Auth
     

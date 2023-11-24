@@ -12,7 +12,7 @@ final class SignInViewModelTests: XCTestCase {
 
     func test_singInWithFirebase_getErrorMessage() {
         let spy = FirebaseAuthManagerSpy()
-        let sut = SignInViewModel(firebaseAuth: spy)
+        let sut = SignInViewModel(authServices: spy)
         let email = "any email"
         let password = "any password"
         let error: AuthError = .customError("any error")
@@ -27,7 +27,7 @@ final class SignInViewModelTests: XCTestCase {
     
     func test_signInWithFirebase_successfullyGetAuthData() {
         let spy = FirebaseAuthManagerSpy()
-        let sut = SignInViewModel(firebaseAuth: spy)
+        let sut = SignInViewModel(authServices: spy)
         let email = "any email"
         let password = "any password"
         let data = AuthData(email: email, userId: password)

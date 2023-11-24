@@ -19,12 +19,12 @@ extension ASAuthorizationAppleIDCredential: AppleIDCredential {}
 
 public class AppleSignInController: NSObject {
 
-    private let firebaseAuth: FirebaseAuth
+    private let authServices: AuthServices
     private var authSubject: PassthroughSubject<AuthData, AuthError>?
     private var currentNonce: String?
     
-    init(firebaseAuth: FirebaseAuth = FirebaseAuthManager(), authSubject: PassthroughSubject<AuthData, AuthError>? = nil, currentNonce: String? = nil) {
-        self.firebaseAuth = firebaseAuth
+    init(authServices: AuthServices = FirebaseAuthManager(), authSubject: PassthroughSubject<AuthData, AuthError>? = nil, currentNonce: String? = nil) {
+        self.authServices = authServices
         self.authSubject = authSubject
         self.currentNonce = currentNonce
     }
@@ -48,7 +48,7 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
             return
         }
         
-        firebaseAuth.signInWithApple(idToken: idTokenString, nonce: currentNonce) { [weak self] result in
+        authServices.signInWithApple(idToken: idTokenString, nonce: currentNonce) { [weak self] result in
             switch result {
             case let .success(data):
                 self?.authSubject?.send(data)
