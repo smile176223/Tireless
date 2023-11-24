@@ -26,5 +26,5 @@ public protocol AuthServices {
     func signIn(from source: AuthSource, idToken: String, nonce: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
     func signIn(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
     func signUp(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
-    func signOut() throws
+    func signOut(completion: @escaping (Result<Void, AuthError>) -> Void)
 }

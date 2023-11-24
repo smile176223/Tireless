@@ -39,7 +39,12 @@ public final class FirebaseAuthManager: AuthServices {
         }
     }
     
-    public func signOut() throws {
-        try auth.signOut()
+    public func signOut(completion: @escaping (Result<Void, AuthError>) -> Void) {
+        do {
+            try auth.signOut()
+            completion(.success(()))
+        } catch {
+            completion(.failure(.firebaseError(error)))
+        }
     }
 }

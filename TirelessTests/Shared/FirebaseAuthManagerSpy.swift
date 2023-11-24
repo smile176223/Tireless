@@ -20,7 +20,7 @@ class FirebaseAuthManagerSpy: AuthServices {
     private var signInFromSourceCompletions = [(Result<AuthData, AuthError>) -> Void]()
     private var signInCompletions = [(Result<AuthData, AuthError>) -> Void]()
     private var signUpCompletions = [(Result<AuthData, AuthError>) -> Void]()
-    private var signOutResult: Result<Void, Error>?
+    private var signOutCompletions = [(Result<Void, AuthError>) -> Void]()
     
     func signIn(from source: AuthSource, idToken: String, nonce: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
         messages.append(.signIn(source: source, idToken: idToken, nonce: nonce))
@@ -61,17 +61,16 @@ class FirebaseAuthManagerSpy: AuthServices {
         signUpCompletions[index](.success(data))
     }
     
-    func signOut() throws {
+    func signOut(completion: @escaping (Result<Void, AuthError>) -> Void) {
         messages.append(.signOut)
-        try signOutResult?.get()
+        signOutCompletions.append(completion)
     }
     
-    func completeSignOut(with error: Error) {
-        signOutResult = .failure(error)
+    func completeSignOut(with error: AuthError, at index: Int = 0) {
+        signOutCompletions[index](.failure(error))
     }
     
-    func completeSignOutSuccessfully() {
-        signOutResult = .success(())
+    func completeSignOutSuccessfully(at index: Int = 0) {
+        signOutCompletions[index](.success(()))
     }
-    
 }
