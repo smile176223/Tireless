@@ -9,13 +9,13 @@ import Foundation
 import Combine
 
 final class QuickSignInViewModel: ObservableObject {
-    private let appleServices: AuthServices
+    private let appleServices: AuthController
     private let firebaseAuth: FirebaseAuth
     @Published var authError: AuthError?
     @Published var authData: AuthData?
     private var cancellables = Set<AnyCancellable>()
     
-    init(appleServices: AuthServices, firebaseAuth: FirebaseAuth = FirebaseAuthManager()) {
+    init(appleServices: AuthController, firebaseAuth: FirebaseAuth = FirebaseAuthManager()) {
         self.appleServices = appleServices
         self.firebaseAuth = firebaseAuth
     }

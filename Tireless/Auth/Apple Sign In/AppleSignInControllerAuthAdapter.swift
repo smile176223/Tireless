@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import AuthenticationServices
 
-public final class AppleSignInControllerAuthAdapter: AuthServices {
+public final class AppleSignInControllerAuthAdapter: AuthController {
     
     private let controller: AppleSignInController
     private let nonceProvider: SecureNonce

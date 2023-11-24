@@ -24,6 +24,6 @@ public enum AuthError: Error {
     case unknown
 }
 
-public protocol AuthServices {
+public protocol AuthController {
     func authenticate() -> AnyPublisher<AuthData, AuthError>
 }
