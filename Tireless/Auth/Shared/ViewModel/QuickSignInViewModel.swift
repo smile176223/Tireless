@@ -10,14 +10,12 @@ import Combine
 
 final class QuickSignInViewModel: ObservableObject {
     private let appleServices: AuthController
-    private let authServices: AuthServices
     @Published var authError: AuthError?
     @Published var authData: AuthData?
     private var cancellables = Set<AnyCancellable>()
     
-    init(appleServices: AuthController, authServices: AuthServices = FirebaseAuthManager()) {
+    init(appleServices: AuthController) {
         self.appleServices = appleServices
-        self.authServices = authServices
     }
     
     func signInWithApple() {
@@ -34,18 +32,6 @@ final class QuickSignInViewModel: ObservableObject {
                 self?.authData = data
             }
             .store(in: &cancellables)
-    }
-    
-    func signInWithFirebase(email: String, password: String) {
-        authServices.signInWithFirebase(email: email, password: password) { [weak self] result in
-            switch result {
-            case let .success(data):
-                self?.authData = data
-                
-            case let .failure(error):
-                self?.authError = .firebaseError(error)
-            }
-        }
     }
     
     func getError() {

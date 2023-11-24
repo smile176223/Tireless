@@ -24,7 +24,7 @@ public enum AuthSource {
 
 public protocol AuthServices {
     func signIn(from source: AuthSource, idToken: String, nonce: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
-    func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
-    func signInWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
+    func signIn(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
+    func signUp(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
     func signOut() throws
 }

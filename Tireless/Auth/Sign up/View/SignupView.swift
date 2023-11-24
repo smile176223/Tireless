@@ -70,7 +70,7 @@ struct SignupView: View {
                 ThemeTextField($confirmPassword, width: width, placeholder: "Confirm Password", isSecure: true)
                 
                 ThemeButton(width: width, name: "Sign up") {
-                    viewModel.signUpWithFirebase(email: email, password: password, confirmPassword: confirmPassword)
+                    viewModel.signUp(email: email, password: password, confirmPassword: confirmPassword)
                 }
                 
                 QuickSignInView($toast, width: width)

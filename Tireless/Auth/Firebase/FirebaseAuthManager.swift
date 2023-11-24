@@ -21,12 +21,12 @@ public final class FirebaseAuthManager: AuthServices {
         auth.signIn(with: credential) { completion(Self.mapAuthResult(result: $0, error: $1)) }
     }
     
-    public func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
-        auth.createUser(withEmail: email, password: password) { completion(Self.mapAuthResult(result: $0, error: $1)) }
+    public func signIn(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
+        auth.signIn(withEmail: email, password: password) { completion(Self.mapAuthResult(result: $0, error: $1)) }
     }
     
-    public func signInWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
-        auth.signIn(withEmail: email, password: password) { completion(Self.mapAuthResult(result: $0, error: $1)) }
+    public func signUp(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
+        auth.createUser(withEmail: email, password: password) { completion(Self.mapAuthResult(result: $0, error: $1)) }
     }
     
     private static func mapAuthResult(result: AuthDataResult?, error: Error?) -> Result<AuthData, AuthError> {

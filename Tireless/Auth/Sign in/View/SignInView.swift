@@ -69,7 +69,7 @@ struct SignInView: View {
                 ThemeTextField($password, width: width, placeholder: "Password", isSecure: true)
                 
                 ThemeButton(width: width, name: "Sign in") {
-                    viewModel.signInWithFirebase(email: email, password: password)
+                    viewModel.signIn(email: email, password: password)
                 }
                 
                 QuickSignInView($toast ,width: width, onSuccess: { _ in

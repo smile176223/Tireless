@@ -9,57 +9,56 @@ import Foundation
 import Tireless
 
 class FirebaseAuthManagerSpy: AuthServices {
-    
     enum Message: Equatable {
         case signIn(source: AuthSource, idToken: String, nonce: String)
-        case signUpWithFirebase(email: String, password: String)
-        case signInWithFirebase(email: String, password: String)
+        case signIn(email: String, password: String)
+        case signUp(email: String, password: String)
         case signOut
     }
     
     private(set) var messages = [Message]()
-    private var signInWithAppleResult = [(Result<AuthData, AuthError>) -> Void]()
-    private var signUpWithFirebaseResult = [(Result<AuthData, AuthError>) -> Void]()
-    private var signInWithFirebaseResult = [(Result<AuthData, AuthError>) -> Void]()
+    private var signInFromSourceCompletions = [(Result<AuthData, AuthError>) -> Void]()
+    private var signInCompletions = [(Result<AuthData, AuthError>) -> Void]()
+    private var signUpCompletions = [(Result<AuthData, AuthError>) -> Void]()
     private var signOutResult: Result<Void, Error>?
     
     func signIn(from source: AuthSource, idToken: String, nonce: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
         messages.append(.signIn(source: source, idToken: idToken, nonce: nonce))
-        signInWithAppleResult.append(completion)
+        signInFromSourceCompletions.append(completion)
     }
     
     func completeSignInFromSource(with error: AuthError, at index: Int = 0) {
-        signInWithAppleResult[index](.failure(error))
+        signInFromSourceCompletions[index](.failure(error))
     }
     
     func completeSignInFromSourceSuccessfully(with data: AuthData, at index: Int = 0) {
-        signInWithAppleResult[index](.success(data))
+        signInFromSourceCompletions[index](.success(data))
     }
     
-    func signUpWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
-        messages.append(.signInWithFirebase(email: email, password: password))
-        signUpWithFirebaseResult.append(completion)
+    func signIn(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
+        messages.append(.signIn(email: email, password: password))
+        signInCompletions.append(completion)
     }
     
-    func completeSignUpWithFirebase(with error: AuthError, at index: Int = 0) {
-        signUpWithFirebaseResult[index](.failure(error))
+    func completeSignIn(with error: AuthError, at index: Int = 0) {
+        signInCompletions[index](.failure(error))
     }
     
-    func completeSignUpWithFirebaseSuccessfully(with data: AuthData, at index: Int = 0) {
-        signUpWithFirebaseResult[index](.success(data))
+    func completeSignInSuccessfully(with data: AuthData, at index: Int = 0) {
+        signInCompletions[index](.success(data))
     }
     
-    func signInWithFirebase(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
-        messages.append(.signInWithFirebase(email: email, password: password))
-        signInWithFirebaseResult.append(completion)
+    func signUp(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
+        messages.append(.signUp(email: email, password: password))
+        signUpCompletions.append(completion)
     }
     
-    func completeSignInWithFirebase(with error: AuthError, at index: Int = 0) {
-        signInWithFirebaseResult[index](.failure(error))
+    func completeSignUp(with error: AuthError, at index: Int = 0) {
+        signUpCompletions[index](.failure(error))
     }
     
-    func completeSignInWithFirebaseSuccessfully(with data: AuthData, at index: Int = 0) {
-        signInWithFirebaseResult[index](.success(data))
+    func completeSignUpSuccessfully(with data: AuthData, at index: Int = 0) {
+        signUpCompletions[index](.success(data))
     }
     
     func signOut() throws {

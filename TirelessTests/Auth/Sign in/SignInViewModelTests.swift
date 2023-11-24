@@ -17,10 +17,10 @@ final class SignInViewModelTests: XCTestCase {
         let password = "any password"
         let error: AuthError = .customError("any error")
         
-        sut.signInWithFirebase(email: email, password: password)
-        spy.completeSignInWithFirebase(with: error)
+        sut.signIn(email: email, password: password)
+        spy.completeSignIn(with: error)
         
-        XCTAssertEqual(spy.messages, [.signInWithFirebase(email: email, password: password)])
+        XCTAssertEqual(spy.messages, [.signIn(email: email, password: password)])
         XCTAssertNil(sut.authData)
         expect(sut.authError, with: error)
     }
@@ -32,10 +32,10 @@ final class SignInViewModelTests: XCTestCase {
         let password = "any password"
         let data = AuthData(email: email, userId: password)
         
-        sut.signInWithFirebase(email: email, password: password)
-        spy.completeSignInWithFirebaseSuccessfully(with: data)
+        sut.signIn(email: email, password: password)
+        spy.completeSignInSuccessfully(with: data)
         
-        XCTAssertEqual(spy.messages, [.signInWithFirebase(email: email, password: password)])
+        XCTAssertEqual(spy.messages, [.signIn(email: email, password: password)])
         XCTAssertNil(sut.authError)
         XCTAssertEqual(sut.authData, data)
     }

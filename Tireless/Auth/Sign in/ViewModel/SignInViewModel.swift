@@ -18,8 +18,8 @@ public final class SignInViewModel: ObservableObject {
         self.authServices = authServices
     }
     
-    public func signInWithFirebase(email: String, password: String) {
-        authServices.signInWithFirebase(email: email, password: password) { [weak self] result in
+    public func signIn(email: String, password: String) {
+        authServices.signIn(email: email, password: password) { [weak self] result in
             switch result {
             case let .success(data):
                 self?.authData = data

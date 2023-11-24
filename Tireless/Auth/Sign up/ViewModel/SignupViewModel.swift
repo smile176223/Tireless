@@ -18,13 +18,13 @@ final class SignupViewModel: ObservableObject {
         self.authServices = authServices
     }
     
-    func signUpWithFirebase(email: String, password: String, confirmPassword: String) {
+    func signUp(email: String, password: String, confirmPassword: String) {
         guard password == confirmPassword else {
             authError = .customError("Check password!")
             return
         }
         
-        authServices.signUpWithFirebase(email: email, password: password) { [weak self] result in
+        authServices.signUp(email: email, password: password) { [weak self] result in
             switch result {
             case let .success(data):
                 self?.authData = data
