@@ -14,19 +14,34 @@ public enum FirebaseError: Error {
     case parseError
 }
 
-public enum FirestoreCollection {
-    case plan
+public enum NetworkEndpoint {
+    case user(id: String)
     
     var path: String {
         switch self {
-        case .plan: return "plan"
+        case .user: return "Users"
+        }
+    }
+}
+
+extension NetworkEndpoint {
+    func collection(in store: Firestore) -> CollectionReference {
+        store.collection(path)
+    }
+    
+    func document(in store: Firestore) -> DocumentReference {
+        switch self {
+        case let .user(id):
+            collection(in: store).document(id)
+            
+        default:
+            collection(in: store).document()
         }
     }
 }
 
 public protocol HTTPClient {
-    func get(from collection: FirestoreCollection, completion: @escaping (Result<[[String: Any]], Error>) -> Void)
-    func get(from collection: FirestoreCollection, document: String, completion: @escaping (Result<[String: Any], Error>) -> Void)
+    func get(from endpoint: NetworkEndpoint, completion: @escaping (Result<[[String: Any]], Error>) -> Void)
 }
 
 public final class FirebaseHTTPClient: HTTPClient {
@@ -36,8 +51,8 @@ public final class FirebaseHTTPClient: HTTPClient {
         self.firestore = firestore
     }
     
-    public func get(from collection: FirestoreCollection, completion: @escaping (Result<[[String: Any]], Error>) -> Void) {
-        firestore.collection(collection.path).getDocuments { querySnapshot, error in
+    public func get(from endpoint: NetworkEndpoint, completion: @escaping (Result<[[String: Any]], Error>) -> Void) {
+        endpoint.collection(in: firestore).getDocuments { querySnapshot, error in
             completion(Result(catching: {
                 if let error = error {
                     throw error
@@ -46,20 +61,6 @@ public final class FirebaseHTTPClient: HTTPClient {
                     for document in query.documents {
                         data.append(document.data())
                     }
-                    return data
-                } else {
-                    throw FirebaseError.dataError
-                }
-            }))
-        }
-    }
-    
-    public func get(from collection: FirestoreCollection, document: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
-        firestore.collection(collection.path).document(document).getDocument { documentSnapshot, error in
-            completion(Result(catching: {
-                if let error = error {
-                    throw error
-                } else if let document = documentSnapshot, let data = document.data() {
                     return data
                 } else {
                     throw FirebaseError.dataError
