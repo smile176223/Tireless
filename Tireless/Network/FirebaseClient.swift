@@ -33,15 +33,13 @@ extension NetworkEndpoint {
         switch self {
         case let .user(id):
             collection(in: store).document(id)
-            
-        default:
-            collection(in: store).document()
         }
     }
 }
 
 public protocol HTTPClient {
-    func get(from endpoint: NetworkEndpoint, completion: @escaping (Result<[[String: Any]], Error>) -> Void)
+    func get(from endpoint: NetworkEndpoint, completion: @escaping (Result<Data, Error>) -> Void)
+    func post(from endpoint: NetworkEndpoint, param: [String: Any], completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 public final class FirebaseHTTPClient: HTTPClient {
@@ -51,21 +49,29 @@ public final class FirebaseHTTPClient: HTTPClient {
         self.firestore = firestore
     }
     
-    public func get(from endpoint: NetworkEndpoint, completion: @escaping (Result<[[String: Any]], Error>) -> Void) {
-        endpoint.collection(in: firestore).getDocuments { querySnapshot, error in
+    public func get(from endpoint: NetworkEndpoint, completion: @escaping (Result<Data, Error>) -> Void) {
+        endpoint.document(in: firestore).getDocument { querySnapshot, error in
             completion(Result(catching: {
                 if let error = error {
                     throw error
-                } else if let query = querySnapshot {
-                    var data: [[String: Any]] = []
-                    for document in query.documents {
-                        data.append(document.data())
-                    }
+                } else if let documentData = querySnapshot?.data() {
+                    let data = try JSONSerialization.data(withJSONObject: documentData, options: [])
                     return data
                 } else {
                     throw FirebaseError.dataError
                 }
             }))
+        }
+    }
+    
+    public func post(from endpoint: NetworkEndpoint, param: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+        let document = endpoint.document(in: firestore)
+        document.setData(param) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
         }
     }
 }
