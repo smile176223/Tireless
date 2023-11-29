@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-public struct AuthData: Equatable {
+public struct AuthData: Equatable, Encodable {
     public let email: String?
     public let userId: String
     public let name: String?
