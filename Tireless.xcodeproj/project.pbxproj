@@ -175,6 +175,7 @@
 		FF5E89E22826F50F00214A5D /* PlanModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89E12826F50F00214A5D /* PlanModifyViewController.swift */; };
 		FF7449502B0E4F37005D65BD /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF74494F2B0E4F37005D65BD /* ToastView.swift */; };
 		FF9CB8192B0FA618009EB8AA /* SignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9CB8182B0FA618009EB8AA /* SignInViewModelTests.swift */; };
+		FFA09BB02B162CBF00378906 /* UserMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA09BAF2B162CBF00378906 /* UserMapper.swift */; };
 		FFB5FCE4282AD3260090AE48 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB5FCE3282AD3260090AE48 /* NotificationViewController.swift */; };
 		FFC0C15528008F640041A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15428008F640041A937 /* AppDelegate.swift */; };
 		FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC0C15628008F640041A937 /* SceneDelegate.swift */; };
@@ -384,6 +385,7 @@
 		FF5E89E12826F50F00214A5D /* PlanModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanModifyViewController.swift; sourceTree = "<group>"; };
 		FF74494F2B0E4F37005D65BD /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		FF9CB8182B0FA618009EB8AA /* SignInViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelTests.swift; sourceTree = "<group>"; };
+		FFA09BAF2B162CBF00378906 /* UserMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMapper.swift; sourceTree = "<group>"; };
 		FFB5FCE3282AD3260090AE48 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		FFC0C15128008F640041A937 /* Tireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC0C15428008F640041A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 		FF308E6B28066DF200265863 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				FFA09BAE2B162C9000378906 /* User */,
 				FF3F77E328185E6C00D8360A /* AuthManager.swift */,
 				FF3FBE9728150DEC00E6B5DC /* UserManager.swift */,
 				FF3F77F1281A7AB900D8360A /* FriendManager.swift */,
@@ -1026,6 +1029,14 @@
 				0C3657BC2B10831B004E8E13 /* NonceProviderTests.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		FFA09BAE2B162C9000378906 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				FFA09BAF2B162CBF00378906 /* UserMapper.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		FFC0C14828008F640041A937 = {
@@ -1400,6 +1411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFA09BB02B162CBF00378906 /* UserMapper.swift in Sources */,
 				0CD81BFE2B0763AD00CA350E /* QuickSignInView.swift in Sources */,
 				FFC7B9F1281FB61B0080A31E /* GroupPlanStatusViewModel.swift in Sources */,
 				FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */,
