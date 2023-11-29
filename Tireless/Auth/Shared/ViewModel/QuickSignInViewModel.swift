@@ -10,16 +10,19 @@ import Combine
 
 final class QuickSignInViewModel: ObservableObject {
     private let appleServices: AuthController
+    private let firestore: HTTPClient
     @Published var authError: AuthError?
     @Published var authData: AuthData?
     private var cancellables = Set<AnyCancellable>()
     
-    init(appleServices: AuthController) {
+    init(appleServices: AuthController, firestore: HTTPClient = FirestoreHTTPClient()) {
         self.appleServices = appleServices
+        self.firestore = firestore
     }
     
     func signInWithApple() {
         appleServices.authenticate()
+            .flatMap(checkUserExist)
             .sink { [weak self] completion in
                 switch completion {
                 case let .failure(error):
@@ -32,6 +35,29 @@ final class QuickSignInViewModel: ObservableObject {
                 self?.authData = data
             }
             .store(in: &cancellables)
+    }
+    
+    private func checkUserExist(_ data: AuthData) -> AnyPublisher<AuthData, AuthError> {
+        return firestore.getPublisher(from: .user(id: data.userId))
+            .map { _ in data }
+            .catch { [weak self] error -> AnyPublisher<AuthData, AuthError> in
+                if let self = self, let error = error as? FirestoreError, case .emptyResult = error {
+                    return self.createUser(data)
+                } else {
+                    return Fail<AuthData, AuthError>(error: .unknown).eraseToAnyPublisher()
+                }
+            }
+            .map { _ in data }
+            .eraseToAnyPublisher()
+    }
+    
+    private func createUser(_ data: AuthData) -> AnyPublisher<AuthData, AuthError> {
+        return firestore.postPublisher(from: .user(id: data.userId), param: data.dict)
+            .catch { error in
+                return Fail<Void, AuthError>(error: .customError("create error"))
+            }
+            .map { _ in data }
+            .eraseToAnyPublisher()
     }
     
     func getError() {

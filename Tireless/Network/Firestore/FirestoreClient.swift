@@ -9,10 +9,10 @@ import Foundation
 import FirebaseFirestore
 import Combine
 
-public enum FirebaseError: Error {
+public enum FirestoreError: Error {
     case invalidPath
-    case dataError
     case parseError
+    case emptyResult
 }
 
 public enum NetworkEndpoint {
@@ -79,7 +79,7 @@ public final class FirestoreHTTPClient: HTTPClient {
                     let data = try JSONSerialization.data(withJSONObject: documentData, options: [])
                     return data
                 } else {
-                    throw FirebaseError.dataError
+                    throw FirestoreError.emptyResult
                 }
             }))
         }
@@ -105,7 +105,7 @@ public struct FirestoreParser {
             let decoder = JSONDecoder()
             return try decoder.decode(T.self, from: jsonData)
         } catch {
-            throw FirebaseError.parseError
+            throw FirestoreError.parseError
         }
     }
 }
