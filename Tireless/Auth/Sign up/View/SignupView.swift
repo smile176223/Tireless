@@ -10,6 +10,7 @@ import SwiftUI
 struct SignupView: View {
     
     @State private var toast: Toast? = nil
+    @State private var name = ""
     @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""
@@ -65,12 +66,13 @@ struct SignupView: View {
                     .padding(.leading, 5)
                     .padding(.bottom, 10)
                 
+                ThemeTextField($name, width: width, placeholder: "Name")
                 ThemeTextField($email, width: width, placeholder: "Email")
                 ThemeTextField($password, width: width, placeholder: "Password", isSecure: true)
                 ThemeTextField($confirmPassword, width: width, placeholder: "Confirm Password", isSecure: true)
                 
                 ThemeButton(width: width, name: "Sign up") {
-                    viewModel.signUp(email: email, password: password, confirmPassword: confirmPassword)
+                    viewModel.signUp(name: name, email: email, password: password, confirmPassword: confirmPassword)
                 }
                 
                 QuickSignInView($toast, width: width)

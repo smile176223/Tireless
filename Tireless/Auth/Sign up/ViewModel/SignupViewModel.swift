@@ -18,13 +18,13 @@ final class SignupViewModel: ObservableObject {
         self.authServices = authServices
     }
     
-    func signUp(email: String, password: String, confirmPassword: String) {
+    func signUp(name: String, email: String, password: String, confirmPassword: String) {
         guard password == confirmPassword else {
             authError = .customError("Check password!")
             return
         }
         
-        authServices.signUp(email: email, password: password, name: email) { [weak self] result in
+        authServices.signUp(email: email, password: password, name: name) { [weak self] result in
             switch result {
             case let .success(data):
                 self?.authData = data
