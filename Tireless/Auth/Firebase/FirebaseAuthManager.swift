@@ -18,15 +18,15 @@ public final class FirebaseAuthManager: AuthServices {
     
     public func signIn(from source: AuthSource, idToken: String, nonce: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
         let credential = OAuthProvider.credential(withProviderID: source.provider, idToken: idToken, rawNonce: nonce)
-        auth.signIn(with: credential) { completion(Self.mapAuthResult(result: $0, error: $1)) }
+        auth.signIn(with: credential) { completion(Self.mapAuthResult(name:$0?.user.displayName, result: $0, error: $1)) }
     }
     
     public func signIn(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
-        auth.signIn(withEmail: email, password: password) { completion(Self.mapAuthResult(result: $0, error: $1)) }
+        auth.signIn(withEmail: email, password: password) { completion(Self.mapAuthResult(name:$0?.user.displayName, result: $0, error: $1)) }
     }
     
-    public func signUp(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
-        auth.createUser(withEmail: email, password: password) { completion(Self.mapAuthResult(result: $0, error: $1)) }
+    public func signUp(email: String, password: String, name: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
+        auth.createUser(withEmail: email, password: password) { completion(Self.mapAuthResult(name: name, result: $0, error: $1)) }
     }
     
     public func signOut(completion: @escaping (Result<Void, AuthError>) -> Void) {
@@ -40,11 +40,11 @@ public final class FirebaseAuthManager: AuthServices {
 }
 
 extension FirebaseAuthManager {
-    private static func mapAuthResult(result: AuthDataResult?, error: Error?) -> Result<AuthData, AuthError> {
+    private static func mapAuthResult(name: String?, result: AuthDataResult?, error: Error?) -> Result<AuthData, AuthError> {
         if let error = error {
             return .failure(.firebaseError(mapFirebaseError(error)))
         } else if let result = result {
-            return .success(AuthData(email: result.user.email, userId: result.user.uid))
+            return .success(AuthData(email: result.user.email, userId: result.user.uid, name: name))
         } else {
             return .failure(.unknown)
         }

@@ -30,7 +30,8 @@ final class SignInViewModelTests: XCTestCase {
         let sut = SignInViewModel(authServices: spy)
         let email = "any email"
         let password = "any password"
-        let data = AuthData(email: email, userId: password)
+        let name = "any name"
+        let data = AuthData(email: email, userId: password, name: name)
         
         sut.signIn(email: email, password: password)
         spy.completeSignInSuccessfully(with: data)

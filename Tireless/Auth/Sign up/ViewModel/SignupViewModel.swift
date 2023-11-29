@@ -24,7 +24,7 @@ final class SignupViewModel: ObservableObject {
             return
         }
         
-        authServices.signUp(email: email, password: password) { [weak self] result in
+        authServices.signUp(email: email, password: password, name: email) { [weak self] result in
             switch result {
             case let .success(data):
                 self?.authData = data

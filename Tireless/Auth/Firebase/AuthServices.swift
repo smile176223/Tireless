@@ -11,10 +11,12 @@ import Combine
 public struct AuthData: Equatable {
     public let email: String?
     public let userId: String
+    public let name: String?
     
-    public init(email: String?, userId: String) {
+    public init(email: String?, userId: String, name: String?) {
         self.email = email
         self.userId = userId
+        self.name = name
     }
 }
 
@@ -42,6 +44,6 @@ public enum AuthSource {
 public protocol AuthServices {
     func signIn(from source: AuthSource, idToken: String, nonce: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
     func signIn(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
-    func signUp(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
+    func signUp(email: String, password: String, name: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
     func signOut(completion: @escaping (Result<Void, AuthError>) -> Void)
 }

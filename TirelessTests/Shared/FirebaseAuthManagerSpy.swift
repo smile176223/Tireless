@@ -12,7 +12,7 @@ class FirebaseAuthManagerSpy: AuthServices {
     enum Message: Equatable {
         case signIn(source: AuthSource, idToken: String, nonce: String)
         case signIn(email: String, password: String)
-        case signUp(email: String, password: String)
+        case signUp(email: String, password: String, name: String)
         case signOut
     }
     
@@ -48,8 +48,8 @@ class FirebaseAuthManagerSpy: AuthServices {
         signInCompletions[index](.success(data))
     }
     
-    func signUp(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
-        messages.append(.signUp(email: email, password: password))
+    func signUp(email: String, password: String, name: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
+        messages.append(.signUp(email: email, password: password, name: name))
         signUpCompletions.append(completion)
     }
     
