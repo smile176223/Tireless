@@ -47,11 +47,12 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
             authSubject?.send(completion: .failure(.unknown))
             return
         }
-        
+        let name = mapUserName(credential.fullName)
+
         authServices.signIn(from: .apple, idToken: idTokenString, nonce: currentNonce) { [weak self] result in
             switch result {
             case let .success(data):
-                self?.authSubject?.send(data)
+                self?.authSubject?.send(AuthData(email: data.email, userId: data.userId, name: name))
                 
             case let .failure(error):
                 self?.authSubject?.send(completion: .failure(error))
@@ -81,5 +82,15 @@ extension AppleSignInController: ASAuthorizationControllerDelegate {
             errorMessage = "Unknown error"
         }
         authSubject?.send(completion: .failure(.appleError(errorMessage)))
+    }
+    
+    private func mapUserName(_ name: PersonNameComponents?) -> String {
+        guard let name = name else { return UUID().uuidString }
+        
+        let formatter = PersonNameComponentsFormatter()
+        formatter.style = .default
+        let result = formatter.string(from: name)
+        
+        return result.isEmpty ? UUID().uuidString : result
     }
 }
