@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C10BD3C2AFB6EE000B9254C /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */; };
+		0C10BD3C2AFB6EE000B9254C /* FirestoreClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C10BD3B2AFB6EE000B9254C /* FirestoreClient.swift */; };
 		0C2DF92A2B0CADC70029AA36 /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2DF9292B0CADC70029AA36 /* AuthController.swift */; };
 		0C2DF92C2B0CAE5E0029AA36 /* AppleSignInControllerAuthAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2DF92B2B0CAE5E0029AA36 /* AppleSignInControllerAuthAdapter.swift */; };
 		0C2DF92E2B0CAE880029AA36 /* AppleSignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2DF92D2B0CAE880029AA36 /* AppleSignInController.swift */; };
@@ -211,7 +211,7 @@
 
 /* Begin PBXFileReference section */
 		05E556113668D1752E0D9FE4 /* Pods-Tireless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tireless.debug.xcconfig"; path = "Target Support Files/Pods-Tireless/Pods-Tireless.debug.xcconfig"; sourceTree = "<group>"; };
-		0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
+		0C10BD3B2AFB6EE000B9254C /* FirestoreClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreClient.swift; sourceTree = "<group>"; };
 		0C2DF9292B0CADC70029AA36 /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		0C2DF92B2B0CAE5E0029AA36 /* AppleSignInControllerAuthAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInControllerAuthAdapter.swift; sourceTree = "<group>"; };
 		0C2DF92D2B0CAE880029AA36 /* AppleSignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInController.swift; sourceTree = "<group>"; };
@@ -541,7 +541,7 @@
 		0C4D9EC52B1728E800A6AA21 /* Firestore */ = {
 			isa = PBXGroup;
 			children = (
-				0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */,
+				0C10BD3B2AFB6EE000B9254C /* FirestoreClient.swift */,
 			);
 			path = Firestore;
 			sourceTree = "<group>";
@@ -1426,7 +1426,7 @@
 				0CD81BFE2B0763AD00CA350E /* QuickSignInView.swift in Sources */,
 				FFC7B9F1281FB61B0080A31E /* GroupPlanStatusViewModel.swift in Sources */,
 				FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */,
-				0C10BD3C2AFB6EE000B9254C /* FirebaseClient.swift in Sources */,
+				0C10BD3C2AFB6EE000B9254C /* FirestoreClient.swift in Sources */,
 				FF3FBE7C281299DE00E6B5DC /* PlanViewModel.swift in Sources */,
 				FF0234C2282CE65E001647B9 /* FriendsListViewController.swift in Sources */,
 				FF3FBE9D28151FF000E6B5DC /* Friend.swift in Sources */,

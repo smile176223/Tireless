@@ -1,5 +1,5 @@
 //
-//  FirebaseClient.swift
+//  FirestoreClient.swift
 //  Tireless
 //
 //  Created by Liam on 2023/11/8.
@@ -63,7 +63,7 @@ public extension HTTPClient {
     }
 }
 
-public final class FirebaseHTTPClient: HTTPClient {
+public final class FirestoreHTTPClient: HTTPClient {
     private let firestore: Firestore
     
     public init(firestore: Firestore = Firestore.firestore()) {
