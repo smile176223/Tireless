@@ -45,7 +45,7 @@ public protocol HTTPClient {
 public final class FirebaseHTTPClient: HTTPClient {
     private let firestore: Firestore
     
-    public init(firestore: Firestore) {
+    public init(firestore: Firestore = Firestore.firestore()) {
         self.firestore = firestore
     }
     
