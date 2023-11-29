@@ -538,6 +538,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		0C4D9EC52B1728E800A6AA21 /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */,
+			);
+			path = Firestore;
+			sourceTree = "<group>";
+		};
 		0C5DB2092B0EEF0A00439826 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -862,6 +870,7 @@
 		FF308E6B28066DF200265863 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				0C4D9EC52B1728E800A6AA21 /* Firestore */,
 				FFA09BAE2B162C9000378906 /* User */,
 				FF3F77E328185E6C00D8360A /* AuthManager.swift */,
 				FF3FBE9728150DEC00E6B5DC /* UserManager.swift */,
@@ -872,7 +881,6 @@
 				FF3F7810281D1E3B00D8360A /* CommentManager.swift */,
 				FF5E89DF2825B29400214A5D /* ProfileManager.swift */,
 				FF0234D1282D8335001647B9 /* StatisticsManager.swift */,
-				0C10BD3B2AFB6EE000B9254C /* FirebaseClient.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";

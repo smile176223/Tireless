@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import Combine
 
 public enum FirebaseError: Error {
     case invalidPath
@@ -24,7 +25,7 @@ public enum NetworkEndpoint {
     }
 }
 
-extension NetworkEndpoint {
+private extension NetworkEndpoint {
     func collection(in store: Firestore) -> CollectionReference {
         store.collection(path)
     }
@@ -40,6 +41,26 @@ extension NetworkEndpoint {
 public protocol HTTPClient {
     func get(from endpoint: NetworkEndpoint, completion: @escaping (Result<Data, Error>) -> Void)
     func post(from endpoint: NetworkEndpoint, param: [String: Any], completion: @escaping (Result<Void, Error>) -> Void)
+}
+
+public extension HTTPClient {
+    func getPublisher(from endpoint: NetworkEndpoint) -> AnyPublisher<Data, Error> {
+        return Deferred {
+            Future { completion in
+                self.get(from: endpoint, completion: completion)
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func postPublisher(from endpoint: NetworkEndpoint, param: [String: Any]) -> AnyPublisher<Void, Error> {
+        return Deferred {
+            Future { completion in
+                self.post(from: endpoint, param: param, completion: completion)
+            }
+        }
+        .eraseToAnyPublisher()
+    }
 }
 
 public final class FirebaseHTTPClient: HTTPClient {
