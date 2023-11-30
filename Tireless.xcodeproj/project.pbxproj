@@ -20,6 +20,7 @@
 		0C3722492B0C423300083980 /* QuickSignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3722482B0C423300083980 /* QuickSignInViewModel.swift */; };
 		0C4D9EC42B1728AF00A6AA21 /* Codable+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4D9EC32B1728AF00A6AA21 /* Codable+Helpers.swift */; };
 		0C4D9EC82B1813A800A6AA21 /* QuickSignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4D9EC72B1813A800A6AA21 /* QuickSignInViewModelTests.swift */; };
+		0C4D9ECA2B181F0200A6AA21 /* AuthControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4D9EC92B181F0200A6AA21 /* AuthControllerSpy.swift */; };
 		0C5DB20B2B0EEF1500439826 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5DB20A2B0EEF1500439826 /* SignInViewModel.swift */; };
 		0C5DB2492B0F005100439826 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5DB2482B0F005100439826 /* SignupViewModel.swift */; };
 		0C5DB24B2B0F4AFF00439826 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5DB24A2B0F4AFF00439826 /* View+Extension.swift */; };
@@ -225,6 +226,7 @@
 		0C3722482B0C423300083980 /* QuickSignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSignInViewModel.swift; sourceTree = "<group>"; };
 		0C4D9EC32B1728AF00A6AA21 /* Codable+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Helpers.swift"; sourceTree = "<group>"; };
 		0C4D9EC72B1813A800A6AA21 /* QuickSignInViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSignInViewModelTests.swift; sourceTree = "<group>"; };
+		0C4D9EC92B181F0200A6AA21 /* AuthControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthControllerSpy.swift; sourceTree = "<group>"; };
 		0C5DB20A2B0EEF1500439826 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		0C5DB2482B0F005100439826 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		0C5DB24A2B0F4AFF00439826 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 			isa = PBXGroup;
 			children = (
 				0C2DF9362B0D987F0029AA36 /* FirebaseAuthManagerSpy.swift */,
+				0C4D9EC92B181F0200A6AA21 /* AuthControllerSpy.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1426,6 +1429,7 @@
 				0C3657BD2B10831B004E8E13 /* NonceProviderTests.swift in Sources */,
 				0C7B7F932B1043F300C52CC0 /* XCTestCase+Helpers.swift in Sources */,
 				0C4D9EC82B1813A800A6AA21 /* QuickSignInViewModelTests.swift in Sources */,
+				0C4D9ECA2B181F0200A6AA21 /* AuthControllerSpy.swift in Sources */,
 				0C2DF9342B0CB0270029AA36 /* AppleSignInControllerAuthAdapterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
