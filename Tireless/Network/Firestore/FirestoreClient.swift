@@ -15,7 +15,7 @@ public enum FirestoreError: Error {
     case emptyResult
 }
 
-public enum NetworkEndpoint {
+public enum NetworkEndpoint: Equatable {
     case user(id: String)
     
     var path: String {

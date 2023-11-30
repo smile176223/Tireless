@@ -8,19 +8,19 @@
 import Foundation
 import Combine
 
-final class QuickSignInViewModel: ObservableObject {
+public final class QuickSignInViewModel: ObservableObject {
     private let appleServices: AuthController
     private let firestore: HTTPClient
-    @Published var authError: AuthError?
-    @Published var authData: AuthData?
+    @Published public var authError: AuthError?
+    @Published public var authData: AuthData?
     private var cancellables = Set<AnyCancellable>()
     
-    init(appleServices: AuthController, firestore: HTTPClient = FirestoreHTTPClient()) {
+    public init(appleServices: AuthController, firestore: HTTPClient = FirestoreHTTPClient()) {
         self.appleServices = appleServices
         self.firestore = firestore
     }
     
-    func signInWithApple() {
+    public func signInWithApple() {
         appleServices.authenticate()
             .flatMap(checkUserExist)
             .sink { [weak self] completion in
