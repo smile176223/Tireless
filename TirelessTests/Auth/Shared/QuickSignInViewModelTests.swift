@@ -66,10 +66,13 @@ class QuickSignInViewModelTests: XCTestCase {
     }
     
     // MARK: - Helpers
-    private func makeSUT() -> (sut: QuickSignInViewModel, authSpy: AuthControllerSpy, httpSpy: HTTPClientSpy) {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: QuickSignInViewModel, authSpy: AuthControllerSpy, httpSpy: HTTPClientSpy) {
         let authSpy = AuthControllerSpy()
         let httpSpy = HTTPClientSpy()
         let sut = QuickSignInViewModel(appleServices: authSpy, firestore: httpSpy)
+        trackForMemoryLeaks(authSpy, file: file, line: line)
+        trackForMemoryLeaks(httpSpy, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, authSpy, httpSpy)
     }
 }

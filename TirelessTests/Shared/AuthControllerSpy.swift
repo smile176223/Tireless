@@ -26,5 +26,6 @@ class AuthControllerSpy: AuthController {
     
     func completeAuthenticateSuccessfully(with data: AuthData, at index: Int = 0) {
         authenticateCompletions[index].send(data)
+        authenticateCompletions[index].send(completion: .finished)
     }
 }
