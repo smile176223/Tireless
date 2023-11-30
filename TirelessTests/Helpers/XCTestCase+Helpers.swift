@@ -21,3 +21,7 @@ extension XCTestCase {
     }
 }
 
+/// Make Dictionary Equatable
+public func ==<K, L: Any, R: Any>(lhs: [K: L], rhs: [K: R]) -> Bool {
+    (lhs as NSDictionary).isEqual(to: rhs)
+}

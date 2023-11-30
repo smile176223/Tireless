@@ -10,9 +10,20 @@ import Tireless
 
 class HTTPClientSpy: HTTPClient {
     
-    enum Message {
+    enum Message: Equatable {
         case get(endpoint: NetworkEndpoint)
         case post(endpoint: NetworkEndpoint, param: [String : Any])
+        
+        static func == (lhs: HTTPClientSpy.Message, rhs: HTTPClientSpy.Message) -> Bool {
+            switch (lhs, rhs) {
+            case let (.get(lEndpoint), .get(rEndpoint)):
+                return lEndpoint == rEndpoint
+            case let (.post(lEndpoint, lParam), .post(rEndpoint, rParam)):
+                return lEndpoint == rEndpoint && lParam == rParam
+            default:
+                return false
+            }
+        }
     }
     
     private(set) var messages = [Message]()

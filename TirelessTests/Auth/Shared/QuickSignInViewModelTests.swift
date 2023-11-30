@@ -23,21 +23,21 @@ class QuickSignInViewModelTests: XCTestCase {
     
     func test_signInWithApple_clientFailEmitsFailure() {
         let (sut, authSpy, httpSpy) = makeSUT()
-        let data = AuthData(email: "any email", userId: "any user id", name: "any name")
+        let data = anyAuthData
         
         sut.signInWithApple()
         authSpy.completeAuthenticateSuccessfully(with: data)
         httpSpy.completeGet(with: anyNSError)
         
         XCTAssertEqual(authSpy.authenticateCallCount, 1)
-        XCTAssertEqual(httpSpy.messages.count, 1)
+        XCTAssertEqual(httpSpy.messages, [.get(endpoint: .user(id: anyUserId))])
         XCTAssertEqual(sut.authError, .unknown)
         XCTAssertEqual(sut.authData, nil)
     }
     
     func test_signInWithApple_clientGetEmptyErrorThenCreateUserFailEmitsFailure() {
         let (sut, authSpy, httpSpy) = makeSUT()
-        let data = AuthData(email: "any email", userId: "any user id", name: "any name")
+        let data = anyAuthData
         
         sut.signInWithApple()
         authSpy.completeAuthenticateSuccessfully(with: data)
@@ -45,14 +45,14 @@ class QuickSignInViewModelTests: XCTestCase {
         httpSpy.completePost(with: anyNSError)
         
         XCTAssertEqual(authSpy.authenticateCallCount, 1)
-        XCTAssertEqual(httpSpy.messages.count, 2)
+        XCTAssertEqual(httpSpy.messages, [.get(endpoint: .user(id: anyUserId)), .post(endpoint: .user(id: anyUserId), param: data.dict)])
         XCTAssertEqual(sut.authError, .customError("create error"))
         XCTAssertEqual(sut.authData, nil)
     }
     
     func test_signInWithApple_clientGetEmptyErrorThenCreateUserSuccessfully() {
         let (sut, authSpy, httpSpy) = makeSUT()
-        let data = AuthData(email: "any email", userId: "any user id", name: "any name")
+        let data = anyAuthData
         
         sut.signInWithApple()
         authSpy.completeAuthenticateSuccessfully(with: data)
@@ -60,12 +60,13 @@ class QuickSignInViewModelTests: XCTestCase {
         httpSpy.completePostSuccessfully()
         
         XCTAssertEqual(authSpy.authenticateCallCount, 1)
-        XCTAssertEqual(httpSpy.messages.count, 2)
+        XCTAssertEqual(httpSpy.messages, [.get(endpoint: .user(id: anyUserId)), .post(endpoint: .user(id: anyUserId), param: data.dict)])
         XCTAssertEqual(sut.authError, nil)
         XCTAssertEqual(sut.authData, data)
     }
     
     // MARK: - Helpers
+    
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: QuickSignInViewModel, authSpy: AuthControllerSpy, httpSpy: HTTPClientSpy) {
         let authSpy = AuthControllerSpy()
         let httpSpy = HTTPClientSpy()
@@ -74,6 +75,18 @@ class QuickSignInViewModelTests: XCTestCase {
         trackForMemoryLeaks(httpSpy, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, authSpy, httpSpy)
+    }
+    
+    private var anyAuthData: AuthData {
+        AuthData(email: anyEmail, userId: anyUserId, name: anyName)
+    }
+    
+    private var anyUserId: String {
+        "any user id"
+    }
+    
+    private var anyName: String {
+        "any name"
     }
 }
 
