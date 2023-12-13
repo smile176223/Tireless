@@ -13,13 +13,17 @@ public final class SignInViewModel: ObservableObject {
     private let authServices: AuthServices
     @Published public var authError: AuthError?
     @Published public var authData: AuthData?
+    @Published public var isLoading: Bool = false
     
     public init(authServices: AuthServices = FirebaseAuthManager()) {
         self.authServices = authServices
     }
     
     public func signIn(email: String, password: String) {
+        isLoading = true
         authServices.signIn(email: email, password: password) { [weak self] result in
+            self?.isLoading = false
+            
             switch result {
             case let .success(data):
                 self?.authData = data

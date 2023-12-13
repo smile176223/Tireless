@@ -13,6 +13,7 @@ public final class QuickSignInViewModel: ObservableObject {
     private let firestore: HTTPClient
     @Published public var authError: AuthError?
     @Published public var authData: AuthData?
+    @Published public var isLoading: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
     public init(appleServices: AuthController, firestore: HTTPClient = FirestoreHTTPClient()) {
@@ -22,16 +23,21 @@ public final class QuickSignInViewModel: ObservableObject {
     
     public func signInWithApple() {
         appleServices.authenticate()
+            .mapAction { [weak self] in
+                self?.isLoading = true
+            }
             .flatMap(checkUserExist)
             .sink { [weak self] completion in
                 switch completion {
                 case let .failure(error):
+                    self?.isLoading = false
                     self?.authError = error
                     
                 case .finished:
                     break
                 }
             } receiveValue: { [weak self] data in
+                self?.isLoading = false
                 self?.authData = data
             }
             .store(in: &cancellables)
@@ -39,7 +45,7 @@ public final class QuickSignInViewModel: ObservableObject {
     
     private func checkUserExist(_ data: AuthData) -> AnyPublisher<AuthData, AuthError> {
         return firestore.getPublisher(from: .user(id: data.userId))
-            .map { _ in data }
+            .mapToValue(data)
             .catch { [weak self] error -> AnyPublisher<AuthData, AuthError> in
                 if let self = self, let error = error as? FirestoreError, case .emptyResult = error {
                     return self.createUser(data)
@@ -47,7 +53,7 @@ public final class QuickSignInViewModel: ObservableObject {
                     return Fail<AuthData, AuthError>(error: .unknown).eraseToAnyPublisher()
                 }
             }
-            .map { _ in data }
+            .mapToValue(data)
             .eraseToAnyPublisher()
     }
     
@@ -61,7 +67,10 @@ public final class QuickSignInViewModel: ObservableObject {
     }
     
     func getError() {
-        authError = .firebaseError("Any error")
+        isLoading = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.isLoading = false
+            self.authError = .firebaseError("Any error")
+        }
     }
 }
-

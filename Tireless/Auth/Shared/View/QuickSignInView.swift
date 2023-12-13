@@ -55,6 +55,9 @@ struct QuickSignInView: View {
             }
             .padding(.bottom, 30)
         }
+        .onReceive(viewModel.$isLoading) { state in
+            
+        }
         .onReceive(viewModel.$authData) { data in
             guard let data = data else { return }
             

@@ -12,24 +12,30 @@ struct SignInView: View {
     @State private var toast: Toast? = nil
     @State private var email = ""
     @State private var password = ""
+    @State private var isLoading = false
     @ObservedObject private(set) var viewModel: SignInViewModel
     var dismiss: () -> Void
     
     var body: some View {
         GeometryReader { geometry in
-            List {
-                HStack {
-                    Spacer()
-                    makeSignInView(geometry)
-                    Spacer()
+            LoadingView(isShowing: $isLoading) {
+                List {
+                    HStack {
+                        Spacer()
+                        makeSignInView(geometry)
+                        Spacer()
+                    }
+                    .listRowSeparator(.hidden)
                 }
-                .listRowSeparator(.hidden)
+                .listStyle(PlainListStyle())
+                .onAppear() {
+                    UIScrollView.appearance().bounces = false
+                }
+                .toastView(toast: $toast)
             }
-            .listStyle(PlainListStyle())
-            .onAppear() {
-                UIScrollView.appearance().bounces = false
-            }
-            .toastView(toast: $toast)
+        }
+        .onReceive(viewModel.$isLoading) { state in
+            isLoading = state
         }
         .onReceive(viewModel.$authData) { data in
             guard data != nil else { return }
@@ -72,7 +78,7 @@ struct SignInView: View {
                     viewModel.signIn(email: email, password: password)
                 }
                 
-                QuickSignInView($toast ,width: width, onSuccess: { _ in
+                QuickSignInView($toast, width: width, onSuccess: { _ in
                     dismiss()
                 })
                 
@@ -204,4 +210,47 @@ struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
         SignInView(viewModel: SignInViewModel()) {}
     }
+}
+
+struct ActivityIndicator: UIViewRepresentable {
+
+    @Binding var isAnimating: Bool
+    let style: UIActivityIndicatorView.Style
+
+    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
+        return UIActivityIndicatorView(style: style)
+    }
+
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
+        isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
+    }
+}
+
+struct LoadingView<Content>: View where Content: View {
+
+    @Binding var isShowing: Bool
+    var content: () -> Content
+
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .center) {
+
+                self.content()
+                    .disabled(self.isShowing)
+                    .blur(radius: self.isShowing ? 1 : 0)
+
+                VStack {
+                    ActivityIndicator(isAnimating: .constant(true), style: .large)
+                }
+                .frame(width: geometry.size.width / 5,
+                       height: geometry.size.width / 5)
+                .background(Color.secondary.colorInvert())
+                .foregroundColor(Color.primary)
+                .cornerRadius(20)
+                .opacity(self.isShowing ? 1 : 0)
+
+            }
+        }
+    }
+
 }
