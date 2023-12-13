@@ -11,15 +11,17 @@ import Combine
 public final class SignInViewModel: ObservableObject {
 
     private let authServices: AuthServices
+    @Published public var email: String = ""
+    @Published public var password: String = ""
+    @Published public var isLoading: Bool = false
     @Published public var authError: AuthError?
     @Published public var authData: AuthData?
-    @Published public var isLoading: Bool = false
     
     public init(authServices: AuthServices = FirebaseAuthManager()) {
         self.authServices = authServices
     }
     
-    public func signIn(email: String, password: String) {
+    public func signIn() {
         isLoading = true
         authServices.signIn(email: email, password: password) { [weak self] result in
             self?.isLoading = false

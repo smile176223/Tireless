@@ -10,15 +10,12 @@ import SwiftUI
 struct SignInView: View {
     
     @State private var toast: Toast? = nil
-    @State private var email = ""
-    @State private var password = ""
-    @State private var isLoading = false
     @ObservedObject private(set) var viewModel: SignInViewModel
     var dismiss: () -> Void
     
     var body: some View {
         GeometryReader { geometry in
-            LoadingView(isShowing: $isLoading) {
+            LoadingView(isShowing: $viewModel.isLoading) {
                 List {
                     HStack {
                         Spacer()
@@ -33,9 +30,6 @@ struct SignInView: View {
                 }
                 .toastView(toast: $toast)
             }
-        }
-        .onReceive(viewModel.$isLoading) { state in
-            isLoading = state
         }
         .onReceive(viewModel.$authData) { data in
             guard data != nil else { return }
@@ -71,11 +65,11 @@ struct SignInView: View {
                     .padding(.leading, 5)
                     .padding(.bottom, 10)
                 
-                ThemeTextField($email, width: width, placeholder: "Email")
-                ThemeTextField($password, width: width, placeholder: "Password", isSecure: true)
+                ThemeTextField($viewModel.email, width: width, placeholder: "Email")
+                ThemeTextField($viewModel.password, width: width, placeholder: "Password", isSecure: true)
                 
                 ThemeButton(width: width, name: "Sign in") {
-                    viewModel.signIn(email: email, password: password)
+                    viewModel.signIn()
                 }
                 
                 QuickSignInView($toast, width: width, onSuccess: { _ in
