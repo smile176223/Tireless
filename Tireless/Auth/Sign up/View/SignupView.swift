@@ -10,10 +10,6 @@ import SwiftUI
 struct SignupView: View {
     
     @State private var toast: Toast? = nil
-    @State private var name = ""
-    @State private var email = ""
-    @State private var password = ""
-    @State private var confirmPassword = ""
     @ObservedObject private(set) var viewModel: SignupViewModel
     @ObservedObject private var quickViewModel = QuickSignInViewModel(
         appleServices: AppleSignInControllerAuthAdapter(
@@ -37,16 +33,27 @@ struct SignupView: View {
             }
         }
         .toastView(toast: $toast)
-        .onReceive(viewModel.$authData) { data in
-            guard data != nil else { return }
-            
-            onSuccess()
-        }
-        .onReceive(viewModel.$authError) { error in
-            guard let error = error else { return }
-            
-            Toast.showError(&toast, error: error)
-        }
+        .onReceive(viewModel.$authData, perform: mapAuthData)
+        .onReceive(viewModel.$authError, perform: mapAuthError)
+        .onReceive(quickViewModel.$authData, perform: mapAuthData)
+        .onReceive(quickViewModel.$authError, perform: mapAuthError)
+        .onReceive(quickViewModel.$isLoading, perform: mapLoading)
+    }
+    
+    private func mapAuthData(_ data: AuthData?) {
+        guard data != nil else { return }
+        
+        onSuccess()
+    }
+    
+    private func mapAuthError(_ error: AuthError?) {
+        guard let error = error else { return }
+        
+        Toast.showError(&toast, error: error)
+    }
+    
+    private func mapLoading(_ isLoading: Bool) {
+        viewModel.isLoading = isLoading
     }
     
     @ViewBuilder
@@ -70,13 +77,13 @@ struct SignupView: View {
                     .padding(.leading, 5)
                     .padding(.bottom, 10)
                 
-                ThemeTextField($name, width: width, placeholder: "Name")
-                ThemeTextField($email, width: width, placeholder: "Email")
-                ThemeTextField($password, width: width, placeholder: "Password", isSecure: true)
-                ThemeTextField($confirmPassword, width: width, placeholder: "Confirm Password", isSecure: true)
+                ThemeTextField($viewModel.name, width: width, placeholder: "Name")
+                ThemeTextField($viewModel.email, width: width, placeholder: "Email")
+                ThemeTextField($viewModel.password, width: width, placeholder: "Password", isSecure: true)
+                ThemeTextField($viewModel.confirmPassword, width: width, placeholder: "Confirm Password", isSecure: true)
                 
                 ThemeButton(width: width, name: "Sign up") {
-                    viewModel.signUp(name: name, email: email, password: password, confirmPassword: confirmPassword)
+                    viewModel.signUp()
                 }
                 
                 QuickSignInView($toast, width: width, viewModel: quickViewModel)

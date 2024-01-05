@@ -15,7 +15,7 @@ struct SignInView: View {
         appleServices: AppleSignInControllerAuthAdapter(
             controller: AppleSignInController()))
         
-    var dismiss: () -> Void
+    var onSuccess: () -> Void
     
     var body: some View {
         GeometryReader { geometry in
@@ -46,7 +46,7 @@ struct SignInView: View {
     private func mapAuthData(_ data: AuthData?) {
         guard data != nil else { return }
         
-        dismiss()
+        onSuccess()
     }
     
     private func mapAuthError(_ error: AuthError?) {
@@ -106,7 +106,7 @@ struct SignInView: View {
                     .font(.system(.body))
                     .foregroundColor(.gray)
                 
-                NavigationLink(destination: SignupView(viewModel: SignupViewModel(), onSuccess: dismiss)) {
+                NavigationLink(destination: SignupView(viewModel: SignupViewModel(), onSuccess: onSuccess)) {
                     Text("Sign up")
                         .font(.system(.body))
                         .bold()
