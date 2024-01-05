@@ -19,20 +19,22 @@ struct SignupView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            List {
-                HStack {
-                    Spacer()
-                    makeSignupView(geometry)
-                    Spacer()
+            LoadingView(isShowing: $viewModel.isLoading) {
+                List {
+                    HStack {
+                        Spacer()
+                        makeSignupView(geometry)
+                        Spacer()
+                    }
+                    .listRowSeparator(.hidden)
                 }
-                .listRowSeparator(.hidden)
+                .listStyle(PlainListStyle())
+                .onAppear() {
+                    UIScrollView.appearance().bounces = false
+                }
             }
-            .listStyle(PlainListStyle())
-            .onAppear() {
-                UIScrollView.appearance().bounces = false
-            }
+            .toastView(toast: $toast)
         }
-        .toastView(toast: $toast)
         .onReceive(viewModel.$authData, perform: mapAuthData)
         .onReceive(viewModel.$authError, perform: mapAuthError)
         .onReceive(quickViewModel.$authData, perform: mapAuthData)
