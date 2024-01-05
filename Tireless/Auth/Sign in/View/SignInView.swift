@@ -219,20 +219,6 @@ struct SignInView_Previews: PreviewProvider {
     }
 }
 
-struct ActivityIndicator: UIViewRepresentable {
-
-    @Binding var isAnimating: Bool
-    let style: UIActivityIndicatorView.Style
-
-    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
-        return UIActivityIndicatorView(style: style)
-    }
-
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
-        isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
-    }
-}
-
 struct LoadingView<Content>: View where Content: View {
 
     @Binding var isShowing: Bool
@@ -240,6 +226,7 @@ struct LoadingView<Content>: View where Content: View {
 
     var body: some View {
         GeometryReader { geometry in
+            let size = geometry.size.width / 5
             ZStack(alignment: .center) {
 
                 self.content()
@@ -247,16 +234,82 @@ struct LoadingView<Content>: View where Content: View {
                     .blur(radius: self.isShowing ? 1 : 0)
 
                 VStack {
-                    ActivityIndicator(isAnimating: .constant(true), style: .large)
+                    ActivityIndicatorView(isVisible: $isShowing)
+                        .frame(width: size, height: size)
+                        .foregroundColor(.gray)
+                    
                 }
-                .frame(width: geometry.size.width / 5,
-                       height: geometry.size.width / 5)
-                .background(Color.secondary.colorInvert())
-                .foregroundColor(Color.primary)
-                .cornerRadius(20)
                 .opacity(self.isShowing ? 1 : 0)
 
             }
+        }
+    }
+}
+
+struct RotatingDotsIndicatorView: View {
+
+    let count: Int
+
+    var body: some View {
+        GeometryReader { geometry in
+            ForEach(0..<count, id: \.self) { index in
+                RotatingDotsIndicatorItemView(index: index, size: geometry.size)
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+        }
+    }
+}
+
+struct RotatingDotsIndicatorItemView: View {
+
+    let index: Int
+    let size: CGSize
+
+    @State private var scale: CGFloat = 0
+    @State private var rotation: Double = 0
+
+    var body: some View {
+        let animation = Animation
+            .timingCurve(0.5, 0.15 + Double(index) / 5, 0.25, 1, duration: 1.5)
+            .repeatForever(autoreverses: false)
+
+        return Circle()
+            .frame(width: size.width / 5, height: size.height / 5)
+            .scaleEffect(scale)
+            .offset(y: size.width / 10 - size.height / 2)
+            .rotationEffect(.degrees(rotation))
+            .onAppear {
+                rotation = 0
+                scale = (5 - CGFloat(index)) / 5
+                withAnimation(animation) {
+                    rotation = 360
+                    scale = (1 + CGFloat(index)) / 5
+                }
+            }
+    }
+}
+
+public struct ActivityIndicatorView: View {
+
+    @Binding var isVisible: Bool
+
+    public init(isVisible: Binding<Bool>) {
+        _isVisible = isVisible
+    }
+
+    public var body: some View {
+        if isVisible {
+            indicator
+        } else {
+            EmptyView()
+        }
+    }
+    
+    // MARK: - Private
+    
+    private var indicator: some View {
+        ZStack {
+            RotatingDotsIndicatorView(count: 5)
         }
     }
 }
