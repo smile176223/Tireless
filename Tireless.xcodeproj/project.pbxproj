@@ -31,6 +31,7 @@
 		0C7474122B47CFB00040BC5B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7474112B47CFB00040BC5B /* LoadingView.swift */; };
 		0C7474142B47CFE10040BC5B /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7474132B47CFE10040BC5B /* ActivityIndicatorView.swift */; };
 		0C7474162B47D00D0040BC5B /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7474152B47D00D0040BC5B /* IndicatorView.swift */; };
+		0C7474182B47D09E0040BC5B /* PolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7474172B47D09E0040BC5B /* PolicyView.swift */; };
 		0C7B7F8E2B102E6A00C52CC0 /* AuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7B7F8D2B102E6A00C52CC0 /* AuthServices.swift */; };
 		0C7B7F932B1043F300C52CC0 /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7B7F922B1043F300C52CC0 /* XCTestCase+Helpers.swift */; };
 		0CADFB852B0C493D005E7611 /* AppleSignInControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */; };
@@ -243,6 +244,7 @@
 		0C7474112B47CFB00040BC5B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		0C7474132B47CFE10040BC5B /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		0C7474152B47D00D0040BC5B /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
+		0C7474172B47D09E0040BC5B /* PolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyView.swift; sourceTree = "<group>"; };
 		0C7B7F8D2B102E6A00C52CC0 /* AuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServices.swift; sourceTree = "<group>"; };
 		0C7B7F922B1043F300C52CC0 /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
 		0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInControllerTests.swift; sourceTree = "<group>"; };
@@ -529,6 +531,7 @@
 				0CD81BF92B06003000CA350E /* WebView.swift */,
 				0CD81BFB2B07604C00CA350E /* ThemeTextField.swift */,
 				0CD81BFF2B07674000CA350E /* ThemeButton.swift */,
+				0C7474172B47D09E0040BC5B /* PolicyView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1533,6 +1536,7 @@
 				FF5E89D62823AB9600214A5D /* FinishTimeViewModel.swift in Sources */,
 				FF1444AF280183920027F560 /* SquatManager.swift in Sources */,
 				FF5E89C02822290C00214A5D /* Orientation+Extension.swift in Sources */,
+				0C7474182B47D09E0040BC5B /* PolicyView.swift in Sources */,
 				FF5E89C228227D5A00214A5D /* BlockListViewController.swift in Sources */,
 				FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */,
 				FF2D8DD92828FDC30093DA78 /* WebkitViewController.swift in Sources */,
