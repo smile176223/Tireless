@@ -15,6 +15,10 @@ struct SignupView: View {
     @State private var password = ""
     @State private var confirmPassword = ""
     @ObservedObject private(set) var viewModel: SignupViewModel
+    @ObservedObject private var quickViewModel = QuickSignInViewModel(
+        appleServices: AppleSignInControllerAuthAdapter(
+            controller: AppleSignInController()))
+    
     var onSuccess: () -> Void
     
     var body: some View {
@@ -75,7 +79,7 @@ struct SignupView: View {
                     viewModel.signUp(name: name, email: email, password: password, confirmPassword: confirmPassword)
                 }
                 
-                QuickSignInView($toast, width: width)
+                QuickSignInView($toast, width: width, viewModel: quickViewModel)
             }
             .padding(.bottom, 20)
         }

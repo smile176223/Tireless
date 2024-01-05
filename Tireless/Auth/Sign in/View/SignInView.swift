@@ -11,6 +11,10 @@ struct SignInView: View {
     
     @State private var toast: Toast? = nil
     @ObservedObject private(set) var viewModel: SignInViewModel
+    @ObservedObject private var quickViewModel = QuickSignInViewModel(
+        appleServices: AppleSignInControllerAuthAdapter(
+            controller: AppleSignInController()))
+        
     var dismiss: () -> Void
     
     var body: some View {
@@ -31,17 +35,28 @@ struct SignInView: View {
                 .toastView(toast: $toast)
             }
         }
-        .onReceive(viewModel.$authData) { data in
-            guard data != nil else { return }
-            
-            dismiss()
-        }
-        .onReceive(viewModel.$authError) { error in
-            guard let error = error else { return }
-            
-            toast = Toast.showAuthError(error: error)
-        }
+        .onReceive(viewModel.$authData, perform: mapAuthData)
+        .onReceive(viewModel.$authError, perform: mapAuthError)
+        .onReceive(quickViewModel.$authData, perform: mapAuthData)
+        .onReceive(quickViewModel.$authError, perform: mapAuthError)
+        .onReceive(quickViewModel.$isLoading, perform: mapLoading)
         .hideKeyboardOnTap()
+    }
+    
+    private func mapAuthData(_ data: AuthData?) {
+        guard data != nil else { return }
+        
+        dismiss()
+    }
+    
+    private func mapAuthError(_ error: AuthError?) {
+        guard let error = error else { return }
+        
+        toast = Toast.showAuthError(error: error)
+    }
+    
+    private func mapLoading(_ isLoading: Bool) {
+        viewModel.isLoading = isLoading
     }
     
     @ViewBuilder
@@ -72,9 +87,7 @@ struct SignInView: View {
                     viewModel.signIn()
                 }
                 
-                QuickSignInView($toast, width: width, onSuccess: { _ in
-                    dismiss()
-                })
+                QuickSignInView($toast, width: width, viewModel: quickViewModel)
                 
                 PolicyView()
                 
@@ -246,5 +259,4 @@ struct LoadingView<Content>: View where Content: View {
             }
         }
     }
-
 }

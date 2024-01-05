@@ -12,21 +12,13 @@ struct QuickSignInView: View {
     @Binding var toast: Toast?
     @ObservedObject private(set) var viewModel: QuickSignInViewModel
     private let width: CGFloat
-    private let onSuccess: ((AuthData) -> Void)?
-    private let onFailure: ((AuthError) -> Void)?
     
     init(_ toast: Binding<Toast?>,
          width: CGFloat,
-         viewModel: QuickSignInViewModel = QuickSignInViewModel(
-            appleServices: AppleSignInControllerAuthAdapter(
-                controller: AppleSignInController())),
-         onSuccess: ((AuthData) -> Void)? = nil,
-         onFailure: ((AuthError) -> Void)? = nil) {
+         viewModel: QuickSignInViewModel) {
         self._toast = toast
         self.width = width
         self.viewModel = viewModel
-        self.onSuccess = onSuccess
-        self.onFailure = onFailure
     }
     
     var body: some View {
@@ -55,14 +47,6 @@ struct QuickSignInView: View {
             }
             .padding(.bottom, 30)
         }
-        .onReceive(viewModel.$isLoading) { state in
-            
-        }
-        .onReceive(viewModel.$authData) { data in
-            guard let data = data else { return }
-            
-            onSuccess?(data)
-        }
         .onReceive(viewModel.$authError) { error in
             guard let error = error else { return }
             
@@ -77,6 +61,9 @@ struct QuickLoginView_Previews: PreviewProvider {
             get: { return Toast(style: .success, message: "success") },
             set: { _ in }
         )
-        QuickSignInView(toastBinding, width: 300)
+        let quickViewModel = QuickSignInViewModel(
+            appleServices: AppleSignInControllerAuthAdapter(
+                controller: AppleSignInController()))
+        QuickSignInView(toastBinding, width: 300, viewModel: quickViewModel)
     }
 }
