@@ -52,8 +52,7 @@ struct SignInView: View {
     private func mapAuthError(_ error: AuthError?) {
         guard let error = error else { return }
         
-        toast = nil
-        toast = Toast.showAuthError(error: error)
+        Toast.showError(&toast, error: error)
     }
     
     private func mapLoading(_ isLoading: Bool) {

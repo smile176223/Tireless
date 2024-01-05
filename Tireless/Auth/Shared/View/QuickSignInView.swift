@@ -50,7 +50,7 @@ struct QuickSignInView: View {
         .onReceive(viewModel.$authError) { error in
             guard let error = error else { return }
             
-            toast = Toast.showAuthError(error: error)
+            Toast.showError(&toast, error: error)
         }
     }
 }

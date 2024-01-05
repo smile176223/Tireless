@@ -15,7 +15,12 @@ struct Toast: Equatable {
 }
 
 extension Toast {
-    static func showAuthError(error: AuthError) -> Toast {
+    static func showError(_ toast: inout Toast?, error: AuthError) {
+        toast = nil
+        toast = showAuthError(error: error)
+    }
+    
+    private static func showAuthError(error: AuthError) -> Toast {
         switch error {
         case let .appleError(error):
             return Toast(style: .error, message: "Apple Error\n\(error)")
