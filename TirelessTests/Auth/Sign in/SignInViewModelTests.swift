@@ -17,7 +17,9 @@ final class SignInViewModelTests: XCTestCase {
         let password = "any password"
         let error: AuthError = .customError("any error")
         
-        sut.signIn(email: email, password: password)
+        sut.email = email
+        sut.password = password
+        sut.signIn()
         spy.completeSignIn(with: error)
         
         XCTAssertEqual(spy.messages, [.signIn(email: email, password: password)])
@@ -33,7 +35,9 @@ final class SignInViewModelTests: XCTestCase {
         let name = "any name"
         let data = AuthData(email: email, userId: password, name: name)
         
-        sut.signIn(email: email, password: password)
+        sut.email = email
+        sut.password = password
+        sut.signIn()
         spy.completeSignInSuccessfully(with: data)
         
         XCTAssertEqual(spy.messages, [.signIn(email: email, password: password)])
@@ -55,13 +59,11 @@ final class SignInViewModelTests: XCTestCase {
         case let (.customError(receivedMessage), .customError(expectedMessage)):
             XCTAssertEqual(receivedMessage, expectedMessage, file: file, line: line)
             
-        case let (.appleError(receivedError as NSError), .appleError(expectedError as NSError)):
-            XCTAssertEqual(receivedError.code, expectedError.code, file: file, line: line)
-            XCTAssertEqual(receivedError.domain, expectedError.domain, file: file, line: line)
+        case let (.appleError(receivedError), .appleError(expectedError)):
+            XCTAssertEqual(receivedError, expectedError, file: file, line: line)
             
-        case let (.firebaseError(receivedError as NSError), .firebaseError(expectedError as NSError)):
-            XCTAssertEqual(receivedError.code, expectedError.code, file: file, line: line)
-            XCTAssertEqual(receivedError.domain, expectedError.domain, file: file, line: line)
+        case let (.firebaseError(receivedError), .firebaseError(expectedError)):
+            XCTAssertEqual(receivedError, expectedError, file: file, line: line)
             
         default:
             XCTFail("Expected to get \(expectedAuthError), but got \(receivedAuthError) instead.")
