@@ -32,6 +32,7 @@
 		0C7474142B47CFE10040BC5B /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7474132B47CFE10040BC5B /* ActivityIndicatorView.swift */; };
 		0C7474162B47D00D0040BC5B /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7474152B47D00D0040BC5B /* IndicatorView.swift */; };
 		0C7474182B47D09E0040BC5B /* PolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7474172B47D09E0040BC5B /* PolicyView.swift */; };
+		0C74741A2B47D0D50040BC5B /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7474192B47D0D50040BC5B /* IconButton.swift */; };
 		0C7B7F8E2B102E6A00C52CC0 /* AuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7B7F8D2B102E6A00C52CC0 /* AuthServices.swift */; };
 		0C7B7F932B1043F300C52CC0 /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7B7F922B1043F300C52CC0 /* XCTestCase+Helpers.swift */; };
 		0CADFB852B0C493D005E7611 /* AppleSignInControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */; };
@@ -245,6 +246,7 @@
 		0C7474132B47CFE10040BC5B /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		0C7474152B47D00D0040BC5B /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		0C7474172B47D09E0040BC5B /* PolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyView.swift; sourceTree = "<group>"; };
+		0C7474192B47D0D50040BC5B /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		0C7B7F8D2B102E6A00C52CC0 /* AuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServices.swift; sourceTree = "<group>"; };
 		0C7B7F922B1043F300C52CC0 /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
 		0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInControllerTests.swift; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 				0CD81BFB2B07604C00CA350E /* ThemeTextField.swift */,
 				0CD81BFF2B07674000CA350E /* ThemeButton.swift */,
 				0C7474172B47D09E0040BC5B /* PolicyView.swift */,
+				0C7474192B47D0D50040BC5B /* IconButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1565,6 +1568,7 @@
 				FF2FE0F4280F9A5E00F8890D /* HomeDailyHeaderView.swift in Sources */,
 				0C2DF92A2B0CADC70029AA36 /* AuthController.swift in Sources */,
 				FF3FBE8E2814F8ED00E6B5DC /* FriendListViewCell.swift in Sources */,
+				0C74741A2B47D0D50040BC5B /* IconButton.swift in Sources */,
 				FF14449428009C010027F560 /* Box.swift in Sources */,
 				FF3F77F2281A7AB900D8360A /* FriendManager.swift in Sources */,
 				FF3FBEB52816F52C00E6B5DC /* JoinGroup.swift in Sources */,
