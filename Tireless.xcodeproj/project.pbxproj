@@ -33,6 +33,8 @@
 		0C7474162B47D00D0040BC5B /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7474152B47D00D0040BC5B /* IndicatorView.swift */; };
 		0C7474182B47D09E0040BC5B /* PolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7474172B47D09E0040BC5B /* PolicyView.swift */; };
 		0C74741A2B47D0D50040BC5B /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7474192B47D0D50040BC5B /* IconButton.swift */; };
+		0C74741D2B4B92E60040BC5B /* KeychainManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C74741C2B4B92E60040BC5B /* KeychainManagerTests.swift */; };
+		0C74741F2B4B9D6B0040BC5B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C74741E2B4B9D6B0040BC5B /* KeychainManager.swift */; };
 		0C7B7F8E2B102E6A00C52CC0 /* AuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7B7F8D2B102E6A00C52CC0 /* AuthServices.swift */; };
 		0C7B7F932B1043F300C52CC0 /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7B7F922B1043F300C52CC0 /* XCTestCase+Helpers.swift */; };
 		0CADFB852B0C493D005E7611 /* AppleSignInControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */; };
@@ -247,6 +249,8 @@
 		0C7474152B47D00D0040BC5B /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		0C7474172B47D09E0040BC5B /* PolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyView.swift; sourceTree = "<group>"; };
 		0C7474192B47D0D50040BC5B /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
+		0C74741C2B4B92E60040BC5B /* KeychainManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManagerTests.swift; sourceTree = "<group>"; };
+		0C74741E2B4B9D6B0040BC5B /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		0C7B7F8D2B102E6A00C52CC0 /* AuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServices.swift; sourceTree = "<group>"; };
 		0C7B7F922B1043F300C52CC0 /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
 		0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInControllerTests.swift; sourceTree = "<group>"; };
@@ -606,6 +610,14 @@
 			path = "Loading View";
 			sourceTree = "<group>";
 		};
+		0C74741B2B4B92CC0040BC5B /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				0C74741C2B4B92E60040BC5B /* KeychainManagerTests.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
 		0C7B7F8C2B102E5300C52CC0 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
@@ -785,6 +797,7 @@
 		FF0234FC2836678E001647B9 /* TirelessTests */ = {
 			isa = PBXGroup;
 			children = (
+				0C74741B2B4B92CC0040BC5B /* Keychain */,
 				0C2DF9352B0D986A0029AA36 /* Shared */,
 				0C2DF9302B0CAFCB0029AA36 /* Helpers */,
 				FF7449522B0FA48D005D65BD /* Auth */,
@@ -1066,6 +1079,7 @@
 				0C7474102B47CF8F0040BC5B /* Loading View */,
 				FF74494F2B0E4F37005D65BD /* ToastView.swift */,
 				0C5DB24A2B0F4AFF00439826 /* View+Extension.swift */,
+				0C74741E2B4B9D6B0040BC5B /* KeychainManager.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1457,6 +1471,7 @@
 				0C2DF9322B0CAFE10029AA36 /* Publisher+TestHelpers.swift in Sources */,
 				0C2DF9372B0D987F0029AA36 /* FirebaseAuthManagerSpy.swift in Sources */,
 				FF9CB8192B0FA618009EB8AA /* SignInViewModelTests.swift in Sources */,
+				0C74741D2B4B92E60040BC5B /* KeychainManagerTests.swift in Sources */,
 				0C4D9ECE2B181FC500A6AA21 /* XCTestCase+MemoryLeadTracking.swift in Sources */,
 				0CADFB852B0C493D005E7611 /* AppleSignInControllerTests.swift in Sources */,
 				0C3657BD2B10831B004E8E13 /* NonceProviderTests.swift in Sources */,
@@ -1601,6 +1616,7 @@
 				FF308E8F28095B6200265863 /* ShareFilesViewModel.swift in Sources */,
 				FF3FBEA1281546F700E6B5DC /* JoinGroupManager.swift in Sources */,
 				FF0234E92835C4D7001647B9 /* DetectFinishViewModel.swift in Sources */,
+				0C74741F2B4B9D6B0040BC5B /* KeychainManager.swift in Sources */,
 				FF3F7819281E769A00D8360A /* DefaultPlansViewModel.swift in Sources */,
 				FF3FBEA92815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift in Sources */,
 				FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */,
