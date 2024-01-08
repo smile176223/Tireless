@@ -9,8 +9,14 @@ import XCTest
 import Tireless
 
 final class SignInViewModelTests: XCTestCase {
+    
+    override func tearDown() {
+        super.tearDown()
+        
+        undoSideEffect()
+    }
 
-    func test_singInWithFirebase_getErrorMessage() {
+    func test_singInWithFirebase_getErrorMessage() throws {
         let spy = FirebaseAuthManagerSpy()
         let sut = SignInViewModel(authServices: spy)
         let email = "any email"
@@ -25,9 +31,10 @@ final class SignInViewModelTests: XCTestCase {
         XCTAssertEqual(spy.messages, [.signIn(email: email, password: password)])
         XCTAssertNil(sut.authData)
         expect(sut.authError, with: error)
+        try expectKeychain(.authData, data: nil)
     }
     
-    func test_signInWithFirebase_successfullyGetAuthData() {
+    func test_signInWithFirebase_successfullyGetAuthData() throws {
         let spy = FirebaseAuthManagerSpy()
         let sut = SignInViewModel(authServices: spy)
         let email = "any email"
@@ -43,6 +50,7 @@ final class SignInViewModelTests: XCTestCase {
         XCTAssertEqual(spy.messages, [.signIn(email: email, password: password)])
         XCTAssertNil(sut.authError)
         XCTAssertEqual(sut.authData, data)
+        try expectKeychain(.authData, data: data)
     }
     
     // MARK: - Helpers
@@ -70,5 +78,13 @@ final class SignInViewModelTests: XCTestCase {
             
         }
     }
-
+    
+    private func expectKeychain(_ key: KeychainManager.Key, data: AuthData?, file: StaticString = #filePath, line: UInt = #line) throws {
+        let data: AuthData? = try KeychainManager.retrieve(key)
+        XCTAssertEqual(data, data, file: file, line: line)
+    }
+    
+    private func undoSideEffect() {
+        try? KeychainManager.delete(.authData)
+    }
 }

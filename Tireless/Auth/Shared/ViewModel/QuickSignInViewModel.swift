@@ -38,6 +38,7 @@ public final class QuickSignInViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] data in
                 self?.isLoading = false
+                try? KeychainManager.save(.authData, with: data)
                 self?.authData = data
             }
             .store(in: &cancellables)

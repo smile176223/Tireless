@@ -28,6 +28,7 @@ public final class SignInViewModel: ObservableObject {
             
             switch result {
             case let .success(data):
+                try? KeychainManager.save(.authData, with: data)
                 self?.authData = data
 
             case let .failure(error):
@@ -36,4 +37,3 @@ public final class SignInViewModel: ObservableObject {
         }
     }
 }
-
