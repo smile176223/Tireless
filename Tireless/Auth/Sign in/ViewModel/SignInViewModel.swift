@@ -17,6 +17,7 @@ public final class SignInViewModel: ObservableObject {
     @Published public var isLoading: Bool = false
     @Published public var authError: AuthError?
     @Published public var authData: AuthData?
+    private var cancellables = Set<AnyCancellable>()
     
     public init(authServices: AuthServices = FirebaseAuthManager(), firestore: HTTPClient = FirestoreHTTPClient()) {
         self.authServices = authServices
@@ -25,17 +26,22 @@ public final class SignInViewModel: ObservableObject {
     
     public func signIn() {
         isLoading = true
-        authServices.signIn(email: email, password: password) { [weak self] result in
-            self?.isLoading = false
-            
-            switch result {
-            case let .success(data):
+        authServices.signInPublisher(email: email, password: password)
+            .flatMap(fetchUser)
+            .sink { [weak self] completion in
+                switch completion {
+                case let .failure(error):
+                    self?.isLoading = false
+                    self?.authError = error
+                    
+                case .finished:
+                    break
+                }
+            } receiveValue: { [weak self] data in
+                self?.isLoading = false
                 self?.authData = data
-
-            case let .failure(error):
-                self?.authError = error
             }
-        }
+            .store(in: &cancellables)
     }
     
     private func fetchUser(_ data: AuthData) -> AnyPublisher<AuthData, AuthError> {

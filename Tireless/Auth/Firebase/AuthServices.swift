@@ -46,4 +46,9 @@ public protocol AuthServices {
     func signIn(email: String, password: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
     func signUp(email: String, password: String, name: String, completion: @escaping (Result<AuthData, AuthError>) -> Void)
     func signOut(completion: @escaping (Result<Void, AuthError>) -> Void)
+    
+    func signInPublisher(from source: AuthSource, idToken: String, nonce: String) -> AnyPublisher<AuthData, AuthError>
+    func signInPublisher(email: String, password: String) -> AnyPublisher<AuthData, AuthError>
+    func signUpPublisher(email: String, password: String, name: String) -> AnyPublisher<AuthData, AuthError>
+    func signOutPublisher() -> AnyPublisher<Void, AuthError>
 }

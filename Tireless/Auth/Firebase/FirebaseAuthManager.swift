@@ -5,6 +5,7 @@
 //  Created by Liam on 2023/11/24.
 //
 
+import Combine
 import Foundation
 import FirebaseAuth
 
@@ -36,6 +37,44 @@ public final class FirebaseAuthManager: AuthServices {
         } catch {
             completion(.failure(.firebaseError("Sign out error")))
         }
+    }
+}
+
+extension FirebaseAuthManager {
+    public func signInPublisher(from source: AuthSource, idToken: String, nonce: String) -> AnyPublisher<AuthData, AuthError> {
+        return Deferred {
+            Future { completion in
+                self.signIn(from: source, idToken: idToken, nonce: nonce, completion: completion)
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    public func signInPublisher(email: String, password: String) -> AnyPublisher<AuthData, AuthError> {
+        return Deferred {
+            Future { completion in
+                self.signIn(email: email, password: password, completion: completion)
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    public func signUpPublisher(email: String, password: String, name: String) -> AnyPublisher<AuthData, AuthError> {
+        return Deferred {
+            Future { completion in
+                self.signUp(email: email, password: password, name: name, completion: completion)
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    public func signOutPublisher() -> AnyPublisher<Void, AuthError> {
+        return Deferred {
+            Future { completion in
+                self.signOut(completion: completion)
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }
 
