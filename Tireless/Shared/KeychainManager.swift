@@ -23,11 +23,11 @@ public struct KeychainManager {
     }
     
     public enum Key {
-        case authData
+        case userItem
         
         var string: String {
             switch self {
-            case .authData: "authData"
+            case .userItem: "userItem"
             }
         }
     }

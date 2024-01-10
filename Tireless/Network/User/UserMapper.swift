@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct UserItem: Hashable {
+public struct UserItem: Hashable, Codable {
     public let id: String
     public let email: String
     public let name: String
@@ -23,13 +23,13 @@ public struct UserItem: Hashable {
 
 public final class UserMapper {
     private struct RemoteUser: Decodable {
-        let id: String
+        let userId: String
         let email: String
         let name: String
         let picture: String?
         
         var item: UserItem {
-            UserItem(id: id, email: email, name: name, picture: picture)
+            UserItem(id: userId, email: email, name: name, picture: picture)
         }
     }
     

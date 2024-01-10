@@ -36,7 +36,6 @@ public final class SignupViewModel: ObservableObject {
             switch result {
             case let .success(data):
                 self?.authData = data
-                try? KeychainManager.save(.authData, with: data)
 
             case let .failure(error):
                 self?.authError = error

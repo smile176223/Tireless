@@ -26,7 +26,7 @@ public final class QuickSignInViewModel: ObservableObject {
             .mapAction { [weak self] in
                 self?.isLoading = true
             }
-            .flatMap(checkUserExist)
+            .flatMap(fetchUser)
             .sink { [weak self] completion in
                 switch completion {
                 case let .failure(error):
@@ -38,15 +38,16 @@ public final class QuickSignInViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] data in
                 self?.isLoading = false
-                try? KeychainManager.save(.authData, with: data)
                 self?.authData = data
             }
             .store(in: &cancellables)
     }
     
-    private func checkUserExist(_ data: AuthData) -> AnyPublisher<AuthData, AuthError> {
+    private func fetchUser(_ data: AuthData) -> AnyPublisher<AuthData, AuthError> {
         return firestore.getPublisher(from: .user(id: data.userId))
-            .mapToValue(data)
+            .tryMap(UserMapper.map)
+            .map(saveUser)
+            .map { AuthData(email: $0.email, userId: $0.id, name: $0.name) }
             .catch { [weak self] error -> AnyPublisher<AuthData, AuthError> in
                 if let self = self, let error = error as? FirestoreError, case .emptyResult = error {
                     return self.createUser(data)
@@ -54,7 +55,6 @@ public final class QuickSignInViewModel: ObservableObject {
                     return Fail<AuthData, AuthError>(error: .unknown).eraseToAnyPublisher()
                 }
             }
-            .mapToValue(data)
             .eraseToAnyPublisher()
     }
     
@@ -64,7 +64,15 @@ public final class QuickSignInViewModel: ObservableObject {
                 return Fail<Void, AuthError>(error: .customError("create error"))
             }
             .map { _ in data }
+            .map { UserItem(id: $0.userId, email: $0.email ?? "", name: $0.name ?? "", picture: nil) }
+            .map(saveUser)
+            .map { _ in data }
             .eraseToAnyPublisher()
+    }
+    
+    private func saveUser(_ user: UserItem) -> UserItem {
+        try? KeychainManager.save(.userItem, with: user)
+        return user
     }
     
     func getError() {
