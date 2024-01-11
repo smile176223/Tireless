@@ -26,31 +26,33 @@ final class SignInViewModelTests: XCTestCase {
         sut.email = email
         sut.password = password
         sut.signIn()
-        spy.completeSignIn(with: error)
+        spy.completeSignInPublisher(with: error)
         
-        XCTAssertEqual(spy.messages, [.signIn(email: email, password: password)])
+        XCTAssertEqual(spy.messages, [.signInPublisher(email: email, password: password)])
         XCTAssertNil(sut.authData)
         expect(sut.authError, with: error)
-        try expectKeychain(.authData, data: nil)
+        try expectKeychain(.userItem, item: nil)
     }
     
-    func test_signInWithFirebase_successfullyGetAuthData() throws {
+    func test_signInWithFirebase_successfullyFetchUserWithEmptyData() throws {
         let spy = FirebaseAuthManagerSpy()
-        let sut = SignInViewModel(authServices: spy)
+        let httpSpy = HTTPClientSpy()
+        let sut = SignInViewModel(authServices: spy, firestore: httpSpy)
         let email = "any email"
         let password = "any password"
         let name = "any name"
         let data = AuthData(email: email, userId: password, name: name)
+        let userItem = UserItem(id: "any id", email: email, name: name, picture: nil)
         
         sut.email = email
         sut.password = password
         sut.signIn()
-        spy.completeSignInSuccessfully(with: data)
+        spy.completeSignInPublisher(with: data)
+        httpSpy.completeGetSuccessfully(with: Data())
         
-        XCTAssertEqual(spy.messages, [.signIn(email: email, password: password)])
-        XCTAssertNil(sut.authError)
-        XCTAssertEqual(sut.authData, data)
-        try expectKeychain(.authData, data: data)
+        XCTAssertEqual(spy.messages, [.signInPublisher(email: email, password: password)])
+        XCTAssertEqual(sut.authError, .unknown)
+        try expectKeychain(.userItem, item: userItem)
     }
     
     // MARK: - Helpers
@@ -79,12 +81,12 @@ final class SignInViewModelTests: XCTestCase {
         }
     }
     
-    private func expectKeychain(_ key: KeychainManager.Key, data: AuthData?, file: StaticString = #filePath, line: UInt = #line) throws {
-        let data: AuthData? = try KeychainManager.retrieve(key)
+    private func expectKeychain(_ key: KeychainManager.Key, item: UserItem?, file: StaticString = #filePath, line: UInt = #line) throws {
+        let data: UserItem? = try KeychainManager.retrieve(key)
         XCTAssertEqual(data, data, file: file, line: line)
     }
     
     private func undoSideEffect() {
-        try? KeychainManager.delete(.authData)
+        try? KeychainManager.delete(.userItem)
     }
 }

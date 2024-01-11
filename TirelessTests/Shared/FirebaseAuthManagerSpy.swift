@@ -7,13 +7,19 @@
 
 import Foundation
 import Tireless
+import Combine
 
 class FirebaseAuthManagerSpy: AuthServices {
+    
     enum Message: Equatable {
         case signIn(source: AuthSource, idToken: String, nonce: String)
         case signIn(email: String, password: String)
         case signUp(email: String, password: String, name: String)
         case signOut
+        case signInPublisher(source: AuthSource, idToken: String, nonce: String)
+        case signInPublisher(email: String, password: String)
+        case signUpPublisher(email: String, password: String, name: String)
+        case signOutPublisher
     }
     
     private(set) var messages = [Message]()
@@ -21,6 +27,12 @@ class FirebaseAuthManagerSpy: AuthServices {
     private var signInCompletions = [(Result<AuthData, AuthError>) -> Void]()
     private var signUpCompletions = [(Result<AuthData, AuthError>) -> Void]()
     private var signOutCompletions = [(Result<Void, AuthError>) -> Void]()
+    
+    private var signInFromSourceRequests = [PassthroughSubject<AuthData, AuthError>]()
+    private var signInRequests = [PassthroughSubject<AuthData, AuthError>]()
+    private var signUpRequests = [PassthroughSubject<AuthData, AuthError>]()
+    private var signOutRequests = [PassthroughSubject<Void, AuthError>]()
+    
     
     func signIn(from source: AuthSource, idToken: String, nonce: String, completion: @escaping (Result<AuthData, AuthError>) -> Void) {
         messages.append(.signIn(source: source, idToken: idToken, nonce: nonce))
@@ -72,5 +84,71 @@ class FirebaseAuthManagerSpy: AuthServices {
     
     func completeSignOutSuccessfully(at index: Int = 0) {
         signOutCompletions[index](.success(()))
+    }
+}
+
+extension FirebaseAuthManagerSpy {
+    func signInPublisher(from source: AuthSource, idToken: String, nonce: String) -> AnyPublisher<AuthData, AuthError> {
+        messages.append(.signInPublisher(source: source, idToken: idToken, nonce: nonce))
+        let publisher = PassthroughSubject<AuthData, AuthError>()
+        signInFromSourceRequests.append(publisher)
+        return publisher.eraseToAnyPublisher()
+    }
+    
+    func completeSignInFormSourcePublisher(with error: AuthError, at index: Int = 0) {
+        signInFromSourceRequests[index].send(completion: .failure(error))
+    }
+    
+    func completeSignInFormSourcePublisher(with data: AuthData, at index: Int = 0) {
+        signInFromSourceRequests[index].send(data)
+        signInFromSourceRequests[index].send(completion: .finished)
+    }
+    
+    func signInPublisher(email: String, password: String) -> AnyPublisher<AuthData, AuthError> {
+        messages.append(.signInPublisher(email: email, password: password))
+        let publisher = PassthroughSubject<AuthData, AuthError>()
+        signInRequests.append(publisher)
+        return publisher.eraseToAnyPublisher()
+    }
+    
+    func completeSignInPublisher(with error: AuthError, at index: Int = 0) {
+        signInRequests[index].send(completion: .failure(error))
+    }
+    
+    func completeSignInPublisher(with data: AuthData, at index: Int = 0) {
+        signInRequests[index].send(data)
+        signInRequests[index].send(completion: .finished)
+    }
+    
+    func signUpPublisher(email: String, password: String, name: String) -> AnyPublisher<AuthData, AuthError> {
+        messages.append(.signUpPublisher(email: email, password: password, name: name))
+        let publisher = PassthroughSubject<AuthData, AuthError>()
+        signUpRequests.append(publisher)
+        return publisher.eraseToAnyPublisher()
+    }
+    
+    func completeSignUpPublisher(with error: AuthError, at index: Int = 0) {
+        signUpRequests[index].send(completion: .failure(error))
+    }
+    
+    func completeSignUpPublisher(with data: AuthData, at index: Int = 0) {
+        signUpRequests[index].send(data)
+        signUpRequests[index].send(completion: .finished)
+    }
+    
+    func signOutPublisher() -> AnyPublisher<Void, AuthError> {
+        messages.append(.signOutPublisher)
+        let publisher = PassthroughSubject<Void, AuthError>()
+        signOutRequests.append(publisher)
+        return publisher.eraseToAnyPublisher()
+    }
+    
+    func completeSignOutPublisher(with error: AuthError, at index: Int = 0) {
+        signOutRequests[index].send(completion: .failure(error))
+    }
+    
+    func completeSignOutPublisherSuccessfully(at index: Int = 0) {
+        signOutRequests[index].send(Void())
+        signOutRequests[index].send(completion: .finished)
     }
 }

@@ -11,14 +11,14 @@ import Tireless
 class KeychainManagerTests: XCTestCase {
     
     func test_save_keychainSuccessfully() throws {
-        let data = AuthData(email: "any@gmail.com", userId: "any userid", name: "any name")
-        try save(.authData, with: data)
+        let data = UserItem(id: "any id", email: "any email", name: "any name", picture: nil)
+        try save(.userItem, with: data)
         
-        let retrieveData = try retrieve(.authData)
+        let retrieveData = try retrieve(.userItem)
         XCTAssertEqual(retrieveData, data)
         
-        try delete(.authData)
-        let dataAfterDelete = try retrieve(.authData)
+        try delete(.userItem)
+        let dataAfterDelete = try retrieve(.userItem)
         XCTAssertEqual(dataAfterDelete, nil)
     }
     
@@ -28,8 +28,8 @@ class KeychainManagerTests: XCTestCase {
         try KeychainManager.save(key, with: data)
     }
     
-    private func retrieve(_ key: KeychainManager.Key) throws -> AuthData? {
-        let data: AuthData? = try KeychainManager.retrieve(key)
+    private func retrieve(_ key: KeychainManager.Key) throws -> UserItem? {
+        let data: UserItem? = try KeychainManager.retrieve(key)
         return data
     }
     
