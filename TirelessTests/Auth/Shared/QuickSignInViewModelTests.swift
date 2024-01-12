@@ -10,6 +10,12 @@ import Tireless
 
 class QuickSignInViewModelTests: XCTestCase {
     
+    override func tearDown() {
+        super.tearDown()
+        
+        undoSideEffect()
+    }
+    
     func test_signInWithApple_appleFailEmitsFailure() {
         let (sut, authSpy, _) = makeSUT()
         
@@ -79,6 +85,10 @@ class QuickSignInViewModelTests: XCTestCase {
     
     private var anyAuthData: AuthData {
         AuthData(email: anyEmail, userId: anyUserId, name: anyName)
+    }
+    
+    private func undoSideEffect() {
+        try? KeychainManager.delete(.userItem)
     }
 }
 
