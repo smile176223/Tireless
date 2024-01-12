@@ -106,16 +106,7 @@ class AuthManager {
                             failure: @escaping ((String) -> Void)) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
-                if let errorCode = AuthErrorCode(rawValue: error._code) {
-                    switch errorCode {
-                    case .wrongPassword:
-                        failure("密碼錯誤")
-                    case .invalidEmail:
-                        failure("無效的信箱")
-                    default:
-                        failure("登入失敗")
-                    }
-                }
+                failure("error")
             } else {
                 guard let result = result else { return }
                 success(result)
@@ -128,16 +119,7 @@ class AuthManager {
                             failure: @escaping ((String) -> Void)) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
-                if let errorCode = AuthErrorCode(rawValue: error._code) {
-                    switch errorCode {
-                    case .emailAlreadyInUse:
-                        failure("信箱已被使用")
-                    case .invalidEmail:
-                        failure("無效的信箱")
-                    default:
-                        failure("註冊失敗")
-                    }
-                }
+                failure("error")
             } else {
                 guard let result = result else { return }
                 success(result)

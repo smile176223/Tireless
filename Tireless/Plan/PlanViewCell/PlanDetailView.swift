@@ -124,7 +124,7 @@ class PlanDetailView: UIView {
     }
     
     func setLottie(_ name: String) {
-        var lottieAnimate = AnimationView()
+        var lottieAnimate = LottieAnimationView()
         lottieAnimate = .init(name: name)
         lottieAnimate.contentMode = .scaleAspectFit
         lottieAnimate.loopMode = .loop

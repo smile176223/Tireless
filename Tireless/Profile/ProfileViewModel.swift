@@ -109,6 +109,7 @@ class ProfileViewModel {
                 ProgressHUD.showFailure()
             }
         }
+        try? KeychainManager.delete(.userItem)
     }
     
     func deleteAccount(completion: @escaping (Result<String, Error>) -> Void) {
