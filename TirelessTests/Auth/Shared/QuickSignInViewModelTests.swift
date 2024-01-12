@@ -20,10 +20,10 @@ class QuickSignInViewModelTests: XCTestCase {
         let (sut, authSpy, _) = makeSUT()
         
         sut.signInWithApple()
-        authSpy.completeAuthenticate(with: .customError("any error"))
+        authSpy.completeAuthenticate(with: anyAuthError)
         
         XCTAssertEqual(authSpy.authenticateCallCount, 1)
-        XCTAssertEqual(sut.authError, .customError("any error"))
+        XCTAssertEqual(sut.authError, anyAuthError)
         XCTAssertEqual(sut.authData, nil)
     }
     
