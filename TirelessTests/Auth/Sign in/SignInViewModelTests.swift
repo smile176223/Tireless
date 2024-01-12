@@ -15,47 +15,65 @@ final class SignInViewModelTests: XCTestCase {
         
         undoSideEffect()
     }
-
-    func test_singInWithFirebase_getErrorMessage() throws {
-        let spy = FirebaseAuthManagerSpy()
-        let sut = SignInViewModel(authServices: spy)
-        let email = "any email"
-        let password = "any password"
-        let error: AuthError = .customError("any error")
+    
+    func test_singInWithFirebase_signInFailureEmitsError() throws {
+        let (sut, authSpy, httpSpy) = makeSUT()
         
-        sut.email = email
-        sut.password = password
+        sut.email = anyEmail
+        sut.password = anyPassword
         sut.signIn()
-        spy.completeSignInPublisher(with: error)
+        authSpy.completeSignInPublisher(with: anyAuthError)
         
-        XCTAssertEqual(spy.messages, [.signInPublisher(email: email, password: password)])
+        XCTAssertEqual(authSpy.messages, [.signInPublisher(email: anyEmail, password: anyPassword)])
         XCTAssertNil(sut.authData)
-        expect(sut.authError, with: error)
+        expect(sut.authError, with: anyAuthError)
         try expectKeychain(.userItem, item: nil)
     }
     
-    func test_signInWithFirebase_successfullyFetchUserWithEmptyData() throws {
-        let spy = FirebaseAuthManagerSpy()
-        let httpSpy = HTTPClientSpy()
-        let sut = SignInViewModel(authServices: spy, firestore: httpSpy)
-        let email = "any email"
-        let password = "any password"
-        let name = "any name"
-        let data = AuthData(email: email, userId: password, name: name)
-        let userItem = UserItem(id: "any id", email: email, name: name, picture: nil)
+    func test_signInWithFirebase_fetchUserWithEmptyDataEmitsError() throws {
+        let (sut, authSpy, httpSpy) = makeSUT()
+        let data = AuthData(email: anyEmail, userId: anyPassword, name: anyName)
+        let userItem = UserItem(id: anyUserId, email: anyEmail, name: anyName, picture: nil)
         
-        sut.email = email
-        sut.password = password
+        sut.email = anyEmail
+        sut.password = anyPassword
         sut.signIn()
-        spy.completeSignInPublisher(with: data)
+        authSpy.completeSignInPublisher(with: data)
         httpSpy.completeGetSuccessfully(with: Data())
         
-        XCTAssertEqual(spy.messages, [.signInPublisher(email: email, password: password)])
-        XCTAssertEqual(sut.authError, .unknown)
+        XCTAssertEqual(authSpy.messages, [.signInPublisher(email: anyEmail, password: anyPassword)])
+        XCTAssertEqual(sut.authError, .customError("Auth data error"))
+        try expectKeychain(.userItem, item: userItem)
+    }
+    
+    func test_signInWithFirebase_fetchUserSuccessfullyEmitsValue() throws {
+        let (sut, authSpy, httpSpy) = makeSUT()
+        let data = AuthData(email: anyEmail, userId: anyUserId, name: anyName)
+        let userItem = UserItem(id: anyUserId, email: anyEmail, name: anyName, picture: nil)
+        
+        sut.email = anyEmail
+        sut.password = anyPassword
+        sut.signIn()
+        authSpy.completeSignInPublisher(with: data)
+        httpSpy.completeGetSuccessfully(with: anyUserData)
+        
+        XCTAssertEqual(authSpy.messages, [.signInPublisher(email: anyEmail, password: anyPassword)])
+        XCTAssertNil(sut.authError)
+        XCTAssertEqual(sut.authData, data)
         try expectKeychain(.userItem, item: userItem)
     }
     
     // MARK: - Helpers
+    
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: SignInViewModel, authSpy: FirebaseAuthManagerSpy, httpSpy: HTTPClientSpy) {
+        let authSpy = FirebaseAuthManagerSpy()
+        let httpSpy = HTTPClientSpy()
+        let sut = SignInViewModel(authServices: authSpy, firestore: httpSpy)
+        trackForMemoryLeaks(sut, file: file, line: line)
+        trackForMemoryLeaks(httpSpy, file: file, line: line)
+        trackForMemoryLeaks(authSpy, file: file, line: line)
+        return (sut, authSpy, httpSpy)
+    }
     
     private func expect(_ receivedAuthError: AuthError?, with expectedAuthError: AuthError, file: StaticString = #filePath, line: UInt = #line) {
         guard let receivedAuthError = receivedAuthError else {

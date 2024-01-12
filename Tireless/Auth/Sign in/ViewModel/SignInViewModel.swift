@@ -46,10 +46,15 @@ public final class SignInViewModel: ObservableObject {
     
     private func fetchUser(_ data: AuthData) -> AnyPublisher<AuthData, AuthError> {
         return firestore.getPublisher(from: .user(id: data.userId))
+            .print()
             .tryMap(UserMapper.map)
+            .map { item in
+                print(item)
+                return item
+            }
             .map(saveUser)
             .map { AuthData(email: $0.email, userId: $0.id, name: $0.name) }
-            .catch { _ in Fail<AuthData, AuthError>(error: .unknown).eraseToAnyPublisher() }
+            .catch { _ in Fail<AuthData, AuthError>(error: .customError("Auth data error")).eraseToAnyPublisher() }
             .eraseToAnyPublisher()
     }
     

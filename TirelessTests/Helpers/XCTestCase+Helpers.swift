@@ -6,10 +6,15 @@
 //
 
 import XCTest
+import Tireless
 
 extension XCTestCase {
     var anyNSError: NSError {
         NSError(domain: "any error", code: 0)
+    }
+    
+    var anyAuthError: AuthError {
+        .customError("any error")
     }
     
     var anyEmail: String {
@@ -18,6 +23,21 @@ extension XCTestCase {
     
     var anyPassword: String {
         "any password"
+    }
+    
+    var anyUserId: String {
+        "any userId"
+    }
+    
+    var anyName: String {
+        "any name"
+    }
+    
+    var anyUserData: Data {
+        let json = """
+        {"userId": "\(anyUserId)", "email": "\(anyEmail)", "name": "\(anyName)"}
+        """
+        return Data(json.utf8)
     }
 }
 

@@ -80,14 +80,6 @@ class QuickSignInViewModelTests: XCTestCase {
     private var anyAuthData: AuthData {
         AuthData(email: anyEmail, userId: anyUserId, name: anyName)
     }
-    
-    private var anyUserId: String {
-        "any user id"
-    }
-    
-    private var anyName: String {
-        "any name"
-    }
 }
 
 
