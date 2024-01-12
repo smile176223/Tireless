@@ -79,7 +79,7 @@ public final class QuickSignInViewModel: ObservableObject {
         isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.isLoading = false
-            self.authError = .firebaseError("Any error")
+            self.authError = .customError("Coming soon...")
         }
     }
 }
