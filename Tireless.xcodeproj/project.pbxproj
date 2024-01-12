@@ -72,8 +72,6 @@
 		FF1444B12801A6760027F560 /* StartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444B02801A6760027F560 /* StartManager.swift */; };
 		FF1444C9280411A50027F560 /* CountDownGo.json in Resources */ = {isa = PBXBuildFile; fileRef = FF1444C8280411A50027F560 /* CountDownGo.json */; };
 		FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */; };
-		FF2D8DD92828FDC30093DA78 /* WebkitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DD82828FDC30093DA78 /* WebkitViewController.swift */; };
-		FF2D8DDB282900720093DA78 /* WebkitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D8DDA282900720093DA78 /* WebkitViewModel.swift */; };
 		FF2EF6ED28203A58008418A0 /* GroupPlanViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6EC28203A58008418A0 /* GroupPlanViewCell.swift */; };
 		FF2EF6EF28203A63008418A0 /* GroupPlanViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2EF6EE28203A63008418A0 /* GroupPlanViewCell.xib */; };
 		FF2EF6F128203A9C008418A0 /* GroupPlanHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2EF6F028203A9C008418A0 /* GroupPlanHeaderView.swift */; };
@@ -119,7 +117,6 @@
 		FF3F77F8281AE1D400D8360A /* InviteFriendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77F7281AE1D400D8360A /* InviteFriendViewCell.swift */; };
 		FF3F77FA281AE1DE00D8360A /* InviteFriendViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3F77F9281AE1DE00D8360A /* InviteFriendViewCell.xib */; };
 		FF3F77FC281AE50100D8360A /* InviteFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77FB281AE50100D8360A /* InviteFriendViewModel.swift */; };
-		FF3F77FE281B006700D8360A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F77FD281B006700D8360A /* SignUpViewController.swift */; };
 		FF3F7805281C383500D8360A /* GroupPlanStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7804281C383500D8360A /* GroupPlanStatusViewController.swift */; };
 		FF3F7807281C47F100D8360A /* ShareCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F7806281C47F100D8360A /* ShareCommentViewController.swift */; };
 		FF3F780D281D088000D8360A /* ShareCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F780C281D088000D8360A /* ShareCommentViewCell.swift */; };
@@ -167,9 +164,6 @@
 		FF3FBEAF2815C81A00E6B5DC /* GroupPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEAE2815C81A00E6B5DC /* GroupPlanViewController.swift */; };
 		FF3FBEB32815E29E00E6B5DC /* JoinGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB22815E29E00E6B5DC /* JoinGroupViewModel.swift */; };
 		FF3FBEB52816F52C00E6B5DC /* JoinGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEB42816F52C00E6B5DC /* JoinGroup.swift */; };
-		FF3FBEBC2817925300E6B5DC /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF3FBEBB2817925300E6B5DC /* Auth.storyboard */; };
-		FF3FBEBF2817927000E6B5DC /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */; };
-		FF3FBEC22817DEDB00E6B5DC /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */; };
 		FF5E89BE2822140D00214A5D /* PlankManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89BD2822140D00214A5D /* PlankManager.swift */; };
 		FF5E89C02822290C00214A5D /* Orientation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89BF2822290C00214A5D /* Orientation+Extension.swift */; };
 		FF5E89C228227D5A00214A5D /* BlockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5E89C128227D5A00214A5D /* BlockListViewController.swift */; };
@@ -293,8 +287,6 @@
 		FF1444B02801A6760027F560 /* StartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartManager.swift; sourceTree = "<group>"; };
 		FF1444C8280411A50027F560 /* CountDownGo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CountDownGo.json; sourceTree = "<group>"; };
 		FF1444CB28041BC70027F560 /* DetectFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectFinishViewController.swift; sourceTree = "<group>"; };
-		FF2D8DD82828FDC30093DA78 /* WebkitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebkitViewController.swift; sourceTree = "<group>"; };
-		FF2D8DDA282900720093DA78 /* WebkitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebkitViewModel.swift; sourceTree = "<group>"; };
 		FF2EF6EC28203A58008418A0 /* GroupPlanViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanViewCell.swift; sourceTree = "<group>"; };
 		FF2EF6EE28203A63008418A0 /* GroupPlanViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupPlanViewCell.xib; sourceTree = "<group>"; };
 		FF2EF6F028203A9C008418A0 /* GroupPlanHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanHeaderView.swift; sourceTree = "<group>"; };
@@ -340,7 +332,6 @@
 		FF3F77F7281AE1D400D8360A /* InviteFriendViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendViewCell.swift; sourceTree = "<group>"; };
 		FF3F77F9281AE1DE00D8360A /* InviteFriendViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InviteFriendViewCell.xib; sourceTree = "<group>"; };
 		FF3F77FB281AE50100D8360A /* InviteFriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendViewModel.swift; sourceTree = "<group>"; };
-		FF3F77FD281B006700D8360A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		FF3F7804281C383500D8360A /* GroupPlanStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPlanStatusViewController.swift; sourceTree = "<group>"; };
 		FF3F7806281C47F100D8360A /* ShareCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCommentViewController.swift; sourceTree = "<group>"; };
 		FF3F780C281D088000D8360A /* ShareCommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCommentViewCell.swift; sourceTree = "<group>"; };
@@ -389,9 +380,6 @@
 		FF3FBEB22815E29E00E6B5DC /* JoinGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupViewModel.swift; sourceTree = "<group>"; };
 		FF3FBEB42816F52C00E6B5DC /* JoinGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroup.swift; sourceTree = "<group>"; };
 		FF3FBEBA2817921400E6B5DC /* Tireless.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tireless.entitlements; sourceTree = "<group>"; };
-		FF3FBEBB2817925300E6B5DC /* Auth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
-		FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
-		FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		FF40230754B4FE890FE20A7D /* Pods-TirelessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TirelessTests.release.xcconfig"; path = "Target Support Files/Pods-TirelessTests/Pods-TirelessTests.release.xcconfig"; sourceTree = "<group>"; };
 		FF5E89BD2822140D00214A5D /* PlankManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlankManager.swift; sourceTree = "<group>"; };
 		FF5E89BF2822290C00214A5D /* Orientation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Orientation+Extension.swift"; sourceTree = "<group>"; };
@@ -648,12 +636,6 @@
 				0C37224C2B0C42C000083980 /* Shared */,
 				0C37224B2B0C42AD00083980 /* Sign up */,
 				0C37224A2B0C429E00083980 /* Sign in */,
-				FF3FBEC12817DEDB00E6B5DC /* AuthViewModel.swift */,
-				FF2D8DDA282900720093DA78 /* WebkitViewModel.swift */,
-				FF3FBEBE2817927000E6B5DC /* AuthViewController.swift */,
-				FF3F77FD281B006700D8360A /* SignUpViewController.swift */,
-				FF2D8DD82828FDC30093DA78 /* WebkitViewController.swift */,
-				FF3FBEBB2817925300E6B5DC /* Auth.storyboard */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -1316,7 +1298,6 @@
 				FF308E8A2808296400265863 /* ShareWallViewCell.xib in Resources */,
 				FF3FBEA528156FF100E6B5DC /* GroupPlan.storyboard in Resources */,
 				FF3FBE4C280FA83900E6B5DC /* HomeDailyViewCell.xib in Resources */,
-				FF3FBEBC2817925300E6B5DC /* Auth.storyboard in Resources */,
 				FF2EF6F328203AA3008418A0 /* GroupPlanHeaderView.xib in Resources */,
 				FFC0C15C28008F640041A937 /* Home.storyboard in Resources */,
 				FF3FBE8628143B3200E6B5DC /* Pushup.json in Resources */,
@@ -1495,7 +1476,6 @@
 				FF3FBE7C281299DE00E6B5DC /* PlanViewModel.swift in Sources */,
 				FF0234C2282CE65E001647B9 /* FriendsListViewController.swift in Sources */,
 				FF3FBE9D28151FF000E6B5DC /* Friend.swift in Sources */,
-				FF3FBEBF2817927000E6B5DC /* AuthViewController.swift in Sources */,
 				FF5E89C428227FF200214A5D /* BlockListViewModel.swift in Sources */,
 				FF0234D62830B57C001647B9 /* EditProfileViewController.swift in Sources */,
 				FF023509283DB724001647B9 /* TirelessError.swift in Sources */,
@@ -1528,14 +1508,12 @@
 				FF3FBE6A2811C33B00E6B5DC /* PlanManageViewController.swift in Sources */,
 				FF0234C8282CFA58001647B9 /* FriendListViewModel.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */,
-				FF2D8DDB282900720093DA78 /* WebkitViewModel.swift in Sources */,
 				FF5E89E02825B29400214A5D /* ProfileManager.swift in Sources */,
 				FF5E89D12823527000214A5D /* PlanReviewViewController.swift in Sources */,
 				FF3F77F6281AC96B00D8360A /* InviteFriendViewController.swift in Sources */,
 				FFC7B9EC281FB1BA0080A31E /* GroupPlanStatusViewCell.swift in Sources */,
 				FF5E89E22826F50F00214A5D /* PlanModifyViewController.swift in Sources */,
 				0C5DB20B2B0EEF1500439826 /* SignInViewModel.swift in Sources */,
-				FF3F77FE281B006700D8360A /* SignUpViewController.swift in Sources */,
 				FF3F77F8281AE1D400D8360A /* InviteFriendViewCell.swift in Sources */,
 				FFCFCAEF282A103C00FE6E83 /* VideoPlayerController.swift in Sources */,
 				0C4D9EC42B1728AF00A6AA21 /* Codable+Helpers.swift in Sources */,
@@ -1557,7 +1535,6 @@
 				0C7474182B47D09E0040BC5B /* PolicyView.swift in Sources */,
 				FF5E89C228227D5A00214A5D /* BlockListViewController.swift in Sources */,
 				FF1444A828015BDE0027F560 /* PoseDetectViewModel.swift in Sources */,
-				FF2D8DD92828FDC30093DA78 /* WebkitViewController.swift in Sources */,
 				FFC0C15928008F640041A937 /* PoseDetectViewController.swift in Sources */,
 				FF1444AA2801623E0027F560 /* PosePoint.swift in Sources */,
 				FF3FBE7A2812972100E6B5DC /* PlanManageViewModel.swift in Sources */,
@@ -1591,7 +1568,6 @@
 				0C7B7F8E2B102E6A00C52CC0 /* AuthServices.swift in Sources */,
 				FF3FBEAF2815C81A00E6B5DC /* GroupPlanViewController.swift in Sources */,
 				0C2DF92E2B0CAE880029AA36 /* AppleSignInController.swift in Sources */,
-				FF3FBEC22817DEDB00E6B5DC /* AuthViewModel.swift in Sources */,
 				0C2DF92C2B0CAE5E0029AA36 /* AppleSignInControllerAuthAdapter.swift in Sources */,
 				FFB5FCE4282AD3260090AE48 /* NotificationViewController.swift in Sources */,
 				0CD81BF82B05F71500CA350E /* SignupView.swift in Sources */,
