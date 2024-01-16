@@ -40,6 +40,7 @@
 		0CA738D32B54BC4F00C26D1C /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738D22B54BC4F00C26D1C /* CameraView.swift */; };
 		0CA738D52B560B7D00C26D1C /* CameraError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738D42B560B7D00C26D1C /* CameraError.swift */; };
 		0CA738D72B560BD900C26D1C /* CGImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738D62B560BD900C26D1C /* CGImage+Extension.swift */; };
+		0CA738D92B560BF900C26D1C /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738D82B560BF900C26D1C /* CameraViewModel.swift */; };
 		0CADFB852B0C493D005E7611 /* AppleSignInControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */; };
 		0CD81BF82B05F71500CA350E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF72B05F71500CA350E /* SignupView.swift */; };
 		0CD81BFA2B06003000CA350E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF92B06003000CA350E /* WebView.swift */; };
@@ -253,6 +254,7 @@
 		0CA738D22B54BC4F00C26D1C /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		0CA738D42B560B7D00C26D1C /* CameraError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraError.swift; sourceTree = "<group>"; };
 		0CA738D62B560BD900C26D1C /* CGImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extension.swift"; sourceTree = "<group>"; };
+		0CA738D82B560BF900C26D1C /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInControllerTests.swift; sourceTree = "<group>"; };
 		0CD81BF72B05F71500CA350E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		0CD81BF92B06003000CA350E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -625,6 +627,7 @@
 			isa = PBXGroup;
 			children = (
 				0CA738D22B54BC4F00C26D1C /* CameraView.swift */,
+				0CA738D82B560BF900C26D1C /* CameraViewModel.swift */,
 				0CA738D42B560B7D00C26D1C /* CameraError.swift */,
 				0CA738D62B560BD900C26D1C /* CGImage+Extension.swift */,
 			);
@@ -1566,6 +1569,7 @@
 				FF308E6F2806822B00265863 /* ShareFiles.swift in Sources */,
 				FF308E852808110100265863 /* UIStoryboard+Extension.swift in Sources */,
 				FF3FBE9B28150FB000E6B5DC /* ProfileViewModel.swift in Sources */,
+				0CA738D92B560BF900C26D1C /* CameraViewModel.swift in Sources */,
 				FF2FE0EE280ED81700F8890D /* HomeViewCell.swift in Sources */,
 				FF3F7811281D1E3B00D8360A /* CommentManager.swift in Sources */,
 				0C3722472B0C406500083980 /* NonceProvider.swift in Sources */,
