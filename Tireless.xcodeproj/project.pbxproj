@@ -37,6 +37,8 @@
 		0C74741F2B4B9D6B0040BC5B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C74741E2B4B9D6B0040BC5B /* KeychainManager.swift */; };
 		0C7B7F8E2B102E6A00C52CC0 /* AuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7B7F8D2B102E6A00C52CC0 /* AuthServices.swift */; };
 		0C7B7F932B1043F300C52CC0 /* XCTestCase+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7B7F922B1043F300C52CC0 /* XCTestCase+Helpers.swift */; };
+		0CA738D32B54BC4F00C26D1C /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738D22B54BC4F00C26D1C /* CameraView.swift */; };
+		0CA738D52B560B7D00C26D1C /* CameraError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738D42B560B7D00C26D1C /* CameraError.swift */; };
 		0CADFB852B0C493D005E7611 /* AppleSignInControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */; };
 		0CD81BF82B05F71500CA350E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF72B05F71500CA350E /* SignupView.swift */; };
 		0CD81BFA2B06003000CA350E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF92B06003000CA350E /* WebView.swift */; };
@@ -247,6 +249,8 @@
 		0C74741E2B4B9D6B0040BC5B /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		0C7B7F8D2B102E6A00C52CC0 /* AuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServices.swift; sourceTree = "<group>"; };
 		0C7B7F922B1043F300C52CC0 /* XCTestCase+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Helpers.swift"; sourceTree = "<group>"; };
+		0CA738D22B54BC4F00C26D1C /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		0CA738D42B560B7D00C26D1C /* CameraError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraError.swift; sourceTree = "<group>"; };
 		0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInControllerTests.swift; sourceTree = "<group>"; };
 		0CD81BF72B05F71500CA350E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		0CD81BF92B06003000CA350E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -613,6 +617,15 @@
 				0C3657BA2B106F16004E8E13 /* FirebaseAuthManager.swift */,
 			);
 			path = Firebase;
+			sourceTree = "<group>";
+		};
+		0CA738D12B54BC4100C26D1C /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				0CA738D22B54BC4F00C26D1C /* CameraView.swift */,
+				0CA738D42B560B7D00C26D1C /* CameraError.swift */,
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 		0CBFC24928E583B400AE6520 /* Home */ = {
@@ -1127,6 +1140,7 @@
 				0CBFC24928E583B400AE6520 /* Home */,
 				FF74494E2B0E4F21005D65BD /* Shared */,
 				0CBFC24A28E5858D00AE6520 /* Auth */,
+				0CA738D12B54BC4100C26D1C /* Camera */,
 				0CBFC24B28E585C400AE6520 /* Profile */,
 				0CBFC24C28E5860A00AE6520 /* PoseDetect */,
 				0CBFC24D28E5869C00AE6520 /* ShareWall */,
@@ -1481,6 +1495,7 @@
 				FF023509283DB724001647B9 /* TirelessError.swift in Sources */,
 				FF3FBE50280FD15400E6B5DC /* PlanDetailViewController.swift in Sources */,
 				FF3FBE742812835300E6B5DC /* PlanManager.swift in Sources */,
+				0CA738D32B54BC4F00C26D1C /* CameraView.swift in Sources */,
 				FFCFCAED282A102500FE6E83 /* VideoContainer.swift in Sources */,
 				FF0234D828340264001647B9 /* VideoCapture.swift in Sources */,
 				FF3FBE9F2815320500E6B5DC /* GroupPlan.swift in Sources */,
@@ -1508,6 +1523,7 @@
 				FF3FBE6A2811C33B00E6B5DC /* PlanManageViewController.swift in Sources */,
 				FF0234C8282CFA58001647B9 /* FriendListViewModel.swift in Sources */,
 				FF308E552805478D00265863 /* VideoRecordManager.swift in Sources */,
+				0CA738D52B560B7D00C26D1C /* CameraError.swift in Sources */,
 				FF5E89E02825B29400214A5D /* ProfileManager.swift in Sources */,
 				FF5E89D12823527000214A5D /* PlanReviewViewController.swift in Sources */,
 				FF3F77F6281AC96B00D8360A /* InviteFriendViewController.swift in Sources */,
