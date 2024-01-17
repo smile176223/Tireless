@@ -43,6 +43,8 @@
 		0CA738D92B560BF900C26D1C /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738D82B560BF900C26D1C /* CameraViewModel.swift */; };
 		0CA738DB2B560C2200C26D1C /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738DA2B560C2200C26D1C /* CameraManager.swift */; };
 		0CA738DD2B560C6900C26D1C /* FrameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738DC2B560C6900C26D1C /* FrameManager.swift */; };
+		0CA738DF2B560CE400C26D1C /* PoseEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738DE2B560CE400C26D1C /* PoseEstimator.swift */; };
+		0CA738E12B57A49800C26D1C /* StickFigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738E02B57A49700C26D1C /* StickFigureView.swift */; };
 		0CADFB852B0C493D005E7611 /* AppleSignInControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */; };
 		0CD81BF82B05F71500CA350E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF72B05F71500CA350E /* SignupView.swift */; };
 		0CD81BFA2B06003000CA350E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF92B06003000CA350E /* WebView.swift */; };
@@ -259,6 +261,8 @@
 		0CA738D82B560BF900C26D1C /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		0CA738DA2B560C2200C26D1C /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		0CA738DC2B560C6900C26D1C /* FrameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameManager.swift; sourceTree = "<group>"; };
+		0CA738DE2B560CE400C26D1C /* PoseEstimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseEstimator.swift; sourceTree = "<group>"; };
+		0CA738E02B57A49700C26D1C /* StickFigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickFigureView.swift; sourceTree = "<group>"; };
 		0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInControllerTests.swift; sourceTree = "<group>"; };
 		0CD81BF72B05F71500CA350E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		0CD81BF92B06003000CA350E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -630,12 +634,14 @@
 		0CA738D12B54BC4100C26D1C /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				0CA738E02B57A49700C26D1C /* StickFigureView.swift */,
 				0CA738D22B54BC4F00C26D1C /* CameraView.swift */,
 				0CA738D82B560BF900C26D1C /* CameraViewModel.swift */,
 				0CA738DA2B560C2200C26D1C /* CameraManager.swift */,
 				0CA738DC2B560C6900C26D1C /* FrameManager.swift */,
 				0CA738D42B560B7D00C26D1C /* CameraError.swift */,
 				0CA738D62B560BD900C26D1C /* CGImage+Extension.swift */,
+				0CA738DE2B560CE400C26D1C /* PoseEstimator.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -1497,6 +1503,7 @@
 				FFA09BB02B162CBF00378906 /* UserMapper.swift in Sources */,
 				0CD81BFE2B0763AD00CA350E /* QuickSignInView.swift in Sources */,
 				FFC7B9F1281FB61B0080A31E /* GroupPlanStatusViewModel.swift in Sources */,
+				0CA738DF2B560CE400C26D1C /* PoseEstimator.swift in Sources */,
 				FF1444CC28041BC70027F560 /* DetectFinishViewController.swift in Sources */,
 				0C10BD3C2AFB6EE000B9254C /* FirestoreClient.swift in Sources */,
 				FF3FBE7C281299DE00E6B5DC /* PlanViewModel.swift in Sources */,
@@ -1600,6 +1607,7 @@
 				0C2DF92E2B0CAE880029AA36 /* AppleSignInController.swift in Sources */,
 				0C2DF92C2B0CAE5E0029AA36 /* AppleSignInControllerAuthAdapter.swift in Sources */,
 				FFB5FCE4282AD3260090AE48 /* NotificationViewController.swift in Sources */,
+				0CA738E12B57A49800C26D1C /* StickFigureView.swift in Sources */,
 				0CD81BF82B05F71500CA350E /* SignupView.swift in Sources */,
 				FFC7B9E4281E8A8C0080A31E /* HomeGroupPlanViewCell.swift in Sources */,
 				FF2EF6F128203A9C008418A0 /* GroupPlanHeaderView.swift in Sources */,
