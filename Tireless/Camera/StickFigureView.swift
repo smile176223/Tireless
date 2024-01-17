@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct Stick: Shape {
-    var points: [CGPoint]
+    var points: [CGPoint]?
     var size: CGSize
     
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        guard !points.isEmpty else { return path }
+        guard let points = points, !points.isEmpty else { return path }
         
         path.move(to: points[0])
         for point in points {
@@ -28,56 +28,24 @@ struct Stick: Shape {
 
 struct StickFigureView: View {
     
-    var bodyParts: [VNHumanBodyPoseObservation.JointName: VNRecognizedPoint]?
+    var bodyGroup: [PoseEstimator.HumanBodyGroup: [CGPoint]]?
     var size: CGSize
     
     var body: some View {
-        let rightLegParts = [
-            bodyParts?[.rightAnkle]?.location,
-            bodyParts?[.rightKnee]?.location,
-            bodyParts?[.rightHip]?.location
-        ].compactMap { $0 }
-        
-        let leftLegParts = [
-            bodyParts?[.leftAnkle]?.location,
-            bodyParts?[.leftKnee]?.location,
-            bodyParts?[.leftHip]?.location
-        ].compactMap { $0 }
-        
-        let rightArmParts = [
-            bodyParts?[.rightWrist]?.location,
-            bodyParts?[.rightElbow]?.location,
-            bodyParts?[.rightShoulder]?.location,
-            bodyParts?[.neck]?.location
-        ].compactMap { $0 }
-        
-        let leftArmParts = [
-            bodyParts?[.leftWrist]?.location,
-            bodyParts?[.leftElbow]?.location,
-            bodyParts?[.leftShoulder]?.location,
-            bodyParts?[.neck]?.location
-        ].compactMap { $0 }
-        
-        let rootToNoseParts = [
-            bodyParts?[.root]?.location,
-            bodyParts?[.neck]?.location,
-            bodyParts?[.nose]?.location
-        ].compactMap { $0 }
-        
         ZStack {
-            Stick(points: rightLegParts, size: size)
+            Stick(points: bodyGroup?[.leftLeg], size: size)
                 .stroke(lineWidth: 3.0)
                 .fill(Color.green)
-            Stick(points: leftLegParts, size: size)
+            Stick(points: bodyGroup?[.rightLeg], size: size)
                 .stroke(lineWidth: 3.0)
                 .fill(Color.green)
-            Stick(points: rightArmParts, size: size)
+            Stick(points: bodyGroup?[.leftArm], size: size)
                 .stroke(lineWidth: 3.0)
                 .fill(Color.green)
-            Stick(points: leftArmParts, size: size)
+            Stick(points: bodyGroup?[.rightArm], size: size)
                 .stroke(lineWidth: 3.0)
                 .fill(Color.green)
-            Stick(points: rootToNoseParts, size: size)
+            Stick(points: bodyGroup?[.rootToNose], size: size)
                 .stroke(lineWidth: 3.0)
                 .fill(Color.green)
         }

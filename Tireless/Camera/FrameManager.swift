@@ -10,6 +10,7 @@ import AVFoundation
 public class FrameManager: NSObject, ObservableObject {
     
     public var cameraManager: CameraManager
+    public var poseEstimator: PoseEstimator
     
     @Published var current: CVPixelBuffer?
     
@@ -17,6 +18,7 @@ public class FrameManager: NSObject, ObservableObject {
     
     public override init() {
         cameraManager = CameraManager()
+        poseEstimator = PoseEstimator()
         super.init()
         cameraManager.set(self, queue: videoOutputQueue)
     }
@@ -28,6 +30,8 @@ extension FrameManager: AVCaptureVideoDataOutputSampleBufferDelegate {
             DispatchQueue.main.async {
                 self.current = buffer
             }
+            
+            poseEstimator.captureOutput(sampleBuffer)
         }
     }
 }

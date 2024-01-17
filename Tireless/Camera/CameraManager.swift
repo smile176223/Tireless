@@ -76,7 +76,7 @@ public final class CameraManager: ObservableObject {
             session.commitConfiguration()
         }
         
-        let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
+        let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
         guard let device = device else {
             set(error: .cameraUnavailable)
             status = .failed
@@ -104,6 +104,7 @@ public final class CameraManager: ObservableObject {
             videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
             let videoConnection = videoOutput.connection(with: .video)
             videoConnection?.videoOrientation = .portrait
+            videoConnection?.isVideoMirrored = true
         } else {
             set(error: .cannotAddOutput)
             status = .failed

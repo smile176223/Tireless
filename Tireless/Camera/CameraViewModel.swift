@@ -11,6 +11,7 @@ import Combine
 public class CameraViewModel: ObservableObject {
     @Published var error: Error?
     @Published var frame: CGImage?
+    @Published var bodyGroup: [PoseEstimator.HumanBodyGroup: [CGPoint]]?
     
     private let context = CIContext()
     private let frameManager = FrameManager()
@@ -31,10 +32,20 @@ public class CameraViewModel: ObservableObject {
             .compactMap { buffer in
                 guard let image = CGImage.create(from: buffer) else { return nil }
                 
-                var ciImage = CIImage(cgImage: image)
+                let ciImage = CIImage(cgImage: image)
                 
                 return self.context.createCGImage(ciImage, from: ciImage.extent)
             }
             .assign(to: &$frame)
+        
+        frameManager.poseEstimator.$detectError
+            .receive(on: RunLoop.main)
+            .map { $0 }
+            .assign(to: &$error)
+        
+        frameManager.poseEstimator.$bodyGroup
+            .receive(on: RunLoop.main)
+            .map { $0 }
+            .assign(to: &$bodyGroup)
     }
 }

@@ -89,8 +89,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 }
                 .navigationBarTitleDisplayMode(.inline)
             }
+            // For testing
+            let cameraView = CameraView()
             
-            let hostingVC = UIHostingController(rootView: signInView)
+            let hostingVC = UIHostingController(rootView: cameraView)
             hostingVC.modalPresentationStyle = .fullScreen
             
             present(hostingVC, animated: true)

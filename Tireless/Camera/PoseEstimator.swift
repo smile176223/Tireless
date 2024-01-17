@@ -16,7 +16,15 @@ public class PoseEstimator: ObservableObject {
         case sequenceError(Error)
     }
     
-    @Published var bodyParts: [VNHumanBodyPoseObservation.JointName: VNRecognizedPoint]?
+    enum HumanBodyGroup {
+        case rightLeg
+        case leftLeg
+        case rightArm
+        case leftArm
+        case rootToNose
+    }
+    
+    @Published var bodyGroup: [HumanBodyGroup: [CGPoint]]?
     @Published var detectError: DetectError?
     private let sequenceHandler = VNSequenceRequestHandler()
     private var cancellables = Set<AnyCancellable>()
@@ -44,16 +52,30 @@ public class PoseEstimator: ObservableObject {
         recognizedPoints.removeValue(forKey: .rightEar)
         let pointsConfidence = recognizedPoints.allSatisfy { $0.value.confidence > 0 }
         
+        
         if pointsConfidence {
-            set(recognizedPoints)
+            mapBodyGroup(recognizedPoints)
         } else {
+            set(nil)
             set(DetectError.lowConfidence)
         }
     }
     
-    private func set(_ bodyParts: [VNHumanBodyPoseObservation.JointName: VNRecognizedPoint]) {
+    private func mapBodyGroup(_ points: [VNHumanBodyPoseObservation.JointName: VNRecognizedPoint]) {
+        let rightLeg = [points[.rightAnkle]?.location, points[.rightKnee]?.location, points[.rightHip]?.location].compactMap { $0 }
+        let leftLeg = [points[.leftAnkle]?.location, points[.leftKnee]?.location, points[.leftHip]?.location].compactMap { $0 }
+        let rightArm = [points[.rightWrist]?.location, points[.rightElbow]?.location, points[.rightShoulder]?.location, points[.neck]?.location].compactMap { $0 }
+        let leftArm = [points[.leftWrist]?.location, points[.leftElbow]?.location, points[.leftShoulder]?.location, points[.neck]?.location].compactMap { $0 }
+        let rootToNose = [points[.root]?.location, points[.neck]?.location, points[.nose]?.location].compactMap { $0 }
+        
+        let bodyGroup: [HumanBodyGroup: [CGPoint]] = [.rightLeg: rightLeg, .leftLeg: leftLeg, .rightArm: rightArm, .leftArm: leftArm, .rootToNose: rootToNose]
+        
+        set(bodyGroup)
+    }
+    
+    private func set(_ bodyGroup:  [HumanBodyGroup: [CGPoint]]?) {
         DispatchQueue.main.async {
-            self.bodyParts = bodyParts
+            self.bodyGroup = bodyGroup
         }
     }
     

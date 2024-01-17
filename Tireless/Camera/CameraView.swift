@@ -32,8 +32,12 @@ public struct CameraView: View {
     
     public var body: some View {
         ZStack {
-            FrameView(image: model.frame)
-                .edgesIgnoringSafeArea(.all)
+            GeometryReader { geo in
+                FrameView(image: model.frame)
+                    .edgesIgnoringSafeArea(.all)
+                
+                StickFigureView(bodyGroup: model.bodyGroup, size: geo.size)
+            }
         }
     }
 }
