@@ -35,7 +35,7 @@ public class PoseEstimator: ObservableObject {
         do {
             try sequenceHandler.perform([humanBodyRequest], on: sampleBuffer, orientation: .up)
         } catch {
-            detectError = .sequenceError(error)
+            set(error: .sequenceError(error))
         }
     }
     
@@ -57,7 +57,7 @@ public class PoseEstimator: ObservableObject {
             mapBodyGroup(recognizedPoints)
         } else {
             set(nil)
-            set(DetectError.lowConfidence)
+            set(error: DetectError.lowConfidence)
         }
     }
     
@@ -79,7 +79,7 @@ public class PoseEstimator: ObservableObject {
         }
     }
     
-    private func set(_ error: DetectError) {
+    private func set(error: DetectError) {
         DispatchQueue.main.async {
             self.detectError = error
         }
