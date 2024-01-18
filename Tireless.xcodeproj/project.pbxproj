@@ -634,6 +634,7 @@
 		0CA738D12B54BC4100C26D1C /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				0CA738E52B58B10600C26D1C /* Pose Estimator */,
 				0CA738E42B58B04D00C26D1C /* Helper */,
 				0CA738E32B58B01B00C26D1C /* ViewModel */,
 				0CA738E22B58B01600C26D1C /* View */,
@@ -657,7 +658,6 @@
 				0CA738DA2B560C2200C26D1C /* CameraManager.swift */,
 				0CA738DC2B560C6900C26D1C /* FrameManager.swift */,
 				0CA738D42B560B7D00C26D1C /* CameraError.swift */,
-				0CA738DE2B560CE400C26D1C /* PoseEstimator.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -668,6 +668,14 @@
 				0CA738D62B560BD900C26D1C /* CGImage+Extension.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		0CA738E52B58B10600C26D1C /* Pose Estimator */ = {
+			isa = PBXGroup;
+			children = (
+				0CA738DE2B560CE400C26D1C /* PoseEstimator.swift */,
+			);
+			path = "Pose Estimator";
 			sourceTree = "<group>";
 		};
 		0CBFC24928E583B400AE6520 /* Home */ = {
