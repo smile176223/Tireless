@@ -32,8 +32,8 @@ jobs:
         
     - name: Copy GoogleService-Info.plist to Tireless
       run: |
-        mkdir -p /Tireless
-        cp GoogleService-Info.plist /Tireless
+        mkdir -p Tireless/
+        cp GoogleService-Info.plist Tireless/
       
     - name: Install Dependencies
       run: pod install --repo-update
