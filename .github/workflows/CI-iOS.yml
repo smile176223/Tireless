@@ -31,7 +31,7 @@ jobs:
         echo "${{ secrets.GOOGLESERVICE_INFO }}" | base64 --decode > GoogleService-Info.plist
         
     - name: Copy GoogleService-Info.plist to Tireless
-      run: cp GoogleService-Info.plist Tireless/
+      run: cp GoogleService-Info.plist Tireless/Tireless/
       
     - name: Install Dependencies
       run: pod install --repo-update
