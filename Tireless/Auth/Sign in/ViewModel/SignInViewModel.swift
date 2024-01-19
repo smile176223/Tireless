@@ -46,7 +46,6 @@ public final class SignInViewModel: ObservableObject {
     
     private func fetchUser(_ data: AuthData) -> AnyPublisher<AuthData, AuthError> {
         return firestore.getPublisher(from: .user(id: data.userId))
-            .print()
             .tryMap(UserMapper.map)
             .map { item in
                 print(item)
