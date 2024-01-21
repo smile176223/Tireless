@@ -1657,7 +1657,7 @@
 				EXCLUDED_ARCHS = "$(inherited)";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.LiamHao.TirelessTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1679,9 +1679,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3F3N8USCH4;
 				EXCLUDED_ARCHS = "$(inherited)";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "$(inherited)";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.LiamHao.TirelessTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1730,7 +1730,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				EXCLUDED_ARCHS = "";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "$(inherited)";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1864,7 +1864,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3F3N8USCH4;
 				EXCLUDED_ARCHS = "$(inherited)";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "$(inherited)";
+				"EXCLUDED_ARCHS[sdk=*]" = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Tireless/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Tireless須開啟您的相機，以執行運動辨識及錄影的功能。";
