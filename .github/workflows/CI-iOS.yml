@@ -28,12 +28,9 @@ jobs:
       
     - name: Decrypt GoogleService-Info.plist
       run: |
-        cat <<EOF > GoogleService-Info.plist
+        cat <<EOF > Tireless/GoogleService-Info.plist
         ${{ secrets.GOOGLESERVICE_INFO }}
         EOF
-        
-    - name: Copy GoogleService-Info.plist to Tireless
-      run: cp GoogleService-Info.plist Tireless/Tireless/
       
     - name: Install Dependencies
       run: pod install --repo-update
