@@ -28,7 +28,7 @@ jobs:
       
     - name: Decrypt GoogleService-Info.plist
       run: |
-        echo ${{ secrets.GOOGLESERVICE_INFO }} | base64 -d > GoogleService-Info.plist
+        cat <<EOF > GoogleService-Info.plist "${{ secrets.GOOGLESERVICE_INFO }}" | base64 --decode EOF
         
     - name: Copy GoogleService-Info.plist to Tireless
       run: cp GoogleService-Info.plist Tireless/Tireless/
