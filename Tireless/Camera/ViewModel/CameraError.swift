@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CameraError: Error {
+public enum CameraError: Error {
     case cameraUnavailable
     case cannotAddInput
     case cannotAddOutput
@@ -18,7 +18,7 @@ enum CameraError: Error {
 }
 
 extension CameraError: LocalizedError {
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .cameraUnavailable:
             return "Camera unavailable"

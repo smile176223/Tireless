@@ -114,7 +114,7 @@ public final class CameraManager: ObservableObject {
         status = .configured
     }
     
-    func set(_ delegate: AVCaptureVideoDataOutputSampleBufferDelegate, queue: DispatchQueue) {
+    public func set(_ delegate: AVCaptureVideoDataOutputSampleBufferDelegate, queue: DispatchQueue) {
         sessionQueue.async {
             self.videoOutput.setSampleBufferDelegate(delegate, queue: queue)
         }

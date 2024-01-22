@@ -9,10 +9,10 @@ import CoreImage
 import Combine
 
 public class CameraViewModel: ObservableObject {
+    
     @Published var error: Error?
     @Published var frame: CGImage?
     @Published var bodyGroup: [PoseEstimator.HumanBodyGroup: [CGPoint]]?
-    
     private let context = CIContext()
     private let frameManager = FrameManager()
     private var cancellables = Set<AnyCancellable>()
@@ -29,12 +29,11 @@ public class CameraViewModel: ObservableObject {
         
         frameManager.$current
             .receive(on: RunLoop.main)
-            .compactMap { buffer in
+            .compactMap { [weak self] buffer in
                 guard let image = CGImage.create(from: buffer) else { return nil }
                 
                 let ciImage = CIImage(cgImage: image)
-                
-                return self.context.createCGImage(ciImage, from: ciImage.extent)
+                return self?.context.createCGImage(ciImage, from: ciImage.extent)
             }
             .assign(to: &$frame)
         

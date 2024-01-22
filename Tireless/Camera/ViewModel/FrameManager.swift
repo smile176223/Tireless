@@ -8,17 +8,13 @@
 import AVFoundation
 
 public class FrameManager: NSObject, ObservableObject {
-    
-    public var cameraManager: CameraManager
-    public var poseEstimator: PoseEstimator
-    
+
     @Published var current: CVPixelBuffer?
-    
-    let videoOutputQueue = DispatchQueue(label: "com.LiamHsu.tireless.videoOutputQueue", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
+    public let cameraManager = CameraManager()
+    public let poseEstimator = PoseEstimator()
+    private let videoOutputQueue = DispatchQueue(label: "com.LiamHsu.tireless.videoOutputQueue", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
     
     public override init() {
-        cameraManager = CameraManager()
-        poseEstimator = PoseEstimator()
         super.init()
         cameraManager.set(self, queue: videoOutputQueue)
     }
