@@ -31,7 +31,7 @@ public class PoseEstimator: ObservableObject {
         let humanBodyRequest = VNDetectHumanBodyPoseRequest(completionHandler: detectBodyPose)
         
         do {
-            try sequenceHandler.perform([humanBodyRequest], on: sampleBuffer, orientation: .up)
+            try sequenceHandler.perform([humanBodyRequest], on: sampleBuffer, orientation: .upMirrored)
         } catch {
             set(error: .sequenceError(error))
         }
@@ -49,7 +49,6 @@ public class PoseEstimator: ObservableObject {
         recognizedPoints.removeValue(forKey: .leftEar)
         recognizedPoints.removeValue(forKey: .rightEar)
         let pointsConfidence = recognizedPoints.allSatisfy { $0.value.confidence > 0 }
-        
         
         if pointsConfidence {
             mapBodyGroup(recognizedPoints)
