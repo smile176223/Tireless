@@ -7,7 +7,6 @@
 
 import AVFoundation
 import Vision
-import Combine
 
 public class PoseEstimator: ObservableObject {
     
@@ -27,7 +26,6 @@ public class PoseEstimator: ObservableObject {
     @Published var bodyGroup: [HumanBodyGroup: [CGPoint]]?
     @Published var detectError: DetectError?
     private let sequenceHandler = VNSequenceRequestHandler()
-    private var cancellables = Set<AnyCancellable>()
     
     public func captureOutput(_ sampleBuffer: CMSampleBuffer) {
         let humanBodyRequest = VNDetectHumanBodyPoseRequest(completionHandler: detectBodyPose)
