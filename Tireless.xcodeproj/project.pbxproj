@@ -45,6 +45,7 @@
 		0CA738DD2B560C6900C26D1C /* FrameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738DC2B560C6900C26D1C /* FrameManager.swift */; };
 		0CA738DF2B560CE400C26D1C /* PoseEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738DE2B560CE400C26D1C /* PoseEstimator.swift */; };
 		0CA738E12B57A49800C26D1C /* StickFigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738E02B57A49700C26D1C /* StickFigureView.swift */; };
+		0CAD71252B5E6C45006D2AAE /* SquatEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD71242B5E6C45006D2AAE /* SquatEstimator.swift */; };
 		0CADFB852B0C493D005E7611 /* AppleSignInControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */; };
 		0CD81BF82B05F71500CA350E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF72B05F71500CA350E /* SignupView.swift */; };
 		0CD81BFA2B06003000CA350E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF92B06003000CA350E /* WebView.swift */; };
@@ -263,6 +264,7 @@
 		0CA738DC2B560C6900C26D1C /* FrameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameManager.swift; sourceTree = "<group>"; };
 		0CA738DE2B560CE400C26D1C /* PoseEstimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseEstimator.swift; sourceTree = "<group>"; };
 		0CA738E02B57A49700C26D1C /* StickFigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickFigureView.swift; sourceTree = "<group>"; };
+		0CAD71242B5E6C45006D2AAE /* SquatEstimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquatEstimator.swift; sourceTree = "<group>"; };
 		0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInControllerTests.swift; sourceTree = "<group>"; };
 		0CD81BF72B05F71500CA350E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		0CD81BF92B06003000CA350E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -674,6 +676,7 @@
 			isa = PBXGroup;
 			children = (
 				0CA738DE2B560CE400C26D1C /* PoseEstimator.swift */,
+				0CAD71242B5E6C45006D2AAE /* SquatEstimator.swift */,
 			);
 			path = "Pose Estimator";
 			sourceTree = "<group>";
@@ -1668,6 +1671,7 @@
 				FF3FBEA92815A71600E6B5DC /* SetGroupPlanDetailViewCell.swift in Sources */,
 				FFC0C15728008F640041A937 /* SceneDelegate.swift in Sources */,
 				0C4D9ED02B1831CE00A6AA21 /* Combine+Helpers.swift in Sources */,
+				0CAD71252B5E6C45006D2AAE /* SquatEstimator.swift in Sources */,
 				FF02352F28428322001647B9 /* EditProfileViewModel.swift in Sources */,
 				FF308E7F28080E5B00265863 /* TabBarController.swift in Sources */,
 				FF7449502B0E4F37005D65BD /* ToastView.swift in Sources */,
