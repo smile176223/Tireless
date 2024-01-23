@@ -67,7 +67,7 @@ public class SquatEstimator {
         let isDownPose = [
             compare(first: hipY, second: kneeY, 0.9),
             checkPointA,
-            checkPointB,
+            !checkPointB,
             upper(nose, 0.35),
             upper(rightHip, 0.65),
             upper(leftHip, 0.65),
