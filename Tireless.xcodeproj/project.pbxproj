@@ -27,6 +27,7 @@
 		0C5DB20B2B0EEF1500439826 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5DB20A2B0EEF1500439826 /* SignInViewModel.swift */; };
 		0C5DB2492B0F005100439826 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5DB2482B0F005100439826 /* SignupViewModel.swift */; };
 		0C5DB24B2B0F4AFF00439826 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5DB24A2B0F4AFF00439826 /* View+Extension.swift */; };
+		0C5E293E2B68E77F00732166 /* HumanBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5E293D2B68E77F00732166 /* HumanBody.swift */; };
 		0C6DEB702B0462A200FDBDA4 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6DEB6F2B0462A200FDBDA4 /* SignInView.swift */; };
 		0C7474122B47CFB00040BC5B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7474112B47CFB00040BC5B /* LoadingView.swift */; };
 		0C7474142B47CFE10040BC5B /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7474132B47CFE10040BC5B /* ActivityIndicatorView.swift */; };
@@ -246,6 +247,7 @@
 		0C5DB20A2B0EEF1500439826 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		0C5DB2482B0F005100439826 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		0C5DB24A2B0F4AFF00439826 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		0C5E293D2B68E77F00732166 /* HumanBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanBody.swift; sourceTree = "<group>"; };
 		0C6DEB6F2B0462A200FDBDA4 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		0C7474112B47CFB00040BC5B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		0C7474132B47CFE10040BC5B /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
@@ -677,6 +679,7 @@
 			children = (
 				0CA738DE2B560CE400C26D1C /* PoseEstimator.swift */,
 				0CAD71242B5E6C45006D2AAE /* SquatEstimator.swift */,
+				0C5E293D2B68E77F00732166 /* HumanBody.swift */,
 			);
 			path = "Pose Estimator";
 			sourceTree = "<group>";
@@ -1592,6 +1595,7 @@
 				0C7474122B47CFB00040BC5B /* LoadingView.swift in Sources */,
 				FF3F7813281D407000D8360A /* ShareCommentViewModel.swift in Sources */,
 				FF2FE0F0280EDB7900F8890D /* HomeHeaderView.swift in Sources */,
+				0C5E293E2B68E77F00732166 /* HumanBody.swift in Sources */,
 				FF0234DF2834A5F7001647B9 /* PoseDetectView.swift in Sources */,
 				FF2EF6F7282111B2008418A0 /* PushupManager.swift in Sources */,
 				FF3FBE6E28123A0800E6B5DC /* DefaultPlanViewModel.swift in Sources */,

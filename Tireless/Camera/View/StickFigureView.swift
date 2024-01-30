@@ -28,7 +28,7 @@ struct Stick: Shape {
 
 struct StickFigureView: View {
     
-    var bodyGroup: [PoseEstimator.HumanBodyGroup: [CGPoint]]?
+    var bodyGroup: [HumanBody.Group: [CGPoint]]?
     var size: CGSize
     
     var body: some View {

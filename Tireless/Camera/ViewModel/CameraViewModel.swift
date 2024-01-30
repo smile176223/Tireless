@@ -12,7 +12,7 @@ public class CameraViewModel: ObservableObject {
     
     @Published var error: Error?
     @Published var frame: CGImage?
-    @Published var bodyGroup: [PoseEstimator.HumanBodyGroup: [CGPoint]]?
+    @Published var bodyGroup: [HumanBody.Group: [CGPoint]]?
     private let context = CIContext()
     private let frameManager = FrameManager()
     private var cancellables = Set<AnyCancellable>()
