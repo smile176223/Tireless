@@ -48,6 +48,7 @@
 		0CA738E12B57A49800C26D1C /* StickFigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA738E02B57A49700C26D1C /* StickFigureView.swift */; };
 		0CAD71252B5E6C45006D2AAE /* SquatEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD71242B5E6C45006D2AAE /* SquatEstimator.swift */; };
 		0CADFB852B0C493D005E7611 /* AppleSignInControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */; };
+		0CC854392B6CE80E000851B9 /* CIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC854382B6CE80E000851B9 /* CIImage+Extension.swift */; };
 		0CD81BF82B05F71500CA350E /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF72B05F71500CA350E /* SignupView.swift */; };
 		0CD81BFA2B06003000CA350E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BF92B06003000CA350E /* WebView.swift */; };
 		0CD81BFC2B07604C00CA350E /* ThemeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD81BFB2B07604C00CA350E /* ThemeTextField.swift */; };
@@ -268,6 +269,7 @@
 		0CA738E02B57A49700C26D1C /* StickFigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickFigureView.swift; sourceTree = "<group>"; };
 		0CAD71242B5E6C45006D2AAE /* SquatEstimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquatEstimator.swift; sourceTree = "<group>"; };
 		0CADFB842B0C493D005E7611 /* AppleSignInControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInControllerTests.swift; sourceTree = "<group>"; };
+		0CC854382B6CE80E000851B9 /* CIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Extension.swift"; sourceTree = "<group>"; };
 		0CD81BF72B05F71500CA350E /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		0CD81BF92B06003000CA350E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		0CD81BFB2B07604C00CA350E /* ThemeTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTextField.swift; sourceTree = "<group>"; };
@@ -670,6 +672,7 @@
 			isa = PBXGroup;
 			children = (
 				0CA738D62B560BD900C26D1C /* CGImage+Extension.swift */,
+				0CC854382B6CE80E000851B9 /* CIImage+Extension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1570,6 +1573,7 @@
 				FFC7B9F7281FD0140080A31E /* JGProgressHUDWrapper.swift in Sources */,
 				0C7474162B47D00D0040BC5B /* IndicatorView.swift in Sources */,
 				FF3FBE5A2811538500E6B5DC /* UIFont+Extension.swift in Sources */,
+				0CC854392B6CE80E000851B9 /* CIImage+Extension.swift in Sources */,
 				FF3F77FC281AE50100D8360A /* InviteFriendViewModel.swift in Sources */,
 				FFC7B9E8281E90F20080A31E /* JoinGroupsViewModel.swift in Sources */,
 				FF308E9D280C717A00265863 /* KingFisherWrapper.swift in Sources */,
