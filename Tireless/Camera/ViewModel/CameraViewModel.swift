@@ -7,11 +7,12 @@
 
 import CoreImage
 import Combine
+import SwiftUI
 
 public class CameraViewModel: ObservableObject {
     
     @Published var error: Error?
-    @Published var frame: CGImage?
+    @Published var frame: CIImage?
     @Published var bodyGroup: [HumanBody.Group: [CGPoint]]?
     private let context = CIContext()
     private let frameManager = FrameManager()
@@ -29,11 +30,10 @@ public class CameraViewModel: ObservableObject {
         
         frameManager.$current
             .receive(on: RunLoop.main)
-            .compactMap { [weak self] buffer in
-                guard let image = CGImage.create(from: buffer) else { return nil }
+            .compactMap { buffer in
+                guard let buffer = buffer else { return nil }
                 
-                let ciImage = CIImage(cgImage: image)
-                return self?.context.createCGImage(ciImage, from: ciImage.extent)
+                return CIImage(cvPixelBuffer: buffer)
             }
             .assign(to: &$frame)
         

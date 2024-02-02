@@ -22,6 +22,8 @@ public final class CameraManager: ObservableObject {
     let session = AVCaptureSession()
     private let videoOutput = AVCaptureVideoDataOutput()
     private let sessionQueue = DispatchQueue(label: "com.LiamHsu.tireless.sessionQueue")
+    private let position: AVCaptureDevice.Position = .back
+    private var isVideoMirrored: Bool { position == .front }
     
     public init() {
         configure()
@@ -71,12 +73,13 @@ public final class CameraManager: ObservableObject {
         guard status == .unConfigured else { return }
         
         session.beginConfiguration()
+        session.sessionPreset = .high
         
         defer {
             session.commitConfiguration()
         }
         
-        let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
+        let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: position)
         guard let device = device else {
             set(error: .cameraUnavailable)
             status = .failed
@@ -101,9 +104,9 @@ public final class CameraManager: ObservableObject {
         if session.canAddOutput(videoOutput) {
             session.addOutput(videoOutput)
 
-            videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
             let videoConnection = videoOutput.connection(with: .video)
             videoConnection?.videoOrientation = .portrait
+            videoConnection?.isVideoMirrored = isVideoMirrored
         } else {
             set(error: .cannotAddOutput)
             status = .failed

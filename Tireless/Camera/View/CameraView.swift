@@ -8,18 +8,15 @@
 import SwiftUI
 
 struct FrameView: View {
-    var image: CGImage?
-    
-    private let label = Text("Video feed")
+    var image: Image?
     
     var body: some View {
         if let image = image {
             GeometryReader { geometry in
-                Image(image, scale: 1.0, orientation: .up, label: label)
+                image
                     .resizable()
                     .scaledToFill()
-                    .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
-                    .clipped()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
             }
         } else {
             EmptyView()
@@ -33,7 +30,7 @@ public struct CameraView: View {
     public var body: some View {
         ZStack {
             GeometryReader { geo in
-                FrameView(image: model.frame)
+                FrameView(image: model.frame?.image)
                     .edgesIgnoringSafeArea(.all)
                 
                 StickFigureView(bodyGroup: model.bodyGroup, size: geo.size)

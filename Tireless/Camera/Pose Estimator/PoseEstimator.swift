@@ -31,7 +31,7 @@ public class PoseEstimator: ObservableObject {
         let humanBodyRequest = VNDetectHumanBodyPoseRequest(completionHandler: detectBodyPose)
         
         do {
-            try sequenceHandler.perform([humanBodyRequest], on: sampleBuffer, orientation: .right)
+            try sequenceHandler.perform([humanBodyRequest], on: sampleBuffer, orientation: .upMirrored)
         } catch {
             set(error: .sequenceError(error))
         }

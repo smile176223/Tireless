@@ -34,19 +34,19 @@ struct StickFigureView: View {
     var body: some View {
         ZStack {
             Stick(points: bodyGroup?[.leftLeg], size: size)
-                .stroke(lineWidth: 3.0)
+                .stroke(lineWidth: 5.0)
                 .fill(Color.green)
             Stick(points: bodyGroup?[.rightLeg], size: size)
-                .stroke(lineWidth: 3.0)
+                .stroke(lineWidth: 5.0)
                 .fill(Color.green)
             Stick(points: bodyGroup?[.leftArm], size: size)
-                .stroke(lineWidth: 3.0)
+                .stroke(lineWidth: 5.0)
                 .fill(Color.green)
             Stick(points: bodyGroup?[.rightArm], size: size)
-                .stroke(lineWidth: 3.0)
+                .stroke(lineWidth: 5.0)
                 .fill(Color.green)
             Stick(points: bodyGroup?[.rootToNose], size: size)
-                .stroke(lineWidth: 3.0)
+                .stroke(lineWidth: 5.0)
                 .fill(Color.green)
         }
     }
